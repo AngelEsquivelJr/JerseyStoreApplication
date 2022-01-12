@@ -12,68 +12,51 @@ Readme.md Version# 2022.01.01 (ITSE-2330 and ITSE-2332 Version)
 [https://medium.com/swlh/how-to-make-the-perfect-readme-md-on-github-92ed5771c061]
 
 
-[Your Project Logo/Icon (Small):] [Must Update]
+![My custom Icon](FinalLogo.png "My Project Logo")
 
-![Alternate 'text' description for the image](https://github.com/JamesFlippin/Final-Project-21SP_StudentTemplate/blob/main/OctoCat_SM.png "My Pet Octocat Logo")
+# AE Sporting Fits
+A store application that will be used to buy sports jerseys.
 
-# Project Name [Must Update]
-[Very brief and to the point project description (one sentence preferred)]
+## Detailed Description
 
-## Detailed Description [Must Update]
+The projects end goal is to have a store application where you can buy sporting jerseys. A customer will be able to create an account, login, and then shop for their desired jersey. The customer will have a cart to add items, and then checkout once they are ready to buy. Receipts will be generated with every order. The manager will have an internal application where they can produce reports, purchase items for the stock, and manage the customers, employees, and inventory. The scope of my project is limited to the due date for the project. Therefore, my scope can not be to ambitious and not to overwhelming. The limitations of the project are managing my time properly, focusing on doing everything properly by following all requirements, and not slacking off. The best way for me to avoid scope creep will be to follow my own proposal as well as stick to the recommended due dates given.
 
-[Clear semi-detailed professional description of your project. (about a paragraph or slightly more)]
+### Project Introduction
 
-[Clearly define the Scope of the proposed project - Refer to the System Analysis and Design Course definitions for any needed clarification]
+- The Project creates a store application used for shopping.
+- The goal is to create an easy to use app that can be reliable for finding jerseys.
+- The project will be designed to be as user friendly and as easy to use as possible.
+- The search feature will be useful to find whatever specific item you need. The sorted items will also make it simple to find
+  an item.
+- The project is currently in the beginning of its development cycle.
 
-[Clearly define the Limitations of the proposed project - Refer to the System Analysis and Design Course definitions for any needed clarification]
-
-[What is your plan to avoid Scope Creep]
-
-### Project Introduction [Must Update]  
-
-- [Describe very briefly but clearly what the project does.]
-- [State its goals/what problem(s) it solves.]
-- [State if it is out-of-the-box user-friendly, so it’s clear to the user.]
-- [List its most useful/innovative/noteworthy features.] 
-- [Note and briefly describe any key concepts (technical, philosophical, or both) important to the user’s understanding.]
-- [Note its development status.]
-- [If possible, include screenshots and demo videos.]
-
-### Development Plan - Time Table [Must Update]
+### Development Plan - Time Table
 
 #### Below is the development time table and planned benchmarks/milestones to accomplish this project by the due date.
 
 - **Logon View**
 
-[Insert details about your planned time to complete time line, with planned milestones and benchmarks (including dates for the planned milestones/benchmarks)]
-
-[Insert details on plans to handle Issues that are found requiring further development or corrections]
+  My desired completion date for the Logon View will be the 2nd of February. One week will be used to design the view, the next week to implement the code, and the remaining time to fix any problems. By focusing on finishing earlier than the expected due date, I will then be able to fix any mistakes that I may have after submitting.
 
 - **Customer View**
 
-[Insert details about your planned time to complete time line, with planned milestones and benchmarks (including dates for the planned milestones/benchmarks)]
-
-
-[Insert details on plans to handle Issues that are found requiring further development or corrections]
-
+  My desired completion date for the Customer View will be the 23rd of February. Again one week will be used to design the view, the next week to implement the code, and the remaining time to fix any problems. Again by focusing on finishing earlier than the expected due date, I will then be able to fix any mistakes that I may have after submitting.
 
 - **Manager View**
 
-[Insert details about your planned time to complete time line, with planned milestones and benchmarks (including dates for the planned milestones/benchmarks)]
+  My desired completion date for the Manager View will be the 25th of March. This time, less time will be used to design the view, about 4 days, then the next 2 weeks to implement the code, and the remaining time to fix any problems. Again by focusing on finishing earlier than the expected due date, I will then be able to fix any mistakes that I may have after submitting. I will take more time on the code here as I believe this view will require more work than others.
 
-[Insert details on plans to handle Issues that are found requiring further development or corrections]
-
-### Development Environment [Must Update]
+### Development Environment
 
 Type | Description
 -----|-------------
-Language | C#<br>[or Java 8 LTS or 17 LTS]
-Platform | C# .Net Framework/WinForm<br>[or Java 8 LTS or 17 LTS]
-Development Environment | Visual Studio 2019 [or 2022] Community Edition<br>[or NetBeans]
-SQL Server Type/Dialect | Microsoft SQL (TSTC Server)<br>[or MySQL (TSTC Server)]
+Language | C#<br>
+Platform | C# .Net Framework/WinForm<br>
+Development Environment | Visual Studio 2019 Community Edition<br>
+SQL Server Type/Dialect | Microsoft SQL (TSTC Server)<br>
 Target Environment | Windows 10 or Windows 11 <br>Desktop Application
-Target Business/Industry | [Whatever your target Business/Industry is]
-Help System | [Describe method used for context sensitive help]
+Target Business/Industry | Sporting Goods <br>
+Help System | Printable PDFs <br>
 Report Methods | HTML Reports
 Project Version Control | Git and Course assigned GitHub Repository
 
@@ -107,26 +90,20 @@ Include any essential instructions for:
 - Format for commit messages
 - Thank you (name contributors)
 
-### TODO [Must Update]
-- [Next steps]
+### TODO
+- Wait for approval. Then begin working on Logon View.
 - Features planned
 - Known bugs (shortlist)
 
-### Contact [Must Update]
+### Contact
 
 Contact | Information
 --------|------
-Name | [Your Name]
-Email | [Your Email Address]
-[Social Media Name] | [Your Social Media link(s) (if applicable)]
+Name | Angel Esquivel
+Email | aesquivel92131@mymail.tstc.edu
+Angel Jr | Instagram [link](https://www.instagram.com/the.angel.jr/)
 
-### License [Must Update and add hyperlink for the word 'License' that goes to the License file in the Repository]
-
-[Review the Instructions for adding a license file:]
-[https://docs.github.com/en/github/building-a-strong-community/adding-a-license-to-a-repository)]
-
-**[For the Final Project course, we will use the GNU General Public License v3.0]**
-**[When you add the License file, make sure you update the references within it to yours]**
+### [License](https://github.com/TSTC-CPT/22SP-FinalProject-EsquivelAngel/blob/2a147363f0dc7fc914c7a38189f728b91ab89e31/LICENSE)
 
 GNU General Public License v3.0
 
