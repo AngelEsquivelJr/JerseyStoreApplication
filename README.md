@@ -1,18 +1,8 @@
 Readme.md Version# 2022.01.01 (ITSE-2330 and ITSE-2332 Version)
 
 
-### [Note: Square brackets [ ] contain information, directions, actions, links or tags that you will delete/remove from your Readme.md file once all changes have been made and before submission for review]
-### [The tag: [Must Update] Indicates Sections of the Readme.md file that must be updated]
-### [Make the changes shown below with the [Must Update]. Once all changes are made, delete this line from your Readme.md and make sure to remove the [Must Update] tags. Also remove any lines/contents included in [...]'s]
-
-### [You may not remove any SECTION of this document without the prior approval of the Instructor. All original SECTIONS must be present after your modifications.]
-
-[Review this site (link below) before modifying your Readme.md file:]
-
-[https://medium.com/swlh/how-to-make-the-perfect-readme-md-on-github-92ed5771c061]
-
-
 ![My custom Icon](FinalLogo.png "My Project Logo")
+
 
 # AE Sporting Fits
 A store application that will be used to buy sports jerseys.
