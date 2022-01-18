@@ -9,7 +9,7 @@ A store application that will be used to buy sports jerseys.
 
 ## Detailed Description
 
-The projects end goal is to have a store application where you can buy sporting jerseys. A customer will be able to create an account, login, and then shop for their desired jersey. The customer will have a cart to add items, and then checkout once they are ready to buy. Receipts will be generated with every order. The manager will have an internal application where they can produce reports, purchase items for the stock, and manage the customers, employees, and inventory. The scope of my project is limited to the due date for the project. Therefore, my scope can not be to ambitious and not to overwhelming. The limitations of the project are managing my time properly, focusing on doing everything properly by following all requirements, and not slacking off. The best way for me to avoid scope creep will be to follow my own proposal as well as stick to the recommended due dates given.
+This will be a store application where you can buy sporting jerseys. A customer will be able to create an account, login, and then shop for their desired jersey. The customer will have a cart to add items, and then checkout once they are ready to buy. Receipts will be generated with every order. The manager will have an internal application where they can produce reports, purchase items for the stock, and manage the customers, employees, and inventory. The scope of the application is that you will be able to buy Jerseys from various sporting leagues, varying in sizes from small, medium, and large. The limitations of my application are not every sporting jersey in the world will be available, there won't be any extra small size, and there won't be any extra large sizes. The best way for me to avoid scope creep will be by avoiding adding more than just jerseys, and make sure my application is running well before adding anything extra that I didnt have iniatilly planned.
 
 ### Project Introduction
 
@@ -26,15 +26,15 @@ The projects end goal is to have a store application where you can buy sporting 
 
 - **Logon View**
 
-  My desired completion date for the Logon View will be the 2nd of February. One week will be used to design the view, the next week to implement the code, and the remaining time to fix any problems. By focusing on finishing earlier than the expected due date, I will then be able to fix any mistakes that I may have after submitting.
+  My desired completion date for the Logon View will be the 2nd of February. I will use a couple days to design the view, the next 2 weeks to implement the code, and the remaining time to fix any problems and check validation. My main objective is to give myself time to make sure my Logon system works properly and doesn't break with user input.
 
 - **Customer View**
 
-  My desired completion date for the Customer View will be the 23rd of February. Again one week will be used to design the view, the next week to implement the code, and the remaining time to fix any problems. Again by focusing on finishing earlier than the expected due date, I will then be able to fix any mistakes that I may have after submitting.
+  My desired completion date for the Customer View will be the 23rd of February. I will take about one week to design the view, the next week to implement the code, and the remaining time to fix any problems. I will take more time in design to ensure that this part of the application is as user friendly as possible. 
 
 - **Manager View**
 
-  My desired completion date for the Manager View will be the 25th of March. This time, less time will be used to design the view, about 4 days, then the next 2 weeks to implement the code, and the remaining time to fix any problems. Again by focusing on finishing earlier than the expected due date, I will then be able to fix any mistakes that I may have after submitting. I will take more time on the code here as I believe this view will require more work than others.
+  My desired completion date for the Manager View will be the 25th of March. This time, less time will be used to design the view, about 4 days, then the next 2 weeks to implement the code, and the remaining time to fix any problems. I will take more time on the code here as I believe this view will require more work than the others.
 
 ### Development Environment
 
@@ -46,7 +46,7 @@ Development Environment | Visual Studio 2019 Community Edition<br>
 SQL Server Type/Dialect | Microsoft SQL (TSTC Server)<br>
 Target Environment | Windows 10 or Windows 11 <br>Desktop Application
 Target Business/Industry | Sporting Goods <br>
-Help System | Printable PDFs <br>
+Help System | PDF Files <br>
 Report Methods | HTML Reports
 Project Version Control | Git and Course assigned GitHub Repository
 
@@ -91,7 +91,7 @@ Contact | Information
 --------|------
 Name | Angel Esquivel
 Email | aesquivel92131@mymail.tstc.edu
-Angel Jr | Instagram [link](https://www.instagram.com/the.angel.jr/)
+Instagram | [Angel Jr](https://www.instagram.com/the.angel.jr/)
 
 ### [License](https://github.com/TSTC-CPT/22SP-FinalProject-EsquivelAngel/blob/2a147363f0dc7fc914c7a38189f728b91ab89e31/LICENSE)
 
