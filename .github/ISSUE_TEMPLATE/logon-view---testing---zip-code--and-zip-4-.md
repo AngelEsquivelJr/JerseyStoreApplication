@@ -2,7 +2,7 @@
 name: Logon View - Testing - Zip Code (and Zip+4)
 about: Logon View - Testing - Zip Code (and Zip+4)
 title: Logon View - Testing - Zip Code (and Zip+4)
-labels: Logon View, Testing
+labels: Testing
 assignees: ''
 
 ---

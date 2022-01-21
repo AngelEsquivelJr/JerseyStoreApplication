@@ -2,7 +2,7 @@
 name: Logon View - Security Questions
 about: Logon View - Security Questions
 title: Logon View - Security Questions
-labels: Logon View
+labels: ''
 assignees: ''
 
 ---

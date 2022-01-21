@@ -2,7 +2,7 @@
 name: Logon View - Testing - Password
 about: Logon View - Testing - Password
 title: Logon View - Testing - Password
-labels: Logon View, Testing
+labels: Testing
 assignees: ''
 
 ---

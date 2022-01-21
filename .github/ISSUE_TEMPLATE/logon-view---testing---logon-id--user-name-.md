@@ -2,7 +2,7 @@
 name: Logon View - Testing - Logon ID (User Name)
 about: Logon View - Testing - Logon ID (User Name)
 title: ''
-labels: Logon View, Testing
+labels: Testing
 assignees: ''
 
 ---

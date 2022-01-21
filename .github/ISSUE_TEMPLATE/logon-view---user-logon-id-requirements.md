@@ -2,7 +2,7 @@
 name: Logon View - User/Logon ID Requirements
 about: Mandatory User/Logon ID Requirements
 title: Logon View - User/Logon ID Requirements
-labels: Logon View
+labels: ''
 assignees: ''
 
 ---

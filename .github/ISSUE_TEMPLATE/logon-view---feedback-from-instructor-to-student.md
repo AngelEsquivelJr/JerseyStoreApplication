@@ -2,7 +2,7 @@
 name: Logon View - Feedback from Instructor to Student
 about: Logon View - Feedback from Instructor to Student
 title: Logon View - Feedback from Instructor to Student
-labels: Bug, Logon View
+labels: ''
 assignees: ''
 
 ---
