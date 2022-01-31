@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace FinalProject
 {
-    public partial class frmSignUp : Form
+    public partial class frmReset : Form
     {
         frmLogon frmLogin = new frmLogon();
 
-        public frmSignUp()
+        public frmReset()
         {
             InitializeComponent();
         }

@@ -33,11 +33,11 @@ namespace FinalProject
             this.tbxUsername = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tbxTitle = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tbxZipcode = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbxState = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.tbxCity = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -53,7 +53,7 @@ namespace FinalProject
             this.label8 = new System.Windows.Forms.Label();
             this.tbxLastName = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.tbxPasswordRenter = new System.Windows.Forms.TextBox();
+            this.tbxPassTwo = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.btnSignUp = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -99,14 +99,14 @@ namespace FinalProject
             this.label17.TabIndex = 128;
             this.label17.Text = "*Indicates Required Fields";
             // 
-            // textBox2
+            // tbxTitle
             // 
-            this.textBox2.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(538, 30);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(113, 26);
-            this.textBox2.TabIndex = 127;
+            this.tbxTitle.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxTitle.Location = new System.Drawing.Point(538, 30);
+            this.tbxTitle.Multiline = true;
+            this.tbxTitle.Name = "tbxTitle";
+            this.tbxTitle.Size = new System.Drawing.Size(113, 26);
+            this.tbxTitle.TabIndex = 127;
             // 
             // label15
             // 
@@ -118,14 +118,14 @@ namespace FinalProject
             this.label15.TabIndex = 126;
             this.label15.Text = "Title";
             // 
-            // textBox3
+            // tbxZipcode
             // 
-            this.textBox3.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(335, 307);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(171, 26);
-            this.textBox3.TabIndex = 125;
+            this.tbxZipcode.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxZipcode.Location = new System.Drawing.Point(335, 307);
+            this.tbxZipcode.Multiline = true;
+            this.tbxZipcode.Name = "tbxZipcode";
+            this.tbxZipcode.Size = new System.Drawing.Size(171, 26);
+            this.tbxZipcode.TabIndex = 125;
             // 
             // label16
             // 
@@ -137,14 +137,14 @@ namespace FinalProject
             this.label16.TabIndex = 124;
             this.label16.Text = "*Zipcode";
             // 
-            // textBox1
+            // tbxState
             // 
-            this.textBox1.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(514, 248);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(138, 26);
-            this.textBox1.TabIndex = 123;
+            this.tbxState.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxState.Location = new System.Drawing.Point(514, 248);
+            this.tbxState.Multiline = true;
+            this.tbxState.Name = "tbxState";
+            this.tbxState.Size = new System.Drawing.Size(138, 26);
+            this.tbxState.TabIndex = 123;
             // 
             // label14
             // 
@@ -284,14 +284,14 @@ namespace FinalProject
             this.label7.TabIndex = 106;
             this.label7.Text = "*Last Name";
             // 
-            // tbxPasswordRenter
+            // tbxPassTwo
             // 
-            this.tbxPasswordRenter.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxPasswordRenter.Location = new System.Drawing.Point(12, 140);
-            this.tbxPasswordRenter.MaxLength = 20;
-            this.tbxPasswordRenter.Name = "tbxPasswordRenter";
-            this.tbxPasswordRenter.Size = new System.Drawing.Size(312, 26);
-            this.tbxPasswordRenter.TabIndex = 96;
+            this.tbxPassTwo.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxPassTwo.Location = new System.Drawing.Point(12, 140);
+            this.tbxPassTwo.MaxLength = 20;
+            this.tbxPassTwo.Name = "tbxPassTwo";
+            this.tbxPassTwo.Size = new System.Drawing.Size(312, 26);
+            this.tbxPassTwo.TabIndex = 96;
             // 
             // label6
             // 
@@ -425,11 +425,11 @@ namespace FinalProject
             this.Controls.Add(this.tbxUsername);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.tbxTitle);
             this.Controls.Add(this.label15);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.tbxZipcode);
             this.Controls.Add(this.label16);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tbxState);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.tbxCity);
             this.Controls.Add(this.label13);
@@ -445,7 +445,7 @@ namespace FinalProject
             this.Controls.Add(this.label8);
             this.Controls.Add(this.tbxLastName);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.tbxPasswordRenter);
+            this.Controls.Add(this.tbxPassTwo);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.btnSignUp);
             this.Controls.Add(this.btnCancel);
@@ -476,11 +476,11 @@ namespace FinalProject
         private System.Windows.Forms.TextBox tbxUsername;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tbxTitle;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox tbxZipcode;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbxState;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox tbxCity;
         private System.Windows.Forms.Label label13;
@@ -496,7 +496,7 @@ namespace FinalProject
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox tbxLastName;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox tbxPasswordRenter;
+        private System.Windows.Forms.TextBox tbxPassTwo;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnSignUp;
         private System.Windows.Forms.Button btnCancel;
