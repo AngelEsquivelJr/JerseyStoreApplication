@@ -21,8 +21,14 @@ namespace FinalProject
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            //opens up login form and closes current form
             frmLogin.Show();
             this.Close();
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

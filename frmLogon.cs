@@ -49,21 +49,22 @@ namespace FinalProject
 
         private void btnExit_Click(object sender, EventArgs e)
         {
+            //exits application
             Application.Exit();
         }
 
         private void btnShow_MouseDown(object sender, MouseEventArgs e)
         {
-            tbxPassword.PasswordChar = (char)0;
+            
         }
-
         private void btnShow_MouseUp(object sender, MouseEventArgs e)
         {
-            tbxPassword.PasswordChar = '*';
+            
         }
 
         private void tbxUsername_Click(object sender, EventArgs e)
         {
+            //clears textbox text
             if (tbxUsername.Text == "Username")
             {
                 tbxUsername.Clear();
@@ -72,6 +73,7 @@ namespace FinalProject
 
         private void tbxPassword_Click(object sender, EventArgs e)
         {
+            //clears password text
             if (tbxPassword.Text == "Password")
             {
                 tbxPassword.Clear();
@@ -80,6 +82,7 @@ namespace FinalProject
 
         private void btnSign_Click(object sender, EventArgs e)
         {
+            //opens sign up form
             frmSignUp frmSign = new frmSignUp();
             frmSign.Show();
             this.Hide();
@@ -87,9 +90,23 @@ namespace FinalProject
 
         private void btnPasswordReset_Click(object sender, EventArgs e)
         {
+            //opens reset form
             frmReset frmReset = new frmReset();
             frmReset.Show();
             this.Hide();
+        }
+
+        private void btnShow_Click(object sender, EventArgs e)
+        {
+            //if statement for showing password
+            if (tbxPassword.PasswordChar == (char)0)
+            {
+                tbxPassword.PasswordChar = '*';
+            }
+            else
+            {
+                tbxPassword.PasswordChar = (char)0;
+            }
         }
     }
 }
