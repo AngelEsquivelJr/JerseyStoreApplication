@@ -36,7 +36,6 @@ namespace FinalProject
             this.label15 = new System.Windows.Forms.Label();
             this.tbxZipcode = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.tbxState = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.tbxCity = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -80,6 +79,7 @@ namespace FinalProject
             this.cbxSecurityThree = new System.Windows.Forms.ComboBox();
             this.cbxSecurityTwo = new System.Windows.Forms.ComboBox();
             this.cbxSecurityOne = new System.Windows.Forms.ComboBox();
+            this.cbxState = new System.Windows.Forms.ComboBox();
             this.gbxOne.SuspendLayout();
             this.gbxTwo.SuspendLayout();
             this.gbxThree.SuspendLayout();
@@ -143,15 +143,6 @@ namespace FinalProject
             this.label16.Size = new System.Drawing.Size(76, 19);
             this.label16.TabIndex = 9;
             this.label16.Text = "*Zipcode";
-            // 
-            // tbxState
-            // 
-            this.tbxState.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxState.Location = new System.Drawing.Point(196, 251);
-            this.tbxState.Multiline = true;
-            this.tbxState.Name = "tbxState";
-            this.tbxState.Size = new System.Drawing.Size(133, 26);
-            this.tbxState.TabIndex = 6;
             // 
             // label14
             // 
@@ -407,6 +398,7 @@ namespace FinalProject
             // 
             // gbxOne
             // 
+            this.gbxOne.Controls.Add(this.cbxState);
             this.gbxOne.Controls.Add(this.tbxEmailInput);
             this.gbxOne.Controls.Add(this.label1);
             this.gbxOne.Controls.Add(this.label3);
@@ -418,7 +410,6 @@ namespace FinalProject
             this.gbxOne.Controls.Add(this.tbxAddress3);
             this.gbxOne.Controls.Add(this.label16);
             this.gbxOne.Controls.Add(this.label13);
-            this.gbxOne.Controls.Add(this.tbxState);
             this.gbxOne.Controls.Add(this.tbxCity);
             this.gbxOne.Controls.Add(this.label14);
             this.gbxOne.Location = new System.Drawing.Point(9, 12);
@@ -456,6 +447,15 @@ namespace FinalProject
             // cbxTitle
             // 
             this.cbxTitle.FormattingEnabled = true;
+            this.cbxTitle.Items.AddRange(new object[] {
+            "Mr",
+            "Mrs",
+            "Miss",
+            "Ms",
+            "Sir",
+            "Dr",
+            "Lady",
+            "Lord"});
             this.cbxTitle.Location = new System.Drawing.Point(12, 39);
             this.cbxTitle.Name = "cbxTitle";
             this.cbxTitle.Size = new System.Drawing.Size(121, 21);
@@ -572,6 +572,10 @@ namespace FinalProject
             // cbxSecurityThree
             // 
             this.cbxSecurityThree.FormattingEnabled = true;
+            this.cbxSecurityThree.Items.AddRange(new object[] {
+            "What is your favorite food?",
+            "Favorite place to vacation?",
+            "Name of your favorite book?"});
             this.cbxSecurityThree.Location = new System.Drawing.Point(172, 102);
             this.cbxSecurityThree.Name = "cbxSecurityThree";
             this.cbxSecurityThree.Size = new System.Drawing.Size(327, 24);
@@ -580,6 +584,10 @@ namespace FinalProject
             // cbxSecurityTwo
             // 
             this.cbxSecurityTwo.FormattingEnabled = true;
+            this.cbxSecurityTwo.Items.AddRange(new object[] {
+            "Your Home Town name?",
+            "Your mother\'s first name?",
+            "Your favorite Football Team?"});
             this.cbxSecurityTwo.Location = new System.Drawing.Point(172, 59);
             this.cbxSecurityTwo.Name = "cbxSecurityTwo";
             this.cbxSecurityTwo.Size = new System.Drawing.Size(327, 24);
@@ -588,10 +596,73 @@ namespace FinalProject
             // cbxSecurityOne
             // 
             this.cbxSecurityOne.FormattingEnabled = true;
+            this.cbxSecurityOne.Items.AddRange(new object[] {
+            "What is your favorite Color?",
+            "Your favorite Toy\'s name?",
+            "Your Pet\'s name?"});
             this.cbxSecurityOne.Location = new System.Drawing.Point(172, 16);
             this.cbxSecurityOne.Name = "cbxSecurityOne";
             this.cbxSecurityOne.Size = new System.Drawing.Size(327, 24);
             this.cbxSecurityOne.TabIndex = 1;
+            // 
+            // cbxState
+            // 
+            this.cbxState.FormattingEnabled = true;
+            this.cbxState.Items.AddRange(new object[] {
+            "AL",
+            "AK",
+            "AZ",
+            "AR",
+            "CA",
+            "CO",
+            "CT",
+            "DE",
+            "FL",
+            "GA",
+            "HI",
+            "ID",
+            "IL",
+            "IN",
+            "IA",
+            "KS",
+            "KY",
+            "LA",
+            "ME",
+            "MD",
+            "MA",
+            "MI",
+            "MN",
+            "MS",
+            "MO",
+            "MT",
+            "NE",
+            "NV",
+            "NH",
+            "NJ",
+            "NM",
+            "NY",
+            "NC",
+            "ND",
+            "OH",
+            "OK",
+            "OR",
+            "PA",
+            "RI",
+            "SC",
+            "SD",
+            "TN",
+            "TX",
+            "UT",
+            "VT",
+            "VA",
+            "WA",
+            "WV",
+            "WI",
+            "WY"});
+            this.cbxState.Location = new System.Drawing.Point(197, 256);
+            this.cbxState.Name = "cbxState";
+            this.cbxState.Size = new System.Drawing.Size(121, 21);
+            this.cbxState.TabIndex = 10;
             // 
             // frmSignUp
             // 
@@ -612,6 +683,7 @@ namespace FinalProject
             this.Name = "frmSignUp";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AE Sporting Fits | Create Your Account";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSignUp_FormClosing);
             this.gbxOne.ResumeLayout(false);
             this.gbxOne.PerformLayout();
             this.gbxTwo.ResumeLayout(false);
@@ -631,7 +703,6 @@ namespace FinalProject
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox tbxZipcode;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox tbxState;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox tbxCity;
         private System.Windows.Forms.Label label13;
@@ -675,5 +746,6 @@ namespace FinalProject
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.ComboBox cbxState;
     }
 }

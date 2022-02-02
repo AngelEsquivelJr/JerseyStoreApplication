@@ -108,5 +108,13 @@ namespace FinalProject
                 tbxPassword.PasswordChar = (char)0;
             }
         }
+
+        private void frmLogon_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //allow exit through x button
+            //close datatbase upon exit
+            Application.Exit();
+            clsSQL.CloseDatabase();
+        }
     }
 }

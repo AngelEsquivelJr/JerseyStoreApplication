@@ -1,7 +1,7 @@
 ﻿//*******************************************
 //*******************************************
-// Programmer: {Your name goes here}
-// Course: INEW 2330.{7Z#} (Final Project)
+// Programmer: Angel Esquivel
+// Course: INEW 2332.7Z1 (Final Project)
 // Program Description: {Program Purpose Goes here}
 //*******************************************
 // Class Purpose:
@@ -27,18 +27,127 @@
 // You can then double click on a 'ToDo' to go to that specific one in the list
 
 //ToDo: ------------ clsSQL - Remove Form ToDo List, once completed (Listed Below) ------------
-//ToDo: clsSQL - Open Connection: Create a validation method
-//ToDo: clsSQL - Close Connection: Create a validation method
 //ToDo: clsSQL - Write to DataTable: Create a validation method
 //ToDo: clsSQL - Update DataTable values: Create a validation method
 //ToDo: clsSQL - Read from DataTable: Create a validation method
 //ToDo: clsSQL - Handle Errors: Create a validation method
 //ToDo: ------------ clsSQL - Remove Form ToDo List, once completed (Listed Above) ------------
 
+using System;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+
 namespace FinalProject
 {
     internal class clsSQL
     {
+        //connection string
+        private const string CONNECT_STRING = @"Server=cstnt.tstc.edu;Database=inew2332sp22;User Id=EsquivelA22Sp2332;password=Ae1758192";
+        //build a connection to database
+        private static SqlConnection _cntDatabase = new SqlConnection(CONNECT_STRING);
+
+        //method to open database
+        internal static void OpenDatabase()
+        {
+            //open connection
+            try
+            {
+                _cntDatabase.Open();
+            }
+            catch (Exception ex)
+            {
+                _cntDatabase.Close();
+                OpenDatabase();
+            }
+        }
+
+        //method to close database
+        internal static void CloseDatabase()
+        {            
+            //close connection
+            _cntDatabase.Close();
+        }
+
+        //method to write new user info to datatable
+        internal static void WriteLoginData(ComboBox cbxTitle, TextBox tbxFirstN, TextBox tbxMiddleN, TextBox tbxLastN, TextBox tbxSuffix,
+            TextBox tbxAddress1, TextBox tbxAddress2, TextBox tbxAddress3, TextBox tbxCity, TextBox tbxZipcode, ComboBox cbxState,
+            TextBox tbxEmail, TextBox tbxPhone1, TextBox tbxPhone2, ComboBox cbxSecQuest1, TextBox tbxAnswer1, ComboBox cbxSecQuest2,
+            TextBox tbxAnswer2, ComboBox cbxSecQuest3, TextBox tbxAnswer3, TextBox tbxUsername, TextBox tbxPassword)
+        {
+            OpenDatabase();
+
+            //string commands to create user
+            string sqlquery = "INSERT INTO EsquivelA22Sp2332.Person (Title, NameFirst, NameMiddle, NameLast, Suffix, Address1, Address2," +
+                " Address3, City, Zipcode, State, Email, PhonePrimary, PhoneSecondary) VALUES (@Title, @NameFirst, @NameMiddle, @NameLast, @Suffix," +
+                " @Address1, @Address2, @Address3, @City, @Zipcode, @State, @Email, @PhonePrimary, @PhoneSecondary)";
+            string sqlquery2 = "INSERT INTO EsquivelA22Sp2332.Logon (LogonName, Password, FirstChallengeQuestion, FirstChallengeAnswer," +
+                " SecondChallengeQuestion, SecondChallengeAnswer, ThirdChallengeQuestion, ThirdChallengeAnswer, PositionTitle) VALUES (@LogonName," +
+                " @Password, @FirstChallengeQuestion, @FirstChallengeAnswer, @SecondChallengeQuestion, @SecondChallengeAnswer, @ThirdChallengeQuestion," +
+                " @ThirdChallengeAnswer, 'Customer')";
+
+            //sets up querys to insert user data
+            SqlCommand cmd = new SqlCommand(sqlquery, _cntDatabase);
+            cmd.Parameters.AddWithValue("@Title", cbxTitle.Text);
+            cmd.Parameters.AddWithValue("@NameFirst", tbxFirstN.Text);
+            cmd.Parameters.AddWithValue("@NameMiddle", tbxMiddleN.Text);
+            cmd.Parameters.AddWithValue("@NameLast", tbxLastN.Text);
+            cmd.Parameters.AddWithValue("@Suffix", tbxSuffix.Text);
+            cmd.Parameters.AddWithValue("@Address1", tbxAddress1.Text);
+            cmd.Parameters.AddWithValue("@Address2", tbxAddress2.Text);
+            cmd.Parameters.AddWithValue("@Address3", tbxAddress3.Text);
+            cmd.Parameters.AddWithValue("@City", tbxCity.Text);
+            cmd.Parameters.AddWithValue("@Zipcode", tbxZipcode.Text);
+            cmd.Parameters.AddWithValue("@State", cbxState.Text);
+            cmd.Parameters.AddWithValue("@Email", tbxEmail.Text);
+            cmd.Parameters.AddWithValue("@PhonePrimary", tbxPhone1.Text);
+            cmd.Parameters.AddWithValue("@PhoneSecondary", tbxPhone2.Text);
+
+            SqlCommand cmd2 = new SqlCommand(sqlquery2, _cntDatabase);
+            cmd2.Parameters.AddWithValue("@LogonName", tbxUsername.Text);
+            cmd2.Parameters.AddWithValue("@Password", tbxPassword.Text);
+            cmd2.Parameters.AddWithValue("@FirstChallengeQuestion", cbxSecQuest1.Text);
+            cmd2.Parameters.AddWithValue("@FirstChallengeAnswer", tbxAnswer1.Text);
+            cmd2.Parameters.AddWithValue("@SecondChallengeQuestion", cbxSecQuest2.Text);
+            cmd2.Parameters.AddWithValue("@SecondChallengeAnswer", tbxAnswer2.Text);
+            cmd2.Parameters.AddWithValue("@ThirdChallengeQuestion", cbxSecQuest3.Text);
+            cmd2.Parameters.AddWithValue("@ThirdChallengeAnswer", tbxAnswer3.Text);
+
+            //executes querys and closes reader
+            SqlDataReader rd = cmd.ExecuteReader();
+            SqlDataReader rd2 = cmd2.ExecuteReader();
+            rd.Close();
+            rd2.Close();
+
+        }
+
+        //method to update login data
+        internal static void UpdateLoginData()
+        {
+
+        }
+
+        //method to read login data
+        //and check credentials
+        internal static void ReadLoginData(TextBox tbxUsername, TextBox tbxPassword)
+        {
+            OpenDatabase();
+            
+            //string command for logon table
+            string sqlquery = "SELECT LogonName, Password, PositionTitle FROM EsquivelA22Sp2332.Logon " +
+                "WHERE LogonName = @LogonName";
+
+            //command query
+            SqlCommand cmd = new SqlCommand(sqlquery, _cntDatabase);
+            cmd.Parameters.AddWithValue("@LogonName", tbxUsername.Text);
+            SqlDataReader rd = cmd.ExecuteReader();
+
+            //if username is found return true
+            if(rd.Read())
+            {
+
+            }
+
+        }
 
     }
 }

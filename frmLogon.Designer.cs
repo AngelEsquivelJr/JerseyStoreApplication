@@ -189,6 +189,7 @@ namespace FinalProject
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Tag = "2022.01.01";
             this.Text = "AE Sporting Fits";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmLogon_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.gbxOne.ResumeLayout(false);
             this.gbxOne.PerformLayout();

@@ -1,7 +1,7 @@
 ﻿//*******************************************
 //*******************************************
-// Programmer: {Your name goes here}
-// Course: INEW 2330.{7Z#} (Final Project)
+// Programmer: Angel Esquivel
+// Course: INEW 2332.7Z1 (Final Project)
 // Program Description:
 //*******************************************
 // Class Purpose: 

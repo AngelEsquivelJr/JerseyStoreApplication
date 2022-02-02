@@ -21,14 +21,21 @@ namespace FinalProject
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //opens up login form and closes current form
-            frmLogin.Show();
+            //closes current form            
             this.Close();
         }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void frmReset_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //asks user for confirmation of exit and returns to previous form
+            e.Cancel = MessageBox.Show("Are you sure you want to exit this form? ",
+              "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No;
+            frmLogin.Show();
         }
     }
 }

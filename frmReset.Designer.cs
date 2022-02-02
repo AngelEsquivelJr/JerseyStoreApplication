@@ -38,8 +38,17 @@ namespace FinalProject
             this.tbxPassTwo = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox1.SuspendLayout();
+            this.gbxOne = new System.Windows.Forms.GroupBox();
+            this.tbxQuestionOne = new System.Windows.Forms.TextBox();
+            this.tbxQuestionTwo = new System.Windows.Forms.TextBox();
+            this.tbxQuestionThree = new System.Windows.Forms.TextBox();
+            this.tbxAnswerOne = new System.Windows.Forms.TextBox();
+            this.tbxAnswerTwo = new System.Windows.Forms.TextBox();
+            this.tbxAnswerThree = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.gbxOne.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -69,6 +78,7 @@ namespace FinalProject
             this.tbxUsername.MaxLength = 20;
             this.tbxUsername.Multiline = true;
             this.tbxUsername.Name = "tbxUsername";
+            this.tbxUsername.ReadOnly = true;
             this.tbxUsername.Size = new System.Drawing.Size(190, 26);
             this.tbxUsername.TabIndex = 4;
             this.tbxUsername.Text = "Username";
@@ -125,21 +135,111 @@ namespace FinalProject
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
-            // groupBox1
+            // gbxOne
             // 
-            this.groupBox1.Controls.Add(this.tbxUsername);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.tbxPassTwo);
-            this.groupBox1.Controls.Add(this.tbxPassword);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(719, 407);
-            this.groupBox1.TabIndex = 104;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Answer your security questions to reset your password";
+            this.gbxOne.Controls.Add(this.label6);
+            this.gbxOne.Controls.Add(this.label2);
+            this.gbxOne.Controls.Add(this.label1);
+            this.gbxOne.Controls.Add(this.tbxAnswerThree);
+            this.gbxOne.Controls.Add(this.tbxAnswerTwo);
+            this.gbxOne.Controls.Add(this.tbxAnswerOne);
+            this.gbxOne.Controls.Add(this.tbxQuestionThree);
+            this.gbxOne.Controls.Add(this.tbxQuestionTwo);
+            this.gbxOne.Controls.Add(this.tbxQuestionOne);
+            this.gbxOne.Controls.Add(this.tbxUsername);
+            this.gbxOne.Controls.Add(this.label3);
+            this.gbxOne.Controls.Add(this.label4);
+            this.gbxOne.Controls.Add(this.tbxPassTwo);
+            this.gbxOne.Controls.Add(this.tbxPassword);
+            this.gbxOne.Controls.Add(this.label5);
+            this.gbxOne.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbxOne.Location = new System.Drawing.Point(12, 12);
+            this.gbxOne.Name = "gbxOne";
+            this.gbxOne.Size = new System.Drawing.Size(719, 407);
+            this.gbxOne.TabIndex = 104;
+            this.gbxOne.TabStop = false;
+            this.gbxOne.Text = "Answer your security questions to reset your password";
+            // 
+            // tbxQuestionOne
+            // 
+            this.tbxQuestionOne.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxQuestionOne.Location = new System.Drawing.Point(106, 99);
+            this.tbxQuestionOne.MaxLength = 20;
+            this.tbxQuestionOne.Multiline = true;
+            this.tbxQuestionOne.Name = "tbxQuestionOne";
+            this.tbxQuestionOne.ReadOnly = true;
+            this.tbxQuestionOne.Size = new System.Drawing.Size(506, 26);
+            this.tbxQuestionOne.TabIndex = 8;
+            // 
+            // tbxQuestionTwo
+            // 
+            this.tbxQuestionTwo.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxQuestionTwo.Location = new System.Drawing.Point(106, 176);
+            this.tbxQuestionTwo.MaxLength = 20;
+            this.tbxQuestionTwo.Multiline = true;
+            this.tbxQuestionTwo.Name = "tbxQuestionTwo";
+            this.tbxQuestionTwo.ReadOnly = true;
+            this.tbxQuestionTwo.Size = new System.Drawing.Size(506, 26);
+            this.tbxQuestionTwo.TabIndex = 9;
+            // 
+            // tbxQuestionThree
+            // 
+            this.tbxQuestionThree.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxQuestionThree.Location = new System.Drawing.Point(106, 253);
+            this.tbxQuestionThree.MaxLength = 20;
+            this.tbxQuestionThree.Multiline = true;
+            this.tbxQuestionThree.Name = "tbxQuestionThree";
+            this.tbxQuestionThree.ReadOnly = true;
+            this.tbxQuestionThree.Size = new System.Drawing.Size(506, 26);
+            this.tbxQuestionThree.TabIndex = 10;
+            // 
+            // tbxAnswerOne
+            // 
+            this.tbxAnswerOne.Location = new System.Drawing.Point(106, 131);
+            this.tbxAnswerOne.Name = "tbxAnswerOne";
+            this.tbxAnswerOne.Size = new System.Drawing.Size(506, 26);
+            this.tbxAnswerOne.TabIndex = 11;
+            // 
+            // tbxAnswerTwo
+            // 
+            this.tbxAnswerTwo.Location = new System.Drawing.Point(106, 208);
+            this.tbxAnswerTwo.Name = "tbxAnswerTwo";
+            this.tbxAnswerTwo.Size = new System.Drawing.Size(506, 26);
+            this.tbxAnswerTwo.TabIndex = 12;
+            // 
+            // tbxAnswerThree
+            // 
+            this.tbxAnswerThree.Location = new System.Drawing.Point(106, 285);
+            this.tbxAnswerThree.Name = "tbxAnswerThree";
+            this.tbxAnswerThree.Size = new System.Drawing.Size(506, 26);
+            this.tbxAnswerThree.TabIndex = 13;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(82, 99);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(23, 19);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "1:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(82, 176);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(23, 19);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "2:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(82, 253);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(23, 19);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "3:";
             // 
             // frmReset
             // 
@@ -147,7 +247,7 @@ namespace FinalProject
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
             this.ClientSize = new System.Drawing.Size(743, 470);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.gbxOne);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnCancel);
             this.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -158,8 +258,9 @@ namespace FinalProject
             this.Name = "frmReset";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AE Sporting Fits | Reset Password";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmReset_FormClosing);
+            this.gbxOne.ResumeLayout(false);
+            this.gbxOne.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -173,6 +274,15 @@ namespace FinalProject
         private System.Windows.Forms.TextBox tbxPassTwo;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnReset;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox gbxOne;
+        private System.Windows.Forms.TextBox tbxQuestionOne;
+        private System.Windows.Forms.TextBox tbxQuestionThree;
+        private System.Windows.Forms.TextBox tbxQuestionTwo;
+        private System.Windows.Forms.TextBox tbxAnswerThree;
+        private System.Windows.Forms.TextBox tbxAnswerTwo;
+        private System.Windows.Forms.TextBox tbxAnswerOne;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
