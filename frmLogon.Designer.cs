@@ -111,6 +111,7 @@ namespace FinalProject
             this.btnLogin.TabIndex = 4;
             this.btnLogin.Text = "&Login";
             this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // btnSign
             // 
@@ -134,6 +135,7 @@ namespace FinalProject
             this.tbxPassword.TabIndex = 2;
             this.tbxPassword.Text = "Password";
             this.tbxPassword.Click += new System.EventHandler(this.tbxPassword_Click);
+            this.tbxPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPassword_KeyPress);
             // 
             // tbxUsername
             // 
@@ -145,6 +147,7 @@ namespace FinalProject
             this.tbxUsername.TabIndex = 1;
             this.tbxUsername.Text = "Username";
             this.tbxUsername.Click += new System.EventHandler(this.tbxUsername_Click);
+            this.tbxUsername.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxUsername_KeyPress);
             // 
             // label1
             // 

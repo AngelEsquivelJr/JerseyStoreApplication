@@ -38,6 +38,9 @@ namespace FinalProject
 {
     public partial class frmLogon : Form
     {
+        //frm Main
+        frmMain main = new frmMain();
+
         public frmLogon()
         {
             InitializeComponent();
@@ -115,6 +118,21 @@ namespace FinalProject
             //close datatbase upon exit
             Application.Exit();
             clsSQL.CloseDatabase();
+        }
+
+        private void tbxUsername_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            clsValidation.UsernameAllowedKeys(e);
+        }
+
+        private void tbxPassword_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            clsValidation.PasswordAllowedKeys(e);
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            clsLogon.Login(tbxPassword, tbxUsername, this, main);
         }
     }
 }

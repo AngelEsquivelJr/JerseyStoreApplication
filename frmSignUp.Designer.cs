@@ -64,6 +64,7 @@ namespace FinalProject
             this.tbxEmailInput = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.gbxOne = new System.Windows.Forms.GroupBox();
+            this.cbxState = new System.Windows.Forms.ComboBox();
             this.gbxTwo = new System.Windows.Forms.GroupBox();
             this.cbxTitle = new System.Windows.Forms.ComboBox();
             this.gbxThree = new System.Windows.Forms.GroupBox();
@@ -79,7 +80,8 @@ namespace FinalProject
             this.cbxSecurityThree = new System.Windows.Forms.ComboBox();
             this.cbxSecurityTwo = new System.Windows.Forms.ComboBox();
             this.cbxSecurityOne = new System.Windows.Forms.ComboBox();
-            this.cbxState = new System.Windows.Forms.ComboBox();
+            this.btnShow = new System.Windows.Forms.Button();
+            this.btnHelp = new System.Windows.Forms.Button();
             this.gbxOne.SuspendLayout();
             this.gbxTwo.SuspendLayout();
             this.gbxThree.SuspendLayout();
@@ -94,6 +96,7 @@ namespace FinalProject
             this.tbxUsername.Name = "tbxUsername";
             this.tbxUsername.Size = new System.Drawing.Size(328, 26);
             this.tbxUsername.TabIndex = 8;
+            this.tbxUsername.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxUsername_KeyPress);
             // 
             // label18
             // 
@@ -109,7 +112,7 @@ namespace FinalProject
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(11, 535);
+            this.label17.Location = new System.Drawing.Point(10, 546);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(198, 18);
             this.label17.TabIndex = 4;
@@ -129,10 +132,12 @@ namespace FinalProject
             // 
             this.tbxZipcode.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxZipcode.Location = new System.Drawing.Point(8, 307);
+            this.tbxZipcode.MaxLength = 10;
             this.tbxZipcode.Multiline = true;
             this.tbxZipcode.Name = "tbxZipcode";
             this.tbxZipcode.Size = new System.Drawing.Size(179, 26);
             this.tbxZipcode.TabIndex = 7;
+            this.tbxZipcode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxZipcode_KeyPress);
             // 
             // label16
             // 
@@ -158,10 +163,12 @@ namespace FinalProject
             // 
             this.tbxCity.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxCity.Location = new System.Drawing.Point(8, 251);
+            this.tbxCity.MaxLength = 30;
             this.tbxCity.Multiline = true;
             this.tbxCity.Name = "tbxCity";
             this.tbxCity.Size = new System.Drawing.Size(180, 26);
             this.tbxCity.TabIndex = 5;
+            this.tbxCity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxCity_KeyPress);
             // 
             // label13
             // 
@@ -177,9 +184,11 @@ namespace FinalProject
             // 
             this.tbxAddress3.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxAddress3.Location = new System.Drawing.Point(8, 201);
+            this.tbxAddress3.MaxLength = 30;
             this.tbxAddress3.Name = "tbxAddress3";
             this.tbxAddress3.Size = new System.Drawing.Size(321, 26);
             this.tbxAddress3.TabIndex = 4;
+            this.tbxAddress3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAddress3_KeyPress);
             // 
             // label12
             // 
@@ -195,9 +204,11 @@ namespace FinalProject
             // 
             this.tbxAddress2.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxAddress2.Location = new System.Drawing.Point(8, 142);
+            this.tbxAddress2.MaxLength = 30;
             this.tbxAddress2.Name = "tbxAddress2";
             this.tbxAddress2.Size = new System.Drawing.Size(321, 26);
             this.tbxAddress2.TabIndex = 3;
+            this.tbxAddress2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAddress2_KeyPress);
             // 
             // label11
             // 
@@ -213,9 +224,11 @@ namespace FinalProject
             // 
             this.tbxPhoneTwo.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxPhoneTwo.Location = new System.Drawing.Point(190, 201);
+            this.tbxPhoneTwo.MaxLength = 20;
             this.tbxPhoneTwo.Name = "tbxPhoneTwo";
             this.tbxPhoneTwo.Size = new System.Drawing.Size(148, 26);
             this.tbxPhoneTwo.TabIndex = 7;
+            this.tbxPhoneTwo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPhoneTwo_KeyPress);
             // 
             // label10
             // 
@@ -231,9 +244,11 @@ namespace FinalProject
             // 
             this.tbxSuffix.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxSuffix.Location = new System.Drawing.Point(200, 148);
+            this.tbxSuffix.MaxLength = 20;
             this.tbxSuffix.Name = "tbxSuffix";
             this.tbxSuffix.Size = new System.Drawing.Size(138, 26);
             this.tbxSuffix.TabIndex = 5;
+            this.tbxSuffix.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxSuffix_KeyPress);
             // 
             // label9
             // 
@@ -249,9 +264,11 @@ namespace FinalProject
             // 
             this.tbxMiddleName.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxMiddleName.Location = new System.Drawing.Point(190, 93);
+            this.tbxMiddleName.MaxLength = 20;
             this.tbxMiddleName.Name = "tbxMiddleName";
             this.tbxMiddleName.Size = new System.Drawing.Size(148, 26);
             this.tbxMiddleName.TabIndex = 3;
+            this.tbxMiddleName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxMiddleName_KeyPress);
             // 
             // label8
             // 
@@ -267,10 +284,12 @@ namespace FinalProject
             // 
             this.tbxLastName.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxLastName.Location = new System.Drawing.Point(10, 148);
+            this.tbxLastName.MaxLength = 20;
             this.tbxLastName.Multiline = true;
             this.tbxLastName.Name = "tbxLastName";
             this.tbxLastName.Size = new System.Drawing.Size(181, 26);
             this.tbxLastName.TabIndex = 4;
+            this.tbxLastName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxLastName_KeyPress);
             // 
             // label7
             // 
@@ -285,17 +304,18 @@ namespace FinalProject
             // btnSignUp
             // 
             this.btnSignUp.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSignUp.Location = new System.Drawing.Point(687, 520);
+            this.btnSignUp.Location = new System.Drawing.Point(686, 531);
             this.btnSignUp.Name = "btnSignUp";
             this.btnSignUp.Size = new System.Drawing.Size(75, 33);
             this.btnSignUp.TabIndex = 4;
             this.btnSignUp.Text = "&Sign Up";
             this.btnSignUp.UseVisualStyleBackColor = true;
+            this.btnSignUp.Click += new System.EventHandler(this.btnSignUp_Click);
             // 
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(606, 520);
+            this.btnCancel.Location = new System.Drawing.Point(605, 531);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 33);
             this.btnCancel.TabIndex = 3;
@@ -307,9 +327,11 @@ namespace FinalProject
             // 
             this.tbxPhoneOne.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxPhoneOne.Location = new System.Drawing.Point(10, 201);
+            this.tbxPhoneOne.MaxLength = 20;
             this.tbxPhoneOne.Name = "tbxPhoneOne";
             this.tbxPhoneOne.Size = new System.Drawing.Size(170, 26);
             this.tbxPhoneOne.TabIndex = 6;
+            this.tbxPhoneOne.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPhoneOne_KeyPress);
             // 
             // label5
             // 
@@ -325,9 +347,11 @@ namespace FinalProject
             // 
             this.tbxAddress1.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxAddress1.Location = new System.Drawing.Point(8, 88);
+            this.tbxAddress1.MaxLength = 30;
             this.tbxAddress1.Name = "tbxAddress1";
             this.tbxAddress1.Size = new System.Drawing.Size(321, 26);
             this.tbxAddress1.TabIndex = 2;
+            this.tbxAddress1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAddress1_KeyPress);
             // 
             // label3
             // 
@@ -343,10 +367,12 @@ namespace FinalProject
             // 
             this.tbxFirstName.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxFirstName.Location = new System.Drawing.Point(10, 93);
+            this.tbxFirstName.MaxLength = 20;
             this.tbxFirstName.Multiline = true;
             this.tbxFirstName.Name = "tbxFirstName";
             this.tbxFirstName.Size = new System.Drawing.Size(170, 26);
             this.tbxFirstName.TabIndex = 2;
+            this.tbxFirstName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxFirstName_KeyPress);
             // 
             // label4
             // 
@@ -367,12 +393,14 @@ namespace FinalProject
             this.tbxPassword.PasswordChar = '*';
             this.tbxPassword.Size = new System.Drawing.Size(328, 26);
             this.tbxPassword.TabIndex = 9;
+            this.tbxPassword.TextChanged += new System.EventHandler(this.tbxPassword_TextChanged);
+            this.tbxPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPassword_KeyPress);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(8, 291);
+            this.label2.Location = new System.Drawing.Point(6, 285);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(87, 19);
             this.label2.TabIndex = 16;
@@ -381,10 +409,12 @@ namespace FinalProject
             // tbxEmailInput
             // 
             this.tbxEmailInput.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxEmailInput.Location = new System.Drawing.Point(7, 27);
+            this.tbxEmailInput.Location = new System.Drawing.Point(10, 33);
+            this.tbxEmailInput.MaxLength = 40;
             this.tbxEmailInput.Name = "tbxEmailInput";
             this.tbxEmailInput.Size = new System.Drawing.Size(321, 26);
             this.tbxEmailInput.TabIndex = 1;
+            this.tbxEmailInput.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxEmailInput_KeyPress);
             // 
             // label1
             // 
@@ -392,9 +422,9 @@ namespace FinalProject
             this.label1.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(6, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 19);
+            this.label1.Size = new System.Drawing.Size(50, 19);
             this.label1.TabIndex = 0;
-            this.label1.Text = "*Email";
+            this.label1.Text = "Email";
             // 
             // gbxOne
             // 
@@ -414,12 +444,73 @@ namespace FinalProject
             this.gbxOne.Controls.Add(this.label14);
             this.gbxOne.Location = new System.Drawing.Point(9, 12);
             this.gbxOne.Name = "gbxOne";
-            this.gbxOne.Size = new System.Drawing.Size(357, 353);
+            this.gbxOne.Size = new System.Drawing.Size(357, 364);
             this.gbxOne.TabIndex = 0;
             this.gbxOne.TabStop = false;
             // 
+            // cbxState
+            // 
+            this.cbxState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxState.FormattingEnabled = true;
+            this.cbxState.Items.AddRange(new object[] {
+            "AL",
+            "AK",
+            "AZ",
+            "AR",
+            "CA",
+            "CO",
+            "CT",
+            "DE",
+            "FL",
+            "GA",
+            "HI",
+            "ID",
+            "IL",
+            "IN",
+            "IA",
+            "KS",
+            "KY",
+            "LA",
+            "ME",
+            "MD",
+            "MA",
+            "MI",
+            "MN",
+            "MS",
+            "MO",
+            "MT",
+            "NE",
+            "NV",
+            "NH",
+            "NJ",
+            "NM",
+            "NY",
+            "NC",
+            "ND",
+            "OH",
+            "OK",
+            "OR",
+            "PA",
+            "RI",
+            "SC",
+            "SD",
+            "TN",
+            "TX",
+            "UT",
+            "VT",
+            "VA",
+            "WA",
+            "WV",
+            "WI",
+            "WY"});
+            this.cbxState.Location = new System.Drawing.Point(197, 256);
+            this.cbxState.Name = "cbxState";
+            this.cbxState.Size = new System.Drawing.Size(121, 21);
+            this.cbxState.TabIndex = 6;
+            // 
             // gbxTwo
             // 
+            this.gbxTwo.Controls.Add(this.btnShow);
             this.gbxTwo.Controls.Add(this.cbxTitle);
             this.gbxTwo.Controls.Add(this.tbxPassword);
             this.gbxTwo.Controls.Add(this.label2);
@@ -440,12 +531,13 @@ namespace FinalProject
             this.gbxTwo.Controls.Add(this.label9);
             this.gbxTwo.Location = new System.Drawing.Point(405, 12);
             this.gbxTwo.Name = "gbxTwo";
-            this.gbxTwo.Size = new System.Drawing.Size(357, 353);
+            this.gbxTwo.Size = new System.Drawing.Size(357, 364);
             this.gbxTwo.TabIndex = 1;
             this.gbxTwo.TabStop = false;
             // 
             // cbxTitle
             // 
+            this.cbxTitle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxTitle.FormattingEnabled = true;
             this.cbxTitle.Items.AddRange(new object[] {
             "Mr",
@@ -476,7 +568,7 @@ namespace FinalProject
             this.gbxThree.Controls.Add(this.cbxSecurityTwo);
             this.gbxThree.Controls.Add(this.cbxSecurityOne);
             this.gbxThree.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbxThree.Location = new System.Drawing.Point(9, 371);
+            this.gbxThree.Location = new System.Drawing.Point(9, 382);
             this.gbxThree.Name = "gbxThree";
             this.gbxThree.Size = new System.Drawing.Size(753, 143);
             this.gbxThree.TabIndex = 2;
@@ -486,28 +578,34 @@ namespace FinalProject
             // 
             this.tbxAnswerThree.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxAnswerThree.Location = new System.Drawing.Point(580, 100);
+            this.tbxAnswerThree.MaxLength = 20;
             this.tbxAnswerThree.Multiline = true;
             this.tbxAnswerThree.Name = "tbxAnswerThree";
             this.tbxAnswerThree.Size = new System.Drawing.Size(154, 24);
             this.tbxAnswerThree.TabIndex = 6;
+            this.tbxAnswerThree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAnswerThree_KeyPress);
             // 
             // tbxAnswerTwo
             // 
             this.tbxAnswerTwo.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxAnswerTwo.Location = new System.Drawing.Point(580, 57);
+            this.tbxAnswerTwo.MaxLength = 20;
             this.tbxAnswerTwo.Multiline = true;
             this.tbxAnswerTwo.Name = "tbxAnswerTwo";
             this.tbxAnswerTwo.Size = new System.Drawing.Size(154, 24);
             this.tbxAnswerTwo.TabIndex = 4;
+            this.tbxAnswerTwo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAnswerTwo_KeyPress);
             // 
             // tbxAnswerOne
             // 
             this.tbxAnswerOne.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxAnswerOne.Location = new System.Drawing.Point(580, 16);
+            this.tbxAnswerOne.MaxLength = 20;
             this.tbxAnswerOne.Multiline = true;
             this.tbxAnswerOne.Name = "tbxAnswerOne";
             this.tbxAnswerOne.Size = new System.Drawing.Size(154, 24);
             this.tbxAnswerOne.TabIndex = 2;
+            this.tbxAnswerOne.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAnswerOne_KeyPress);
             // 
             // label23
             // 
@@ -571,6 +669,7 @@ namespace FinalProject
             // 
             // cbxSecurityThree
             // 
+            this.cbxSecurityThree.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxSecurityThree.FormattingEnabled = true;
             this.cbxSecurityThree.Items.AddRange(new object[] {
             "What is your favorite food?",
@@ -583,6 +682,7 @@ namespace FinalProject
             // 
             // cbxSecurityTwo
             // 
+            this.cbxSecurityTwo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxSecurityTwo.FormattingEnabled = true;
             this.cbxSecurityTwo.Items.AddRange(new object[] {
             "Your Home Town name?",
@@ -595,6 +695,7 @@ namespace FinalProject
             // 
             // cbxSecurityOne
             // 
+            this.cbxSecurityOne.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxSecurityOne.FormattingEnabled = true;
             this.cbxSecurityOne.Items.AddRange(new object[] {
             "What is your favorite Color?",
@@ -605,71 +706,36 @@ namespace FinalProject
             this.cbxSecurityOne.Size = new System.Drawing.Size(327, 24);
             this.cbxSecurityOne.TabIndex = 1;
             // 
-            // cbxState
+            // btnShow
             // 
-            this.cbxState.FormattingEnabled = true;
-            this.cbxState.Items.AddRange(new object[] {
-            "AL",
-            "AK",
-            "AZ",
-            "AR",
-            "CA",
-            "CO",
-            "CT",
-            "DE",
-            "FL",
-            "GA",
-            "HI",
-            "ID",
-            "IL",
-            "IN",
-            "IA",
-            "KS",
-            "KY",
-            "LA",
-            "ME",
-            "MD",
-            "MA",
-            "MI",
-            "MN",
-            "MS",
-            "MO",
-            "MT",
-            "NE",
-            "NV",
-            "NH",
-            "NJ",
-            "NM",
-            "NY",
-            "NC",
-            "ND",
-            "OH",
-            "OK",
-            "OR",
-            "PA",
-            "RI",
-            "SC",
-            "SD",
-            "TN",
-            "TX",
-            "UT",
-            "VT",
-            "VA",
-            "WA",
-            "WV",
-            "WI",
-            "WY"});
-            this.cbxState.Location = new System.Drawing.Point(197, 256);
-            this.cbxState.Name = "cbxState";
-            this.cbxState.Size = new System.Drawing.Size(121, 21);
-            this.cbxState.TabIndex = 10;
+            this.btnShow.FlatAppearance.BorderColor = System.Drawing.Color.LightCyan;
+            this.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShow.Font = new System.Drawing.Font("Rockwell", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShow.Location = new System.Drawing.Point(8, 335);
+            this.btnShow.Name = "btnShow";
+            this.btnShow.Size = new System.Drawing.Size(115, 23);
+            this.btnShow.TabIndex = 5;
+            this.btnShow.Text = "*Show Password";
+            this.btnShow.UseVisualStyleBackColor = true;
+            this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
+            // 
+            // btnHelp
+            // 
+            this.btnHelp.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHelp.Location = new System.Drawing.Point(524, 532);
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Size = new System.Drawing.Size(75, 32);
+            this.btnHelp.TabIndex = 5;
+            this.btnHelp.Text = "&Help";
+            this.btnHelp.UseVisualStyleBackColor = true;
             // 
             // frmSignUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
-            this.ClientSize = new System.Drawing.Size(774, 565);
+            this.ClientSize = new System.Drawing.Size(774, 576);
+            this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.gbxThree);
             this.Controls.Add(this.gbxTwo);
             this.Controls.Add(this.gbxOne);
@@ -747,5 +813,7 @@ namespace FinalProject
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ComboBox cbxState;
+        private System.Windows.Forms.Button btnShow;
+        private System.Windows.Forms.Button btnHelp;
     }
 }

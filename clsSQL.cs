@@ -27,10 +27,6 @@
 // You can then double click on a 'ToDo' to go to that specific one in the list
 
 //ToDo: ------------ clsSQL - Remove Form ToDo List, once completed (Listed Below) ------------
-//ToDo: clsSQL - Write to DataTable: Create a validation method
-//ToDo: clsSQL - Update DataTable values: Create a validation method
-//ToDo: clsSQL - Read from DataTable: Create a validation method
-//ToDo: clsSQL - Handle Errors: Create a validation method
 //ToDo: ------------ clsSQL - Remove Form ToDo List, once completed (Listed Above) ------------
 
 using System;
@@ -56,82 +52,186 @@ namespace FinalProject
             }
             catch (Exception ex)
             {
+                //call connection error method
+                ConnectionFail(ex);
+                //close database
                 _cntDatabase.Close();
-                OpenDatabase();
             }
         }
 
         //method to close database
         internal static void CloseDatabase()
-        {            
+        {
             //close connection
             _cntDatabase.Close();
         }
 
         //method to write new user info to datatable
-        internal static void WriteLoginData(ComboBox cbxTitle, TextBox tbxFirstN, TextBox tbxMiddleN, TextBox tbxLastN, TextBox tbxSuffix,
+        internal static bool WriteLoginData(ComboBox cbxTitle, TextBox tbxFirstN, TextBox tbxMiddleN, TextBox tbxLastN, TextBox tbxSuffix,
             TextBox tbxAddress1, TextBox tbxAddress2, TextBox tbxAddress3, TextBox tbxCity, TextBox tbxZipcode, ComboBox cbxState,
             TextBox tbxEmail, TextBox tbxPhone1, TextBox tbxPhone2, ComboBox cbxSecQuest1, TextBox tbxAnswer1, ComboBox cbxSecQuest2,
             TextBox tbxAnswer2, ComboBox cbxSecQuest3, TextBox tbxAnswer3, TextBox tbxUsername, TextBox tbxPassword)
         {
-            OpenDatabase();
+
+            //var for question id and person id
+            int questID1 = 0;
+            int questID2 = 0;
+            int questID3 = 0;
+            int personID = 0;
 
             //string commands to create user
             string sqlquery = "INSERT INTO EsquivelA22Sp2332.Person (Title, NameFirst, NameMiddle, NameLast, Suffix, Address1, Address2," +
                 " Address3, City, Zipcode, State, Email, PhonePrimary, PhoneSecondary) VALUES (@Title, @NameFirst, @NameMiddle, @NameLast, @Suffix," +
                 " @Address1, @Address2, @Address3, @City, @Zipcode, @State, @Email, @PhonePrimary, @PhoneSecondary)";
-            string sqlquery2 = "INSERT INTO EsquivelA22Sp2332.Logon (LogonName, Password, FirstChallengeQuestion, FirstChallengeAnswer," +
-                " SecondChallengeQuestion, SecondChallengeAnswer, ThirdChallengeQuestion, ThirdChallengeAnswer, PositionTitle) VALUES (@LogonName," +
+            string sqlquery2 = "INSERT INTO EsquivelA22Sp2332.Logon (PersonID, LogonName, Password, FirstChallengeQuestion, FirstChallengeAnswer," +
+                " SecondChallengeQuestion, SecondChallengeAnswer, ThirdChallengeQuestion, ThirdChallengeAnswer, PositionTitle) VALUES (@PersonID, @LogonName," +
                 " @Password, @FirstChallengeQuestion, @FirstChallengeAnswer, @SecondChallengeQuestion, @SecondChallengeAnswer, @ThirdChallengeQuestion," +
                 " @ThirdChallengeAnswer, 'Customer')";
+            string sqlquery3 = "SELECT PersonID, NameFirst FROM EsquivelA22Sp2332.Person where NameFirst = @NameFirst;";
+            
+            //if statements for setting questions into proper int id
+            //setId 1
+            if(cbxSecQuest1.Text == "What is your favorite Color?")
+            {
+                questID1 = 100;
+            }
+            else if (cbxSecQuest1.Text == "Your favorite Toy's name?")
+            {
+                questID1 = 101;
+            }
+            else if (cbxSecQuest1.Text == "Your Pet's name?")
+            {
+                questID1 = 102;
+            }
+            else
+            {
+                //error for question
+                MessageBox.Show("Security Question One was not picked correctly.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            //sets up querys to insert user data
-            SqlCommand cmd = new SqlCommand(sqlquery, _cntDatabase);
-            cmd.Parameters.AddWithValue("@Title", cbxTitle.Text);
-            cmd.Parameters.AddWithValue("@NameFirst", tbxFirstN.Text);
-            cmd.Parameters.AddWithValue("@NameMiddle", tbxMiddleN.Text);
-            cmd.Parameters.AddWithValue("@NameLast", tbxLastN.Text);
-            cmd.Parameters.AddWithValue("@Suffix", tbxSuffix.Text);
-            cmd.Parameters.AddWithValue("@Address1", tbxAddress1.Text);
-            cmd.Parameters.AddWithValue("@Address2", tbxAddress2.Text);
-            cmd.Parameters.AddWithValue("@Address3", tbxAddress3.Text);
-            cmd.Parameters.AddWithValue("@City", tbxCity.Text);
-            cmd.Parameters.AddWithValue("@Zipcode", tbxZipcode.Text);
-            cmd.Parameters.AddWithValue("@State", cbxState.Text);
-            cmd.Parameters.AddWithValue("@Email", tbxEmail.Text);
-            cmd.Parameters.AddWithValue("@PhonePrimary", tbxPhone1.Text);
-            cmd.Parameters.AddWithValue("@PhoneSecondary", tbxPhone2.Text);
+            //setId 2
+            if (cbxSecQuest2.Text == "Your Home Town name?")
+            {
+                questID2 = 103;
+            }
+            else if (cbxSecQuest2.Text == "Your mother's first name?")
+            {
+                questID2 = 104;
+            }
+            else if (cbxSecQuest2.Text == "Your favorite Football Team?")
+            {
+                questID2 = 105;
+            }
+            else
+            {
+                //error for question
+                MessageBox.Show("Security Question Two was not picked correctly.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            SqlCommand cmd2 = new SqlCommand(sqlquery2, _cntDatabase);
-            cmd2.Parameters.AddWithValue("@LogonName", tbxUsername.Text);
-            cmd2.Parameters.AddWithValue("@Password", tbxPassword.Text);
-            cmd2.Parameters.AddWithValue("@FirstChallengeQuestion", cbxSecQuest1.Text);
-            cmd2.Parameters.AddWithValue("@FirstChallengeAnswer", tbxAnswer1.Text);
-            cmd2.Parameters.AddWithValue("@SecondChallengeQuestion", cbxSecQuest2.Text);
-            cmd2.Parameters.AddWithValue("@SecondChallengeAnswer", tbxAnswer2.Text);
-            cmd2.Parameters.AddWithValue("@ThirdChallengeQuestion", cbxSecQuest3.Text);
-            cmd2.Parameters.AddWithValue("@ThirdChallengeAnswer", tbxAnswer3.Text);
+            //setId 3
+            if (cbxSecQuest3.Text == "What is your favorite food?")
+            {
+                questID3 = 106;
+            }
+            else if (cbxSecQuest3.Text == "Favorite place to vacation?")
+            {
+                questID3 = 107;
+            }
+            else if (cbxSecQuest3.Text == "Name of your favorite book?")
+            {
+                questID3 = 108;
+            }
+            else
+            {
+                //error for question
+                MessageBox.Show("Security Question Three was not picked correctly.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            //executes querys and closes reader
-            SqlDataReader rd = cmd.ExecuteReader();
-            SqlDataReader rd2 = cmd2.ExecuteReader();
-            rd.Close();
-            rd2.Close();
+
+            OpenDatabase();
+
+            try
+            {                
+                //sets up querys to insert user data
+                SqlCommand cmd = new SqlCommand(sqlquery, _cntDatabase);
+                cmd.Parameters.AddWithValue("@Title", cbxTitle.Text);
+                cmd.Parameters.AddWithValue("@NameFirst", tbxFirstN.Text);
+                cmd.Parameters.AddWithValue("@NameMiddle", tbxMiddleN.Text);
+                cmd.Parameters.AddWithValue("@NameLast", tbxLastN.Text);
+                cmd.Parameters.AddWithValue("@Suffix", tbxSuffix.Text);
+                cmd.Parameters.AddWithValue("@Address1", tbxAddress1.Text);
+                cmd.Parameters.AddWithValue("@Address2", tbxAddress2.Text);
+                cmd.Parameters.AddWithValue("@Address3", tbxAddress3.Text);
+                cmd.Parameters.AddWithValue("@City", tbxCity.Text);
+                cmd.Parameters.AddWithValue("@Zipcode", tbxZipcode.Text);
+                cmd.Parameters.AddWithValue("@State", cbxState.Text);
+                cmd.Parameters.AddWithValue("@Email", tbxEmail.Text);
+                cmd.Parameters.AddWithValue("@PhonePrimary", tbxPhone1.Text);
+                cmd.Parameters.AddWithValue("@PhoneSecondary", tbxPhone2.Text);
+
+                //executes querys and closes reader
+                SqlDataReader rd = cmd.ExecuteReader();
+                rd.Close();
+
+                //command query for personId
+                SqlCommand cmd3 = new SqlCommand(sqlquery3, _cntDatabase);
+                cmd3.Parameters.AddWithValue("@NameFirst", tbxFirstN.Text);
+                SqlDataReader rd3 = cmd3.ExecuteReader();
+
+                //if statement to set person id
+                if (rd3.Read())
+                {
+                    //string for returned values
+                    string strPersonID = rd3.GetValue(0).ToString();
+                    string strName = rd3.GetValue(1).ToString();
+                    //set string to int var
+                    personID = int.Parse(strPersonID);
+                    //close reader
+                    rd3.Close();
+                }
+                else
+                {
+                    //error for not finding person id / username
+                    MessageBox.Show("Could not find proper Username for PersonID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    rd3.Close();
+                }
+
+                //insert data to logon
+                SqlCommand cmd2 = new SqlCommand(sqlquery2, _cntDatabase);
+                cmd2.Parameters.AddWithValue("@PersonID", personID);
+                cmd2.Parameters.AddWithValue("@LogonName", tbxUsername.Text);
+                cmd2.Parameters.AddWithValue("@Password", tbxPassword.Text);
+                cmd2.Parameters.AddWithValue("@FirstChallengeQuestion", questID1);
+                cmd2.Parameters.AddWithValue("@FirstChallengeAnswer", tbxAnswer1.Text);
+                cmd2.Parameters.AddWithValue("@SecondChallengeQuestion", questID2);
+                cmd2.Parameters.AddWithValue("@SecondChallengeAnswer", tbxAnswer2.Text);
+                cmd2.Parameters.AddWithValue("@ThirdChallengeQuestion", questID3);
+                cmd2.Parameters.AddWithValue("@ThirdChallengeAnswer", tbxAnswer3.Text);
+
+                //executes querys and closes reader
+                SqlDataReader rd2 = cmd2.ExecuteReader();                
+                rd2.Close();
+
+
+                //closes database
+                CloseDatabase();
+                //return successfull attempt
+                return true;
+
+            } catch (Exception ex)
+            {
+                InsertDataFail(ex);
+                return false;
+            }
 
         }
 
-        //method to update login data
-        internal static void UpdateLoginData()
-        {
-
-        }
-
-        //method to read login data
+        //method to read logon data
         //and check credentials
-        internal static void ReadLoginData(TextBox tbxUsername, TextBox tbxPassword)
+        internal static bool ReadLoginData(TextBox tbxUsername, TextBox tbxPassword)
         {
             OpenDatabase();
-            
+
             //string command for logon table
             string sqlquery = "SELECT LogonName, Password, PositionTitle FROM EsquivelA22Sp2332.Logon " +
                 "WHERE LogonName = @LogonName";
@@ -142,11 +242,188 @@ namespace FinalProject
             SqlDataReader rd = cmd.ExecuteReader();
 
             //if username is found return true
-            if(rd.Read())
+            if (rd.Read())
             {
+                //string for returned values
+                string Username = rd.GetValue(0).ToString();
+                string Password = rd.GetValue(1).ToString();
+                string Title = rd.GetValue(2).ToString();
 
+                //if returned username is the same
+                if (Username == tbxUsername.Text)
+                {
+                    //check password
+                    if (Password == tbxPassword.Text)
+                    {
+                        //debug messagebox to see position title
+                        MessageBox.Show("You are logging in as " + Title + ".", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //returns true and closes reader
+                        rd.Close();
+                        return true;
+                    }
+                    else
+                    {
+                        //if password not the same error pops up and reader closes
+                        MessageBox.Show("Password is Incorrect.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        rd.Close();
+                        //returns false
+                        return false;
+                    }
+                }
+                else
+                {
+                    //username not the same error and reader closes
+                    MessageBox.Show("Username is Incorrect.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    rd.Close();
+                    //returns false
+                    return false;
+                }
             }
+            else
+            {
+                //logon name not found in database error
+                MessageBox.Show("Username is not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                rd.Close();
+                //return false
+                return false;
+            }
+        }
 
+        //method to update Reset form with correct info
+        internal static bool UpdateResetData(TextBox tbxUsername, TextBox tbxQuest1, TextBox tbxQuest2, TextBox tbxQuest3, Button btnReset)
+        {
+            //var for quest id
+            int questID1 = 0;
+            int questID2 = 0;
+            int questID3 = 0;
+
+            OpenDatabase();
+
+            //string command for logon table
+            string sqlquery = "SELECT LogonName, FirstChallengeQuestion, SecondChallengeQuestion, ThirdChallengeQuestion FROM EsquivelA22Sp2332.Logon " +
+                "WHERE LogonName = @LogonName";
+
+            //command query
+            SqlCommand cmd = new SqlCommand(sqlquery, _cntDatabase);
+            cmd.Parameters.AddWithValue("@LogonName", tbxUsername.Text);
+            SqlDataReader rd = cmd.ExecuteReader();
+
+            //find username match
+            if (rd.Read())
+            {
+                //string for returned values
+                string Username = rd.GetValue(0).ToString();
+                string quest1 = rd.GetValue(1).ToString();
+                string quest2 = rd.GetValue(2).ToString();
+                string quest3 = rd.GetValue(3).ToString();
+
+                //set string to int var
+                questID1 = int.Parse(quest1);
+                questID2 = int.Parse(quest2);
+                questID3 = int.Parse(quest3);
+
+                //if username is the same
+                if (Username == tbxUsername.Text)
+                {
+                    //if statements for setting textboxes
+                    //setId 1
+                    if (questID1 == 100)
+                    {
+                        tbxQuest1.Text = "What is your favorite Color?";
+                    }
+                    else if (questID1 == 101)
+                    {
+                        tbxQuest1.Text = "Your favorite Toy's name?";
+                    }
+                    else if (questID1 == 102)
+                    {
+                        tbxQuest1.Text = "Your Pet's name?";
+                    }
+                    else
+                    {
+                        //error for question
+                        MessageBox.Show("Question id was not successfully found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    //setId 2
+                    if (questID2 == 103)
+                    {
+                        tbxQuest2.Text = "Your Home Town name?";
+                    }
+                    else if (questID2 == 104)
+                    {
+                        tbxQuest2.Text = "Your mother's first name?";
+                    }
+                    else if (questID2 == 105)
+                    {
+                        tbxQuest2.Text = "Your favorite Football Team?";
+                    }
+                    else
+                    {
+                        //error for question
+                        MessageBox.Show("Question id was not successfully found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    //setId 3
+                    if (questID3 == 106)
+                    {
+                        tbxQuest3.Text = "What is your favorite food?";
+                    }
+                    else if (questID3 == 107)
+                    {
+                        tbxQuest3.Text = "Favorite place to vacation?";
+                    }
+                    else if (questID3 == 108)
+                    {
+                        tbxQuest3.Text = "Name of your favorite book?";
+                    }
+                    else
+                    {
+                        //error for question
+                        MessageBox.Show("Question id was not successfully found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    //set textbox to readonly
+                    tbxUsername.ReadOnly = true;
+
+                    //enable reset button
+                    btnReset.Enabled = true;
+                    return true;
+                }
+                else
+                {
+                    //error for not finding matching username
+                    MessageBox.Show("Could not find matching Username.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+            else
+            {
+                //error for not finding username
+                MessageBox.Show("Could not find proper Username match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                rd.Close();
+                return false;
+            }
+            
+        }
+
+        //method to write new data from reset form
+        internal static bool WriteResetData(TextBox tbxUser, TextBox tbxAns1, TextBox tbxAns2, TextBox tbxAns3, TextBox passOne, TextBox passTwo)
+        {
+            //string commands to create new password
+
+            return false;
+        }
+
+        //methods for handling database errors
+        internal static void ConnectionFail(Exception ex)
+        {
+            MessageBox.Show("Unable to Connect to database. " + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        internal static void InsertDataFail(Exception ex)
+        {
+            MessageBox.Show("Unable to Insert data to database. " + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
     }

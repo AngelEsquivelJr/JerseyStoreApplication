@@ -24,10 +24,102 @@
 
 //ToDo: ------------ clsLogon - Remove Form ToDo List, once completed (Listed Above) ------------
 
+using System.Windows.Forms;
+
 namespace FinalProject
 {
     internal class clsLogon
     {
+        //method for signing up
+        internal static void SignUp(ComboBox cbxTitle, TextBox tbxFirstN, TextBox tbxMiddleN, TextBox tbxLastN, TextBox tbxSuffix,
+            TextBox tbxAddress1, TextBox tbxAddress2, TextBox tbxAddress3, TextBox tbxCity, TextBox tbxZipcode, ComboBox cbxState,
+            TextBox tbxEmail, TextBox tbxPhone1, TextBox tbxPhone2, ComboBox cbxSecQuest1, TextBox tbxAnswer1, ComboBox cbxSecQuest2,
+            TextBox tbxAnswer2, ComboBox cbxSecQuest3, TextBox tbxAnswer3, TextBox tbxUsername, TextBox tbxPassword, frmSignUp signup, frmLogon logon)
+        {
+            //call proper clsValidation methods for validation
+            //check email first
+            if(clsValidation.EmailExist(tbxEmail.Text) == false)
+            {
+                if (clsValidation.RequiredFields(tbxFirstN.Text, tbxLastN.Text, tbxAddress1.Text, tbxCity.Text, cbxState.Text, cbxSecQuest1.Text, cbxSecQuest2.Text, cbxSecQuest3.Text, tbxAnswer1.Text, tbxAnswer2.Text, tbxAnswer3.Text))
+                {
+                    //check zipcode next
+                    if (clsValidation.ZipCodeMatch(tbxZipcode.Text))
+                    {
+                        //check username
+                        if (clsValidation.UsernameHasComplexity(tbxUsername.Text))
+                        {
+                            //check password
+                            if (clsValidation.PasswordHasComplexity(tbxPassword.Text))
+                            {
+                                //calls proper clsSql method to insert data
+                                if (clsSQL.WriteLoginData(cbxTitle, tbxFirstN, tbxMiddleN, tbxLastN, tbxSuffix, tbxAddress1, tbxAddress2, tbxAddress3, tbxCity, tbxZipcode,
+                                    cbxState, tbxEmail, tbxPhone1, tbxPhone2, cbxSecQuest1, tbxAnswer1, cbxSecQuest2, tbxAnswer2, cbxSecQuest3, tbxAnswer3, tbxUsername, tbxPassword))
+                                {
+                                    //message for success and returns to login form
+                                    MessageBox.Show("Account Created Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    logon.Show();
+                                    signup.Hide();
+                                }
+                            }
+                        }
+                    }
+                }
+            } 
+            else 
+            {
+                //if user enters email, check email validation
+                if(clsValidation.EmailMatch(tbxEmail.Text))
+                {
+                    if (clsValidation.RequiredFields(tbxFirstN.Text, tbxLastN.Text, tbxAddress1.Text, tbxCity.Text, cbxState.Text, cbxSecQuest1.Text, cbxSecQuest2.Text, cbxSecQuest3.Text, tbxAnswer1.Text, tbxAnswer2.Text, tbxAnswer3.Text))
+                    {
+                        //check zipcode next
+                        if (clsValidation.ZipCodeMatch(tbxZipcode.Text))
+                        {
+                            //check username
+                            if (clsValidation.UsernameHasComplexity(tbxUsername.Text))
+                            {
+                                //check password
+                                if (clsValidation.PasswordHasComplexity(tbxPassword.Text))
+                                {
+                                    //calls proper clsSql method to insert data
+                                    if (clsSQL.WriteLoginData(cbxTitle, tbxFirstN, tbxMiddleN, tbxLastN, tbxSuffix, tbxAddress1, tbxAddress2, tbxAddress3, tbxCity, tbxZipcode,
+                                        cbxState, tbxEmail, tbxPhone1, tbxPhone2, cbxSecQuest1, tbxAnswer1, cbxSecQuest2, tbxAnswer2, cbxSecQuest3, tbxAnswer3, tbxUsername, tbxPassword))
+                                    {
+                                        //message for success and returns to login form
+                                        MessageBox.Show("Account Created Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        logon.Show();
+                                        signup.Hide();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        //method for logging in
+        internal static void Login(TextBox tbxPass, TextBox tbxUser, frmLogon logon, frmMain main)
+        {
+            //call proper clsValidation methods for validation
+            //check username validation
+            if (clsValidation.UsernameHasComplexity(tbxUser.Text))
+            {
+                //if username is valid, check password validation
+                if (clsValidation.PasswordHasComplexity(tbxPass.Text))
+                {
+                    //if both are valid call clsSql
+                    //check credentials
+                    if (clsSQL.ReadLoginData(tbxUser, tbxPass))
+                    {
+                        //if credentials are true succesfully login
+                        main.Show();
+                        logon.Hide();
+                    }
+                }
+            }
+
+        }
 
     }
 }
