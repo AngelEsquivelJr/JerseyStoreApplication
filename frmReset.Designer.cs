@@ -84,6 +84,7 @@ namespace FinalProject
             this.tbxUsername.Name = "tbxUsername";
             this.tbxUsername.Size = new System.Drawing.Size(190, 26);
             this.tbxUsername.TabIndex = 4;
+            this.tbxUsername.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxUsername_KeyPress);
             // 
             // tbxPassword
             // 
@@ -295,6 +296,7 @@ namespace FinalProject
             this.btnUpdate.TabIndex = 106;
             this.btnUpdate.Text = "&Update Form";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // frmReset
             // 

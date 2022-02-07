@@ -256,7 +256,7 @@ namespace FinalProject
                     if (Password == tbxPassword.Text)
                     {
                         //debug messagebox to see position title
-                        MessageBox.Show("You are logging in as " + Title + ".", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("You are logging in as a " + Title + ".", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         //returns true and closes reader
                         rd.Close();
                         return true;
@@ -290,7 +290,7 @@ namespace FinalProject
         }
 
         //method to update Reset form with correct info
-        internal static bool UpdateResetData(TextBox tbxUsername, TextBox tbxQuest1, TextBox tbxQuest2, TextBox tbxQuest3, Button btnReset)
+        internal static bool UpdateResetData(TextBox tbxUsername, TextBox tbxQuest1, TextBox tbxQuest2, TextBox tbxQuest3)
         {
             //var for quest id
             int questID1 = 0;
@@ -299,109 +299,121 @@ namespace FinalProject
 
             OpenDatabase();
 
-            //string command for logon table
-            string sqlquery = "SELECT LogonName, FirstChallengeQuestion, SecondChallengeQuestion, ThirdChallengeQuestion FROM EsquivelA22Sp2332.Logon " +
-                "WHERE LogonName = @LogonName";
-
-            //command query
-            SqlCommand cmd = new SqlCommand(sqlquery, _cntDatabase);
-            cmd.Parameters.AddWithValue("@LogonName", tbxUsername.Text);
-            SqlDataReader rd = cmd.ExecuteReader();
-
-            //find username match
-            if (rd.Read())
+            try
             {
-                //string for returned values
-                string Username = rd.GetValue(0).ToString();
-                string quest1 = rd.GetValue(1).ToString();
-                string quest2 = rd.GetValue(2).ToString();
-                string quest3 = rd.GetValue(3).ToString();
+                //string command for logon table
+                string sqlquery = "SELECT LogonName, FirstChallengeQuestion, SecondChallengeQuestion, ThirdChallengeQuestion FROM EsquivelA22Sp2332.Logon " +
+                    "WHERE LogonName = @LogonName";
 
-                //set string to int var
-                questID1 = int.Parse(quest1);
-                questID2 = int.Parse(quest2);
-                questID3 = int.Parse(quest3);
+                //command query
+                SqlCommand cmd = new SqlCommand(sqlquery, _cntDatabase);
+                cmd.Parameters.AddWithValue("@LogonName", tbxUsername.Text);
+                SqlDataReader rd = cmd.ExecuteReader();
 
-                //if username is the same
-                if (Username == tbxUsername.Text)
+                //find username match
+                if (rd.Read())
                 {
-                    //if statements for setting textboxes
-                    //setId 1
-                    if (questID1 == 100)
+                    //string for returned values
+                    string Username = rd.GetValue(0).ToString();
+                    string quest1 = rd.GetValue(1).ToString();
+                    string quest2 = rd.GetValue(2).ToString();
+                    string quest3 = rd.GetValue(3).ToString();
+
+                    //set string to int var
+                    questID1 = int.Parse(quest1);
+                    questID2 = int.Parse(quest2);
+                    questID3 = int.Parse(quest3);
+
+                    //if username is the same
+                    if (Username == tbxUsername.Text)
                     {
-                        tbxQuest1.Text = "What is your favorite Color?";
-                    }
-                    else if (questID1 == 101)
-                    {
-                        tbxQuest1.Text = "Your favorite Toy's name?";
-                    }
-                    else if (questID1 == 102)
-                    {
-                        tbxQuest1.Text = "Your Pet's name?";
+                        //if statements for setting textboxes
+                        //setId 1
+                        if (questID1 == 100)
+                        {
+                            tbxQuest1.Text = "What is your favorite Color?";
+                        }
+                        else if (questID1 == 101)
+                        {
+                            tbxQuest1.Text = "Your favorite Toy's name?";
+                        }
+                        else if (questID1 == 102)
+                        {
+                            tbxQuest1.Text = "Your Pet's name?";
+                        }
+                        else
+                        {
+                            //error for question
+                            MessageBox.Show("Question id was not successfully found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        //setId 2
+                        if (questID2 == 103)
+                        {
+                            tbxQuest2.Text = "Your Home Town name?";
+                        }
+                        else if (questID2 == 104)
+                        {
+                            tbxQuest2.Text = "Your mother's first name?";
+                        }
+                        else if (questID2 == 105)
+                        {
+                            tbxQuest2.Text = "Your favorite Football Team?";
+                        }
+                        else
+                        {
+                            //error for question
+                            MessageBox.Show("Question id was not successfully found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        //setId 3
+                        if (questID3 == 106)
+                        {
+                            tbxQuest3.Text = "What is your favorite food?";
+                        }
+                        else if (questID3 == 107)
+                        {
+                            tbxQuest3.Text = "Favorite place to vacation?";
+                        }
+                        else if (questID3 == 108)
+                        {
+                            tbxQuest3.Text = "Name of your favorite book?";
+                        }
+                        else
+                        {
+                            //error for question
+                            MessageBox.Show("Question id was not successfully found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        //set textbox to readonly and add username to textbox                   
+                        tbxUsername.ReadOnly = true;
+                        tbxUsername.Text = Username;
+
+                        //close database
+                        CloseDatabase();
+
+                        return true;
                     }
                     else
                     {
-                        //error for question
-                        MessageBox.Show("Question id was not successfully found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //error for not finding matching username
+                        MessageBox.Show("Could not find matching Username.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return false;
                     }
-
-                    //setId 2
-                    if (questID2 == 103)
-                    {
-                        tbxQuest2.Text = "Your Home Town name?";
-                    }
-                    else if (questID2 == 104)
-                    {
-                        tbxQuest2.Text = "Your mother's first name?";
-                    }
-                    else if (questID2 == 105)
-                    {
-                        tbxQuest2.Text = "Your favorite Football Team?";
-                    }
-                    else
-                    {
-                        //error for question
-                        MessageBox.Show("Question id was not successfully found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-
-                    //setId 3
-                    if (questID3 == 106)
-                    {
-                        tbxQuest3.Text = "What is your favorite food?";
-                    }
-                    else if (questID3 == 107)
-                    {
-                        tbxQuest3.Text = "Favorite place to vacation?";
-                    }
-                    else if (questID3 == 108)
-                    {
-                        tbxQuest3.Text = "Name of your favorite book?";
-                    }
-                    else
-                    {
-                        //error for question
-                        MessageBox.Show("Question id was not successfully found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-
-                    //set textbox to readonly
-                    tbxUsername.ReadOnly = true;
-
-                    //enable reset button
-                    btnReset.Enabled = true;
-                    return true;
                 }
                 else
                 {
-                    //error for not finding matching username
-                    MessageBox.Show("Could not find matching Username.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //error for not finding username
+                    MessageBox.Show("Could not find proper Username match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    rd.Close();
+                    CloseDatabase();
                     return false;
                 }
-            }
-            else
+                
+            } catch (Exception ex)
             {
-                //error for not finding username
-                MessageBox.Show("Could not find proper Username match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                rd.Close();
+                UpdateDataFail(ex);
                 return false;
             }
             
@@ -410,9 +422,88 @@ namespace FinalProject
         //method to write new data from reset form
         internal static bool WriteResetData(TextBox tbxUser, TextBox tbxAns1, TextBox tbxAns2, TextBox tbxAns3, TextBox passOne, TextBox passTwo)
         {
-            //string commands to create new password
+            //string commands to create new password and delete old password
+            string sqlquery = "SELECT LogonName, Password, FirstChallengeAnswer, SecondChallengeAnswer, ThirdChallengeAnswer FROM EsquivelA22Sp2332.Logon" +
+                " WHERE LogonName = @LogonName";
 
-            return false;
+            OpenDatabase();
+            try
+            {
+                //command query
+                SqlCommand cmd = new SqlCommand(sqlquery, _cntDatabase);
+                cmd.Parameters.AddWithValue("@LogonName", tbxUser.Text);
+                SqlDataReader rd = cmd.ExecuteReader();
+
+                //find username match
+                if (rd.Read())
+                {
+                    //set values in a string
+                    string username = rd.GetValue(0).ToString();
+                    string password = rd.GetValue(1).ToString();
+                    string answer1 = rd.GetValue(2).ToString();
+                    string answer2 = rd.GetValue(3).ToString();
+                    string answer3 = rd.GetValue(4).ToString();
+
+                    //check that answers are correct
+                    if (answer1 == tbxAns1.Text && answer2 == tbxAns2.Text && answer3 == tbxAns3.Text)
+                    {
+                        //check to make sure the password is new
+                        if (password != passOne.Text)
+                        {
+                            //check that new password matches
+                            if (passOne.Text == passTwo.Text)
+                            {
+                                //if answers are correct remove old password                                
+                                //insert new password and return success
+                                //TODO - add new password, replace/remove old password
+
+                                //close database
+                                CloseDatabase();
+                                return true;
+                            }
+                            else
+                            {
+                                //error for passwords not matching
+                                MessageBox.Show("The new password is not the same as the confirm password field.", "Password Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                rd.Close();
+                                CloseDatabase();
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            //error for password matching
+                            MessageBox.Show("The new password is the same as your old password. Please enter a new password.", "Password Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            rd.Close();
+                            CloseDatabase();
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        //error for answers being wrong
+                        MessageBox.Show("One or more Answers are incorrect.", "Answer Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        rd.Close();
+                        return false;
+                    }
+                    
+                }
+                else
+                {
+                    //error for not finding username
+                    MessageBox.Show("Could not find proper Username match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    rd.Close();
+                    return false;
+                }
+
+            }
+            catch(Exception ex)
+            {
+                InsertDataFail(ex);
+                CloseDatabase();
+                return false;
+            }
         }
 
         //methods for handling database errors
@@ -424,6 +515,11 @@ namespace FinalProject
         internal static void InsertDataFail(Exception ex)
         {
             MessageBox.Show("Unable to Insert data to database. " + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        internal static void UpdateDataFail(Exception ex)
+        {
+            MessageBox.Show("Unable to Update data from database. " + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
     }

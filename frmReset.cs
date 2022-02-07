@@ -27,7 +27,8 @@ namespace FinalProject
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-
+            //call clsLogon method for resetting password
+            clsLogon.Reset(tbxUsername, tbxAnswerOne, tbxAnswerTwo, tbxAnswerThree, tbxPassword, tbxPassTwo, frmLogin, this);
         }
 
         private void frmReset_FormClosing(object sender, FormClosingEventArgs e)
@@ -48,16 +49,19 @@ namespace FinalProject
 
         private void tbxAnswerOne_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.AnswerAllowed(e);
         }
 
         private void tbxAnswerTwo_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.AnswerAllowed(e);
         }
 
         private void tbxAnswerThree_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.AnswerAllowed(e);
         }
 
@@ -85,6 +89,33 @@ namespace FinalProject
             {
                 tbxPassTwo.PasswordChar = (char)0;
             }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            //call the clsLogon method for updating form
+            clsLogon.UpdateReset(tbxUsername, tbxQuestionOne, tbxQuestionTwo, tbxQuestionThree, this, btnReset, btnUpdate);
+            //clear text boxes          
+            tbxAnswerOne.Clear();
+            tbxAnswerTwo.Clear();
+            tbxAnswerThree.Clear();
+            //set focus to first text box
+            //enable password fields
+            if(tbxUsername.Enabled == false)
+            {
+                tbxAnswerOne.Focus();
+            }
+            else
+            {
+                tbxUsername.Focus();
+            }
+            
+        }
+
+        private void tbxUsername_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //validation method for allowed keys in username
+            clsValidation.UsernameAllowedKeys(e);
         }
     }
 }

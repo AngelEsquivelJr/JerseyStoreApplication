@@ -44,66 +44,79 @@ namespace FinalProject
 
         private void tbxEmailInput_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.EmailAllowed(e);
         }
 
         private void tbxAddress1_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.AddressAllowed(e);
         }
 
         private void tbxAddress2_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.AddressAllowed(e);
         }
 
         private void tbxAddress3_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.AddressAllowed(e);
         }
 
         private void tbxCity_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.CityAllowed(e);
         }
 
         private void tbxZipcode_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.ZipAllowed(e);
         }
 
         private void tbxFirstName_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.NameAllowedKeys(e);
         }
 
         private void tbxMiddleName_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.NameAllowedKeys(e);
         }
 
         private void tbxLastName_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.NameAllowedKeys(e);
         }
 
         private void tbxSuffix_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.NameAllowedKeys(e);
         }
 
         private void tbxPhoneOne_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.PhoneAllowed(e);
         }
 
         private void tbxPhoneTwo_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.PhoneAllowed(e);
         }
 
         private void tbxUsername_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.UsernameAllowedKeys(e);
         }
 
@@ -114,26 +127,31 @@ namespace FinalProject
 
         private void tbxPassword_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.PasswordAllowedKeys(e);
         }
 
         private void tbxAnswerOne_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.AnswerAllowed(e);
         }
 
         private void tbxAnswerTwo_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.AnswerAllowed(e);
         }
 
         private void tbxAnswerThree_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //validation method for allowed keys
             clsValidation.AnswerAllowed(e);
         }
 
         private void btnSignUp_Click(object sender, EventArgs e)
         {
+            //clsLogon method for signing up
             clsLogon.SignUp(cbxTitle, tbxFirstName, tbxMiddleName, tbxLastName, tbxSuffix, tbxAddress1, tbxAddress2, tbxAddress3, tbxCity,
                 tbxZipcode, cbxState, tbxEmailInput, tbxPhoneOne, tbxPhoneTwo, cbxSecurityOne, tbxAnswerOne, cbxSecurityTwo, tbxAnswerTwo,
                 cbxSecurityThree, tbxAnswerThree, tbxUsername, tbxPassword, this, frmLogin);

@@ -312,6 +312,10 @@ namespace FinalProject
             }
         }
 
+        //TODO - Make unique answer method
+        //method for answers to be unique
+
+
         //method for required field
         internal static bool QuestionExist(string quesOne, string quesTwo, string quesThr)
         {

@@ -121,5 +121,41 @@ namespace FinalProject
 
         }
 
+        //method for updating reset form
+        internal static void UpdateReset(TextBox tbxUser, TextBox tbxQ1, TextBox tbxQ2, TextBox tbxQ3, frmReset reset, Button btnReset, Button btnUpdate)
+        {
+            //call clsSql method for updating
+            if(clsSQL.UpdateResetData(tbxUser, tbxQ1, tbxQ2, tbxQ3))
+            {
+                //refresh screen and enable reser button
+                //disable update button
+                reset.Refresh();
+                btnReset.Enabled = true;
+                btnUpdate.Enabled = false;
+            }
+
+        }
+
+        //method for resetting password
+        internal static void Reset(TextBox tbxUser, TextBox tbxA1, TextBox tbxA2, TextBox tbxA3, TextBox tbxNewP, TextBox tbxConfirmP, frmLogon logon, frmReset reset)
+        {
+            //call proper clsValidation methods for validation
+            //check answer fields first
+            if(clsValidation.AnswerExist(tbxA1.Text, tbxA2.Text, tbxA3.Text))
+            {
+                //check password validation
+                if(clsValidation.PasswordHasComplexity(tbxNewP.Text))
+                {
+                    //if valid password, call clsSql method for Resetting Password
+                    if(clsSQL.WriteResetData(tbxUser, tbxA1, tbxA2, tbxA3, tbxNewP, tbxConfirmP))
+                    {
+                        //message for success and returns to login form
+                        MessageBox.Show("Password Reset Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        logon.Show();
+                        reset.Close();                        
+                    }
+                }
+            }
+        }
     }
 }
