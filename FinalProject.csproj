@@ -48,7 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>TSTCLogo.ico</ApplicationIcon>
+    <ApplicationIcon>FinalLogo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -181,6 +181,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FinalLogo.ico" />
     <Content Include="Icons\TSTCLogo.ico" />
     <Content Include="TSTCLogo.ico" />
   </ItemGroup>

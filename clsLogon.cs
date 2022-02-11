@@ -3,6 +3,7 @@
 // Programmer: Angel Esquivel
 // Course: INEW 2332.7Z1 (Final Project)
 // Program Description:
+// Application used to browse and buy jerseys.
 //*******************************************
 // Class Purpose: 
 /* This class calls other classes that handle validation, SQL queries, etc related to login:
@@ -16,13 +17,6 @@
 */
 //*******************************************
 //*******************************************
-
-// To See the 'ToDo' tags, go to the 'View' Menu and then select 'Task List'
-// You can then double click on a 'ToDo' to go to that specific one in the list
-
-//ToDo: ------------ clsLogon - Remove Form ToDo List, once completed (Listed Below) ------------
-
-//ToDo: ------------ clsLogon - Remove Form ToDo List, once completed (Listed Above) ------------
 
 using System.Windows.Forms;
 

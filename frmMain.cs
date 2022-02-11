@@ -1,4 +1,15 @@
-﻿using System;
+﻿//*******************************************
+//*******************************************
+// Programmer: Angel Esquivel
+// Course: INEW 2332.7Z1 (Final Project)
+// Program Description:
+// Application used to browse and buy jerseys.
+// Form Purpose:
+// This form is the main form to the application.
+// 
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

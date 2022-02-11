@@ -1,27 +1,15 @@
-﻿//ToDo: Change the entries below indicated by {} to your values
+﻿
 //*******************************************
 //*******************************************
 // Programmer: Angel Esquivel
 // Course: INEW 2332.7Z1 (Final Project)
-// Program Description: {Program Purpose Goes here}
+// Program Description:
 // Application used to browse and buy jerseys.
-// Form Purpose: {What is this form used for}
-// Information on my application and information
-// about my program.
+// Form Purpose:
+// This form is used to login to the application.
+// 
 
-// To See the 'ToDo' tags, go to the 'View' Menu and then select 'Task List'
-// You can then double click on a 'ToDo' to go to that specific one in the list
 
-//ToDo: ------------ frmMain - Remove Form ToDo List, once completed (Listed Below) ------------
-//ToDo: frmMain - Review Syllabus, the Project requirements, Moodle, the course Google Meeting content and the Course Chat for compliance with requirements
-//ToDo: frmMain - --- Set Form Properties (As Below) ---
-//ToDo: --- frmMain - Set Form Properties (As Above) ---
-//ToDo: frmMain - Display with the appropriate Mode state
-//ToDo: frmMain - No Empty Functions/Methods
-//ToDo: frmMain - Validation - All Data and user input must be validated and formatted to the expected allowable values for each control before inserting into the SQL Database/Table.
-//ToDo: ------------ frmMain - Remove Form ToDo List, once completed (Listed Above) ------------
-
-//ToDo: frmMain - Remove any unused or unneeded 'using' statements once complete
 using System;
 using System.Windows.Forms;
 
