@@ -78,6 +78,7 @@ namespace FinalProject
             this.btnHelp.TabIndex = 2;
             this.btnHelp.Text = "&Help";
             this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
             // btnPasswordReset
             // 
@@ -93,6 +94,7 @@ namespace FinalProject
             // 
             // btnExit
             // 
+            this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnExit.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.Location = new System.Drawing.Point(380, 221);
             this.btnExit.Name = "btnExit";
@@ -175,9 +177,11 @@ namespace FinalProject
             // 
             // frmLogon
             // 
+            this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
+            this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(467, 260);
             this.Controls.Add(this.gbxOne);
             this.Controls.Add(this.label1);

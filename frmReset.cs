@@ -34,9 +34,9 @@ namespace FinalProject
         private void frmReset_FormClosing(object sender, FormClosingEventArgs e)
         {
             //asks user for confirmation of exit and returns to previous form
-            DialogResult dr = MessageBox.Show("Are you sure you want to exit this form? ",
+            DialogResult drResult = MessageBox.Show("Are you sure you want to exit the password reset? ",
               "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            switch (dr)
+            switch (drResult)
             {
                 case DialogResult.Yes:
                     frmLogin.Show();
@@ -101,9 +101,11 @@ namespace FinalProject
             tbxAnswerThree.Clear();
             //set focus to first text box
             //enable password fields
-            if(tbxUsername.Enabled == false)
+            if(tbxUsername.ReadOnly == true)
             {
                 tbxAnswerOne.Focus();
+                tbxPassword.ReadOnly = false;
+                tbxPassTwo.ReadOnly = false;
             }
             else
             {
@@ -116,6 +118,12 @@ namespace FinalProject
         {
             //validation method for allowed keys in username
             clsValidation.UsernameAllowedKeys(e);
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            //open help pdf
+            System.Diagnostics.Process.Start(@"C:\Users\aesqu\Source\Repos\22SP-FinalProject-EsquivelAngel\HelpFiles\ResetHelpFinal.pdf");
         }
     }
 }

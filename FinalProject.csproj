@@ -92,6 +92,16 @@
     <Compile Include="frmSignUp.Designer.cs">
       <DependentUpon>frmSignUp.cs</DependentUpon>
     </Compile>
+    <Compile Include="inew2332sp22DataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>inew2332sp22DataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="inew2332sp22TableDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>inew2332sp22TableDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmLogon.resx">
@@ -119,6 +129,31 @@
     <None Include="Course Design Guides\Design Guide - Classroom Program Requirements and Naming Standards%28Final Project%29%282021-03-26%29.pdf" />
     <None Include="Course Design Guides\Notes" />
     <None Include="Course Design Guides\Prefixes%282021-03-26%29.pdf" />
+    <None Include="HelpFiles\LoginHelpFinal.pdf" />
+    <None Include="HelpFiles\ResetHelpFinal.pdf" />
+    <None Include="HelpFiles\SignUpHelpFinal.pdf" />
+    <None Include="inew2332sp22DataSet.xsc">
+      <DependentUpon>inew2332sp22DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="inew2332sp22DataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>inew2332sp22DataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="inew2332sp22DataSet.xss">
+      <DependentUpon>inew2332sp22DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="inew2332sp22TableDataSet.xsc">
+      <DependentUpon>inew2332sp22TableDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="inew2332sp22TableDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>inew2332sp22TableDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="inew2332sp22TableDataSet.xss">
+      <DependentUpon>inew2332sp22TableDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -132,9 +167,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="HelpFiles\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>

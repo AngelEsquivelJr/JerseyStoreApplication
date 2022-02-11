@@ -29,6 +29,7 @@ namespace FinalProject
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSignUp));
             this.tbxUsername = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -66,6 +67,7 @@ namespace FinalProject
             this.gbxOne = new System.Windows.Forms.GroupBox();
             this.cbxState = new System.Windows.Forms.ComboBox();
             this.gbxTwo = new System.Windows.Forms.GroupBox();
+            this.btnShow = new System.Windows.Forms.Button();
             this.cbxTitle = new System.Windows.Forms.ComboBox();
             this.gbxThree = new System.Windows.Forms.GroupBox();
             this.tbxAnswerThree = new System.Windows.Forms.TextBox();
@@ -80,11 +82,20 @@ namespace FinalProject
             this.cbxSecurityThree = new System.Windows.Forms.ComboBox();
             this.cbxSecurityTwo = new System.Windows.Forms.ComboBox();
             this.cbxSecurityOne = new System.Windows.Forms.ComboBox();
-            this.btnShow = new System.Windows.Forms.Button();
+            this.securityQuestionsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.inew2332sp22TableDataSet = new FinalProject.inew2332sp22TableDataSet();
+            this.securityQuestionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.inew2332sp22DataSet = new FinalProject.inew2332sp22DataSet();
             this.btnHelp = new System.Windows.Forms.Button();
+            this.securityQuestionsTableAdapter = new FinalProject.inew2332sp22DataSetTableAdapters.SecurityQuestionsTableAdapter();
+            this.securityQuestionsTableAdapter1 = new FinalProject.inew2332sp22TableDataSetTableAdapters.SecurityQuestionsTableAdapter();
             this.gbxOne.SuspendLayout();
             this.gbxTwo.SuspendLayout();
             this.gbxThree.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.securityQuestionsBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inew2332sp22TableDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.securityQuestionsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inew2332sp22DataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // tbxUsername
@@ -145,9 +156,9 @@ namespace FinalProject
             this.label16.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.Location = new System.Drawing.Point(3, 285);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(76, 19);
+            this.label16.Size = new System.Drawing.Size(84, 19);
             this.label16.TabIndex = 9;
-            this.label16.Text = "*Zipcode";
+            this.label16.Text = "*Zip Code";
             // 
             // label14
             // 
@@ -186,6 +197,7 @@ namespace FinalProject
             this.tbxAddress3.Location = new System.Drawing.Point(8, 201);
             this.tbxAddress3.MaxLength = 30;
             this.tbxAddress3.Name = "tbxAddress3";
+            this.tbxAddress3.ReadOnly = true;
             this.tbxAddress3.Size = new System.Drawing.Size(321, 26);
             this.tbxAddress3.TabIndex = 4;
             this.tbxAddress3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAddress3_KeyPress);
@@ -206,9 +218,11 @@ namespace FinalProject
             this.tbxAddress2.Location = new System.Drawing.Point(8, 142);
             this.tbxAddress2.MaxLength = 30;
             this.tbxAddress2.Name = "tbxAddress2";
+            this.tbxAddress2.ReadOnly = true;
             this.tbxAddress2.Size = new System.Drawing.Size(321, 26);
             this.tbxAddress2.TabIndex = 3;
             this.tbxAddress2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAddress2_KeyPress);
+            this.tbxAddress2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbxAddress2_KeyUp);
             // 
             // label11
             // 
@@ -226,6 +240,7 @@ namespace FinalProject
             this.tbxPhoneTwo.Location = new System.Drawing.Point(190, 201);
             this.tbxPhoneTwo.MaxLength = 20;
             this.tbxPhoneTwo.Name = "tbxPhoneTwo";
+            this.tbxPhoneTwo.ReadOnly = true;
             this.tbxPhoneTwo.Size = new System.Drawing.Size(148, 26);
             this.tbxPhoneTwo.TabIndex = 7;
             this.tbxPhoneTwo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPhoneTwo_KeyPress);
@@ -307,18 +322,19 @@ namespace FinalProject
             this.btnSignUp.Location = new System.Drawing.Point(686, 531);
             this.btnSignUp.Name = "btnSignUp";
             this.btnSignUp.Size = new System.Drawing.Size(75, 33);
-            this.btnSignUp.TabIndex = 4;
+            this.btnSignUp.TabIndex = 5;
             this.btnSignUp.Text = "&Sign Up";
             this.btnSignUp.UseVisualStyleBackColor = true;
             this.btnSignUp.Click += new System.EventHandler(this.btnSignUp_Click);
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Location = new System.Drawing.Point(605, 531);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 33);
-            this.btnCancel.TabIndex = 3;
+            this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -332,6 +348,7 @@ namespace FinalProject
             this.tbxPhoneOne.Size = new System.Drawing.Size(170, 26);
             this.tbxPhoneOne.TabIndex = 6;
             this.tbxPhoneOne.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPhoneOne_KeyPress);
+            this.tbxPhoneOne.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbxPhoneOne_KeyUp);
             // 
             // label5
             // 
@@ -352,6 +369,7 @@ namespace FinalProject
             this.tbxAddress1.Size = new System.Drawing.Size(321, 26);
             this.tbxAddress1.TabIndex = 2;
             this.tbxAddress1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAddress1_KeyPress);
+            this.tbxAddress1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbxAddress1_KeyUp);
             // 
             // label3
             // 
@@ -535,6 +553,19 @@ namespace FinalProject
             this.gbxTwo.TabIndex = 1;
             this.gbxTwo.TabStop = false;
             // 
+            // btnShow
+            // 
+            this.btnShow.FlatAppearance.BorderColor = System.Drawing.Color.LightCyan;
+            this.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShow.Font = new System.Drawing.Font("Rockwell", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShow.Location = new System.Drawing.Point(8, 335);
+            this.btnShow.Name = "btnShow";
+            this.btnShow.Size = new System.Drawing.Size(115, 23);
+            this.btnShow.TabIndex = 10;
+            this.btnShow.Text = "*Show Password";
+            this.btnShow.UseVisualStyleBackColor = true;
+            this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
+            // 
             // cbxTitle
             // 
             this.cbxTitle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -570,7 +601,7 @@ namespace FinalProject
             this.gbxThree.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbxThree.Location = new System.Drawing.Point(9, 382);
             this.gbxThree.Name = "gbxThree";
-            this.gbxThree.Size = new System.Drawing.Size(753, 143);
+            this.gbxThree.Size = new System.Drawing.Size(754, 146);
             this.gbxThree.TabIndex = 2;
             this.gbxThree.TabStop = false;
             // 
@@ -671,10 +702,6 @@ namespace FinalProject
             // 
             this.cbxSecurityThree.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxSecurityThree.FormattingEnabled = true;
-            this.cbxSecurityThree.Items.AddRange(new object[] {
-            "What is your favorite food?",
-            "Favorite place to vacation?",
-            "Name of your favorite book?"});
             this.cbxSecurityThree.Location = new System.Drawing.Point(172, 102);
             this.cbxSecurityThree.Name = "cbxSecurityThree";
             this.cbxSecurityThree.Size = new System.Drawing.Size(327, 24);
@@ -684,10 +711,6 @@ namespace FinalProject
             // 
             this.cbxSecurityTwo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxSecurityTwo.FormattingEnabled = true;
-            this.cbxSecurityTwo.Items.AddRange(new object[] {
-            "Your Home Town name?",
-            "Your mother\'s first name?",
-            "Your favorite Football Team?"});
             this.cbxSecurityTwo.Location = new System.Drawing.Point(172, 59);
             this.cbxSecurityTwo.Name = "cbxSecurityTwo";
             this.cbxSecurityTwo.Size = new System.Drawing.Size(327, 24);
@@ -695,29 +718,33 @@ namespace FinalProject
             // 
             // cbxSecurityOne
             // 
+            this.cbxSecurityOne.DataSource = this.securityQuestionsBindingSource1;
             this.cbxSecurityOne.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxSecurityOne.FormattingEnabled = true;
-            this.cbxSecurityOne.Items.AddRange(new object[] {
-            "What is your favorite Color?",
-            "Your favorite Toy\'s name?",
-            "Your Pet\'s name?"});
             this.cbxSecurityOne.Location = new System.Drawing.Point(172, 16);
             this.cbxSecurityOne.Name = "cbxSecurityOne";
             this.cbxSecurityOne.Size = new System.Drawing.Size(327, 24);
             this.cbxSecurityOne.TabIndex = 1;
             // 
-            // btnShow
+            // securityQuestionsBindingSource1
             // 
-            this.btnShow.FlatAppearance.BorderColor = System.Drawing.Color.LightCyan;
-            this.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShow.Font = new System.Drawing.Font("Rockwell", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnShow.Location = new System.Drawing.Point(8, 335);
-            this.btnShow.Name = "btnShow";
-            this.btnShow.Size = new System.Drawing.Size(115, 23);
-            this.btnShow.TabIndex = 5;
-            this.btnShow.Text = "*Show Password";
-            this.btnShow.UseVisualStyleBackColor = true;
-            this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
+            this.securityQuestionsBindingSource1.DataMember = "SecurityQuestions";
+            this.securityQuestionsBindingSource1.DataSource = this.inew2332sp22TableDataSet;
+            // 
+            // inew2332sp22TableDataSet
+            // 
+            this.inew2332sp22TableDataSet.DataSetName = "inew2332sp22TableDataSet";
+            this.inew2332sp22TableDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // securityQuestionsBindingSource
+            // 
+            this.securityQuestionsBindingSource.DataMember = "SecurityQuestions";
+            this.securityQuestionsBindingSource.DataSource = this.inew2332sp22DataSet;
+            // 
+            // inew2332sp22DataSet
+            // 
+            this.inew2332sp22DataSet.DataSetName = "inew2332sp22DataSet";
+            this.inew2332sp22DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // btnHelp
             // 
@@ -725,15 +752,26 @@ namespace FinalProject
             this.btnHelp.Location = new System.Drawing.Point(524, 532);
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.Size = new System.Drawing.Size(75, 32);
-            this.btnHelp.TabIndex = 5;
+            this.btnHelp.TabIndex = 3;
             this.btnHelp.Text = "&Help";
             this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
+            // 
+            // securityQuestionsTableAdapter
+            // 
+            this.securityQuestionsTableAdapter.ClearBeforeFill = true;
+            // 
+            // securityQuestionsTableAdapter1
+            // 
+            this.securityQuestionsTableAdapter1.ClearBeforeFill = true;
             // 
             // frmSignUp
             // 
+            this.AcceptButton = this.btnSignUp;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(774, 576);
             this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.gbxThree);
@@ -750,12 +788,17 @@ namespace FinalProject
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AE Sporting Fits | Create Your Account";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSignUp_FormClosing);
+            this.Load += new System.EventHandler(this.frmSignUp_Load);
             this.gbxOne.ResumeLayout(false);
             this.gbxOne.PerformLayout();
             this.gbxTwo.ResumeLayout(false);
             this.gbxTwo.PerformLayout();
             this.gbxThree.ResumeLayout(false);
             this.gbxThree.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.securityQuestionsBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inew2332sp22TableDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.securityQuestionsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inew2332sp22DataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -815,5 +858,11 @@ namespace FinalProject
         private System.Windows.Forms.ComboBox cbxState;
         private System.Windows.Forms.Button btnShow;
         private System.Windows.Forms.Button btnHelp;
+        private inew2332sp22DataSet inew2332sp22DataSet;
+        private System.Windows.Forms.BindingSource securityQuestionsBindingSource;
+        private inew2332sp22DataSetTableAdapters.SecurityQuestionsTableAdapter securityQuestionsTableAdapter;
+        private inew2332sp22TableDataSet inew2332sp22TableDataSet;
+        private System.Windows.Forms.BindingSource securityQuestionsBindingSource1;
+        private inew2332sp22TableDataSetTableAdapters.SecurityQuestionsTableAdapter securityQuestionsTableAdapter1;
     }
 }

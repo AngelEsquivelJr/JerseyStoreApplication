@@ -56,6 +56,24 @@ namespace FinalProject
         {
             //creates complexity counter
             int intComplextiyCtr = 0;
+            bool bolHasSpecial = false;
+            bool bolHasSpaces = false;
+            string strSpace = " ";
+            string strAllowedKeys = "()!@#$%^&*";
+
+            //space characters
+            foreach (char chLetter in strUsername)
+            {
+                if (strSpace.Contains(chLetter.ToString()))
+                    bolHasSpaces = true;
+            }
+
+            if (bolHasSpaces)
+            {
+                MessageBox.Show("Password has spaces. Spaces are not allowed. (see help)", "Password Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
 
             //check length
             if (strUsername.Length >= 8 && strUsername.Length <= 20)
@@ -81,8 +99,24 @@ namespace FinalProject
                 intComplextiyCtr++;
             }
 
+            //special characters
+            foreach (char chLetter in strUsername)
+            {
+                if (strAllowedKeys.Contains(chLetter.ToString()))
+                    bolHasSpecial = true;
+            }
+
+            if (bolHasSpecial)
+            {
+                MessageBox.Show("Username cannot contain special characters.", "Username Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            else
+                intComplextiyCtr++;
+
             //if complexity is greater than or equal to 2 it returns true
-            return intComplextiyCtr >= 2;
+            return intComplextiyCtr >= 3;
 
         }
 
@@ -110,7 +144,39 @@ namespace FinalProject
             //creates complexity counter
             int intComplextiyCtr = 0;
             bool bolHasSpecial = false;
+            bool bolHasDisallowed = false;
+            bool bolHasSpaces = false;
             string strAllowedKeys = "()!@#$%^&*";
+            string strDisallowed = @"`~-_=+{}[]:;,<.>?/'\|";
+            string strSpace = " ";
+
+            //disallowed characters
+            foreach (char chLetter in strPassword)
+            {
+                if (strDisallowed.Contains(chLetter.ToString()))
+                    bolHasDisallowed = true;
+            }
+
+            if (bolHasDisallowed)
+            {
+                MessageBox.Show("Password has disallowed characters. (see help)", "Password Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            //space characters
+            foreach (char chLetter in strPassword)
+            {
+                if (strSpace.Contains(chLetter.ToString()))
+                    bolHasSpaces = true;
+            }
+
+            if (bolHasSpaces)
+            {
+                MessageBox.Show("Password has spaces. Spaces are not allowed. (see help)", "Password Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
 
             //check length
             if (strPassword.Length >= 8 && strPassword.Length <= 20)
@@ -142,7 +208,7 @@ namespace FinalProject
             }
 
             if (bolHasSpecial)
-                intComplextiyCtr++;
+                intComplextiyCtr++;            
 
             //if complexity is greater than or equal to 4 it returns true
             if (intComplextiyCtr >= 4)
@@ -154,6 +220,21 @@ namespace FinalProject
                 MessageBox.Show("Password does not meet all requirements. (see help)", "Password Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
+            }
+        }
+
+        //method to check for spaces
+        internal static bool SpaceCheck(string strString)
+        {
+            if (string.IsNullOrWhiteSpace(strString))
+            {
+                MessageBox.Show("Fields can't be just white space.", "Input Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
 
@@ -173,16 +254,23 @@ namespace FinalProject
         }
 
         //method for required field
-        internal static bool AddressExist(string address)
+        internal static bool AddressExist(string strAddress)
         {
-            if (string.IsNullOrEmpty(address))
+            if (string.IsNullOrEmpty(strAddress))
             {
                 MessageBox.Show("Address is a required field.", "Address Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else
-                return true;
+            {
+                if (SpaceCheck(strAddress))
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
         }
 
         //method for city validation
@@ -201,29 +289,43 @@ namespace FinalProject
         }
 
         //method for required field
-        internal static bool CityExist(string city)
+        internal static bool CityExist(string strCity)
         {
-            if (string.IsNullOrEmpty(city))
+            if (string.IsNullOrEmpty(strCity))
             {
                 MessageBox.Show("City is a required field.", "City Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else
-                return true;
+            {
+                if (SpaceCheck(strCity))
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
         }
 
         //method for required field
-        internal static bool StateExist(string state)
+        internal static bool StateExist(string strState)
         {
-            if (string.IsNullOrEmpty(state))
+            if (string.IsNullOrEmpty(strState))
             {
                 MessageBox.Show("State is a required field.", "State Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else
-                return true;
+            {
+                if (SpaceCheck(strState))
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
         }
 
         //methods for zipcode validation
@@ -246,14 +348,14 @@ namespace FinalProject
         }
 
         //using regex
-        internal static bool ZipCodeMatch(string zipCode)
+        internal static bool ZipCodeMatch(string strZipCode)
         {
-            string pattern = "^[0-9]{5}(?:-[0-9]{4})?$";
+            string pattern = @"^\d{5}(?:[-\s]\d{4})?$";
             Regex regex = new Regex(pattern);
 
-            if (regex.IsMatch(zipCode))
+            if (regex.IsMatch(strZipCode))
             {
-                return regex.IsMatch(zipCode);
+                return regex.IsMatch(strZipCode);
             }
             else
             {
@@ -279,6 +381,43 @@ namespace FinalProject
             else
             {
                 e.Handled = true;
+            }
+        }
+
+        //using regex
+        internal static bool PhoneMatch(string strPhone)
+        {
+            string strPattern = @"\(?\d{3}\)?[-\.]? *\d{3}[-\.]? *[-\.]?\d{4}";
+            string strSpace = @"\s";
+
+            Regex regexOne = new Regex(strPattern);
+            Regex regexTwo = new Regex(strSpace);
+
+            if (string.IsNullOrEmpty(strPhone))
+            {
+                return true;
+            }
+            else
+            {
+                if (regexTwo.IsMatch(strPhone))
+                {
+                    MessageBox.Show("Space is not an allowed entry.", "Phone Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                else
+                {
+                    if (regexOne.IsMatch(strPhone))
+                    {
+                        return regexOne.IsMatch(strPhone);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Phone was invalid. (see help)", "Phone Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }                
             }
         }
 
@@ -308,13 +447,14 @@ namespace FinalProject
             }         
             else
             {
-                return true;
+                if (SpaceCheck(ansOne) || SpaceCheck(ansTwo) || SpaceCheck(ansThr))
+                {
+                    return true;
+                }
+                else
+                    return false;
             }
         }
-
-        //TODO - Make unique answer method
-        //method for answers to be unique
-
 
         //method for required field
         internal static bool QuestionExist(string quesOne, string quesTwo, string quesThr)
@@ -327,7 +467,14 @@ namespace FinalProject
             }
             else
             {
-                return true;
+                if (quesOne == "Please Select" || quesTwo == "Please Select" || quesThr == "Please Select")
+                {
+                    MessageBox.Show("Questions are a required field.", "Question Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                else
+                    return true;
             }
 
         }
@@ -347,16 +494,17 @@ namespace FinalProject
         }
 
         //using regex
-        internal static bool EmailMatch(string email)
+        internal static bool EmailMatch(string strEmail)
         {
-            string pattern = @"^(?!\.)(""([^""\r\\]|\\[""\r\\])*""|"
-            + @"([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)"
-            + @"@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]$";
-            Regex regex = new Regex(pattern);
+            string strPattern = @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*"
+                            + "@"
+                            + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$";
 
-            if (regex.IsMatch(email))
+            Regex regex = new Regex(strPattern);
+
+            if (regex.IsMatch(strEmail))
             {
-                return regex.IsMatch(email);
+                return regex.IsMatch(strEmail);
             }
             else
             {
@@ -367,9 +515,9 @@ namespace FinalProject
         }
 
         //method for required field
-        internal static bool EmailExist(string email)
+        internal static bool EmailExist(string strEmail)
         {
-            if (string.IsNullOrEmpty(email))
+            if (string.IsNullOrEmpty(strEmail))
             {
                 return false;
             }
@@ -394,15 +542,15 @@ namespace FinalProject
         }
 
         //method for required field
-        internal static bool NameExist(string fname, string lname)
+        internal static bool NameExist(string strFName, string strLName)
         {
-            if (string.IsNullOrEmpty(fname))
+            if (string.IsNullOrEmpty(strFName))
             {
                 MessageBox.Show("First name is a required field.", "Name Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            else if (string.IsNullOrEmpty(lname))
+            else if (string.IsNullOrEmpty(strLName))
             {
                 MessageBox.Show("Last name is a required field.", "Name Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -410,25 +558,35 @@ namespace FinalProject
             }
             else
             {
-                return true;
+                if (SpaceCheck(strFName))
+                {
+                    if (SpaceCheck(strLName))
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
+                }
+                else
+                    return false;
             }
                 
         }
 
         //method for all required fields
-        internal static bool RequiredFields(string nameF, string nameL, string address, string city, string state, string ques1, string ques2, string ques3, string ans1, string ans2, string ans3)
+        internal static bool RequiredFields(string strNameF, string strNameL, string strAddress, string strCity, string strState, string strQues1, string strQues2, string strQues3, string strAns1, string strAns2, string strAns3)
         {
-            if(AddressExist(address))
+            if(AddressExist(strAddress))
             {
-                if (CityExist(city))
+                if (CityExist(strCity))
                 {
-                    if (StateExist(state))
+                    if (StateExist(strState))
                     {
-                        if (NameExist(nameF, nameL))
+                        if (NameExist(strNameF, strNameL))
                         {
-                            if (QuestionExist(ques1, ques2, ques3))
+                            if (QuestionExist(strQues1, strQues2, strQues3))
                             {
-                                if (AnswerExist(ans1, ans2, ans3))
+                                if (AnswerExist(strAns1, strAns2, strAns3))
                                 {
                                     return true;
                                 }

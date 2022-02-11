@@ -28,9 +28,9 @@ namespace FinalProject
         private void frmSignUp_FormClosing(object sender, FormClosingEventArgs e)
         {
             //asks user for confirmation of exit and returns to previous form
-            DialogResult dr = MessageBox.Show("Are you sure you want to exit this form? ",
+            DialogResult drResult = MessageBox.Show("Are you sure you want to cancel sign up? ",
               "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            switch(dr)
+            switch(drResult)
             {
                 case DialogResult.Yes:
                     frmLogin.Show();
@@ -58,6 +58,16 @@ namespace FinalProject
         {
             //validation method for allowed keys
             clsValidation.AddressAllowed(e);
+            //if statement to allow access to other textboxes
+            if (string.IsNullOrEmpty(tbxAddress2.Text) == false)
+            {
+                tbxAddress3.ReadOnly = false;
+            }
+            else
+            {
+                tbxAddress3.ReadOnly = true;
+                tbxAddress3.Clear();
+            }
         }
 
         private void tbxAddress3_KeyPress(object sender, KeyPressEventArgs e)
@@ -168,6 +178,66 @@ namespace FinalProject
             {
                 tbxPassword.PasswordChar = (char)0;
             }
+        }
+
+        private void tbxAddress2_KeyUp(object sender, KeyEventArgs e)
+        {
+            //if statement to allow access to other textboxes
+            if (string.IsNullOrEmpty(tbxAddress2.Text) == false)
+            {
+                tbxAddress3.ReadOnly = false;
+            }
+            else
+            {
+                tbxAddress3.ReadOnly = true;
+                tbxAddress3.Clear();
+            }
+        }
+
+        private void tbxAddress1_KeyUp(object sender, KeyEventArgs e)
+        {
+            //if statement to allow access to other textboxes
+            if (string.IsNullOrEmpty(tbxAddress1.Text) == false)
+            {
+                tbxAddress2.ReadOnly = false;                
+            }
+            else
+            {
+                tbxAddress2.ReadOnly = true;
+                tbxAddress3.ReadOnly = true;
+                tbxAddress2.Clear();
+                tbxAddress3.Clear();
+            }
+        }
+
+        private void tbxPhoneOne_KeyUp(object sender, KeyEventArgs e)
+        {
+            //if statement to allow access to other textboxes
+            if (string.IsNullOrEmpty(tbxPhoneOne.Text) == false)
+            {
+                tbxPhoneTwo.ReadOnly = false;
+            }
+            else
+            {
+                tbxPhoneTwo.ReadOnly = true;
+                tbxPhoneTwo.Clear();
+            }
+        }
+
+        private void frmSignUp_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'inew2332sp22TableDataSet.SecurityQuestions' table. You can move, or remove it, as needed.
+            this.securityQuestionsTableAdapter1.Fill(this.inew2332sp22TableDataSet.SecurityQuestions);
+            // TODO: This line of code loads data into the 'inew2332sp22DataSet.SecurityQuestions' table. You can move, or remove it, as needed.
+            this.securityQuestionsTableAdapter.Fill(this.inew2332sp22DataSet.SecurityQuestions);
+
+            clsSQL.FillCombo(cbxSecurityOne, cbxSecurityTwo, cbxSecurityThree);
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            //open help pdf
+            System.Diagnostics.Process.Start(@"C:\Users\aesqu\Source\Repos\22SP-FinalProject-EsquivelAngel\HelpFiles\SignUpHelpFinal.pdf");
         }
     }
 }

@@ -15,19 +15,10 @@
 //ToDo: ------------ frmMain - Remove Form ToDo List, once completed (Listed Below) ------------
 //ToDo: frmMain - Review Syllabus, the Project requirements, Moodle, the course Google Meeting content and the Course Chat for compliance with requirements
 //ToDo: frmMain - --- Set Form Properties (As Below) ---
-//ToDo: frmMain - AcceptButton - Set as appropriate
-//ToDo: frmMain - CancelButton - Set as appropriate
 //ToDo: --- frmMain - Set Form Properties (As Above) ---
 //ToDo: frmMain - Display with the appropriate Mode state
-//ToDo: frmMain - All MessageBox's must be fully formed -> MessageBox.Show("Text to Display","Title to Display",MessageBoxButtons.OK,MessageBoxIcon.Information);
-//ToDo: frmMain - Set Comments - Brief comments must be placed directly above or inside each EVENT, FUNCTION, or PROCEDURE briefly describing its purpose and any other relevant information.
 //ToDo: frmMain - No Empty Functions/Methods
-//ToDo: frmMain - Try/Catch or Try/Catch/Finally - Used as appropriate to avoid Unhandled Exceptions, etc.
-//ToDo: frmMain - {DataType}.TryParse(...) - Used in an IF(!{DataType}.TryParse(...)) or IF/ELSE decision structure and handled to course standards
 //ToDo: frmMain - Validation - All Data and user input must be validated and formatted to the expected allowable values for each control before inserting into the SQL Database/Table.
-//ToDo: frmMain - ADA - Course ADA Requirements must be met
-//ToDo: frmMain - Files - Any files such as receipts or reports must be created and accessed from the User's "Documents" or "My Documents" Special Folder and uniquely named and stored in a Project Specific subfolder.
-//ToDo: frmMain - Help - Add appropriate, context sensitive help
 //ToDo: ------------ frmMain - Remove Form ToDo List, once completed (Listed Above) ------------
 
 //ToDo: frmMain - Remove any unused or unneeded 'using' statements once complete
@@ -116,22 +107,32 @@ namespace FinalProject
         {
             //allow exit through x button
             //close datatbase upon exit
+            Application.Exit();
             clsSQL.CloseDatabase();
         }
 
         private void tbxUsername_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //allowed keys
             clsValidation.UsernameAllowedKeys(e);
         }
 
         private void tbxPassword_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //allowed keys
             clsValidation.PasswordAllowedKeys(e);
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            //clsLogon method for logging in
             clsLogon.Login(tbxPassword, tbxUsername, this, frmMain);
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            //open help pdf
+            System.Diagnostics.Process.Start(@"C:\Users\aesqu\Source\Repos\22SP-FinalProject-EsquivelAngel\HelpFiles\LoginHelpFinal.pdf");
         }
     }
 }

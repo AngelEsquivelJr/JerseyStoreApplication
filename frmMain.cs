@@ -23,9 +23,9 @@ namespace FinalProject
             frmLogon frmLogin = new frmLogon();
 
             //asks user for confirmation of exit and returns to previous form
-            DialogResult dr = MessageBox.Show("Are you sure you want to exit? ",
+            DialogResult drResult = MessageBox.Show("Are you sure you want to exit? ",
               "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            switch (dr)
+            switch (drResult)
             {
                 case DialogResult.Yes:
                     frmLogin.Show();
