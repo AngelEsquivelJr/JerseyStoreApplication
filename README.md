@@ -18,7 +18,7 @@ This will be a store application where you can buy sporting jerseys. A customer 
 - The project will be designed to be as user friendly and as easy to use as possible.
 - The search feature will be useful to find whatever specific item you need. The sorted items will also make it simple to find
   an item.
-- The project is currently in the beginning of its development cycle.
+- The project is currently in the beginning of its development cycle, and currently only has a logon view implemented.
 
 ### Development Plan - Time Table
 
@@ -81,7 +81,8 @@ Include any essential instructions for:
 - Thank you (name contributors)
 
 ### TODO
-- Wait for approval. Then begin working on Logon View.
+- Wait for approval. Then begin working on Customer View.
+- If not passed, fix all mistakes.
 - Features planned
 - Known bugs (shortlist)
 
