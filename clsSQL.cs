@@ -304,6 +304,7 @@ namespace FinalProject
                         //if password not the same error pops up and reader closes
                         MessageBox.Show("Password is Incorrect.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         rd.Close();
+                        CloseDatabase();
                         //returns false
                         return false;
                     }
@@ -313,6 +314,7 @@ namespace FinalProject
                     //username not the same error and reader closes
                     MessageBox.Show("Username is Incorrect.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     rd.Close();
+                    CloseDatabase();
                     //returns false
                     return false;
                 }
