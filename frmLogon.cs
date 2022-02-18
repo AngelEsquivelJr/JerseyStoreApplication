@@ -11,6 +11,7 @@
 
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace FinalProject
@@ -50,7 +51,9 @@ namespace FinalProject
             if (tbxUsername.Text == "Username")
             {
                 tbxUsername.Clear();
+                tbxUsername.ForeColor = Color.Black;
             }
+            
         }
 
         private void tbxPassword_Click(object sender, EventArgs e)
@@ -59,6 +62,7 @@ namespace FinalProject
             if (tbxPassword.Text == "Password")
             {
                 tbxPassword.Clear();
+                tbxPassword.ForeColor = Color.Black;
             }
         }
 
@@ -121,6 +125,18 @@ namespace FinalProject
         {
             //open help pdf
             System.Diagnostics.Process.Start(@"C:\Users\aesqu\Source\Repos\22SP-FinalProject-EsquivelAngel\HelpFiles\LoginHelpFinal.pdf");
+        }
+
+        private void tbxUsername_TextChanged(object sender, EventArgs e)
+        {
+            //make text proper color
+            tbxUsername.ForeColor = Color.Black;
+        }
+
+        private void tbxPassword_TextChanged(object sender, EventArgs e)
+        {
+            //make text proper color
+            tbxPassword.ForeColor = Color.Black;
         }
     }
 }

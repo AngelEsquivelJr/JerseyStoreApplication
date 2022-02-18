@@ -129,6 +129,7 @@ namespace FinalProject
             // tbxPassword
             // 
             this.tbxPassword.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxPassword.ForeColor = System.Drawing.Color.LightGray;
             this.tbxPassword.Location = new System.Drawing.Point(6, 96);
             this.tbxPassword.MaxLength = 20;
             this.tbxPassword.Name = "tbxPassword";
@@ -137,11 +138,13 @@ namespace FinalProject
             this.tbxPassword.TabIndex = 2;
             this.tbxPassword.Text = "Password";
             this.tbxPassword.Click += new System.EventHandler(this.tbxPassword_Click);
+            this.tbxPassword.TextChanged += new System.EventHandler(this.tbxPassword_TextChanged);
             this.tbxPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPassword_KeyPress);
             // 
             // tbxUsername
             // 
             this.tbxUsername.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxUsername.ForeColor = System.Drawing.Color.LightGray;
             this.tbxUsername.Location = new System.Drawing.Point(6, 29);
             this.tbxUsername.MaxLength = 20;
             this.tbxUsername.Name = "tbxUsername";
@@ -149,6 +152,7 @@ namespace FinalProject
             this.tbxUsername.TabIndex = 1;
             this.tbxUsername.Text = "Username";
             this.tbxUsername.Click += new System.EventHandler(this.tbxUsername_Click);
+            this.tbxUsername.TextChanged += new System.EventHandler(this.tbxUsername_TextChanged);
             this.tbxUsername.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxUsername_KeyPress);
             // 
             // label1

@@ -229,6 +229,7 @@ namespace FinalProject
                     //error for not finding person id / username
                     MessageBox.Show("Could not find proper Username for PersonID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     rd3.Close();
+                    CloseDatabase();
                     return false;
                 }
                 
@@ -272,37 +273,50 @@ namespace FinalProject
             //string command for logon table
             string sqlquery = "SELECT LogonName, Password, PositionTitle FROM " + strSchema + ".Logon " +
                 "WHERE LogonName = @LogonName";
-
-            //command query
-            SqlCommand cmd = new SqlCommand(sqlquery, _cntDatabase);
-            cmd.Parameters.AddWithValue("@LogonName", tbxUsername.Text);
-            SqlDataReader rd = cmd.ExecuteReader();
-
-            //if username is found return true
-            if (rd.Read())
+            try
             {
-                //string for returned values
-                string strUsername = rd.GetValue(0).ToString();
-                string strPassword = rd.GetValue(1).ToString();
-                string strTitle = rd.GetValue(2).ToString();
+                //command query
+                SqlCommand cmd = new SqlCommand(sqlquery, _cntDatabase);
+                cmd.Parameters.AddWithValue("@LogonName", tbxUsername.Text);
+                SqlDataReader rd = cmd.ExecuteReader();
 
-                //if returned username is the same
-                //make sure its not case sensitive
-                if (strUsername.ToUpper().Contains(tbxUsername.Text.ToUpper()))
+                //if username is found return true
+                if (rd.Read())
                 {
-                    //check password
-                    if (strPassword == tbxPassword.Text)
+                    //string for returned values
+                    string strUsername = rd.GetValue(0).ToString();
+                    string strPassword = rd.GetValue(1).ToString();
+                    string strTitle = rd.GetValue(2).ToString();
+
+                    //if returned username is the same
+                    //make sure its not case sensitive
+                    if (strUsername.ToUpper().Contains(tbxUsername.Text.ToUpper()))
                     {
-                        //debug messagebox to see position title
-                        MessageBox.Show("You are logging in as a " + strTitle + ".", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        //returns true and closes reader
-                        rd.Close();
-                        return true;
+                        //check password
+                        if (strPassword == tbxPassword.Text)
+                        {
+                            //debug messagebox to see position title
+                            MessageBox.Show("You are logging in as a " + strTitle + ".", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //returns true and closes reader
+                            rd.Close();
+                            //close database
+                            CloseDatabase();
+                            return true;
+                        }
+                        else
+                        {
+                            //if password not the same error pops up and reader closes
+                            MessageBox.Show("Password is Incorrect.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            rd.Close();
+                            CloseDatabase();
+                            //returns false
+                            return false;
+                        }
                     }
                     else
                     {
-                        //if password not the same error pops up and reader closes
-                        MessageBox.Show("Password is Incorrect.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //username not the same error and reader closes
+                        MessageBox.Show("Username is Incorrect.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         rd.Close();
                         CloseDatabase();
                         //returns false
@@ -311,20 +325,17 @@ namespace FinalProject
                 }
                 else
                 {
-                    //username not the same error and reader closes
-                    MessageBox.Show("Username is Incorrect.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //logon name not found in database error
+                    MessageBox.Show("Username is not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     rd.Close();
                     CloseDatabase();
-                    //returns false
+                    //return false
                     return false;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                //logon name not found in database error
-                MessageBox.Show("Username is not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                rd.Close();
-                //return false
+                ConnectionFail(ex);
                 return false;
             }
         }
@@ -396,6 +407,7 @@ namespace FinalProject
             } catch (Exception ex)
             {
                 UpdateDataFail(ex);
+                CloseDatabase();
                 return false;
             }
             
@@ -430,36 +442,46 @@ namespace FinalProject
 
                     //check that answers are correct
                     //make sure its not case sensitive
-                    if (strAnswer1.ToUpper().Contains(tbxAns1.Text.ToUpper()) && strAnswer2.ToUpper().Contains(tbxAns2.Text.ToUpper()) && strAnswer3.ToUpper().Contains(tbxAns3.Text.ToUpper()))
+                    if (tbxAns1.Text.ToUpper().Contains(strAnswer1.ToUpper()) && tbxAns2.Text.ToUpper().Contains(strAnswer2.ToUpper()) && tbxAns3.Text.ToUpper().Contains(strAnswer3.ToUpper()))
                     {
                         //check to make sure the password is new
                         if (strPassword != tbxPassOne.Text)
                         {
-                            //check that new password matches
-                            if (tbxPassOne.Text == tbxPassTwo.Text)
+                            //if new check requirements
+                            if (clsValidation.PasswordHasComplexity(tbxPassOne.Text))
                             {
-                                //if answers are correct update old password
-                                //string command to update password
-                                string sqlquery2 = "UPDATE " + strSchema + ".Logon SET Password = @Password" +
-                                " WHERE LogonName = @LogonName";
+                                //check that new password matches
+                                if (tbxPassOne.Text == tbxPassTwo.Text)
+                                {
+                                    //if answers are correct update old password
+                                    //string command to update password
+                                    string sqlquery2 = "UPDATE " + strSchema + ".Logon SET Password = @Password" +
+                                    " WHERE LogonName = @LogonName";
 
-                                //insert new password and return success
-                                //command query
-                                SqlCommand cmd2 = new SqlCommand(sqlquery2, _cntDatabase);
-                                cmd2.Parameters.AddWithValue("@LogonName", tbxUser.Text);
-                                cmd2.Parameters.AddWithValue("@Password", tbxPassTwo.Text.Trim());
-                                SqlDataReader rd2 = cmd2.ExecuteReader();
+                                    //insert new password and return success
+                                    //command query
+                                    SqlCommand cmd2 = new SqlCommand(sqlquery2, _cntDatabase);
+                                    cmd2.Parameters.AddWithValue("@LogonName", tbxUser.Text);
+                                    cmd2.Parameters.AddWithValue("@Password", tbxPassTwo.Text.Trim());
+                                    SqlDataReader rd2 = cmd2.ExecuteReader();
 
-                                rd2.Close();
+                                    rd2.Close();
 
-                                //close database
-                                CloseDatabase();
-                                return true;
+                                    //close database
+                                    CloseDatabase();
+                                    return true;
+                                }
+                                else
+                                {
+                                    //error for passwords not matching
+                                    MessageBox.Show("The new password is not the same as the confirm password field.", "Password Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    rd.Close();
+                                    CloseDatabase();
+                                    return false;
+                                }
                             }
                             else
                             {
-                                //error for passwords not matching
-                                MessageBox.Show("The new password is not the same as the confirm password field.", "Password Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 rd.Close();
                                 CloseDatabase();
                                 return false;
@@ -489,6 +511,7 @@ namespace FinalProject
                     //error for not finding username
                     MessageBox.Show("Could not find proper Username match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     rd.Close();
+                    CloseDatabase();
                     return false;
                 }
 

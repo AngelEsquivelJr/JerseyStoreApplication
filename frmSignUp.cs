@@ -27,19 +27,33 @@ namespace FinalProject
 
         private void frmSignUp_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //asks user for confirmation of exit and returns to previous form
-            DialogResult drResult = MessageBox.Show("Are you sure you want to cancel sign up? ",
-              "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            switch(drResult)
+            if (string.IsNullOrEmpty(tbxPassword.Text) || string.IsNullOrEmpty(tbxAnswerThree.Text))
             {
-                case DialogResult.Yes:
-                    frmLogin.Show();
-                    break;
-                case DialogResult.No:
-                    e.Cancel = true;
-                    break;
+                //asks user for confirmation of exit and returns to previous form
+                DialogResult drResult = MessageBox.Show("Are you sure you want to cancel sign up? ",
+                  "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                switch (drResult)
+                {
+                    case DialogResult.Yes:
+                        frmLogin.Show();
+                        break;
+                    case DialogResult.No:
+                        e.Cancel = true;
+                        break;
+                }
             }
-            
+            else
+            {
+                //informs user of form exit
+                DialogResult drResult = MessageBox.Show("Returning to login. ",
+                  "Exit", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                switch (drResult)
+                {
+                    case DialogResult.OK:
+                        frmLogin.Show();
+                        break;
+                }
+            }
         }
 
         private void tbxEmailInput_KeyPress(object sender, KeyPressEventArgs e)
@@ -238,6 +252,11 @@ namespace FinalProject
         {
             //open help pdf
             System.Diagnostics.Process.Start(@"C:\Users\aesqu\Source\Repos\22SP-FinalProject-EsquivelAngel\HelpFiles\SignUpHelpFinal.pdf");
+        }
+
+        private void tbxEmailInput_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

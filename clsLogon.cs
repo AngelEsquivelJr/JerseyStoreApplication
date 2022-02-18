@@ -34,16 +34,16 @@ namespace FinalProject
             //check email first
             if(clsValidation.EmailExist(tbxEmail.Text) == false)
             {
-                //check phones
-                if (clsValidation.PhoneMatch(tbxPhone1.Text))
+                //check required fields
+                if (clsValidation.RequiredFields(tbxFirstN.Text, tbxLastN.Text, tbxAddress1.Text, tbxCity.Text, cbxState.Text))
                 {
-                    if (clsValidation.PhoneMatch(tbxPhone2.Text))
+                    //check zip code
+                    if (clsValidation.ZipCodeMatch(tbxZipcode.Text))
                     {
-                        //check required fields
-                        if (clsValidation.RequiredFields(tbxFirstN.Text, tbxLastN.Text, tbxAddress1.Text, tbxCity.Text, cbxState.Text, cbxSecQuest1.Text, cbxSecQuest2.Text, cbxSecQuest3.Text, tbxAnswer1.Text, tbxAnswer2.Text, tbxAnswer3.Text))
+                        //check phones
+                        if (clsValidation.PhoneMatch(tbxPhone1.Text))
                         {
-                            //check zipcode next
-                            if (clsValidation.ZipCodeMatch(tbxZipcode.Text))
+                            if (clsValidation.PhoneMatch(tbxPhone2.Text))
                             {
                                 //check username
                                 if (clsValidation.UsernameHasComplexity(tbxUsername.Text))
@@ -51,14 +51,18 @@ namespace FinalProject
                                     //check password
                                     if (clsValidation.PasswordHasComplexity(tbxPassword.Text))
                                     {
-                                        //calls proper clsSql method to insert data
-                                        if (clsSQL.WriteLoginData(cbxTitle, tbxFirstN, tbxMiddleN, tbxLastN, tbxSuffix, tbxAddress1, tbxAddress2, tbxAddress3, tbxCity, tbxZipcode,
-                                            cbxState, tbxEmail, tbxPhone1, tbxPhone2, cbxSecQuest1, tbxAnswer1, cbxSecQuest2, tbxAnswer2, cbxSecQuest3, tbxAnswer3, tbxUsername, tbxPassword))
+                                        //check required fields
+                                        if (clsValidation.RequiredFieldsTwo(cbxSecQuest1.Text, cbxSecQuest2.Text, cbxSecQuest3.Text, tbxAnswer1.Text, tbxAnswer2.Text, tbxAnswer3.Text))
                                         {
-                                            //message for success and returns to login form
-                                            MessageBox.Show("Account Created Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                            signup.Hide();
-                                            logon.Show();                                            
+                                            //calls proper clsSql method to insert data
+                                            if (clsSQL.WriteLoginData(cbxTitle, tbxFirstN, tbxMiddleN, tbxLastN, tbxSuffix, tbxAddress1, tbxAddress2, tbxAddress3, tbxCity, tbxZipcode,
+                                                cbxState, tbxEmail, tbxPhone1, tbxPhone2, cbxSecQuest1, tbxAnswer1, cbxSecQuest2, tbxAnswer2, cbxSecQuest3, tbxAnswer3, tbxUsername, tbxPassword))
+                                            {
+                                                //message for success and returns to login form
+                                                MessageBox.Show("Account Created Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                signup.Close();
+                                                logon.Show();
+                                            }
                                         }
                                     }
                                 }
@@ -70,19 +74,19 @@ namespace FinalProject
             } 
             else 
             {
-                //if user enters email, check email validation
-                if(clsValidation.EmailMatch(tbxEmail.Text))
+                //check required fields
+                if (clsValidation.RequiredFields(tbxFirstN.Text, tbxLastN.Text, tbxAddress1.Text, tbxCity.Text, cbxState.Text))
                 {
-                    //check phones
-                    if (clsValidation.PhoneMatch(tbxPhone1.Text))
+                    //check zip code
+                    if (clsValidation.ZipCodeMatch(tbxZipcode.Text))
                     {
-                        if (clsValidation.PhoneMatch(tbxPhone2.Text))
+                        //check phones
+                        if (clsValidation.PhoneMatch(tbxPhone1.Text))
                         {
-                            //check required fields
-                            if (clsValidation.RequiredFields(tbxFirstN.Text, tbxLastN.Text, tbxAddress1.Text, tbxCity.Text, cbxState.Text, cbxSecQuest1.Text, cbxSecQuest2.Text, cbxSecQuest3.Text, tbxAnswer1.Text, tbxAnswer2.Text, tbxAnswer3.Text))
+                            if (clsValidation.PhoneMatch(tbxPhone2.Text))
                             {
-                                //check zipcode next
-                                if (clsValidation.ZipCodeMatch(tbxZipcode.Text))
+                                //check email
+                                if (clsValidation.EmailMatch(tbxEmail.Text))
                                 {
                                     //check username
                                     if (clsValidation.UsernameHasComplexity(tbxUsername.Text))
@@ -90,18 +94,23 @@ namespace FinalProject
                                         //check password
                                         if (clsValidation.PasswordHasComplexity(tbxPassword.Text))
                                         {
-                                            //calls proper clsSql method to insert data
-                                            if (clsSQL.WriteLoginData(cbxTitle, tbxFirstN, tbxMiddleN, tbxLastN, tbxSuffix, tbxAddress1, tbxAddress2, tbxAddress3, tbxCity, tbxZipcode,
-                                                cbxState, tbxEmail, tbxPhone1, tbxPhone2, cbxSecQuest1, tbxAnswer1, cbxSecQuest2, tbxAnswer2, cbxSecQuest3, tbxAnswer3, tbxUsername, tbxPassword))
+                                            //check required fields
+                                            if (clsValidation.RequiredFieldsTwo(cbxSecQuest1.Text, cbxSecQuest2.Text, cbxSecQuest3.Text, tbxAnswer1.Text, tbxAnswer2.Text, tbxAnswer3.Text))
                                             {
-                                                //message for success and returns to login form
-                                                MessageBox.Show("Account Created Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                signup.Hide();
-                                                logon.Show();                                                
+                                                //calls proper clsSql method to insert data
+                                                if (clsSQL.WriteLoginData(cbxTitle, tbxFirstN, tbxMiddleN, tbxLastN, tbxSuffix, tbxAddress1, tbxAddress2, tbxAddress3, tbxCity, tbxZipcode,
+                                                    cbxState, tbxEmail, tbxPhone1, tbxPhone2, cbxSecQuest1, tbxAnswer1, cbxSecQuest2, tbxAnswer2, cbxSecQuest3, tbxAnswer3, tbxUsername, tbxPassword))
+                                                {
+                                                    //message for success and returns to login form
+                                                    MessageBox.Show("Account Created Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                    signup.Close();
+                                                    logon.Show();
+                                                }
                                             }
                                         }
                                     }
                                 }
+
                             }
                         }
                     }
@@ -154,18 +163,14 @@ namespace FinalProject
             //check answer fields first
             if(clsValidation.AnswerExist(tbxA1.Text, tbxA2.Text, tbxA3.Text))
             {
-                //check password validation
-                if(clsValidation.PasswordHasComplexity(tbxNewP.Text))
-                {
                     //if valid password, call clsSql method for Resetting Password
                     if(clsSQL.WriteResetData(tbxUser, tbxA1, tbxA2, tbxA3, tbxNewP, tbxConfirmP))
                     {
                         //message for success and returns to login form
                         MessageBox.Show("Password Reset Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        frmReset.Hide();
+                        frmReset.Close();
                         frmLogon.Show();                                          
-                    }
-                }
+                    }                
             }
         }
     }

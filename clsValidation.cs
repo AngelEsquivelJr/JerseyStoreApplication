@@ -54,7 +54,7 @@ namespace FinalProject
             bool bolHasSpecial = false;
             bool bolHasSpaces = false;
             string strSpace = " ";
-            string strAllowedKeys = "()!@#$%^&*";
+            string strAllowedKeys = @"()!@#$%^&*`~-_=+{}[]:;,<.>?/'\|";
 
             //space characters
             foreach (char chLetter in strUsername)
@@ -65,7 +65,7 @@ namespace FinalProject
 
             if (bolHasSpaces)
             {
-                MessageBox.Show("Password has spaces. Spaces are not allowed. (see help)", "Password Error",
+                MessageBox.Show("Username has spaces. Spaces are not allowed. (see help)", "Username Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -110,7 +110,7 @@ namespace FinalProject
             else
                 intComplextiyCtr++;
 
-            //if complexity is greater than or equal to 2 it returns true
+            //if complexity is greater than or equal to 3 it returns true
             return intComplextiyCtr >= 3;
 
         }
@@ -223,7 +223,7 @@ namespace FinalProject
         {
             if (string.IsNullOrWhiteSpace(strString))
             {
-                MessageBox.Show("Fields can't be just white space.", "Input Error",
+                MessageBox.Show("Fields entered can't be only white space.", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -253,7 +253,7 @@ namespace FinalProject
         {
             if (string.IsNullOrEmpty(strAddress))
             {
-                MessageBox.Show("Address is a required field.", "Address Error",
+                MessageBox.Show("Missing one or more required fields.", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -264,7 +264,12 @@ namespace FinalProject
                     return true;
                 }
                 else
+                {
+                    MessageBox.Show("Address is empty.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
+                }
+                    
             }
         }
 
@@ -288,7 +293,7 @@ namespace FinalProject
         {
             if (string.IsNullOrEmpty(strCity))
             {
-                MessageBox.Show("City is a required field.", "City Error",
+                MessageBox.Show("Missing one or more required fields.", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -299,7 +304,11 @@ namespace FinalProject
                     return true;
                 }
                 else
+                {
+                    MessageBox.Show("City is empty.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
+                }
             }
         }
 
@@ -308,7 +317,7 @@ namespace FinalProject
         {
             if (string.IsNullOrEmpty(strState))
             {
-                MessageBox.Show("State is a required field.", "State Error",
+                MessageBox.Show("Missing one or more required fields.", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -319,7 +328,11 @@ namespace FinalProject
                     return true;
                 }
                 else
+                {
+                    MessageBox.Show("State is empty.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
+                }
             }
         }
 
@@ -354,7 +367,7 @@ namespace FinalProject
             }
             else
             {
-                MessageBox.Show("Zipcode was invalid. (see help)", "Zipcode Error",
+                MessageBox.Show("The zip code that was entered is invalid. Please try again.", "Zipcode Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -408,7 +421,7 @@ namespace FinalProject
                     }
                     else
                     {
-                        MessageBox.Show("Phone was invalid. (see help)", "Phone Error",
+                        MessageBox.Show("The phone number that was entered is invalid. Please try again.", "Phone Error",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
@@ -436,6 +449,8 @@ namespace FinalProject
         {
             if (string.IsNullOrEmpty(ansOne) || string.IsNullOrEmpty(ansTwo) || string.IsNullOrEmpty(ansThr))
             {
+                MessageBox.Show("Missing one or more required fields.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 MessageBox.Show("Answers are a required field.", "Answer Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -447,7 +462,11 @@ namespace FinalProject
                     return true;
                 }
                 else
+                {
+                    MessageBox.Show("Answer is empty.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
+                }
             }
         }
 
@@ -456,7 +475,7 @@ namespace FinalProject
         {
             if (string.IsNullOrEmpty(quesOne) || string.IsNullOrEmpty(quesTwo) || string.IsNullOrEmpty(quesThr))
             {
-                MessageBox.Show("Questions are a required field.", "Question Error",
+                MessageBox.Show("Missing one or more required fields.", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -464,6 +483,8 @@ namespace FinalProject
             {
                 if (quesOne == "Please Select" || quesTwo == "Please Select" || quesThr == "Please Select")
                 {
+                    MessageBox.Show("Missing one or more required fields.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     MessageBox.Show("Questions are a required field.", "Question Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
@@ -490,10 +511,8 @@ namespace FinalProject
 
         //using regex
         internal static bool EmailMatch(string strEmail)
-        {
-            string strPattern = @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*"
-                            + "@"
-                            + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$";
+        {            
+            string strPattern = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-zA-Z]{2,4}[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
 
             Regex regex = new Regex(strPattern);
 
@@ -503,7 +522,7 @@ namespace FinalProject
             }
             else
             {
-                MessageBox.Show("Email was invalid. (see help)", "Email Error",
+                MessageBox.Show("The email address that was entered is invalid. Please try again.", "Email Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -541,13 +560,13 @@ namespace FinalProject
         {
             if (string.IsNullOrEmpty(strFName))
             {
-                MessageBox.Show("First name is a required field.", "Name Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Missing one or more required fields.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);                
                 return false;
             }
             else if (string.IsNullOrEmpty(strLName))
             {
-                MessageBox.Show("Last name is a required field.", "Name Error",
+                MessageBox.Show("Missing one or more required fields.", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -560,36 +579,34 @@ namespace FinalProject
                         return true;
                     }
                     else
+                    {
+                        MessageBox.Show("Last name is empty.", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
+                    }
                 }
                 else
+                {
+                    MessageBox.Show("First name is empty.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
+                }
             }
                 
         }
 
-        //method for all required fields
-        internal static bool RequiredFields(string strNameF, string strNameL, string strAddress, string strCity, string strState, string strQues1, string strQues2, string strQues3, string strAns1, string strAns2, string strAns3)
+        //methods for all required fields
+        internal static bool RequiredFields(string strNameF, string strNameL, string strAddress, string strCity, string strState)
         {
-            if(AddressExist(strAddress))
+            if(NameExist(strNameF, strNameL))
             {
-                if (CityExist(strCity))
+                if (AddressExist(strAddress))
                 {
-                    if (StateExist(strState))
+                    if (CityExist(strCity))
                     {
-                        if (NameExist(strNameF, strNameL))
+                        if (StateExist(strState))
                         {
-                            if (QuestionExist(strQues1, strQues2, strQues3))
-                            {
-                                if (AnswerExist(strAns1, strAns2, strAns3))
-                                {
-                                    return true;
-                                }
-                                else
-                                    return false;
-                            }
-                            else
-                                return false;
+                            return true;
                         }
                         else
                             return false;
@@ -605,5 +622,21 @@ namespace FinalProject
                 return false;
             }
         }
-    }
+
+        internal static bool RequiredFieldsTwo(string strQues1, string strQues2, string strQues3, string strAns1, string strAns2, string strAns3)
+        {
+            if (QuestionExist(strQues1, strQues2, strQues3))
+            {
+                if (AnswerExist(strAns1, strAns2, strAns3))
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
+
+    }    
 }

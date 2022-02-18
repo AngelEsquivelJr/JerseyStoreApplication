@@ -33,17 +33,32 @@ namespace FinalProject
 
         private void frmReset_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //asks user for confirmation of exit and returns to previous form
-            DialogResult drResult = MessageBox.Show("Are you sure you want to exit the password reset? ",
-              "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            switch (drResult)
+            if (string.IsNullOrEmpty(tbxPassTwo.Text) || string.IsNullOrEmpty(tbxQuestionOne.Text))
             {
-                case DialogResult.Yes:
-                    frmLogin.Show();
-                    break;
-                case DialogResult.No:
-                    e.Cancel = true;
-                    break;
+                //asks user for confirmation of exit and returns to previous form
+                DialogResult drResult = MessageBox.Show("Are you sure you want to exit the password reset? ",
+                  "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                switch (drResult)
+                {
+                    case DialogResult.Yes:
+                        frmLogin.Show();
+                        break;
+                    case DialogResult.No:
+                        e.Cancel = true;
+                        break;
+                }
+            }
+            else
+            {
+                //informs user of form exit
+                DialogResult drResult = MessageBox.Show("Returning to login. ",
+                  "Exit", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                switch (drResult)
+                {
+                    case DialogResult.OK:
+                        frmLogin.Show();
+                        break;
+                }
             }
         }
 
