@@ -65,10 +65,10 @@ namespace FinalProject
             this.tbxEmailInput = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.gbxOne = new System.Windows.Forms.GroupBox();
+            this.cbxTitle = new System.Windows.Forms.ComboBox();
             this.cbxState = new System.Windows.Forms.ComboBox();
             this.gbxTwo = new System.Windows.Forms.GroupBox();
             this.btnShow = new System.Windows.Forms.Button();
-            this.cbxTitle = new System.Windows.Forms.ComboBox();
             this.gbxThree = new System.Windows.Forms.GroupBox();
             this.tbxAnswerThree = new System.Windows.Forms.TextBox();
             this.tbxAnswerTwo = new System.Windows.Forms.TextBox();
@@ -469,6 +469,24 @@ namespace FinalProject
             this.gbxOne.TabIndex = 0;
             this.gbxOne.TabStop = false;
             // 
+            // cbxTitle
+            // 
+            this.cbxTitle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxTitle.FormattingEnabled = true;
+            this.cbxTitle.Items.AddRange(new object[] {
+            "Mr",
+            "Mrs",
+            "Miss",
+            "Ms",
+            "Sir",
+            "Dr",
+            "Lady",
+            "Lord"});
+            this.cbxTitle.Location = new System.Drawing.Point(21, 44);
+            this.cbxTitle.Name = "cbxTitle";
+            this.cbxTitle.Size = new System.Drawing.Size(121, 21);
+            this.cbxTitle.TabIndex = 1;
+            // 
             // cbxState
             // 
             this.cbxState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -559,31 +577,13 @@ namespace FinalProject
             this.btnShow.FlatAppearance.BorderColor = System.Drawing.Color.LightCyan;
             this.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShow.Font = new System.Drawing.Font("Rockwell", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShow.Image = global::FinalProject.Properties.Resources.showPassEye;
             this.btnShow.Location = new System.Drawing.Point(8, 351);
             this.btnShow.Name = "btnShow";
-            this.btnShow.Size = new System.Drawing.Size(115, 23);
+            this.btnShow.Size = new System.Drawing.Size(51, 23);
             this.btnShow.TabIndex = 9;
-            this.btnShow.Text = "*Show Password";
             this.btnShow.UseVisualStyleBackColor = true;
             this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
-            // 
-            // cbxTitle
-            // 
-            this.cbxTitle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxTitle.FormattingEnabled = true;
-            this.cbxTitle.Items.AddRange(new object[] {
-            "Mr",
-            "Mrs",
-            "Miss",
-            "Ms",
-            "Sir",
-            "Dr",
-            "Lady",
-            "Lord"});
-            this.cbxTitle.Location = new System.Drawing.Point(21, 44);
-            this.cbxTitle.Name = "cbxTitle";
-            this.cbxTitle.Size = new System.Drawing.Size(121, 21);
-            this.cbxTitle.TabIndex = 1;
             // 
             // gbxThree
             // 

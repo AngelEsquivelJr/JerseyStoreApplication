@@ -124,11 +124,16 @@ namespace FinalProject
 
         }
 
+        //structure for holding textbox and combobox parameters
+        public struct SQLBoxParams
+        {
+            public ComboBox cTitle, cState, cSecQuest1, cSecQuest2, cSecQuest3;
+
+            public TextBox tFirstN, tMiddleN, tLastN, tSuffix, tAddress1, tAddress2, tAddress3, tCity, tZipcode, tEmail, tPhone1, tPhone2, tAnswer1, tAnswer2, tAnswer3, tUser, tPassword;
+        }
+
         //method to write new user info to datatable
-        internal static bool WriteLoginData(ComboBox cbxTitle, TextBox tbxFirstN, TextBox tbxMiddleN, TextBox tbxLastN, TextBox tbxSuffix,
-            TextBox tbxAddress1, TextBox tbxAddress2, TextBox tbxAddress3, TextBox tbxCity, TextBox tbxZipcode, ComboBox cbxState,
-            TextBox tbxEmail, TextBox tbxPhone1, TextBox tbxPhone2, ComboBox cbxSecQuest1, TextBox tbxAnswer1, ComboBox cbxSecQuest2,
-            TextBox tbxAnswer2, ComboBox cbxSecQuest3, TextBox tbxAnswer3, TextBox tbxUsername, TextBox tbxPassword)
+        internal static bool WriteLoginData(SQLBoxParams bxParams)
         {
 
             //var for question id and person id
@@ -149,9 +154,9 @@ namespace FinalProject
             string sqlquery4 = "SELECT LogonName FROM " + strSchema + ".Logon where LogonName = @LogonName;";
 
             //set proper set id to question id var
-            questID1 = (int)cbxSecQuest1.SelectedValue;
-            questID2 = (int)cbxSecQuest2.SelectedValue;
-            questID3 = (int)cbxSecQuest3.SelectedValue;
+            questID1 = (int)bxParams.cSecQuest1.SelectedValue;
+            questID2 = (int)bxParams.cSecQuest2.SelectedValue;
+            questID3 = (int)bxParams.cSecQuest3.SelectedValue;
 
             OpenDatabase();
 
@@ -160,7 +165,7 @@ namespace FinalProject
 
                 //command query for logon name
                 SqlCommand cmd4 = new SqlCommand(sqlquery4, _cntDatabase);
-                cmd4.Parameters.AddWithValue("@LogonName", tbxUsername.Text);
+                cmd4.Parameters.AddWithValue("@LogonName", bxParams.tUser.Text);
                 SqlDataReader rd4 = cmd4.ExecuteReader();
 
                 //if statement to check if username already exists
@@ -170,7 +175,7 @@ namespace FinalProject
                     string strUsername = rd4.GetValue(0).ToString();
 
                     //if returned username is the same send error
-                    if (strUsername.ToUpper().Contains(tbxUsername.Text.ToUpper()))
+                    if (strUsername.ToUpper().Contains(bxParams.tUser.Text.ToUpper()))
                     {
                         MessageBox.Show("The username entered already exists. Please enter a new username.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         rd4.Close();
@@ -189,20 +194,20 @@ namespace FinalProject
 
                 //sets up querys to insert user data
                 SqlCommand cmd = new SqlCommand(sqlquery, _cntDatabase);
-                cmd.Parameters.AddWithValue("@Title", cbxTitle.Text.Trim());
-                cmd.Parameters.AddWithValue("@NameFirst", tbxFirstN.Text.Trim());
-                cmd.Parameters.AddWithValue("@NameMiddle", tbxMiddleN.Text.Trim());
-                cmd.Parameters.AddWithValue("@NameLast", tbxLastN.Text.Trim());
-                cmd.Parameters.AddWithValue("@Suffix", tbxSuffix.Text.Trim());
-                cmd.Parameters.AddWithValue("@Address1", tbxAddress1.Text.Trim());
-                cmd.Parameters.AddWithValue("@Address2", tbxAddress2.Text.Trim());
-                cmd.Parameters.AddWithValue("@Address3", tbxAddress3.Text.Trim());
-                cmd.Parameters.AddWithValue("@City", tbxCity.Text.Trim());
-                cmd.Parameters.AddWithValue("@Zipcode", tbxZipcode.Text.Trim());
-                cmd.Parameters.AddWithValue("@State", cbxState.Text.Trim());
-                cmd.Parameters.AddWithValue("@Email", tbxEmail.Text.Trim());
-                cmd.Parameters.AddWithValue("@PhonePrimary", tbxPhone1.Text.Trim());
-                cmd.Parameters.AddWithValue("@PhoneSecondary", tbxPhone2.Text.Trim());
+                cmd.Parameters.AddWithValue("@Title", bxParams.cTitle.Text.Trim());
+                cmd.Parameters.AddWithValue("@NameFirst", bxParams.tFirstN.Text.Trim());
+                cmd.Parameters.AddWithValue("@NameMiddle", bxParams.tMiddleN.Text.Trim());
+                cmd.Parameters.AddWithValue("@NameLast", bxParams.tLastN.Text.Trim());
+                cmd.Parameters.AddWithValue("@Suffix", bxParams.tSuffix.Text.Trim());
+                cmd.Parameters.AddWithValue("@Address1", bxParams.tAddress1.Text.Trim());
+                cmd.Parameters.AddWithValue("@Address2", bxParams.tAddress2.Text.Trim());
+                cmd.Parameters.AddWithValue("@Address3", bxParams.tAddress3.Text.Trim());
+                cmd.Parameters.AddWithValue("@City", bxParams.tCity.Text.Trim());
+                cmd.Parameters.AddWithValue("@Zipcode", bxParams.tZipcode.Text.Trim());
+                cmd.Parameters.AddWithValue("@State", bxParams.cState.Text.Trim());
+                cmd.Parameters.AddWithValue("@Email", bxParams.tEmail.Text.Trim());
+                cmd.Parameters.AddWithValue("@PhonePrimary", bxParams.tPhone1.Text.Trim());
+                cmd.Parameters.AddWithValue("@PhoneSecondary", bxParams.tPhone2.Text.Trim());
 
                 //executes querys and closes reader
                 SqlDataReader rd = cmd.ExecuteReader();
@@ -210,7 +215,7 @@ namespace FinalProject
 
                 //command query for personId
                 SqlCommand cmd3 = new SqlCommand(sqlquery3, _cntDatabase);
-                cmd3.Parameters.AddWithValue("@NameFirst", tbxFirstN.Text);
+                cmd3.Parameters.AddWithValue("@NameFirst", bxParams.tFirstN.Text);
                 SqlDataReader rd3 = cmd3.ExecuteReader();
 
                 //if statement to set person id
@@ -237,14 +242,14 @@ namespace FinalProject
                 //insert data to logon
                 SqlCommand cmd2 = new SqlCommand(sqlquery2, _cntDatabase);
                 cmd2.Parameters.AddWithValue("@PersonID", personID);
-                cmd2.Parameters.AddWithValue("@LogonName", tbxUsername.Text.Trim());
-                cmd2.Parameters.AddWithValue("@Password", tbxPassword.Text.Trim());
+                cmd2.Parameters.AddWithValue("@LogonName", bxParams.tUser.Text.Trim());
+                cmd2.Parameters.AddWithValue("@Password", bxParams.tPassword.Text.Trim());
                 cmd2.Parameters.AddWithValue("@FirstChallengeQuestion", questID1);
-                cmd2.Parameters.AddWithValue("@FirstChallengeAnswer", tbxAnswer1.Text.Trim());
+                cmd2.Parameters.AddWithValue("@FirstChallengeAnswer", bxParams.tAnswer1.Text.Trim());
                 cmd2.Parameters.AddWithValue("@SecondChallengeQuestion", questID2);
-                cmd2.Parameters.AddWithValue("@SecondChallengeAnswer", tbxAnswer2.Text.Trim());
+                cmd2.Parameters.AddWithValue("@SecondChallengeAnswer", bxParams.tAnswer2.Text.Trim());
                 cmd2.Parameters.AddWithValue("@ThirdChallengeQuestion", questID3);
-                cmd2.Parameters.AddWithValue("@ThirdChallengeAnswer", tbxAnswer3.Text.Trim());
+                cmd2.Parameters.AddWithValue("@ThirdChallengeAnswer", bxParams.tAnswer3.Text.Trim());
 
                 //executes querys and closes reader
                 SqlDataReader rd2 = cmd2.ExecuteReader();                
@@ -306,7 +311,7 @@ namespace FinalProject
                         else
                         {
                             //if password not the same error pops up and reader closes
-                            MessageBox.Show("Password is Incorrect.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Password is Incorrect. Please Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             rd.Close();
                             CloseDatabase();
                             //returns false
@@ -316,7 +321,7 @@ namespace FinalProject
                     else
                     {
                         //username not the same error and reader closes
-                        MessageBox.Show("Username is Incorrect.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Username is Incorrect. Please Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         rd.Close();
                         CloseDatabase();
                         //returns false
@@ -326,7 +331,7 @@ namespace FinalProject
                 else
                 {
                     //logon name not found in database error
-                    MessageBox.Show("Username is not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Username match not found. Please Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     rd.Close();
                     CloseDatabase();
                     //return false
@@ -389,7 +394,7 @@ namespace FinalProject
                     else
                     {
                         //error for not finding matching username
-                        MessageBox.Show("Could not find matching Username.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Could not find matching Username. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         CloseDatabase();
                         return false;
                     }
@@ -398,7 +403,7 @@ namespace FinalProject
                 else
                 {
                     //error for not finding username
-                    MessageBox.Show("Could not find proper Username match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Could not find matching Username. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     rd.Close();
                     CloseDatabase();
                     return false;
@@ -448,7 +453,7 @@ namespace FinalProject
                         if (strPassword != tbxPassOne.Text)
                         {
                             //if new check requirements
-                            if (clsValidation.PasswordHasComplexity(tbxPassOne.Text))
+                            if (clsValidation.PasswordValidation(tbxPassOne.Text))
                             {
                                 //check that new password matches
                                 if (tbxPassOne.Text == tbxPassTwo.Text)
@@ -474,7 +479,7 @@ namespace FinalProject
                                 else
                                 {
                                     //error for passwords not matching
-                                    MessageBox.Show("The new password is not the same as the confirm password field.", "Password Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show("The new password entered does not match the confirmed password. Try Again.", "Password Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     rd.Close();
                                     CloseDatabase();
                                     return false;
@@ -509,7 +514,7 @@ namespace FinalProject
                 else
                 {
                     //error for not finding username
-                    MessageBox.Show("Could not find proper Username match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Could not find matching Username. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     rd.Close();
                     CloseDatabase();
                     return false;

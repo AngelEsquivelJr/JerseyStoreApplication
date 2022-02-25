@@ -47,7 +47,7 @@ namespace FinalProject
         }
 
         //method to check username requirements
-        internal static bool UsernameHasComplexity(string strUsername)
+        internal static bool UsernameValidation(string strUsername)
         {
             //creates complexity counter
             int intComplextiyCtr = 0;
@@ -134,7 +134,7 @@ namespace FinalProject
         }
 
         //method to check password requirements
-        internal static bool PasswordHasComplexity(string strPassword)
+        internal static bool PasswordValidation(string strPassword)
         {
             //creates complexity counter
             int intComplextiyCtr = 0;
@@ -234,7 +234,7 @@ namespace FinalProject
         }
 
         //method for address validation
-        internal static void AddressAllowed(KeyPressEventArgs e)
+        internal static void AddressAllowedKeys(KeyPressEventArgs e)
         {
             //allow letters and numbers only
             //allow backspace and space to work
@@ -249,11 +249,11 @@ namespace FinalProject
         }
 
         //method for required field
-        internal static bool AddressExist(string strAddress)
+        internal static bool AddressValidation(string strAddress)
         {
             if (string.IsNullOrEmpty(strAddress))
             {
-                MessageBox.Show("Missing one or more required fields.", "Error",
+                MessageBox.Show("Missing one or more required fields. ", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -265,8 +265,6 @@ namespace FinalProject
                 }
                 else
                 {
-                    MessageBox.Show("Address is empty.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
                     
@@ -274,7 +272,7 @@ namespace FinalProject
         }
 
         //method for city validation
-        internal static void CityAllowed(KeyPressEventArgs e)
+        internal static void CityAllowedKeys(KeyPressEventArgs e)
         {
             //allow letters only
             //allow backspace and space to work
@@ -289,11 +287,11 @@ namespace FinalProject
         }
 
         //method for required field
-        internal static bool CityExist(string strCity)
+        internal static bool CityValidation(string strCity)
         {
             if (string.IsNullOrEmpty(strCity))
             {
-                MessageBox.Show("Missing one or more required fields.", "Error",
+                MessageBox.Show("Missing one or more required fields. ", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -305,15 +303,13 @@ namespace FinalProject
                 }
                 else
                 {
-                    MessageBox.Show("City is empty.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
         }
 
         //method for required field
-        internal static bool StateExist(string strState)
+        internal static bool StateValidation(string strState)
         {
             if (string.IsNullOrEmpty(strState))
             {
@@ -329,15 +325,13 @@ namespace FinalProject
                 }
                 else
                 {
-                    MessageBox.Show("State is empty.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
         }
 
         //methods for zipcode validation
-        internal static void ZipAllowed(KeyPressEventArgs e)
+        internal static void ZipAllowedKeys(KeyPressEventArgs e)
         {
             string strAllowedKeys = "-";
 
@@ -356,7 +350,7 @@ namespace FinalProject
         }
 
         //using regex
-        internal static bool ZipCodeMatch(string strZipCode)
+        internal static bool ZipCodeValidation(string strZipCode)
         {
             string pattern = @"^\d{5}(?:[-\s]\d{4})?$";
             Regex regex = new Regex(pattern);
@@ -374,7 +368,7 @@ namespace FinalProject
         }
 
         //method for phone validation
-        internal static void PhoneAllowed(KeyPressEventArgs e)
+        internal static void PhoneAllowedKeys(KeyPressEventArgs e)
         {
             string strAllowedKeys = "-";
 
@@ -393,7 +387,7 @@ namespace FinalProject
         }
 
         //using regex
-        internal static bool PhoneMatch(string strPhone)
+        internal static bool PhoneValidation(string strPhone)
         {
             string strPattern = @"\(?\d{3}\)?[-\.]? *\d{3}[-\.]? *[-\.]?\d{4}";
             string strSpace = @"\s";
@@ -430,7 +424,7 @@ namespace FinalProject
         }
 
         //method for answers validation
-        internal static void AnswerAllowed(KeyPressEventArgs e)
+        internal static void AnswerAllowedKeys(KeyPressEventArgs e)
         {
             //allow letters and digits only
             //allow backspace and space to work
@@ -445,12 +439,10 @@ namespace FinalProject
         }
 
         //method for required field
-        internal static bool AnswerExist(string ansOne, string ansTwo, string ansThr)
+        internal static bool AnswerValidation(string ansOne, string ansTwo, string ansThr)
         {
             if (string.IsNullOrEmpty(ansOne) || string.IsNullOrEmpty(ansTwo) || string.IsNullOrEmpty(ansThr))
             {
-                MessageBox.Show("Missing one or more required fields.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 MessageBox.Show("Answers are a required field.", "Answer Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -463,15 +455,13 @@ namespace FinalProject
                 }
                 else
                 {
-                    MessageBox.Show("Answer is empty.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
         }
 
         //method for required field
-        internal static bool QuestionExist(string quesOne, string quesTwo, string quesThr)
+        internal static bool QuestionValidation(string quesOne, string quesTwo, string quesThr)
         {
             if (string.IsNullOrEmpty(quesOne) || string.IsNullOrEmpty(quesTwo) || string.IsNullOrEmpty(quesThr))
             {
@@ -496,7 +486,7 @@ namespace FinalProject
         }
 
         //method for email validation
-        internal static void EmailAllowed(KeyPressEventArgs e)
+        internal static void EmailAllowedKeys(KeyPressEventArgs e)
         {
             //dont allow spaces
             if (char.IsWhiteSpace(e.KeyChar))
@@ -510,8 +500,8 @@ namespace FinalProject
         }
 
         //using regex
-        internal static bool EmailMatch(string strEmail)
-        {            
+        internal static bool EmailValidation(string strEmail)
+        {                  
             string strPattern = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-zA-Z]{2,4}[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
 
             Regex regex = new Regex(strPattern);
@@ -529,7 +519,7 @@ namespace FinalProject
         }
 
         //method for required field
-        internal static bool EmailExist(string strEmail)
+        internal static bool CheckEmailExist(string strEmail)
         {
             if (string.IsNullOrEmpty(strEmail))
             {
@@ -556,7 +546,7 @@ namespace FinalProject
         }
 
         //method for required field
-        internal static bool NameExist(string strFName, string strLName)
+        internal static bool NameValidation(string strFName, string strLName)
         {
             if (string.IsNullOrEmpty(strFName))
             {
@@ -566,7 +556,7 @@ namespace FinalProject
             }
             else if (string.IsNullOrEmpty(strLName))
             {
-                MessageBox.Show("Missing one or more required fields.", "Error",
+                MessageBox.Show("Missing one or more required fields. ", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -580,15 +570,11 @@ namespace FinalProject
                     }
                     else
                     {
-                        MessageBox.Show("Last name is empty.", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
                 else
                 {
-                    MessageBox.Show("First name is empty.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
@@ -598,13 +584,13 @@ namespace FinalProject
         //methods for all required fields
         internal static bool RequiredFields(string strNameF, string strNameL, string strAddress, string strCity, string strState)
         {
-            if(NameExist(strNameF, strNameL))
+            if(NameValidation(strNameF, strNameL))
             {
-                if (AddressExist(strAddress))
+                if (AddressValidation(strAddress))
                 {
-                    if (CityExist(strCity))
+                    if (CityValidation(strCity))
                     {
-                        if (StateExist(strState))
+                        if (StateValidation(strState))
                         {
                             return true;
                         }
@@ -625,9 +611,9 @@ namespace FinalProject
 
         internal static bool RequiredFieldsTwo(string strQues1, string strQues2, string strQues3, string strAns1, string strAns2, string strAns3)
         {
-            if (QuestionExist(strQues1, strQues2, strQues3))
+            if (QuestionValidation(strQues1, strQues2, strQues3))
             {
-                if (AnswerExist(strAns1, strAns2, strAns3))
+                if (AnswerValidation(strAns1, strAns2, strAns3))
                 {
                     return true;
                 }
@@ -636,6 +622,115 @@ namespace FinalProject
             }
             else
                 return false;
+        }
+
+        public struct StringParams
+        {
+            public string strUsername, strPassword, strAddress, strCity, strState, strZipCode, strPhone, strPhone2;
+            public string strQues1, strQues2, strQues3, strAns1, strAns2, strAns3;
+            public string strNameF, strNameL, strEmail;
+        }
+
+        //method for calling all validations for signing up
+        internal static bool Validate(StringParams stParams)
+        {
+            //check email
+            if (CheckEmailExist(stParams.strEmail) == false)
+            {
+                //check required fields
+                if (RequiredFields(stParams.strNameF, stParams.strNameL, stParams.strAddress, stParams.strCity, stParams.strState))
+                {
+                    //check zip code
+                    if (ZipCodeValidation(stParams.strZipCode))
+                    {
+                        //check phones
+                        if (PhoneValidation(stParams.strPhone))
+                        {
+                            if (PhoneValidation(stParams.strPhone2))
+                            {
+                                //check username
+                                if (UsernameValidation(stParams.strUsername))
+                                {
+                                    //check password
+                                    if (PasswordValidation(stParams.strPassword))
+                                    {
+                                        //check required fields
+                                        if (RequiredFieldsTwo(stParams.strQues1, stParams.strQues2, stParams.strQues3, stParams.strAns1, stParams.strAns2, stParams.strAns3))
+                                        {
+                                            return true;
+                                        }
+                                    }
+                                    else
+                                        return false;
+                                }
+                                else
+                                    return false;
+                            }
+                            else
+                                return false;
+                        }
+                        else
+                            return false;
+                    }
+                    else
+                        return false;
+                }
+                else
+                    return false;
+            }
+            else
+            {
+                //check required fields
+                if (RequiredFields(stParams.strNameF, stParams.strNameL, stParams.strAddress, stParams.strCity, stParams.strState))
+                {
+                    //check zip code
+                    if (ZipCodeValidation(stParams.strZipCode))
+                    {
+                        //check phones
+                        if (PhoneValidation(stParams.strPhone))
+                        {
+                            if (PhoneValidation(stParams.strPhone2))
+                            {
+                                //check email
+                                if (EmailValidation(stParams.strEmail))
+                                {
+                                    //check username
+                                    if (UsernameValidation(stParams.strUsername))
+                                    {
+                                        //check password
+                                        if (PasswordValidation(stParams.strPassword))
+                                        {
+                                            //check required fields
+                                            if (RequiredFieldsTwo(stParams.strQues1, stParams.strQues2, stParams.strQues3, stParams.strAns1, stParams.strAns2, stParams.strAns3))
+                                            {
+                                                return true;
+                                            }
+                                            else
+                                                return false;
+                                        }
+                                        else
+                                            return false;
+                                    }
+                                    else
+                                        return false;
+                                }
+                                else
+                                    return false;
+
+                            }
+                            else
+                                return false;
+                        }
+                        else
+                            return false;
+                    }
+                    else
+                        return false;
+                }
+                else
+                    return false;
+            }
+            return false;
         }
 
     }    

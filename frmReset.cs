@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,7 +53,7 @@ namespace FinalProject
             {
                 //informs user of form exit
                 DialogResult drResult = MessageBox.Show("Returning to login. ",
-                  "Exit", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                  "Returning", MessageBoxButtons.OK, MessageBoxIcon.Question);
                 switch (drResult)
                 {
                     case DialogResult.OK:
@@ -65,44 +66,76 @@ namespace FinalProject
         private void tbxAnswerOne_KeyPress(object sender, KeyPressEventArgs e)
         {
             //validation method for allowed keys
-            clsValidation.AnswerAllowed(e);
+            clsValidation.AnswerAllowedKeys(e);
         }
 
         private void tbxAnswerTwo_KeyPress(object sender, KeyPressEventArgs e)
         {
             //validation method for allowed keys
-            clsValidation.AnswerAllowed(e);
+            clsValidation.AnswerAllowedKeys(e);
         }
 
         private void tbxAnswerThree_KeyPress(object sender, KeyPressEventArgs e)
         {
             //validation method for allowed keys
-            clsValidation.AnswerAllowed(e);
+            clsValidation.AnswerAllowedKeys(e);
         }
 
         private void btnShow_Click(object sender, EventArgs e)
         {
-            //if statement for showing password
-            if (tbxPassword.PasswordChar == (char)0)
+            //get path of images
+            string pathShow = Path.GetFullPath(@"Resources\showPassEye.png");
+            string pathUnShow = Path.GetFullPath(@"Resources\unshowPassEye.png");
+
+            try
             {
-                tbxPassword.PasswordChar = '*';
+                //if statement for showing password
+                if (tbxPassword.PasswordChar == (char)0)
+                {
+                    tbxPassword.PasswordChar = '*';
+                    btnShow.Image = Image.FromFile(pathShow);
+
+                }
+                else
+                {
+                    tbxPassword.PasswordChar = (char)0;
+                    btnShow.Image = Image.FromFile(pathUnShow);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                tbxPassword.PasswordChar = (char)0;
+                //error for no image
+                MessageBox.Show("Show password error. " + ex, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnShowTwo_Click(object sender, EventArgs e)
         {
-            //if statement for showing password
-            if (tbxPassTwo.PasswordChar == (char)0)
+            //get path of images
+            string pathShow = Path.GetFullPath(@"Resources\showPassEye.png");
+            string pathUnShow = Path.GetFullPath(@"Resources\unshowPassEye.png");
+
+            try
             {
-                tbxPassTwo.PasswordChar = '*';
+                //if statement for showing password
+                if (tbxPassTwo.PasswordChar == (char)0)
+                {
+                    tbxPassTwo.PasswordChar = '*';
+                    btnShowTwo.Image = Image.FromFile(pathShow);
+
+                }
+                else
+                {
+                    tbxPassTwo.PasswordChar = (char)0;
+                    btnShowTwo.Image = Image.FromFile(pathUnShow);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                tbxPassTwo.PasswordChar = (char)0;
+                //error for no image
+                MessageBox.Show("Show password error. " + ex, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -137,8 +170,20 @@ namespace FinalProject
 
         private void btnHelp_Click(object sender, EventArgs e)
         {
-            //open help pdf
-            System.Diagnostics.Process.Start(@"C:\Users\aesqu\Source\Repos\22SP-FinalProject-EsquivelAngel\HelpFiles\ResetHelpFinal.pdf");
+            //get path of pdf
+            string path = Path.GetFullPath(@"HelpFiles\ResetHelpFinals.pdf");
+
+            try
+            {
+                //open with default process
+                System.Diagnostics.Process.Start(path);
+            }
+            catch (Exception ex)
+            {
+                //error for no file
+                MessageBox.Show("Help file was not found. " + ex, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

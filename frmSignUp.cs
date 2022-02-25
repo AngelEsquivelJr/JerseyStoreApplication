@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,7 +47,7 @@ namespace FinalProject
             {
                 //informs user of form exit
                 DialogResult drResult = MessageBox.Show("Returning to login. ",
-                  "Exit", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                  "Returning", MessageBoxButtons.OK, MessageBoxIcon.Question);
                 switch (drResult)
                 {
                     case DialogResult.OK:
@@ -59,19 +60,19 @@ namespace FinalProject
         private void tbxEmailInput_KeyPress(object sender, KeyPressEventArgs e)
         {
             //validation method for allowed keys
-            clsValidation.EmailAllowed(e);
+            clsValidation.EmailAllowedKeys(e);
         }
 
         private void tbxAddress1_KeyPress(object sender, KeyPressEventArgs e)
         {
             //validation method for allowed keys
-            clsValidation.AddressAllowed(e);
+            clsValidation.AddressAllowedKeys(e);
         }
 
         private void tbxAddress2_KeyPress(object sender, KeyPressEventArgs e)
         {
             //validation method for allowed keys
-            clsValidation.AddressAllowed(e);
+            clsValidation.AddressAllowedKeys(e);
             //if statement to allow access to other textboxes
             if (string.IsNullOrEmpty(tbxAddress2.Text) == false)
             {
@@ -87,19 +88,19 @@ namespace FinalProject
         private void tbxAddress3_KeyPress(object sender, KeyPressEventArgs e)
         {
             //validation method for allowed keys
-            clsValidation.AddressAllowed(e);
+            clsValidation.AddressAllowedKeys(e);
         }
 
         private void tbxCity_KeyPress(object sender, KeyPressEventArgs e)
         {
             //validation method for allowed keys
-            clsValidation.CityAllowed(e);
+            clsValidation.CityAllowedKeys(e);
         }
 
         private void tbxZipcode_KeyPress(object sender, KeyPressEventArgs e)
         {
             //validation method for allowed keys
-            clsValidation.ZipAllowed(e);
+            clsValidation.ZipAllowedKeys(e);
         }
 
         private void tbxFirstName_KeyPress(object sender, KeyPressEventArgs e)
@@ -129,13 +130,13 @@ namespace FinalProject
         private void tbxPhoneOne_KeyPress(object sender, KeyPressEventArgs e)
         {
             //validation method for allowed keys
-            clsValidation.PhoneAllowed(e);
+            clsValidation.PhoneAllowedKeys(e);
         }
 
         private void tbxPhoneTwo_KeyPress(object sender, KeyPressEventArgs e)
         {
             //validation method for allowed keys
-            clsValidation.PhoneAllowed(e);
+            clsValidation.PhoneAllowedKeys(e);
         }
 
         private void tbxUsername_KeyPress(object sender, KeyPressEventArgs e)
@@ -158,39 +159,79 @@ namespace FinalProject
         private void tbxAnswerOne_KeyPress(object sender, KeyPressEventArgs e)
         {
             //validation method for allowed keys
-            clsValidation.AnswerAllowed(e);
+            clsValidation.AnswerAllowedKeys(e);
         }
 
         private void tbxAnswerTwo_KeyPress(object sender, KeyPressEventArgs e)
         {
             //validation method for allowed keys
-            clsValidation.AnswerAllowed(e);
+            clsValidation.AnswerAllowedKeys(e);
         }
 
         private void tbxAnswerThree_KeyPress(object sender, KeyPressEventArgs e)
         {
             //validation method for allowed keys
-            clsValidation.AnswerAllowed(e);
+            clsValidation.AnswerAllowedKeys(e);
         }
 
         private void btnSignUp_Click(object sender, EventArgs e)
         {
+            //set up parameters
+            clsLogon.BoxParams bxParams = new clsLogon.BoxParams();
+
+            bxParams.cTitle = cbxTitle;
+            bxParams.tFirstN = tbxFirstName;
+            bxParams.tMiddleN = tbxMiddleName;
+            bxParams.tLastN = tbxLastName;
+            bxParams.tSuffix = tbxSuffix;
+            bxParams.tCity = tbxCity;
+            bxParams.tAddress1 = tbxAddress1;
+            bxParams.tAddress2 = tbxAddress2;
+            bxParams.tAddress3 = tbxAddress3;
+            bxParams.tPhone1 = tbxPhoneOne;
+            bxParams.tPhone2 = tbxPhoneTwo;
+            bxParams.cState = cbxState;
+            bxParams.tEmail = tbxEmailInput;
+            bxParams.tZipcode = tbxZipcode;
+            bxParams.tUser = tbxUsername;
+            bxParams.tPassword = tbxPassword;
+            bxParams.cSecQuest1 = cbxSecurityOne;
+            bxParams.cSecQuest2 = cbxSecurityTwo;
+            bxParams.cSecQuest3 = cbxSecurityThree;
+            bxParams.tAnswer1 = tbxAnswerOne;
+            bxParams.tAnswer2 = tbxAnswerTwo;
+            bxParams.tAnswer3 = tbxAnswerThree;
+
             //clsLogon method for signing up
-            clsLogon.SignUp(cbxTitle, tbxFirstName, tbxMiddleName, tbxLastName, tbxSuffix, tbxAddress1, tbxAddress2, tbxAddress3, tbxCity,
-                tbxZipcode, cbxState, tbxEmailInput, tbxPhoneOne, tbxPhoneTwo, cbxSecurityOne, tbxAnswerOne, cbxSecurityTwo, tbxAnswerTwo,
-                cbxSecurityThree, tbxAnswerThree, tbxUsername, tbxPassword, this, frmLogin);
+            clsLogon.SignUp(bxParams, frmLogin, this);
         }
 
         private void btnShow_Click(object sender, EventArgs e)
         {
-            //if statement for showing password
-            if (tbxPassword.PasswordChar == (char)0)
+            //get path of images
+            string pathShow = Path.GetFullPath(@"Resources\showPassEye.png");
+            string pathUnShow = Path.GetFullPath(@"Resources\unshowPassEye.png");
+
+            try
             {
-                tbxPassword.PasswordChar = '*';
+                //if statement for showing password
+                if (tbxPassword.PasswordChar == (char)0)
+                {
+                    tbxPassword.PasswordChar = '*';
+                    btnShow.Image = Image.FromFile(pathShow);
+
+                }
+                else
+                {
+                    tbxPassword.PasswordChar = (char)0;
+                    btnShow.Image = Image.FromFile(pathUnShow);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                tbxPassword.PasswordChar = (char)0;
+                //error for no image
+                MessageBox.Show("Show password error. " + ex, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -240,18 +281,25 @@ namespace FinalProject
 
         private void frmSignUp_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'inew2332sp22TableDataSet.SecurityQuestions' table. You can move, or remove it, as needed.
-            this.securityQuestionsTableAdapter1.Fill(this.inew2332sp22TableDataSet.SecurityQuestions);
-            // TODO: This line of code loads data into the 'inew2332sp22DataSet.SecurityQuestions' table. You can move, or remove it, as needed.
-            this.securityQuestionsTableAdapter.Fill(this.inew2332sp22DataSet.SecurityQuestions);
-
             clsSQL.FillCombo(cbxSecurityOne, cbxSecurityTwo, cbxSecurityThree);
         }
 
         private void btnHelp_Click(object sender, EventArgs e)
         {
-            //open help pdf
-            System.Diagnostics.Process.Start(@"C:\Users\aesqu\Source\Repos\22SP-FinalProject-EsquivelAngel\HelpFiles\SignUpHelpFinal.pdf");
+            //get path of pdf
+            string path = Path.GetFullPath(@"HelpFiles\LoginHelpFinals.pdf");
+
+            try
+            {
+                //open with default process
+                System.Diagnostics.Process.Start(path);
+            }
+            catch (Exception ex)
+            {
+                //error for no file
+                MessageBox.Show("Help file was not found. " + ex, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void tbxEmailInput_TextChanged(object sender, EventArgs e)

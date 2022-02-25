@@ -49,11 +49,11 @@ namespace FinalProject
             this.btnShow.FlatAppearance.BorderColor = System.Drawing.Color.LightCyan;
             this.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShow.Font = new System.Drawing.Font("Rockwell", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnShow.Location = new System.Drawing.Point(6, 128);
+            this.btnShow.Image = global::FinalProject.Properties.Resources.showPassEye;
+            this.btnShow.Location = new System.Drawing.Point(202, 98);
             this.btnShow.Name = "btnShow";
-            this.btnShow.Size = new System.Drawing.Size(115, 23);
+            this.btnShow.Size = new System.Drawing.Size(37, 23);
             this.btnShow.TabIndex = 3;
-            this.btnShow.Text = "*Show Password";
             this.btnShow.UseVisualStyleBackColor = true;
             this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
             this.btnShow.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnShow_MouseDown);

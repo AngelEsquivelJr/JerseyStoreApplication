@@ -62,7 +62,7 @@ namespace FinalProject
             this.label3.Location = new System.Drawing.Point(6, 41);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(99, 21);
-            this.label3.TabIndex = 2;
+            this.label3.TabIndex = 10;
             this.label3.Text = "Username";
             // 
             // label4
@@ -72,7 +72,7 @@ namespace FinalProject
             this.label4.Location = new System.Drawing.Point(5, 349);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(140, 21);
-            this.label4.TabIndex = 3;
+            this.label4.TabIndex = 14;
             this.label4.Text = "New Password";
             // 
             // tbxUsername
@@ -83,7 +83,7 @@ namespace FinalProject
             this.tbxUsername.Multiline = true;
             this.tbxUsername.Name = "tbxUsername";
             this.tbxUsername.Size = new System.Drawing.Size(190, 26);
-            this.tbxUsername.TabIndex = 0;
+            this.tbxUsername.TabIndex = 1;
             this.tbxUsername.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxUsername_KeyPress);
             // 
             // tbxPassword
@@ -95,7 +95,7 @@ namespace FinalProject
             this.tbxPassword.PasswordChar = '*';
             this.tbxPassword.ReadOnly = true;
             this.tbxPassword.Size = new System.Drawing.Size(190, 30);
-            this.tbxPassword.TabIndex = 5;
+            this.tbxPassword.TabIndex = 6;
             // 
             // label5
             // 
@@ -104,7 +104,7 @@ namespace FinalProject
             this.label5.Location = new System.Drawing.Point(344, 349);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(172, 21);
-            this.label5.TabIndex = 6;
+            this.label5.TabIndex = 15;
             this.label5.Text = "Confirm Password";
             // 
             // tbxPassTwo
@@ -116,7 +116,7 @@ namespace FinalProject
             this.tbxPassTwo.PasswordChar = '*';
             this.tbxPassTwo.ReadOnly = true;
             this.tbxPassTwo.Size = new System.Drawing.Size(190, 30);
-            this.tbxPassTwo.TabIndex = 7;
+            this.tbxPassTwo.TabIndex = 8;
             // 
             // btnCancel
             // 
@@ -166,18 +166,18 @@ namespace FinalProject
             this.gbxOne.Location = new System.Drawing.Point(12, 12);
             this.gbxOne.Name = "gbxOne";
             this.gbxOne.Size = new System.Drawing.Size(719, 414);
-            this.gbxOne.TabIndex = 104;
+            this.gbxOne.TabIndex = 0;
             this.gbxOne.TabStop = false;
-            this.gbxOne.Text = "Enter your Username first and then Anwer Your Security Questions";
+            this.gbxOne.Text = "Enter your Username first and then Answer Your Security Questions";
             // 
             // btnUpdate
             // 
             this.btnUpdate.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpdate.Location = new System.Drawing.Point(326, 36);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(121, 32);
-            this.btnUpdate.TabIndex = 1;
-            this.btnUpdate.Text = "&Update Form";
+            this.btnUpdate.Size = new System.Drawing.Size(130, 32);
+            this.btnUpdate.TabIndex = 2;
+            this.btnUpdate.Text = "&Find Username";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
@@ -186,11 +186,11 @@ namespace FinalProject
             this.btnShowTwo.FlatAppearance.BorderColor = System.Drawing.Color.LightCyan;
             this.btnShowTwo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowTwo.Font = new System.Drawing.Font("Rockwell", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShowTwo.Image = global::FinalProject.Properties.Resources.showPassEye;
             this.btnShowTwo.Location = new System.Drawing.Point(522, 385);
             this.btnShowTwo.Name = "btnShowTwo";
-            this.btnShowTwo.Size = new System.Drawing.Size(115, 23);
-            this.btnShowTwo.TabIndex = 8;
-            this.btnShowTwo.Text = "*Show Password";
+            this.btnShowTwo.Size = new System.Drawing.Size(47, 23);
+            this.btnShowTwo.TabIndex = 9;
             this.btnShowTwo.UseVisualStyleBackColor = true;
             this.btnShowTwo.Click += new System.EventHandler(this.btnShowTwo_Click);
             // 
@@ -199,11 +199,11 @@ namespace FinalProject
             this.btnShow.FlatAppearance.BorderColor = System.Drawing.Color.LightCyan;
             this.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShow.Font = new System.Drawing.Font("Rockwell", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShow.Image = global::FinalProject.Properties.Resources.showPassEye;
             this.btnShow.Location = new System.Drawing.Point(146, 385);
             this.btnShow.Name = "btnShow";
-            this.btnShow.Size = new System.Drawing.Size(115, 23);
-            this.btnShow.TabIndex = 6;
-            this.btnShow.Text = "*Show Password";
+            this.btnShow.Size = new System.Drawing.Size(47, 23);
+            this.btnShow.TabIndex = 7;
             this.btnShow.UseVisualStyleBackColor = true;
             this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
             // 
@@ -213,7 +213,7 @@ namespace FinalProject
             this.label6.Location = new System.Drawing.Point(82, 253);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(23, 19);
-            this.label6.TabIndex = 16;
+            this.label6.TabIndex = 13;
             this.label6.Text = "3:";
             // 
             // label2
@@ -222,7 +222,7 @@ namespace FinalProject
             this.label2.Location = new System.Drawing.Point(82, 176);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(23, 19);
-            this.label2.TabIndex = 15;
+            this.label2.TabIndex = 12;
             this.label2.Text = "2:";
             // 
             // label1
@@ -231,7 +231,7 @@ namespace FinalProject
             this.label1.Location = new System.Drawing.Point(82, 99);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(23, 19);
-            this.label1.TabIndex = 14;
+            this.label1.TabIndex = 11;
             this.label1.Text = "1:";
             // 
             // tbxAnswerThree
@@ -239,7 +239,7 @@ namespace FinalProject
             this.tbxAnswerThree.Location = new System.Drawing.Point(106, 285);
             this.tbxAnswerThree.Name = "tbxAnswerThree";
             this.tbxAnswerThree.Size = new System.Drawing.Size(506, 26);
-            this.tbxAnswerThree.TabIndex = 4;
+            this.tbxAnswerThree.TabIndex = 5;
             this.tbxAnswerThree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAnswerThree_KeyPress);
             // 
             // tbxAnswerTwo
@@ -247,7 +247,7 @@ namespace FinalProject
             this.tbxAnswerTwo.Location = new System.Drawing.Point(106, 208);
             this.tbxAnswerTwo.Name = "tbxAnswerTwo";
             this.tbxAnswerTwo.Size = new System.Drawing.Size(506, 26);
-            this.tbxAnswerTwo.TabIndex = 3;
+            this.tbxAnswerTwo.TabIndex = 4;
             this.tbxAnswerTwo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAnswerTwo_KeyPress);
             // 
             // tbxAnswerOne
@@ -255,7 +255,7 @@ namespace FinalProject
             this.tbxAnswerOne.Location = new System.Drawing.Point(106, 131);
             this.tbxAnswerOne.Name = "tbxAnswerOne";
             this.tbxAnswerOne.Size = new System.Drawing.Size(506, 26);
-            this.tbxAnswerOne.TabIndex = 2;
+            this.tbxAnswerOne.TabIndex = 3;
             this.tbxAnswerOne.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAnswerOne_KeyPress);
             // 
             // tbxQuestionThree
@@ -267,7 +267,7 @@ namespace FinalProject
             this.tbxQuestionThree.Name = "tbxQuestionThree";
             this.tbxQuestionThree.ReadOnly = true;
             this.tbxQuestionThree.Size = new System.Drawing.Size(506, 26);
-            this.tbxQuestionThree.TabIndex = 10;
+            this.tbxQuestionThree.TabIndex = 0;
             this.tbxQuestionThree.TabStop = false;
             // 
             // tbxQuestionTwo
@@ -279,7 +279,7 @@ namespace FinalProject
             this.tbxQuestionTwo.Name = "tbxQuestionTwo";
             this.tbxQuestionTwo.ReadOnly = true;
             this.tbxQuestionTwo.Size = new System.Drawing.Size(506, 26);
-            this.tbxQuestionTwo.TabIndex = 9;
+            this.tbxQuestionTwo.TabIndex = 17;
             this.tbxQuestionTwo.TabStop = false;
             // 
             // tbxQuestionOne
@@ -291,7 +291,7 @@ namespace FinalProject
             this.tbxQuestionOne.Name = "tbxQuestionOne";
             this.tbxQuestionOne.ReadOnly = true;
             this.tbxQuestionOne.Size = new System.Drawing.Size(506, 26);
-            this.tbxQuestionOne.TabIndex = 8;
+            this.tbxQuestionOne.TabIndex = 16;
             this.tbxQuestionOne.TabStop = false;
             // 
             // btnHelp

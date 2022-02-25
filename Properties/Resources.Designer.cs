@@ -61,11 +61,31 @@ namespace FinalProject.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap showPassEye {
+            get {
+                object obj = ResourceManager.GetObject("showPassEye", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 2022.01.01.
         /// </summary>
         internal static string TSTCVersionNumber {
             get {
                 return ResourceManager.GetString("TSTCVersionNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap unshowPassEye {
+            get {
+                object obj = ResourceManager.GetObject("unshowPassEye", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
