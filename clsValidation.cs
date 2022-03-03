@@ -475,8 +475,6 @@ namespace FinalProject
                 {
                     MessageBox.Show("Missing one or more required fields.", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    MessageBox.Show("Questions are a required field.", "Question Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
                 else

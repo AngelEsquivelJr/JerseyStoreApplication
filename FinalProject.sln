@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalProject", "FinalProject.csproj", "{F70EBD24-52AE-435B-B376-4356C2B95D57}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AE Sporting Fits", "..\AE Sporting Fits\AE Sporting Fits.vdproj", "{3D2C3E2F-9EF7-4B57-A4A9-15C2D8952097}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AE Sporting Fits", "..\AE Sporting Fits\AE Sporting Fits.vdproj", "{D86649C9-150C-4B36-90BC-6CE9F288BA92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{F70EBD24-52AE-435B-B376-4356C2B95D57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F70EBD24-52AE-435B-B376-4356C2B95D57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F70EBD24-52AE-435B-B376-4356C2B95D57}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3D2C3E2F-9EF7-4B57-A4A9-15C2D8952097}.Debug|Any CPU.ActiveCfg = Debug
-		{3D2C3E2F-9EF7-4B57-A4A9-15C2D8952097}.Release|Any CPU.ActiveCfg = Release
+		{D86649C9-150C-4B36-90BC-6CE9F288BA92}.Debug|Any CPU.ActiveCfg = Debug
+		{D86649C9-150C-4B36-90BC-6CE9F288BA92}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

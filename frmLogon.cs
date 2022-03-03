@@ -104,10 +104,10 @@ namespace FinalProject
                     btnShow.Image = Image.FromFile(pathUnShow);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //error for no image
-                MessageBox.Show("Show password error. " + ex, "Error",
+                MessageBox.Show("Show password error. ", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -140,20 +140,8 @@ namespace FinalProject
 
         private void btnHelp_Click(object sender, EventArgs e)
         {
-            //get path of pdf
-            string path = Path.GetFullPath(@"HelpFiles\LoginHelpFinals.pdf");
-
-            try
-            {        
-                //open with default process
-                System.Diagnostics.Process.Start(path);
-            }
-            catch(Exception ex)
-            {
-                //error for no file
-                MessageBox.Show("Help file was not found. " + ex, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //call clsHelp method to open help file
+            clsHelp.OpenHelp("LoginHelpFinals.pdf");
         }
 
         private void tbxUsername_TextChanged(object sender, EventArgs e)

@@ -45,15 +45,8 @@ namespace FinalProject
             }
             else
             {
-                //informs user of form exit
-                DialogResult drResult = MessageBox.Show("Returning to login. ",
-                  "Returning", MessageBoxButtons.OK, MessageBoxIcon.Question);
-                switch (drResult)
-                {
-                    case DialogResult.OK:
-                        frmLogin.Show();
-                        break;
-                }
+                //return to login
+                frmLogin.Show();
             }
         }
 
@@ -227,10 +220,10 @@ namespace FinalProject
                     btnShow.Image = Image.FromFile(pathUnShow);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //error for no image
-                MessageBox.Show("Show password error. " + ex, "Error",
+                MessageBox.Show("Show password error. ", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -286,20 +279,8 @@ namespace FinalProject
 
         private void btnHelp_Click(object sender, EventArgs e)
         {
-            //get path of pdf
-            string path = Path.GetFullPath(@"HelpFiles\LoginHelpFinals.pdf");
-
-            try
-            {
-                //open with default process
-                System.Diagnostics.Process.Start(path);
-            }
-            catch (Exception ex)
-            {
-                //error for no file
-                MessageBox.Show("Help file was not found. " + ex, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //call clsHelp method to open help file
+            clsHelp.OpenHelp("SignUpHelpFinals.pdf");
         }
 
         private void tbxEmailInput_TextChanged(object sender, EventArgs e)

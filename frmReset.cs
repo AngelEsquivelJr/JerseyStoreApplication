@@ -34,7 +34,7 @@ namespace FinalProject
 
         private void frmReset_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (string.IsNullOrEmpty(tbxPassTwo.Text) || string.IsNullOrEmpty(tbxQuestionOne.Text))
+            if (string.IsNullOrEmpty(tbxPassTwo.Text) || string.IsNullOrEmpty(tbxQuestionOne.Text) || string.IsNullOrEmpty(tbxAnswerTwo.Text))
             {
                 //asks user for confirmation of exit and returns to previous form
                 DialogResult drResult = MessageBox.Show("Are you sure you want to exit the password reset? ",
@@ -51,15 +51,8 @@ namespace FinalProject
             }
             else
             {
-                //informs user of form exit
-                DialogResult drResult = MessageBox.Show("Returning to login. ",
-                  "Returning", MessageBoxButtons.OK, MessageBoxIcon.Question);
-                switch (drResult)
-                {
-                    case DialogResult.OK:
-                        frmLogin.Show();
-                        break;
-                }
+                //return to login
+                frmLogin.Show();
             }
         }
 
@@ -131,10 +124,10 @@ namespace FinalProject
                     btnShowTwo.Image = Image.FromFile(pathUnShow);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //error for no image
-                MessageBox.Show("Show password error. " + ex, "Error",
+                MessageBox.Show("Show password error. ", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -170,20 +163,8 @@ namespace FinalProject
 
         private void btnHelp_Click(object sender, EventArgs e)
         {
-            //get path of pdf
-            string path = Path.GetFullPath(@"HelpFiles\ResetHelpFinals.pdf");
-
-            try
-            {
-                //open with default process
-                System.Diagnostics.Process.Start(path);
-            }
-            catch (Exception ex)
-            {
-                //error for no file
-                MessageBox.Show("Help file was not found. " + ex, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //call clsHelp method to open help file
+            clsHelp.OpenHelp("ResetHelpFinals.pdf");            
         }
     }
 }
