@@ -35,8 +35,9 @@ namespace FinalProject
         internal static void UsernameAllowedKeys(KeyPressEventArgs e)
         {
             //allow letters,digits only
+            //A¶@123456
             //allow backspace to work
-            if (char.IsLetterOrDigit(e.KeyChar) || char.IsControl(e.KeyChar) )
+            if (char.IsLetterOrDigit(e.KeyChar) || char.IsControl(e.KeyChar))
             {
                 e.Handled = false;
             }
@@ -54,7 +55,7 @@ namespace FinalProject
             bool bolHasSpecial = false;
             bool bolHasSpaces = false;
             string strSpace = " ";
-            string strAllowedKeys = @"()!@#$%^&*`~-_=+{}[]:;,<.>?/'\|";
+            string strDisallowedKeys = @"()!@#$%^&*`¶¤§~-_=+{}£¥[]¢:;,<.>?¿/'µ\|±‡©®þ";
 
             //space characters
             foreach (char chLetter in strUsername)
@@ -83,7 +84,7 @@ namespace FinalProject
             }
 
             //check first character for digit
-            if(Char.IsDigit(strUsername[0]))
+            if (Char.IsDigit(strUsername[0]))
             {
                 MessageBox.Show("Username cannot start with a number.", "Username Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -97,7 +98,7 @@ namespace FinalProject
             //special characters
             foreach (char chLetter in strUsername)
             {
-                if (strAllowedKeys.Contains(chLetter.ToString()))
+                if (strDisallowedKeys.Contains(chLetter.ToString()))
                     bolHasSpecial = true;
             }
 
@@ -142,7 +143,7 @@ namespace FinalProject
             bool bolHasDisallowed = false;
             bool bolHasSpaces = false;
             string strAllowedKeys = "()!@#$%^&*";
-            string strDisallowed = @"`~-_=+{}[]:;,<.>?/'\|";
+            string strDisallowed = @"`¶¤§~-_=+{}£¥[]¢:;,<.>?¿/'µ\|±‡©®þ";
             string strSpace = " ";
 
             //disallowed characters
@@ -203,7 +204,7 @@ namespace FinalProject
             }
 
             if (bolHasSpecial)
-                intComplextiyCtr++;            
+                intComplextiyCtr++;
 
             //if complexity is greater than or equal to 4 it returns true
             if (intComplextiyCtr >= 4)
@@ -236,9 +237,12 @@ namespace FinalProject
         //method for address validation
         internal static void AddressAllowedKeys(KeyPressEventArgs e)
         {
+            string strAllowedKeys = "/-:";
+
             //allow letters and numbers only
             //allow backspace and space to work
-            if (char.IsLetterOrDigit(e.KeyChar) || char.IsControl(e.KeyChar) || char.IsWhiteSpace(e.KeyChar))
+            if (char.IsLetterOrDigit(e.KeyChar) || char.IsControl(e.KeyChar) || char.IsWhiteSpace(e.KeyChar) ||
+                strAllowedKeys.Contains(e.KeyChar.ToString()))
             {
                 e.Handled = false;
             }
@@ -267,16 +271,19 @@ namespace FinalProject
                 {
                     return false;
                 }
-                    
+
             }
         }
 
         //method for city validation
         internal static void CityAllowedKeys(KeyPressEventArgs e)
         {
+            string strAllowedKeys = "-";
+
             //allow letters only
             //allow backspace and space to work
-            if (char.IsLetter(e.KeyChar) || char.IsControl(e.KeyChar) || char.IsWhiteSpace(e.KeyChar))
+            if (char.IsLetter(e.KeyChar) || char.IsControl(e.KeyChar) || char.IsWhiteSpace(e.KeyChar) ||
+                strAllowedKeys.Contains(e.KeyChar.ToString()))
             {
                 e.Handled = false;
             }
@@ -375,7 +382,7 @@ namespace FinalProject
             //allow numbers only
             //allow dashes only
             //allow backspace to work
-            if (char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar) || 
+            if (char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar) ||
                 strAllowedKeys.Contains(e.KeyChar.ToString()))
             {
                 e.Handled = false;
@@ -419,7 +426,7 @@ namespace FinalProject
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
-                }                
+                }
             }
         }
 
@@ -446,7 +453,7 @@ namespace FinalProject
                 MessageBox.Show("Answers are a required field.", "Answer Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
-            }         
+            }
             else
             {
                 if (SpaceCheck(ansOne) || SpaceCheck(ansTwo) || SpaceCheck(ansThr))
@@ -497,31 +504,36 @@ namespace FinalProject
             }
         }
 
-        //using regex
-        internal static bool EmailValidation(string strEmail)
-        {                  
-            string strPattern = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-zA-Z]{2,4}[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
-
-            Regex regex = new Regex(strPattern);
-
-            if (regex.IsMatch(strEmail))
-            {
-                return regex.IsMatch(strEmail);
-            }
-            else
-            {
-                MessageBox.Show("The email address that was entered is invalid. Please try again.", "Email Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-        }
-
         //method for required field
         internal static bool CheckEmailExist(string strEmail)
         {
             if (string.IsNullOrEmpty(strEmail))
             {
                 return false;
+            }
+            else
+                return true;
+        }
+
+        //using regex
+        internal static bool EmailValidation(string strEmail)
+        {
+            if (CheckEmailExist(strEmail))
+            {
+                string strPattern = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-zA-Z]{2,4}[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+
+                Regex regex = new Regex(strPattern);
+
+                if (regex.IsMatch(strEmail))
+                {
+                    return regex.IsMatch(strEmail);
+                }
+                else
+                {
+                    MessageBox.Show("The email address that was entered is invalid. Please try again.", "Email Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
             }
             else
                 return true;
@@ -549,7 +561,7 @@ namespace FinalProject
             if (string.IsNullOrEmpty(strFName))
             {
                 MessageBox.Show("Missing one or more required fields.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);                
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else if (string.IsNullOrEmpty(strLName))
@@ -576,13 +588,13 @@ namespace FinalProject
                     return false;
                 }
             }
-                
+
         }
 
         //methods for all required fields
         internal static bool RequiredFields(string strNameF, string strNameL, string strAddress, string strCity, string strState)
         {
-            if(NameValidation(strNameF, strNameL))
+            if (NameValidation(strNameF, strNameL))
             {
                 if (AddressValidation(strAddress))
                 {
@@ -630,33 +642,35 @@ namespace FinalProject
         }
 
         //method for calling all validations for signing up
-        internal static bool Validate(StringParams stParams)
+        internal static bool Validate(StringParams strParams)
         {
-            //check email
-            if (CheckEmailExist(stParams.strEmail) == false)
+            //check required fields
+            if (RequiredFields(strParams.strNameF, strParams.strNameL, strParams.strAddress, strParams.strCity, strParams.strState))
             {
-                //check required fields
-                if (RequiredFields(stParams.strNameF, stParams.strNameL, stParams.strAddress, stParams.strCity, stParams.strState))
+                //check zip code
+                if (ZipCodeValidation(strParams.strZipCode))
                 {
-                    //check zip code
-                    if (ZipCodeValidation(stParams.strZipCode))
+                    //check phones
+                    if (PhoneValidation(strParams.strPhone))
                     {
-                        //check phones
-                        if (PhoneValidation(stParams.strPhone))
+                        if (PhoneValidation(strParams.strPhone2))
                         {
-                            if (PhoneValidation(stParams.strPhone2))
+                            //check email
+                            if (EmailValidation(strParams.strEmail))
                             {
                                 //check username
-                                if (UsernameValidation(stParams.strUsername))
+                                if (UsernameValidation(strParams.strUsername))
                                 {
                                     //check password
-                                    if (PasswordValidation(stParams.strPassword))
+                                    if (PasswordValidation(strParams.strPassword))
                                     {
                                         //check required fields
-                                        if (RequiredFieldsTwo(stParams.strQues1, stParams.strQues2, stParams.strQues3, stParams.strAns1, stParams.strAns2, stParams.strAns3))
+                                        if (RequiredFieldsTwo(strParams.strQues1, strParams.strQues2, strParams.strQues3, strParams.strAns1, strParams.strAns2, strParams.strAns3))
                                         {
                                             return true;
                                         }
+                                        else
+                                            return false;
                                     }
                                     else
                                         return false;
@@ -677,59 +691,10 @@ namespace FinalProject
                     return false;
             }
             else
-            {
-                //check required fields
-                if (RequiredFields(stParams.strNameF, stParams.strNameL, stParams.strAddress, stParams.strCity, stParams.strState))
-                {
-                    //check zip code
-                    if (ZipCodeValidation(stParams.strZipCode))
-                    {
-                        //check phones
-                        if (PhoneValidation(stParams.strPhone))
-                        {
-                            if (PhoneValidation(stParams.strPhone2))
-                            {
-                                //check email
-                                if (EmailValidation(stParams.strEmail))
-                                {
-                                    //check username
-                                    if (UsernameValidation(stParams.strUsername))
-                                    {
-                                        //check password
-                                        if (PasswordValidation(stParams.strPassword))
-                                        {
-                                            //check required fields
-                                            if (RequiredFieldsTwo(stParams.strQues1, stParams.strQues2, stParams.strQues3, stParams.strAns1, stParams.strAns2, stParams.strAns3))
-                                            {
-                                                return true;
-                                            }
-                                            else
-                                                return false;
-                                        }
-                                        else
-                                            return false;
-                                    }
-                                    else
-                                        return false;
-                                }
-                                else
-                                    return false;
+                return false;
 
-                            }
-                            else
-                                return false;
-                        }
-                        else
-                            return false;
-                    }
-                    else
-                        return false;
-                }
-                else
-                    return false;
-            }
-            return false;
+
         }
 
-    }    
+    }
 }

@@ -77,8 +77,8 @@ namespace FinalProject
         private void btnShow_Click(object sender, EventArgs e)
         {
             //get path of images
-            string pathShow = Path.GetFullPath(@"Resources\showPassEye.png");
-            string pathUnShow = Path.GetFullPath(@"Resources\unshowPassEye.png");
+            string strShow = Path.GetFullPath(@"Resources\showPassEye.png");
+            string strUnshow = Path.GetFullPath(@"Resources\unshowPassEye.png");
 
             try
             {
@@ -86,13 +86,13 @@ namespace FinalProject
                 if (tbxPassword.PasswordChar == (char)0)
                 {
                     tbxPassword.PasswordChar = '*';
-                    btnShow.Image = Image.FromFile(pathShow);
+                    btnShow.Image = Image.FromFile(strShow);
 
                 }
                 else
                 {
                     tbxPassword.PasswordChar = (char)0;
-                    btnShow.Image = Image.FromFile(pathUnShow);
+                    btnShow.Image = Image.FromFile(strUnshow);
                 }
             }
             catch (Exception ex)
@@ -106,8 +106,8 @@ namespace FinalProject
         private void btnShowTwo_Click(object sender, EventArgs e)
         {
             //get path of images
-            string pathShow = Path.GetFullPath(@"Resources\showPassEye.png");
-            string pathUnShow = Path.GetFullPath(@"Resources\unshowPassEye.png");
+            string strShow = Path.GetFullPath(@"Resources\showPassEye.png");
+            string strUnshow = Path.GetFullPath(@"Resources\unshowPassEye.png");
 
             try
             {
@@ -115,13 +115,13 @@ namespace FinalProject
                 if (tbxPassTwo.PasswordChar == (char)0)
                 {
                     tbxPassTwo.PasswordChar = '*';
-                    btnShowTwo.Image = Image.FromFile(pathShow);
+                    btnShowTwo.Image = Image.FromFile(strShow);
 
                 }
                 else
                 {
                     tbxPassTwo.PasswordChar = (char)0;
-                    btnShowTwo.Image = Image.FromFile(pathUnShow);
+                    btnShowTwo.Image = Image.FromFile(strUnshow);
                 }
             }
             catch (Exception)
@@ -142,7 +142,7 @@ namespace FinalProject
             tbxAnswerThree.Clear();
             //set focus to first text box
             //enable password fields
-            if(tbxUsername.ReadOnly == true)
+            if (tbxUsername.ReadOnly == true)
             {
                 tbxAnswerOne.Focus();
                 tbxPassword.ReadOnly = false;
@@ -152,7 +152,7 @@ namespace FinalProject
             {
                 tbxUsername.Focus();
             }
-            
+
         }
 
         private void tbxUsername_KeyPress(object sender, KeyPressEventArgs e)
@@ -164,7 +164,7 @@ namespace FinalProject
         private void btnHelp_Click(object sender, EventArgs e)
         {
             //call clsHelp method to open help file
-            clsHelp.OpenHelp("ResetHelpFinals.pdf");            
+            clsHelp.OpenHelp("ResetHelp.pdf");
         }
     }
 }

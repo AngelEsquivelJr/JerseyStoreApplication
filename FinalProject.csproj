@@ -129,13 +129,13 @@
     <None Include="Course Design Guides\Design Guide - Classroom Program Requirements and Naming Standards%28Final Project%29%282021-03-26%29.pdf" />
     <None Include="Course Design Guides\Notes" />
     <None Include="Course Design Guides\Prefixes%282021-03-26%29.pdf" />
-    <None Include="HelpFiles\LoginHelpFinals.pdf">
+    <None Include="HelpFiles\LoginHelp.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HelpFiles\ResetHelpFinals.pdf">
+    <None Include="HelpFiles\ResetHelp.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HelpFiles\SignUpHelpFinals.pdf">
+    <None Include="HelpFiles\SignUpHelp.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="inew2332sp22DataSet.xsc">

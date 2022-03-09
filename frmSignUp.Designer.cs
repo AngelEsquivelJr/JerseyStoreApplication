@@ -65,21 +65,21 @@ namespace FinalProject
             this.tbxEmailInput = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.gbxOne = new System.Windows.Forms.GroupBox();
-            this.cbxTitle = new System.Windows.Forms.ComboBox();
             this.cbxState = new System.Windows.Forms.ComboBox();
+            this.cbxTitle = new System.Windows.Forms.ComboBox();
             this.gbxTwo = new System.Windows.Forms.GroupBox();
-            this.btnShow = new System.Windows.Forms.Button();
             this.tbxAnswerThree = new System.Windows.Forms.TextBox();
+            this.btnShow = new System.Windows.Forms.Button();
             this.tbxAnswerTwo = new System.Windows.Forms.TextBox();
-            this.tbxAnswerOne = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
+            this.tbxAnswerOne = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.cbxSecurityThree = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
             this.cbxSecurityTwo = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.cbxSecurityOne = new System.Windows.Forms.ComboBox();
             this.securityQuestionsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.inew2332sp22TableDataSet = new FinalProject.inew2332sp22TableDataSet();
@@ -409,7 +409,6 @@ namespace FinalProject
             this.tbxPassword.PasswordChar = '*';
             this.tbxPassword.Size = new System.Drawing.Size(327, 26);
             this.tbxPassword.TabIndex = 2;
-            this.tbxPassword.TextChanged += new System.EventHandler(this.tbxPassword_TextChanged);
             this.tbxPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPassword_KeyPress);
             // 
             // label2
@@ -430,18 +429,17 @@ namespace FinalProject
             this.tbxEmailInput.Name = "tbxEmailInput";
             this.tbxEmailInput.Size = new System.Drawing.Size(327, 26);
             this.tbxEmailInput.TabIndex = 0;
-            this.tbxEmailInput.TextChanged += new System.EventHandler(this.tbxEmailInput_TextChanged);
             this.tbxEmailInput.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxEmailInput_KeyPress);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(20, 21);
+            this.label1.Location = new System.Drawing.Point(22, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 19);
+            this.label1.Size = new System.Drawing.Size(115, 19);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Email";
+            this.label1.Text = "Email Address";
             // 
             // gbxOne
             // 
@@ -476,24 +474,6 @@ namespace FinalProject
             this.gbxOne.Size = new System.Drawing.Size(357, 556);
             this.gbxOne.TabIndex = 0;
             this.gbxOne.TabStop = false;
-            // 
-            // cbxTitle
-            // 
-            this.cbxTitle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxTitle.FormattingEnabled = true;
-            this.cbxTitle.Items.AddRange(new object[] {
-            "Mr",
-            "Mrs",
-            "Miss",
-            "Ms",
-            "Sir",
-            "Dr",
-            "Lady",
-            "Lord"});
-            this.cbxTitle.Location = new System.Drawing.Point(21, 44);
-            this.cbxTitle.Name = "cbxTitle";
-            this.cbxTitle.Size = new System.Drawing.Size(121, 21);
-            this.cbxTitle.TabIndex = 1;
             // 
             // cbxState
             // 
@@ -555,6 +535,24 @@ namespace FinalProject
             this.cbxState.Size = new System.Drawing.Size(125, 21);
             this.cbxState.TabIndex = 10;
             // 
+            // cbxTitle
+            // 
+            this.cbxTitle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxTitle.FormattingEnabled = true;
+            this.cbxTitle.Items.AddRange(new object[] {
+            "Mr",
+            "Mrs",
+            "Miss",
+            "Ms",
+            "Sir",
+            "Dr",
+            "Lady",
+            "Lord"});
+            this.cbxTitle.Location = new System.Drawing.Point(21, 44);
+            this.cbxTitle.Name = "cbxTitle";
+            this.cbxTitle.Size = new System.Drawing.Size(121, 21);
+            this.cbxTitle.TabIndex = 1;
+            // 
             // gbxTwo
             // 
             this.gbxTwo.Controls.Add(this.tbxAnswerThree);
@@ -582,6 +580,17 @@ namespace FinalProject
             this.gbxTwo.TabIndex = 1;
             this.gbxTwo.TabStop = false;
             // 
+            // tbxAnswerThree
+            // 
+            this.tbxAnswerThree.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxAnswerThree.Location = new System.Drawing.Point(95, 503);
+            this.tbxAnswerThree.MaxLength = 20;
+            this.tbxAnswerThree.Multiline = true;
+            this.tbxAnswerThree.Name = "tbxAnswerThree";
+            this.tbxAnswerThree.Size = new System.Drawing.Size(254, 24);
+            this.tbxAnswerThree.TabIndex = 9;
+            this.tbxAnswerThree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAnswerThree_KeyPress);
+            // 
             // btnShow
             // 
             this.btnShow.FlatAppearance.BorderColor = System.Drawing.Color.LightCyan;
@@ -595,17 +604,6 @@ namespace FinalProject
             this.btnShow.UseVisualStyleBackColor = true;
             this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
             // 
-            // tbxAnswerThree
-            // 
-            this.tbxAnswerThree.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxAnswerThree.Location = new System.Drawing.Point(95, 503);
-            this.tbxAnswerThree.MaxLength = 20;
-            this.tbxAnswerThree.Multiline = true;
-            this.tbxAnswerThree.Name = "tbxAnswerThree";
-            this.tbxAnswerThree.Size = new System.Drawing.Size(254, 24);
-            this.tbxAnswerThree.TabIndex = 9;
-            this.tbxAnswerThree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAnswerThree_KeyPress);
-            // 
             // tbxAnswerTwo
             // 
             this.tbxAnswerTwo.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -616,6 +614,16 @@ namespace FinalProject
             this.tbxAnswerTwo.Size = new System.Drawing.Size(254, 24);
             this.tbxAnswerTwo.TabIndex = 7;
             this.tbxAnswerTwo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAnswerTwo_KeyPress);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(22, 506);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(77, 19);
+            this.label23.TabIndex = 8;
+            this.label23.Text = "*Answer:";
             // 
             // tbxAnswerOne
             // 
@@ -628,16 +636,6 @@ namespace FinalProject
             this.tbxAnswerOne.TabIndex = 5;
             this.tbxAnswerOne.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAnswerOne_KeyPress);
             // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(18, 506);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(77, 19);
-            this.label23.TabIndex = 8;
-            this.label23.Text = "*Answer:";
-            // 
             // label22
             // 
             this.label22.AutoSize = true;
@@ -647,16 +645,6 @@ namespace FinalProject
             this.label22.Size = new System.Drawing.Size(77, 19);
             this.label22.TabIndex = 7;
             this.label22.Text = "*Answer:";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(18, 301);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(77, 19);
-            this.label21.TabIndex = 6;
-            this.label21.Text = "*Answer:";
             // 
             // label20
             // 
@@ -668,6 +656,15 @@ namespace FinalProject
             this.label20.TabIndex = 2;
             this.label20.Text = "*Security Question 3:";
             // 
+            // cbxSecurityThree
+            // 
+            this.cbxSecurityThree.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxSecurityThree.FormattingEnabled = true;
+            this.cbxSecurityThree.Location = new System.Drawing.Point(22, 465);
+            this.cbxSecurityThree.Name = "cbxSecurityThree";
+            this.cbxSecurityThree.Size = new System.Drawing.Size(327, 21);
+            this.cbxSecurityThree.TabIndex = 8;
+            // 
             // label19
             // 
             this.label19.AutoSize = true;
@@ -678,24 +675,15 @@ namespace FinalProject
             this.label19.TabIndex = 1;
             this.label19.Text = "*Security Question 2:";
             // 
-            // label6
+            // label21
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(20, 233);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(164, 19);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "*Security Question 1:";
-            // 
-            // cbxSecurityThree
-            // 
-            this.cbxSecurityThree.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxSecurityThree.FormattingEnabled = true;
-            this.cbxSecurityThree.Location = new System.Drawing.Point(22, 465);
-            this.cbxSecurityThree.Name = "cbxSecurityThree";
-            this.cbxSecurityThree.Size = new System.Drawing.Size(327, 21);
-            this.cbxSecurityThree.TabIndex = 8;
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(18, 301);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(77, 19);
+            this.label21.TabIndex = 6;
+            this.label21.Text = "*Answer:";
             // 
             // cbxSecurityTwo
             // 
@@ -705,6 +693,16 @@ namespace FinalProject
             this.cbxSecurityTwo.Name = "cbxSecurityTwo";
             this.cbxSecurityTwo.Size = new System.Drawing.Size(327, 21);
             this.cbxSecurityTwo.TabIndex = 6;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(20, 233);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(164, 19);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "*Security Question 1:";
             // 
             // cbxSecurityOne
             // 

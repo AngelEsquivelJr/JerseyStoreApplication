@@ -138,11 +138,6 @@ namespace FinalProject
             clsValidation.UsernameAllowedKeys(e);
         }
 
-        private void tbxPassword_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
         private void tbxPassword_KeyPress(object sender, KeyPressEventArgs e)
         {
             //validation method for allowed keys
@@ -202,8 +197,8 @@ namespace FinalProject
         private void btnShow_Click(object sender, EventArgs e)
         {
             //get path of images
-            string pathShow = Path.GetFullPath(@"Resources\showPassEye.png");
-            string pathUnShow = Path.GetFullPath(@"Resources\unshowPassEye.png");
+            string strShow = Path.GetFullPath(@"Resources\showPassEye.png");
+            string strUnShow = Path.GetFullPath(@"Resources\unshowPassEye.png");
 
             try
             {
@@ -211,13 +206,13 @@ namespace FinalProject
                 if (tbxPassword.PasswordChar == (char)0)
                 {
                     tbxPassword.PasswordChar = '*';
-                    btnShow.Image = Image.FromFile(pathShow);
+                    btnShow.Image = Image.FromFile(strShow);
 
                 }
                 else
                 {
                     tbxPassword.PasswordChar = (char)0;
-                    btnShow.Image = Image.FromFile(pathUnShow);
+                    btnShow.Image = Image.FromFile(strUnShow);
                 }
             }
             catch (Exception)
@@ -247,7 +242,7 @@ namespace FinalProject
             //if statement to allow access to other textboxes
             if (string.IsNullOrEmpty(tbxAddress1.Text) == false)
             {
-                tbxAddress2.ReadOnly = false;                
+                tbxAddress2.ReadOnly = false;
             }
             else
             {
@@ -280,12 +275,7 @@ namespace FinalProject
         private void btnHelp_Click(object sender, EventArgs e)
         {
             //call clsHelp method to open help file
-            clsHelp.OpenHelp("SignUpHelpFinals.pdf");
-        }
-
-        private void tbxEmailInput_TextChanged(object sender, EventArgs e)
-        {
-
+            clsHelp.OpenHelp("SignUpHelp.pdf");
         }
     }
 }

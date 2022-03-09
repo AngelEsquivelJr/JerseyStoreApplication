@@ -66,7 +66,7 @@ namespace FinalProject
         }
 
         //method to fill comboboxes
-        internal static void FillCombo(ComboBox cbxQuestion1, ComboBox cbxQuestion2, ComboBox cbxQuestion3)        
+        internal static void FillCombo(ComboBox cbxQuestion1, ComboBox cbxQuestion2, ComboBox cbxQuestion3)
         {
             OpenDatabase();
             //commands for data
@@ -137,26 +137,30 @@ namespace FinalProject
         {
 
             //var for question id and person id
-            int questID1 = 0;
-            int questID2 = 0;
-            int questID3 = 0;
-            int personID = 0;
+            int intID1 = 0;
+            int intID2 = 0;
+            int intID3 = 0;
+            int intPersonID = 0;
+
+            bool bolID1;
+            bool bolID2;
+            bool bolID3;
 
             //string commands to create user
-            string sqlquery = "INSERT INTO " + strSchema + ".Person (Title, NameFirst, NameMiddle, NameLast, Suffix, Address1, Address2," +
+            string strSqlQuery = "INSERT INTO " + strSchema + ".Person (Title, NameFirst, NameMiddle, NameLast, Suffix, Address1, Address2," +
                 " Address3, City, Zipcode, State, Email, PhonePrimary, PhoneSecondary) VALUES (@Title, @NameFirst, @NameMiddle, @NameLast, @Suffix," +
                 " @Address1, @Address2, @Address3, @City, @Zipcode, @State, @Email, @PhonePrimary, @PhoneSecondary)";
-            string sqlquery2 = "INSERT INTO " + strSchema + ".Logon (PersonID, LogonName, Password, FirstChallengeQuestion, FirstChallengeAnswer," +
+            string strSqlQuery2 = "INSERT INTO " + strSchema + ".Logon (PersonID, LogonName, Password, FirstChallengeQuestion, FirstChallengeAnswer," +
                 " SecondChallengeQuestion, SecondChallengeAnswer, ThirdChallengeQuestion, ThirdChallengeAnswer, PositionTitle) VALUES (@PersonID, @LogonName," +
                 " @Password, @FirstChallengeQuestion, @FirstChallengeAnswer, @SecondChallengeQuestion, @SecondChallengeAnswer, @ThirdChallengeQuestion," +
                 " @ThirdChallengeAnswer, 'Customer')";
-            string sqlquery3 = "SELECT PersonID, NameFirst FROM " + strSchema + ".Person where NameFirst = @NameFirst;";
-            string sqlquery4 = "SELECT LogonName FROM " + strSchema + ".Logon where LogonName = @LogonName;";
+            string strSqlQuery3 = "SELECT PersonID, NameFirst FROM " + strSchema + ".Person where NameFirst = @NameFirst;";
+            string strSqlQuery4 = "SELECT LogonName FROM " + strSchema + ".Logon where LogonName = @LogonName;";
 
             //set proper set id to question id var
-            questID1 = (int)bxParams.cSecQuest1.SelectedValue;
-            questID2 = (int)bxParams.cSecQuest2.SelectedValue;
-            questID3 = (int)bxParams.cSecQuest3.SelectedValue;
+            bolID1 = int.TryParse(bxParams.cSecQuest1.SelectedValue.ToString(), out intID1);
+            bolID2 = int.TryParse(bxParams.cSecQuest2.SelectedValue.ToString(), out intID2);
+            bolID3 = int.TryParse(bxParams.cSecQuest3.SelectedValue.ToString(), out intID3);
 
             OpenDatabase();
 
@@ -164,7 +168,7 @@ namespace FinalProject
             {
 
                 //command query for logon name
-                SqlCommand cmd4 = new SqlCommand(sqlquery4, _cntDatabase);
+                SqlCommand cmd4 = new SqlCommand(strSqlQuery4, _cntDatabase);
                 cmd4.Parameters.AddWithValue("@LogonName", bxParams.tUser.Text);
                 SqlDataReader rd4 = cmd4.ExecuteReader();
 
@@ -193,7 +197,7 @@ namespace FinalProject
                 }
 
                 //sets up querys to insert user data
-                SqlCommand cmd = new SqlCommand(sqlquery, _cntDatabase);
+                SqlCommand cmd = new SqlCommand(strSqlQuery, _cntDatabase);
                 cmd.Parameters.AddWithValue("@Title", bxParams.cTitle.Text.Trim());
                 cmd.Parameters.AddWithValue("@NameFirst", bxParams.tFirstN.Text.Trim());
                 cmd.Parameters.AddWithValue("@NameMiddle", bxParams.tMiddleN.Text.Trim());
@@ -214,7 +218,7 @@ namespace FinalProject
                 rd.Close();
 
                 //command query for personId
-                SqlCommand cmd3 = new SqlCommand(sqlquery3, _cntDatabase);
+                SqlCommand cmd3 = new SqlCommand(strSqlQuery3, _cntDatabase);
                 cmd3.Parameters.AddWithValue("@NameFirst", bxParams.tFirstN.Text);
                 SqlDataReader rd3 = cmd3.ExecuteReader();
 
@@ -225,7 +229,7 @@ namespace FinalProject
                     string strPersonID = rd3.GetValue(0).ToString();
                     string strName = rd3.GetValue(1).ToString();
                     //set string to int var
-                    personID = int.Parse(strPersonID);
+                    intPersonID = int.Parse(strPersonID);
                     //close reader
                     rd3.Close();
                 }
@@ -237,22 +241,22 @@ namespace FinalProject
                     CloseDatabase();
                     return false;
                 }
-                
+
 
                 //insert data to logon
-                SqlCommand cmd2 = new SqlCommand(sqlquery2, _cntDatabase);
-                cmd2.Parameters.AddWithValue("@PersonID", personID);
+                SqlCommand cmd2 = new SqlCommand(strSqlQuery2, _cntDatabase);
+                cmd2.Parameters.AddWithValue("@PersonID", intPersonID);
                 cmd2.Parameters.AddWithValue("@LogonName", bxParams.tUser.Text.Trim());
                 cmd2.Parameters.AddWithValue("@Password", bxParams.tPassword.Text.Trim());
-                cmd2.Parameters.AddWithValue("@FirstChallengeQuestion", questID1);
+                cmd2.Parameters.AddWithValue("@FirstChallengeQuestion", intID1);
                 cmd2.Parameters.AddWithValue("@FirstChallengeAnswer", bxParams.tAnswer1.Text.Trim());
-                cmd2.Parameters.AddWithValue("@SecondChallengeQuestion", questID2);
+                cmd2.Parameters.AddWithValue("@SecondChallengeQuestion", intID2);
                 cmd2.Parameters.AddWithValue("@SecondChallengeAnswer", bxParams.tAnswer2.Text.Trim());
-                cmd2.Parameters.AddWithValue("@ThirdChallengeQuestion", questID3);
+                cmd2.Parameters.AddWithValue("@ThirdChallengeQuestion", intID3);
                 cmd2.Parameters.AddWithValue("@ThirdChallengeAnswer", bxParams.tAnswer3.Text.Trim());
 
                 //executes querys and closes reader
-                SqlDataReader rd2 = cmd2.ExecuteReader();                
+                SqlDataReader rd2 = cmd2.ExecuteReader();
                 rd2.Close();
 
 
@@ -261,7 +265,8 @@ namespace FinalProject
                 //return successful attempt
                 return true;
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 InsertDataFail(ex);
                 return false;
@@ -276,12 +281,12 @@ namespace FinalProject
             OpenDatabase();
 
             //string command for logon table
-            string sqlquery = "SELECT LogonName, Password, PositionTitle FROM " + strSchema + ".Logon " +
+            string strSqlQuery = "SELECT LogonName, Password, PositionTitle FROM " + strSchema + ".Logon " +
                 "WHERE LogonName = @LogonName";
             try
             {
                 //command query
-                SqlCommand cmd = new SqlCommand(sqlquery, _cntDatabase);
+                SqlCommand cmd = new SqlCommand(strSqlQuery, _cntDatabase);
                 cmd.Parameters.AddWithValue("@LogonName", tbxUsername.Text);
                 SqlDataReader rd = cmd.ExecuteReader();
 
@@ -354,18 +359,18 @@ namespace FinalProject
             try
             {
                 //string command for logon table
-                string sqlquery = "SELECT LogonName, Q1.QuestionPrompt, Q2.QuestionPrompt, Q3.QuestionPrompt FROM " + strSchema +
+                string strSqlQuery = "SELECT LogonName, Q1.QuestionPrompt, Q2.QuestionPrompt, Q3.QuestionPrompt FROM " + strSchema +
                     ".Logon L FULL JOIN " + strSchema + ".SecurityQuestions Q1 ON L.FirstChallengeQuestion = Q1.QuestionID" +
                     " FULL JOIN " + strSchema + ".SecurityQuestions Q2 ON L.SecondChallengeQuestion = Q2.QuestionID" +
                     " FULL JOIN " + strSchema + ".SecurityQuestions Q3 ON L.ThirdChallengeQuestion = Q3.QuestionID" +
                     " WHERE LogonName = @LogonName";
 
                 //command query
-                SqlCommand cmd = new SqlCommand(sqlquery, _cntDatabase);
+                SqlCommand cmd = new SqlCommand(strSqlQuery, _cntDatabase);
                 cmd.Parameters.AddWithValue("@LogonName", tbxUsername.Text);
                 SqlDataReader rd = cmd.ExecuteReader();
 
-                if(rd.Read())
+                if (rd.Read())
                 {
                     //string for returned values
                     string strUsername = rd.GetValue(0).ToString();
@@ -407,29 +412,30 @@ namespace FinalProject
                     rd.Close();
                     CloseDatabase();
                     return false;
-                }                
-                
-            } catch (Exception ex)
+                }
+
+            }
+            catch (Exception ex)
             {
                 UpdateDataFail(ex);
                 CloseDatabase();
                 return false;
             }
-            
+
         }
 
         //method to write new data from reset form
         internal static bool WriteResetData(TextBox tbxUser, TextBox tbxAns1, TextBox tbxAns2, TextBox tbxAns3, TextBox tbxPassOne, TextBox tbxPassTwo)
-        {            
+        {
             //string commands to create new password
-            string sqlquery = "SELECT LogonName, Password, FirstChallengeAnswer, SecondChallengeAnswer, ThirdChallengeAnswer FROM " + strSchema + ".Logon" +
-                " WHERE LogonName = @LogonName";            
+            string strSqlQuery = "SELECT LogonName, Password, FirstChallengeAnswer, SecondChallengeAnswer, ThirdChallengeAnswer FROM " + strSchema + ".Logon" +
+                " WHERE LogonName = @LogonName";
 
             OpenDatabase();
             try
             {
                 //command query
-                SqlCommand cmd = new SqlCommand(sqlquery, _cntDatabase);
+                SqlCommand cmd = new SqlCommand(strSqlQuery, _cntDatabase);
                 cmd.Parameters.AddWithValue("@LogonName", tbxUser.Text);
                 SqlDataReader rd = cmd.ExecuteReader();
 
@@ -521,7 +527,7 @@ namespace FinalProject
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 InsertDataFail(ex);
                 CloseDatabase();
