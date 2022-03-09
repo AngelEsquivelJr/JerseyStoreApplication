@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="inew2332sp22DataSet" targetNamespace="http://tempuri.org/inew2332sp22DataSet.xsd" xmlns:mstns="http://tempuri.org/inew2332sp22DataSet.xsd" xmlns="http://tempuri.org/inew2332sp22DataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="inew2332sp22ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="inew2332sp22ConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.FinalProject.Properties.Settings.GlobalReference.Default.inew2332sp22ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="SecurityQuestionsTableAdapter" GeneratorDataComponentClassName="SecurityQuestionsTableAdapter" Name="SecurityQuestions" UserDataComponentName="SecurityQuestionsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="inew2332sp22ConnectionString (Settings)" DbObjectName="inew2332sp22.EsquivelA22Sp2332.SecurityQuestions" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT QuestionPrompt FROM EsquivelA22Sp2332.SecurityQuestions</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="QuestionPrompt" DataSetColumn="QuestionPrompt" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="inew2332sp22ConnectionString (Settings)" DbObjectName="inew2332sp22.EsquivelA22Sp2332.SecurityQuestions" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT QuestionPrompt FROM EsquivelA22Sp2332.SecurityQuestions WHERE SetID = 1</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="inew2332sp22DataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="inew2332sp22DataSet" msprop:Generator_UserDSName="inew2332sp22DataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="SecurityQuestions" msprop:Generator_TableClassName="SecurityQuestionsDataTable" msprop:Generator_TableVarName="tableSecurityQuestions" msprop:Generator_RowChangedName="SecurityQuestionsRowChanged" msprop:Generator_TablePropName="SecurityQuestions" msprop:Generator_RowDeletingName="SecurityQuestionsRowDeleting" msprop:Generator_RowChangingName="SecurityQuestionsRowChanging" msprop:Generator_RowEvHandlerName="SecurityQuestionsRowChangeEventHandler" msprop:Generator_RowDeletedName="SecurityQuestionsRowDeleted" msprop:Generator_RowClassName="SecurityQuestionsRow" msprop:Generator_UserTableName="SecurityQuestions" msprop:Generator_RowEvArgName="SecurityQuestionsRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="QuestionPrompt" msprop:Generator_ColumnVarNameInTable="columnQuestionPrompt" msprop:Generator_ColumnPropNameInRow="QuestionPrompt" msprop:Generator_ColumnPropNameInTable="QuestionPromptColumn" msprop:Generator_UserColumnName="QuestionPrompt">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

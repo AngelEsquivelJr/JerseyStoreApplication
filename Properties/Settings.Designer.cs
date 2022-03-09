@@ -22,5 +22,16 @@ namespace FinalProject.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=cstnt.tstc.edu;Initial Catalog=inew2332sp22;Persist Security Info=Tru" +
+            "e;User ID=EsquivelA22Sp2332;Password=Ae1758192")]
+        public string inew2332sp22ConnectionString {
+            get {
+                return ((string)(this["inew2332sp22ConnectionString"]));
+            }
+        }
     }
 }
