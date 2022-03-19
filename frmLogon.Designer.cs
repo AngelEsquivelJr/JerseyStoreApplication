@@ -41,6 +41,7 @@ namespace FinalProject
             this.tbxUsername = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.gbxOne = new System.Windows.Forms.GroupBox();
+            this.llbBrowse = new System.Windows.Forms.LinkLabel();
             this.gbxOne.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -164,6 +165,7 @@ namespace FinalProject
             // 
             // gbxOne
             // 
+            this.gbxOne.Controls.Add(this.llbBrowse);
             this.gbxOne.Controls.Add(this.tbxUsername);
             this.gbxOne.Controls.Add(this.tbxPassword);
             this.gbxOne.Controls.Add(this.btnShow);
@@ -176,6 +178,20 @@ namespace FinalProject
             this.gbxOne.Size = new System.Drawing.Size(443, 167);
             this.gbxOne.TabIndex = 0;
             this.gbxOne.TabStop = false;
+            // 
+            // llbBrowse
+            // 
+            this.llbBrowse.ActiveLinkColor = System.Drawing.Color.PaleGreen;
+            this.llbBrowse.AutoSize = true;
+            this.llbBrowse.Font = new System.Drawing.Font("Rockwell", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.llbBrowse.LinkColor = System.Drawing.SystemColors.ControlText;
+            this.llbBrowse.Location = new System.Drawing.Point(6, 134);
+            this.llbBrowse.Name = "llbBrowse";
+            this.llbBrowse.Size = new System.Drawing.Size(141, 17);
+            this.llbBrowse.TabIndex = 7;
+            this.llbBrowse.TabStop = true;
+            this.llbBrowse.Text = "Browse As A Guest";
+            this.llbBrowse.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llbBrowse_LinkClicked);
             // 
             // frmLogon
             // 
@@ -219,6 +235,7 @@ namespace FinalProject
         private System.Windows.Forms.TextBox tbxUsername;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox gbxOne;
+        private System.Windows.Forms.LinkLabel llbBrowse;
     }
 }
 

@@ -1,4 +1,15 @@
-﻿using System;
+﻿//*******************************************
+//*******************************************
+// Programmer: Angel Esquivel
+// Course: INEW 2332.7Z1 (Final Project)
+// Program Description:
+// Application used to browse and buy jerseys.
+// Form Purpose:
+// This form is used to create an account for the application.
+// 
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -165,30 +176,30 @@ namespace FinalProject
         private void btnSignUp_Click(object sender, EventArgs e)
         {
             //set up parameters
-            clsLogon.BoxParams bxParams = new clsLogon.BoxParams();
+            clsLogon.LogonParams bxParams = new clsLogon.LogonParams();
 
-            bxParams.cTitle = cbxTitle;
-            bxParams.tFirstN = tbxFirstName;
-            bxParams.tMiddleN = tbxMiddleName;
-            bxParams.tLastN = tbxLastName;
-            bxParams.tSuffix = tbxSuffix;
-            bxParams.tCity = tbxCity;
-            bxParams.tAddress1 = tbxAddress1;
-            bxParams.tAddress2 = tbxAddress2;
-            bxParams.tAddress3 = tbxAddress3;
-            bxParams.tPhone1 = tbxPhoneOne;
-            bxParams.tPhone2 = tbxPhoneTwo;
-            bxParams.cState = cbxState;
-            bxParams.tEmail = tbxEmailInput;
-            bxParams.tZipcode = tbxZipcode;
-            bxParams.tUser = tbxUsername;
-            bxParams.tPassword = tbxPassword;
-            bxParams.cSecQuest1 = cbxSecurityOne;
-            bxParams.cSecQuest2 = cbxSecurityTwo;
-            bxParams.cSecQuest3 = cbxSecurityThree;
-            bxParams.tAnswer1 = tbxAnswerOne;
-            bxParams.tAnswer2 = tbxAnswerTwo;
-            bxParams.tAnswer3 = tbxAnswerThree;
+            bxParams.cbxTitle = cbxTitle;
+            bxParams.tbxFirstName = tbxFirstName;
+            bxParams.tbxMiddleName = tbxMiddleName;
+            bxParams.tbxLastName = tbxLastName;
+            bxParams.tbxSuffix = tbxSuffix;
+            bxParams.tbxCity = tbxCity;
+            bxParams.tbxAddress1 = tbxAddress1;
+            bxParams.tbxAddress2 = tbxAddress2;
+            bxParams.tbxAddress3 = tbxAddress3;
+            bxParams.tbxPhone1 = tbxPhoneOne;
+            bxParams.tbxPhone2 = tbxPhoneTwo;
+            bxParams.cbxState = cbxState;
+            bxParams.tbxEmail = tbxEmailInput;
+            bxParams.tbxZipcode = tbxZipcode;
+            bxParams.tbxUser = tbxUsername;
+            bxParams.tbxPassword = tbxPassword;
+            bxParams.cbxSecQuest1 = cbxSecurityOne;
+            bxParams.cbxSecQuest2 = cbxSecurityTwo;
+            bxParams.cbxSecQuest3 = cbxSecurityThree;
+            bxParams.tbxAnswer1 = tbxAnswerOne;
+            bxParams.tbxAnswer2 = tbxAnswerTwo;
+            bxParams.tbxAnswer3 = tbxAnswerThree;
 
             //clsLogon method for signing up
             clsLogon.SignUp(bxParams, frmLogin, this);
@@ -269,7 +280,8 @@ namespace FinalProject
 
         private void frmSignUp_Load(object sender, EventArgs e)
         {
-            clsSQL.FillCombo(cbxSecurityOne, cbxSecurityTwo, cbxSecurityThree);
+            //sql method to fill combos
+            clsSQL.FillQuestionCombo(cbxSecurityOne, cbxSecurityTwo, cbxSecurityThree);
         }
 
         private void btnHelp_Click(object sender, EventArgs e)

@@ -554,6 +554,111 @@ namespace FinalProject
                 e.Handled = false;
             }
         }
+        //methods for Credit Card Validation
+        internal static void CardAllowedKeys(KeyPressEventArgs e)
+        {
+            string strAllowedKeys = "-";
+
+            //allow numbers only
+            //allow dashes only
+            //allow backspace to work
+            if (char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar) ||
+                strAllowedKeys.Contains(e.KeyChar.ToString()))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+
+        }
+        //methods for Expiration Validation
+        internal static void ExpirationAllowedKeys(KeyPressEventArgs e)
+        {
+            string strAllowedKeys = "/";
+
+            //allow numbers only
+            //allow slashes only
+            //allow backspace to work
+            if (char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar) ||
+                strAllowedKeys.Contains(e.KeyChar.ToString()))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        //methods for CCV Validation
+        internal static void CCVAllowedKeys(KeyPressEventArgs e)
+        {
+
+            //allow numbers only
+            //allow backspace to work
+            if (char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        //full card info validation
+        internal static bool CardInfoValidation(string strCardNumber, string strExpiry, string strCcv)
+        {
+            var cardCheck = new Regex(@"^[1-9][0-9]{3}-[1-3]{4}-[0-9]{4}-[0-9]{4}$");
+            var monthCheck = new Regex(@"^(0[1-9]|1[0-2])$");
+            var yearCheck = new Regex(@"^20[0-9]{2}$");
+            var ccvCheck = new Regex(@"^\d{3}$");
+
+            //check card number
+            if (!cardCheck.IsMatch(strCardNumber))
+            {
+                MessageBox.Show("The card number that was entered is invalid. Please try again.", "Card Number Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            //check ccv
+            if (!ccvCheck.IsMatch(strCcv))
+            {
+                MessageBox.Show("The card verification number that was entered is invalid. Please try again.", "CCV Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            //set expiration date as mm/yyyy
+            var dateParts = strExpiry.Split('/');
+            if (!monthCheck.IsMatch(dateParts[0]) || !yearCheck.IsMatch(dateParts[1]))
+            {
+                MessageBox.Show("The expiration date that was entered is invalid. Please try again.", "Expiration Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            //vars for date
+            int.TryParse(dateParts[1], out var year);
+            int.TryParse(dateParts[0], out var month);
+            //get expiration date
+            var lastDateOfExpiryMonth = DateTime.DaysInMonth(year, month);
+            var cardExpiry = new DateTime(year, month, lastDateOfExpiryMonth, 23, 59, 59);
+
+            //check expiry greater than today & within next 5 years
+            if (cardExpiry > DateTime.Now && cardExpiry < DateTime.Now.AddYears(5))
+            {
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("The expiration date that was entered is invalid. Please try again.", "Expiration Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
 
         //method for required field
         internal static bool NameValidation(string strFName, string strLName)
@@ -637,15 +742,15 @@ namespace FinalProject
         public struct StringParams
         {
             public string strUsername, strPassword, strAddress, strCity, strState, strZipCode, strPhone, strPhone2;
-            public string strQues1, strQues2, strQues3, strAns1, strAns2, strAns3;
-            public string strNameF, strNameL, strEmail;
+            public string strQuestion1, strQuestion2, strQuestion3, strAnswer1, strAnswer2, strAnswer3;
+            public string strNameFirst, strNameLast, strEmail;
         }
 
         //method for calling all validations for signing up
         internal static bool Validate(StringParams strParams)
         {
             //check required fields
-            if (RequiredFields(strParams.strNameF, strParams.strNameL, strParams.strAddress, strParams.strCity, strParams.strState))
+            if (RequiredFields(strParams.strNameFirst, strParams.strNameLast, strParams.strAddress, strParams.strCity, strParams.strState))
             {
                 //check zip code
                 if (ZipCodeValidation(strParams.strZipCode))
@@ -665,7 +770,7 @@ namespace FinalProject
                                     if (PasswordValidation(strParams.strPassword))
                                     {
                                         //check required fields
-                                        if (RequiredFieldsTwo(strParams.strQues1, strParams.strQues2, strParams.strQues3, strParams.strAns1, strParams.strAns2, strParams.strAns3))
+                                        if (RequiredFieldsTwo(strParams.strQuestion1, strParams.strQuestion2, strParams.strQuestion3, strParams.strAnswer1, strParams.strAnswer2, strParams.strAnswer3))
                                         {
                                             return true;
                                         }

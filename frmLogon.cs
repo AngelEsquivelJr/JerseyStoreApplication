@@ -35,7 +35,7 @@ namespace FinalProject
 
         private void tbxUsername_Click(object sender, EventArgs e)
         {
-            //clears textbox text
+            //clears username text
             if (tbxUsername.Text == "Username")
             {
                 tbxUsername.Clear();
@@ -141,6 +141,13 @@ namespace FinalProject
         {
             //make text proper color
             tbxPassword.ForeColor = Color.Black;
+        }
+
+        private void llbBrowse_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //open main form and hide login form
+            frmMain.Show();
+            this.Hide();
         }
     }
 }

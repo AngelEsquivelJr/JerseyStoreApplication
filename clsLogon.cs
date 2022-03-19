@@ -26,66 +26,66 @@ namespace FinalProject
     {
 
         //structure for holding textbox and combobox parameters
-        public struct BoxParams
+        public struct LogonParams
         {
-            public ComboBox cTitle, cState, cSecQuest1, cSecQuest2, cSecQuest3;
+            public ComboBox cbxTitle, cbxState, cbxSecQuest1, cbxSecQuest2, cbxSecQuest3;
 
-            public TextBox tFirstN, tMiddleN, tLastN, tSuffix, tAddress1, tAddress2, tAddress3, tCity, tZipcode, tEmail, tPhone1, tPhone2, tAnswer1, tAnswer2, tAnswer3, tUser, tPassword;
+            public TextBox tbxFirstName, tbxMiddleName, tbxLastName, tbxSuffix, tbxAddress1, tbxAddress2, tbxAddress3, tbxCity, tbxZipcode, tbxEmail, tbxPhone1, tbxPhone2, tbxAnswer1, tbxAnswer2, tbxAnswer3, tbxUser, tbxPassword;
         }
 
         //method for signing up
-        internal static void SignUp(BoxParams bxParams, frmLogon frmLogon, frmSignUp frmSignup)
+        internal static void SignUp(LogonParams logonParams, frmLogon frmLogon, frmSignUp frmSignup)
         {
             //set values from validation parameters
-            clsValidation.StringParams stParams = new clsValidation.StringParams();
-            clsSQL.SQLBoxParams sqlParams = new clsSQL.SQLBoxParams();
+            clsValidation.StringParams strParams = new clsValidation.StringParams();
+            clsSQL.ParametersSQL boxParams = new clsSQL.ParametersSQL();
 
-            stParams.strNameF = bxParams.tFirstN.Text;
-            stParams.strNameL = bxParams.tLastN.Text;
-            stParams.strCity = bxParams.tCity.Text;
-            stParams.strAddress = bxParams.tAddress1.Text;
-            stParams.strPhone = bxParams.tPhone1.Text;
-            stParams.strPhone2 = bxParams.tPhone2.Text;
-            stParams.strState = bxParams.cState.Text;
-            stParams.strEmail = bxParams.tEmail.Text;
-            stParams.strZipCode = bxParams.tZipcode.Text;
-            stParams.strUsername = bxParams.tUser.Text;
-            stParams.strPassword = bxParams.tPassword.Text;
-            stParams.strQues1 = bxParams.cSecQuest1.Text;
-            stParams.strQues2 = bxParams.cSecQuest2.Text;
-            stParams.strQues3 = bxParams.cSecQuest3.Text;
-            stParams.strAns1 = bxParams.tAnswer1.Text;
-            stParams.strAns2 = bxParams.tAnswer2.Text;
-            stParams.strAns3 = bxParams.tAnswer3.Text;
+            strParams.strNameFirst = logonParams.tbxFirstName.Text;
+            strParams.strNameLast = logonParams.tbxLastName.Text;
+            strParams.strCity = logonParams.tbxCity.Text;
+            strParams.strAddress = logonParams.tbxAddress1.Text;
+            strParams.strPhone = logonParams.tbxPhone1.Text;
+            strParams.strPhone2 = logonParams.tbxPhone2.Text;
+            strParams.strState = logonParams.cbxState.Text;
+            strParams.strEmail = logonParams.tbxEmail.Text;
+            strParams.strZipCode = logonParams.tbxZipcode.Text;
+            strParams.strUsername = logonParams.tbxUser.Text;
+            strParams.strPassword = logonParams.tbxPassword.Text;
+            strParams.strQuestion1 = logonParams.cbxSecQuest1.Text;
+            strParams.strQuestion2 = logonParams.cbxSecQuest2.Text;
+            strParams.strQuestion3 = logonParams.cbxSecQuest3.Text;
+            strParams.strAnswer1 = logonParams.tbxAnswer1.Text;
+            strParams.strAnswer2 = logonParams.tbxAnswer2.Text;
+            strParams.strAnswer3 = logonParams.tbxAnswer3.Text;
 
-            sqlParams.cTitle = bxParams.cTitle;
-            sqlParams.tFirstN = bxParams.tFirstN;
-            sqlParams.tMiddleN = bxParams.tMiddleN;
-            sqlParams.tLastN = bxParams.tLastN;
-            sqlParams.tSuffix = bxParams.tSuffix;
-            sqlParams.tCity = bxParams.tCity;
-            sqlParams.tAddress1 = bxParams.tAddress1;
-            sqlParams.tAddress2 = bxParams.tAddress2;
-            sqlParams.tAddress3 = bxParams.tAddress3;
-            sqlParams.tPhone1 = bxParams.tPhone1;
-            sqlParams.tPhone2 = bxParams.tPhone2;
-            sqlParams.cState = bxParams.cState;
-            sqlParams.tEmail = bxParams.tEmail;
-            sqlParams.tZipcode = bxParams.tZipcode;
-            sqlParams.tUser = bxParams.tUser;
-            sqlParams.tPassword = bxParams.tPassword;
-            sqlParams.cSecQuest1 = bxParams.cSecQuest1;
-            sqlParams.cSecQuest2 = bxParams.cSecQuest2;
-            sqlParams.cSecQuest3 = bxParams.cSecQuest3;
-            sqlParams.tAnswer1 = bxParams.tAnswer1;
-            sqlParams.tAnswer2 = bxParams.tAnswer2;
-            sqlParams.tAnswer3 = bxParams.tAnswer3;
+            boxParams.cbxTitle = logonParams.cbxTitle;
+            boxParams.tbxFirstName = logonParams.tbxFirstName;
+            boxParams.tbxMiddleName = logonParams.tbxMiddleName;
+            boxParams.tbxLastName = logonParams.tbxLastName;
+            boxParams.tbxSuffix = logonParams.tbxSuffix;
+            boxParams.tbxCity = logonParams.tbxCity;
+            boxParams.tbxAddress1 = logonParams.tbxAddress1;
+            boxParams.tbxAddress2 = logonParams.tbxAddress2;
+            boxParams.tbxAddress3 = logonParams.tbxAddress3;
+            boxParams.tbxPhone1 = logonParams.tbxPhone1;
+            boxParams.tbxPhone2 = logonParams.tbxPhone2;
+            boxParams.cbxState = logonParams.cbxState;
+            boxParams.tbxEmail = logonParams.tbxEmail;
+            boxParams.tbxZipcode = logonParams.tbxZipcode;
+            boxParams.tbxUser = logonParams.tbxUser;
+            boxParams.tbxPassword = logonParams.tbxPassword;
+            boxParams.cbxSecQuestion1 = logonParams.cbxSecQuest1;
+            boxParams.cbxSecQuestion2 = logonParams.cbxSecQuest2;
+            boxParams.cbxSecQuestion3 = logonParams.cbxSecQuest3;
+            boxParams.tbxAnswer1 = logonParams.tbxAnswer1;
+            boxParams.tbxAnswer2 = logonParams.tbxAnswer2;
+            boxParams.tbxAnswer3 = logonParams.tbxAnswer3;
 
             //call proper clsValidation method for validation
-            if (clsValidation.Validate(stParams))
+            if (clsValidation.Validate(strParams))
             {
                 //call clsSql method for logging in
-                if(clsSQL.WriteLoginData(sqlParams))
+                if(clsSQL.WriteLoginData(boxParams))
                 {
                     //message for success and returns to login form
                     MessageBox.Show("Account Created Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -110,9 +110,9 @@ namespace FinalProject
                     //check credentials
                     if (clsSQL.ReadLoginData(tbxUser, tbxPass))
                     {
-                        //if credentials are true succesfully login
-                        //main.Show();
-                        //logon.Hide();
+                        //if credentials are true successfully login
+                        main.Show();
+                        logon.Hide();
                     }
                 }
             }
