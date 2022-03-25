@@ -26,10 +26,12 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace FinalProject
@@ -373,17 +375,17 @@ namespace FinalProject
                     " WHERE LogonName = @LogonName";
 
                 //command query
-                SqlCommand cmd = new SqlCommand(strSelectQuery, _cntDatabase);
-                cmd.Parameters.AddWithValue("@LogonName", tbxUsername.Text);
-                SqlDataReader rd = cmd.ExecuteReader();
+                SqlCommand cmdUpdate = new SqlCommand(strSelectQuery, _cntDatabase);
+                cmdUpdate.Parameters.AddWithValue("@LogonName", tbxUsername.Text);
+                SqlDataReader rdUpdate = cmdUpdate.ExecuteReader();
 
-                if (rd.Read())
+                if (rdUpdate.Read())
                 {
                     //string for returned values
-                    string strUsername = rd.GetValue(0).ToString();
-                    string strQuestion1 = rd.GetValue(1).ToString();
-                    string strQuestion2 = rd.GetValue(2).ToString();
-                    string strQuestion3 = rd.GetValue(3).ToString();
+                    string strUsername = rdUpdate.GetValue(0).ToString();
+                    string strQuestion1 = rdUpdate.GetValue(1).ToString();
+                    string strQuestion2 = rdUpdate.GetValue(2).ToString();
+                    string strQuestion3 = rdUpdate.GetValue(3).ToString();
 
                     //if username is the same
                     //make sure its not case sensitive
@@ -416,7 +418,7 @@ namespace FinalProject
                 {
                     //error for not finding username
                     MessageBox.Show("Could not find matching Username. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    rd.Close();
+                    rdUpdate.Close();
                     CloseDatabase();
                     return false;
                 }
@@ -554,49 +556,34 @@ namespace FinalProject
         //method to set images from database
         internal static void ImageInventory(DataGridView dgvInventory)
         {
-            //make command and byte var
-            SqlCommand imgCommand = null;
+            //make byte var
             byte[] imageData = null;
             Int32 intWidth = 140;
 
             try
             {
-                //query for images
-                string strImageQuery = "SELECT ItemImage from " + strSchema + ".Inventory";
-                imgCommand = new SqlCommand(strImageQuery, _cntDatabase);
                 //close previous connections and open new one
                 CloseDatabase();
                 OpenDatabase();
+                
+                for (int i = 0; i < dgvInventory.Rows.Count; i++)
+                {                    
+                    //set image to byte and use temporary image
+                    imageData = (byte[])_dtInventoryTable.Rows[i]["Image"];
+                    Image tmpImage = Image.FromStream(new MemoryStream(imageData));
+                    //scale image and set resized image
+                    double dblScaleImg = (double)intWidth / (double)tmpImage.Width;
+                    Graphics tmpGraphics = default(Graphics);
+                    Bitmap tmpResizedImage = new Bitmap(Convert.ToInt32(dblScaleImg * tmpImage.Width), Convert.ToInt32(dblScaleImg * tmpImage.Height));
+                    tmpGraphics = Graphics.FromImage(tmpResizedImage);
+                    tmpGraphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+                    tmpGraphics.DrawImage(tmpImage, 0, 0, tmpResizedImage.Width + 1, tmpResizedImage.Height + 1);
+                    Image imgOut = tmpResizedImage;
 
-                //create reader and open reader
-                SqlDataReader rdImage = imgCommand.ExecuteReader();
-                if(rdImage.HasRows)
-                {                                        
-                    while (rdImage.Read())
-                    {
-                        //set image to byte and use temporary image
-                        imageData = (byte[])rdImage[0];
-                        Image tmpImage = Image.FromStream(new MemoryStream(imageData));
-                        //scale image and set resized image
-                        double dblScaleImg = (double)intWidth / (double)tmpImage.Width;
-                        Graphics tmpGraphics = default(Graphics);
-                        Bitmap tmpResizedImage = new Bitmap(Convert.ToInt32(dblScaleImg * tmpImage.Width), Convert.ToInt32(dblScaleImg * tmpImage.Height));
-                        tmpGraphics = Graphics.FromImage(tmpResizedImage);
-                        tmpGraphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
-                        tmpGraphics.DrawImage(tmpImage, 0, 0, tmpResizedImage.Width + 1, tmpResizedImage.Height + 1);
-                        Image imgOut = tmpResizedImage;                        
-
-                        for (int i = 0; i < dgvInventory.Rows.Count; i++)
-                        {                                                                                                                    
-                                //add image to data grid view
-                                dgvInventory.Rows[i].Cells[0].Value = imgOut;
-                        }                        
-                    }                  
+                    //add image to data grid view
+                    dgvInventory.Rows[i].Cells[0].Value = imgOut;
                 }
-
-                //close reader and close database
-                rdImage.Close();
-                CloseDatabase();                
+                CloseDatabase();
             }
             catch(Exception ex)
             {
@@ -608,6 +595,7 @@ namespace FinalProject
         //method to format and bind data grid view
         internal static void BindInventoryView(DataGridView dgvInventory)
         {
+            //clear inventory
             dgvInventory.Rows.Clear();
             //set command object to null
             _sqlInventoryCommand = null;
@@ -617,7 +605,7 @@ namespace FinalProject
             _dtInventoryTable = new DataTable();
 
             //string query
-            string strDGVQuery = "Select ItemName as 'Name', RetailPrice as 'Price', Size, Quantity, ItemDescription as 'Description', Color, T.TeamSport as 'Sport' from " + strSchema + ".Inventory I INNER JOIN " +
+            string strDGVQuery = "Select ItemImage as 'Image', ItemName as 'Name', RetailPrice as 'Price', Size, Quantity, ItemDescription as 'Description', Color, T.TeamSport as 'Sport', InventoryID as 'ID' from " + strSchema + ".Inventory I INNER JOIN " +
                 strSchema + ".Teams T ON I.TeamID = T.TeamID";
 
             //set command object to null
@@ -634,9 +622,25 @@ namespace FinalProject
 
             (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = "";
         }
-        internal static void FormatInventoryView(DataGridView dgvInventory)
-        {            
+        internal static void FormatCartView(DataGridView dgvCart)
+        {
+            //format data grid view
+            foreach (DataGridViewRow row in dgvCart.Rows)
+            {
+                row.Height = 50;              
+            }
 
+            for (int i = 0; i < dgvCart.ColumnCount; i++)
+            {
+                dgvCart.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dgvCart.AutoResizeColumns();
+                dgvCart.AllowUserToAddRows = false;
+                dgvCart.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dgvCart.Columns[i].DefaultCellStyle.Font = new Font("Rockwell", 9F, FontStyle.Bold);
+            }
+        }
+        internal static void FormatInventoryView(DataGridView dgvInventory)
+        {
             //format data grid view
             foreach (DataGridViewRow row in dgvInventory.Rows)
             {
@@ -666,19 +670,19 @@ namespace FinalProject
                 BindInventoryView(dgvInventory);
 
                 //setup image column
-                DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();                
+                DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();
                 imageColumn.HeaderText = "Item Image";
                 dgvInventory.Columns.Insert(0, imageColumn);
 
                 //setup image
                 ImageInventory(dgvInventory);
+                dgvInventory.Columns.Remove("Image");
 
                 //format view
                 FormatInventoryView(dgvInventory);
 
                 //close database
                 CloseDatabase();
-
             }
             catch (Exception ex)
             {
@@ -694,32 +698,610 @@ namespace FinalProject
             CloseDatabase();
         }
 
+        //list vars for cart and checkout
+        public static List<string> strCart = new List<string>();
+        public static List<string> strNames = new List<string>();
+        public static List<double> dblPrice = new List<double>();
+        public static List<string> strPrice = new List<string>();
+        public static List<string> strQuantity = new List<string>();
+        public static List<string> strTotal = new List<string>();
+        public static List<double> dblCartPrice = new List<double>();
+        public static List<int> intProdCount = new List<int>();
+
         //method for cart data grid view and adding to cart
-        internal static void CartView(DataGridView dgvInventory, DataGridView dgvCart)
+        internal static void AddCartView(DataGridView dgvInventory, DataGridView dgvCart, ComboBox cbxQuantity, TextBox tbxItems, TextBox tbxGross, TextBox tbxSub, TextBox tbxDiscount, TextBox tbxTax, TextBox tbxTotal)
         {
-            //var for item name, price, quantity, and size
-            string strItemName = "";
-            string strSize = "";
-            string strPrice = "";
-            string strQuantity = "";
-            //vars for cost
-            double dblCost;
+            //var for item name, price, quantity, id, and size
+            string strItemName;
+            string strSize;
+            string strPrice;
+            string strQuantity;
+            string strID;
+            //vars for cost and count
+            double dblSelectedPrice, dblTotal;
+            int intCount = 0;
 
-            if (dgvInventory.SelectedCells.Count > 0)
+            try
             {
-                int intSelectedRowIndex = dgvInventory.SelectedRows[0].Index;
-                DataGridViewRow selectedRow = dgvInventory.Rows[intSelectedRowIndex];
-                strItemName = Convert.ToString(selectedRow.Cells["Name"].Value);
-                strSize = Convert.ToString(selectedRow.Cells["Size"].Value);
-                strPrice = Convert.ToString(selectedRow.Cells["Price"].Value);
-                strQuantity = Convert.ToString(selectedRow.Cells["Quantity"].Value);
-                //set quantity to int
-                int.TryParse(strQuantity, out int intQuantity);
-                
+                if (dgvInventory.SelectedCells.Count > 0)
+                {
+                    int intSelectedRowIndexInventory = dgvInventory.SelectedRows[0].Index;
+                    DataGridViewRow selectedRowInventory = dgvInventory.Rows[intSelectedRowIndexInventory];
+                    strItemName = Convert.ToString(selectedRowInventory.Cells["Name"].Value);
+                    strSize = Convert.ToString(selectedRowInventory.Cells["Size"].Value);
+                    strPrice = Convert.ToString(selectedRowInventory.Cells["Price"].Value);
+                    strQuantity = Convert.ToString(selectedRowInventory.Cells["Quantity"].Value);
+                    strID = Convert.ToString(selectedRowInventory.Cells["ID"].Value);
+                    string strComboQuantity = cbxQuantity.Text;
+                    //set quantity to int
+                    int.TryParse(strComboQuantity, out int intComboQuantity);
+                    int.TryParse(strQuantity, out int intQuantity);
+                    int.TryParse(strID, out int intID);
+                    double.TryParse(strPrice, out dblSelectedPrice);
 
+                    //add to cart list
+                    if (strCart.Contains(strItemName))
+                    {
+                        //set count
+                        if (intComboQuantity > 1)
+                        {
+                            //add count to list
+                            intCount = intComboQuantity;
 
+                            for (int i = 0; i < strCart.Count; i++)
+                            {
+                                int intCheck = intComboQuantity + intProdCount[i];
+                                if (intCheck > intQuantity)
+                                {
+                                    intProdCount[i] = intQuantity;
+                                    MessageBox.Show(intCheck + " items were selected. The maximum stock was added.", "Item Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else
+                                {
+                                    intProdCount[i] = intProdCount[i] + intCount;
+                                }
+                            }
+                        }
+                        else if (intComboQuantity == 0 && cbxQuantity.SelectedIndex == 2)
+                        {
+                            intCount = 0;
+                            MessageBox.Show(intCount + " items were selected.", "Item Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            intCount = 1;
+                            //add count to list
+                            for (int i = 0; i < strCart.Count; i++)
+                            {
+                                intProdCount[i]++;
+                            }
+                        }
+                    }
+                    else if (!strCart.Contains(strItemName))
+                    {
+                        strCart.Clear();
+                        intProdCount.Clear();
+                        dblPrice.Clear();
+                        //set count
+                        if (intComboQuantity > 1)
+                        {
+                            intCount = intComboQuantity;
+                            intProdCount.Add(intCount);
+                            dblPrice.Add(dblSelectedPrice);
+                            //add to cart list
+                            strCart.Add(strItemName);
+                        }
+                        else if (intComboQuantity == 0 && cbxQuantity.SelectedIndex == 2)
+                        {
+                            intCount = 0;
+                            MessageBox.Show(intCount + " items were selected.", "Item Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            intCount = 1;
+                            intProdCount.Add(intCount);
+                            dblPrice.Add(dblSelectedPrice);
+                            //add to cart list
+                            strCart.Add(strItemName);
+                        }
+                    }
 
-                MessageBox.Show("1 " + dgvInventory.CurrentRow.Cells[1].Value.ToString() + " has been added to your cart", "Item added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //set price
+                    if (intCount >= 1)
+                    {
+                        for (int i = 0; i < strCart.Count; i++)
+                        {
+                            //set price total
+                            dblTotal = dblPrice[i] * intProdCount[i];
+                            //go through each row
+                            foreach (DataGridViewRow row in dgvCart.Rows)
+                            {
+                                for (int j = 0; j < row.Cells.Count; j++)
+                                {
+                                    //check value for null
+                                    if (row.Cells[j].Value != null)
+                                    {
+                                        //look for matching text
+                                        if (row.Cells[j].Value.ToString().Contains(strItemName))
+                                        {
+                                            //select matching row
+                                            dgvCart.CurrentCell = row.Cells[j];
+                                            //get selected quantity
+                                            int intSelectedRowIndexCart = dgvCart.SelectedRows[0].Index;
+                                            DataGridViewRow selectedRowCart = dgvCart.Rows[intSelectedRowIndexCart];
+                                            string strQuantityCart = Convert.ToString(selectedRowCart.Cells["Quantity"].Value);
+                                            int.TryParse(strQuantityCart, out int intQuantityCart);
+
+                                            if (intQuantityCart < intQuantity)
+                                            {
+                                                //if statement to set quantity and total in cart
+                                                if (intQuantityCart == 1)
+                                                {
+                                                    selectedRowCart.Cells["Quantity"].Value = intProdCount[i];
+                                                    selectedRowCart.Cells["Total"].Value = "$" + dblTotal.ToString("0.##");
+                                                }
+                                                else
+                                                {
+                                                    int intNew = intQuantityCart + intCount;
+                                                    dblTotal = dblPrice[i] * intNew;
+                                                    //check if greater than the quantity
+                                                    if (intNew > intQuantity)
+                                                    {
+                                                        intNew = intQuantity;
+                                                    }
+                                                    selectedRowCart.Cells["Quantity"].Value = intNew;
+                                                    selectedRowCart.Cells["Total"].Value = "$" + dblTotal.ToString("0.##");
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            //add items
+                            if (dgvCart == null || dgvCart.Rows.Count < 1)
+                            {
+                                clsCartItems items = new clsCartItems
+                                {
+                                    Quantity = intProdCount[i],
+                                    Name = strItemName,
+                                    Size = strSize,
+                                    Price = "$" + dblSelectedPrice.ToString(),
+                                    Total = "$" + dblTotal.ToString("0.##"),
+                                    ID = intID,
+                                };
+                                clsCartData.cartItems.Add(items);
+                                //format cart view
+                                FormatCartView(dgvCart);
+                                //check if there is a selected row
+                                if (dgvCart.SelectedRows.Count == 0)
+                                {
+                                    dgvCart.Rows[dgvCart.Rows.Count - 1].Cells[1].Selected = true;
+                                }
+                            }
+                            else
+                            {
+                                //make sure theres a selected row
+                                if (dgvCart.SelectedRows.Count > 0)
+                                {
+                                    int intSelectedRowIndex = dgvCart.SelectedRows[0].Index;
+                                    DataGridViewRow selectedRow = dgvCart.Rows[intSelectedRowIndex];
+                                    //if not in data grid view add item
+                                    if (selectedRow.Cells["Name"].Value.ToString() != strItemName)
+                                    {
+                                        clsCartItems items = new clsCartItems
+                                        {
+                                            Quantity = intProdCount[i],
+                                            Name = strItemName,
+                                            Size = strSize,
+                                            Price = "$" + dblSelectedPrice.ToString(),
+                                            Total = "$" + dblTotal.ToString("0.##"),
+                                            ID = intID,
+                                        };
+                                        clsCartData.cartItems.Add(items);
+                                        //format cart view
+                                        FormatCartView(dgvCart);
+                                    }
+                                }
+                            }
+                        }
+
+                        //set text boxes in order summary
+                        int intTotalItems = 0;
+                        double dblGrossSub = 0;
+                        double dblTaxAmount = 0;
+                        double dblTotalAmount = 0;
+                        //total items
+                        for (int i = 0; i < dgvCart.Rows.Count; ++i)
+                        {
+                            intTotalItems += Convert.ToInt32(dgvCart.Rows[i].Cells[0].Value);
+                        }
+                        //gross and subtotal
+                        for (int i = 0; i < dgvCart.Rows.Count; ++i)
+                        {
+                            dblGrossSub += Convert.ToDouble((dgvCart.Rows[i].Cells[4].Value).ToString().Substring(1));
+                        }
+
+                        //text boxes
+                        tbxItems.Text = intTotalItems.ToString();
+                        tbxGross.Text = "$" + dblGrossSub.ToString("0.##");
+                        //check if discount is applied
+                        if (tbxDiscount.Text == "$0.00")
+                        {
+                            //sub
+                            tbxSub.Text = "$" + dblGrossSub.ToString("0.##");
+                            //taxes
+                            dblTaxAmount = dblGrossSub * 0.0825;
+                            tbxTax.Text = "$" + dblTaxAmount.ToString("0.##");
+                            //total
+                            dblTotalAmount = dblGrossSub + dblTaxAmount;
+                            tbxTotal.Text = "$" + dblTotalAmount.ToString("0.##");
+                        }
+                        else
+                        {
+                            //get discount amount
+                            double.TryParse(tbxDiscount.Text.Substring(1), out double dblDiscountAmount);
+                            //add discount
+                            double dblNewSub = dblGrossSub - dblDiscountAmount;
+                            //sub
+                            tbxSub.Text = "$" + dblNewSub.ToString("0.##");
+                            //taxes
+                            dblTaxAmount = dblNewSub * 0.0825;
+                            tbxTax.Text = "$" + dblTaxAmount.ToString("0.##");
+                            //total
+                            dblTotalAmount = dblNewSub + dblTaxAmount;
+                            tbxTotal.Text = "$" + dblTotalAmount.ToString("0.##");
+                        }
+
+                    }
+                }
+            }
+            catch(Exception)
+            {
+                //error message
+                MessageBox.Show("Could not add to cart. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //method to remove from cart
+        internal static void RemoveCart(DataGridView dgvCart, Button btnRemove, TextBox tbxItems, TextBox tbxGross, TextBox tbxSub, TextBox tbxDiscount, TextBox tbxTax, TextBox tbxTotal)
+        {
+            try
+            {
+                //make sure theres a selected row
+                if (dgvCart.SelectedRows.Count > 0)
+                {
+                    //get selected quantity
+                    int intSelectedRowIndex = dgvCart.SelectedRows[0].Index;
+                    DataGridViewRow selectedRow = dgvCart.Rows[intSelectedRowIndex];
+                    string strQuantityCart = Convert.ToString(selectedRow.Cells["Quantity"].Value);
+                    string strPriceCart = Convert.ToString(selectedRow.Cells["Price"].Value).Substring(1);
+                    string strTotalCart = Convert.ToString(selectedRow.Cells["Total"].Value).Substring(1);
+                    int.TryParse(strQuantityCart, out int intQuantityCart);
+                    double.TryParse(strPriceCart, out double dblPriceCart);
+                    double.TryParse(strTotalCart, out double dblTotalCart);
+                    //remove quantity
+                    int.TryParse(btnRemove.Text, out int intCount);
+                    int intRemoveQuantity = intQuantityCart - intCount;
+                    double dblRemoveTotal = dblPriceCart * intRemoveQuantity;
+                    if (intRemoveQuantity > 0)
+                    {
+                        selectedRow.Cells["Quantity"].Value = intRemoveQuantity;
+                        selectedRow.Cells["Total"].Value = "$" + dblRemoveTotal.ToString("0.##");
+                    }
+                    else
+                    {
+                        selectedRow.Cells["Quantity"].Value = 0;
+                        selectedRow.Cells["Total"].Value = "$0.00";
+                        //add count to list
+                        for (int i = 0; i < strCart.Count; i++)
+                        {
+                            intProdCount[i] = 0;
+                        }
+                    }
+
+                    //set text boxes in order summary
+                    int intTotalItems = 0;
+                    double dblGrossSub = 0;
+                    double dblTaxAmount = 0;
+                    double dblTotalAmount = 0;
+                    //total items
+                    for (int i = 0; i < dgvCart.Rows.Count; ++i)
+                    {
+                        intTotalItems += Convert.ToInt32(dgvCart.Rows[i].Cells[0].Value);
+                    }
+                    //gross and subtotal
+                    for (int i = 0; i < dgvCart.Rows.Count; ++i)
+                    {
+                        dblGrossSub += Convert.ToDouble((dgvCart.Rows[i].Cells[4].Value).ToString().Substring(1));
+                    }
+
+                    //text boxes
+                    tbxItems.Text = intTotalItems.ToString();
+                    tbxGross.Text = " $" + dblGrossSub.ToString("0.##");
+                    //check if discount is applied
+                    if (tbxDiscount.Text == "$0.00")
+                    {
+                        //sub
+                        tbxSub.Text = " $" + dblGrossSub.ToString("0.##");
+                        //taxes
+                        dblTaxAmount = dblGrossSub * 0.0825;
+                        tbxTax.Text = " $" + dblTaxAmount.ToString("0.##");
+                        //total
+                        dblTotalAmount = dblGrossSub + dblTaxAmount;
+                        tbxTotal.Text = " $" + dblTotalAmount.ToString("0.##");
+                    }
+                    else
+                    {
+                        //get discount amount
+                        double.TryParse(tbxDiscount.Text.Substring(1), out double dblDiscountAmount);
+                        //add discount
+                        double dblNewSub = dblGrossSub - dblDiscountAmount;
+                        //sub
+                        tbxSub.Text = " $" + dblNewSub.ToString("0.##");
+                        //taxes
+                        dblTaxAmount = dblNewSub * 0.0825;
+                        tbxTax.Text = " $" + dblTaxAmount.ToString("0.##");
+                        //total
+                        dblTotalAmount = dblNewSub + dblTaxAmount;
+                        tbxTotal.Text = " $" + dblTotalAmount.ToString("0.##");
+                    }
+                }
+            }
+            catch(Exception)
+            {
+                //error message
+                MessageBox.Show("Could not remove from cart. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //method to clear cart
+        internal static void ClearCart(DataGridView dgvCart)
+        {
+            //clear cart items
+            strCart.Clear();
+            intProdCount.Clear();
+            dblPrice.Clear();
+            dgvCart.Rows.Clear();            
+            dgvCart.Refresh();
+        }
+        //method for applying discount
+        internal static void ApplyDiscount(DataGridView dgvCart, TextBox tbxGross, TextBox tbxCode, TextBox tbxDiscount, TextBox tbxSub, TextBox tbxTax, TextBox tbxTotal)
+        {
+            //open database
+            OpenDatabase();            
+
+            try
+            {                
+                //string command for discounts table
+                string strItemLevelQuery = "SELECT DiscountCode, Description, DiscountLevel, InventoryID, DiscountType, DiscountDollarAmount, DiscountPercentage," +
+                    " ExpirationDate FROM " + strSchema + ".Discounts WHERE DiscountCode = @DiscountCode";
+
+                //command query
+                SqlCommand cmdItemDiscount = new SqlCommand(strItemLevelQuery, _cntDatabase);
+                cmdItemDiscount.Parameters.AddWithValue("@DiscountCode", tbxCode.Text);
+                SqlDataReader rd = cmdItemDiscount.ExecuteReader();
+
+                if (rd.Read())
+                {
+                    //vars for text boxes
+                    if (!string.IsNullOrEmpty(tbxGross.Text))
+                    {                        
+                        string strDiscount = tbxDiscount.Text.Substring(1);
+                        double dblSub, dblTax, dblNewTotal;
+                        double.TryParse(tbxGross.Text.Substring(1), out double dblTotal);
+                        double.TryParse(strDiscount, out double dblDiscount);
+
+                        //string for returned values
+                        string strCode = rd.GetValue(0).ToString();
+                        string strDescription = rd.GetValue(1).ToString();
+                        string strLevel = rd.GetValue(2).ToString();
+                        string strInventoryID = rd.GetValue(3).ToString();
+                        string strType = rd.GetValue(4).ToString();
+                        string strDollar = rd.GetValue(5).ToString();
+                        string strPercentage = rd.GetValue(6).ToString();
+                        string strExpiration = rd.GetValue(7).ToString();
+
+                        //set doubles
+                        double.TryParse(strPercentage, out double dblPercentage);
+                        double.TryParse(strDollar, out double dblDollar);
+                        DateTime.TryParse(strExpiration, out DateTime expiryDate);
+
+                        //get cart values
+                        if (dgvCart.Rows.Count > 0)
+                        {
+                            //check expiration
+                            if (expiryDate > DateTime.Now)
+                            {
+                                //go through each row
+                                foreach (DataGridViewRow row in dgvCart.Rows)
+                                {
+                                    for (int i = 0; i < row.Cells.Count; i++)
+                                    {
+                                        //check value for null
+                                        if (row.Cells[i].Value != null)
+                                        {
+                                            //look for inventory id
+                                            if (row.Cells[i].Value.ToString().Contains(strInventoryID))
+                                            {
+                                                //select matching text
+                                                dgvCart.CurrentCell = row.Cells[i];
+                                                //get selected price
+                                                int intSelectedRowIndexCart = dgvCart.SelectedRows[0].Index;
+                                                DataGridViewRow selectedRowCart = dgvCart.Rows[intSelectedRowIndexCart];
+                                                string strPrice = Convert.ToString(selectedRowCart.Cells["Price"].Value).Substring(1);
+                                                double.TryParse(strPrice, out double dblSelectedCartPrice);
+                                                dblCartPrice.Add(dblSelectedCartPrice);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                //check discount level
+                                if (strLevel == "1")
+                                {
+                                    //item level
+                                    //check if id is null
+                                    if (string.IsNullOrEmpty(strInventoryID))
+                                    {
+                                        MessageBox.Show("Discount code is invalid. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
+                                    else
+                                    {
+                                        //check type
+                                        if (strType == "0")
+                                        {
+                                            //percentage
+                                            //discount, sub, tax, and total
+                                            for (int i = 0; i < dblCartPrice.Count; i++)
+                                            {
+                                                dblDiscount = dblCartPrice[i] * dblPercentage;
+                                            }
+                                            dblSub = dblTotal - dblDiscount;
+                                            dblTax = dblSub * 0.0825;
+                                            dblNewTotal = dblSub + dblTax;
+
+                                            //add discount, sub, tax, and total
+                                            tbxDiscount.Text = "$" + dblDiscount.ToString("0.##");
+                                            tbxSub.Text = "$" + dblSub.ToString("0.##");
+                                            tbxTax.Text = "$" + dblTax.ToString("0.##");
+                                            tbxTotal.Text = "$" + dblNewTotal.ToString("0.##");
+                                        }
+                                        else
+                                        {
+                                            //dollar
+                                            //discount, sub, tax, and total
+                                            for (int i = 0; i < dblCartPrice.Count; i++)
+                                            {
+                                                dblDiscount = dblDollar;
+                                                dblSub = dblTotal - (dblCartPrice[i] - dblDiscount);
+                                                dblTax = dblSub * 0.0825;
+                                                dblNewTotal = dblSub + dblTax;
+
+                                                //add discount, sub, tax, and total
+                                                tbxDiscount.Text = "$" + dblDiscount.ToString("0.##");
+                                                tbxSub.Text = "$" + dblSub.ToString("0.##");
+                                                tbxTax.Text = "$" + dblTax.ToString("0.##");
+                                                tbxTotal.Text = "$" + dblNewTotal.ToString("0.##");
+                                            }
+
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    //check type
+                                    if (strType == "0")
+                                    {
+                                        //percentage
+                                        //discount, sub, tax, and total
+                                        dblDiscount = dblTotal * dblPercentage;
+                                        dblSub = dblTotal - dblDiscount;
+                                        dblTax = dblSub * 0.0825;
+                                        dblNewTotal = dblSub + dblTax;
+
+                                        //add discount, sub, tax, and total
+                                        tbxDiscount.Text = "$" + dblDiscount.ToString("0.##");
+                                        tbxSub.Text = "$" + dblSub.ToString("0.##");
+                                        tbxTax.Text = "$" + dblTax.ToString("0.##");
+                                        tbxTotal.Text = "$" + dblNewTotal.ToString("0.##");
+                                    }
+                                    else
+                                    {
+                                        //dollar
+                                        //discount, sub, tax, and total
+                                        dblDiscount = dblDollar;
+                                        dblSub = dblTotal - dblDiscount;
+                                        dblTax = dblSub * 0.0825;
+                                        dblNewTotal = dblSub + dblTax;
+
+                                        //add discount, sub, tax, and total
+                                        tbxDiscount.Text = "$" + dblDiscount.ToString("0.##");
+                                        tbxSub.Text = "$" + dblSub.ToString("0.##");
+                                        tbxTax.Text = "$" + dblTax.ToString("0.##");
+                                        tbxTotal.Text = "$" + dblNewTotal.ToString("0.##");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Discount code is Expired. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                rd.Close();
+                                CloseDatabase();
+                            }
+                        }
+                    }
+                    rd.Close();
+                    CloseDatabase();
+                }
+                else
+                {
+                    CloseDatabase();
+                    rd.Close();
+                    //error
+                    MessageBox.Show("Discount code is invalid. Please Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch(Exception)
+            {
+                CloseDatabase();                
+                //error message
+                MessageBox.Show("Could not apply discount code. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //method for checking out
+        internal static void CheckOut(DataGridView dgvCart, TextBox tbxGross, TextBox tbxItems, TextBox tbxDiscount, TextBox tbxTax, TextBox tbxTotal)
+        {            
+            try
+            {
+                OpenDatabase();
+
+                //check if cart is empty
+                if (dgvCart.Rows.Count > 0)
+                {
+                    //vars to hold text
+                    string strGross, strItems, strDiscount, strTax, strTextTotal;                    
+
+                    //clear lists
+                    strQuantity.Clear();
+                    strNames.Clear();
+                    strPrice.Clear();
+                    strTotal.Clear();
+
+                    //get cart values
+                    for (int i = 0; i < dgvCart.Rows.Count; i++)
+                    {
+                        strQuantity.Add((dgvCart.Rows[i].Cells[0].Value).ToString());
+                        strNames.Add((dgvCart.Rows[i].Cells[1].Value).ToString());
+                        strPrice.Add((dgvCart.Rows[i].Cells[3].Value).ToString().Substring(1));
+                        strTotal.Add((dgvCart.Rows[i].Cells[4].Value).ToString());
+                    }
+
+                    //get text box values
+                    strGross = tbxGross.Text.Substring(1);
+                    strItems = tbxItems.Text;
+                    strDiscount = tbxDiscount.Text.Substring(1);
+                    strTax = tbxTax.Text.Substring(1);
+                    strTextTotal = tbxTotal.Text.Substring(1);
+                    //for(int i =0; i < strNames.Count; i++)
+                    //{
+                    //    MessageBox.Show("Names:" + strNames[i]);
+                    //    MessageBox.Show("Prices:" + strPrice[i]);
+                    //    MessageBox.Show("Quantity:" + strQuantity[i]);
+                    //    MessageBox.Show("Total:" + strTotal[i]);
+                    //}
+                }
+                else
+                {
+                    CloseDatabase();
+                    //error message
+                    MessageBox.Show("Cart is empty. Add an item to your cart to checkout!", "Empty Cart", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                CloseDatabase();
+            }
+            catch (Exception)
+            {
+                CloseDatabase();
+                //error message
+                MessageBox.Show("Could not checkout. Please Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -733,7 +1315,7 @@ namespace FinalProject
                 OpenDatabase();                
 
                 //commands for data
-                SqlCommand cmdCategory = new SqlCommand("SELECT distinct T.TeamName, T.TeamSport FROM " + strSchema +
+                SqlCommand cmdCategory = new SqlCommand("SELECT distinct T.TeamSport FROM " + strSchema +
                     ".Inventory I INNER JOIN " + strSchema + ".Teams T ON I.TeamID = T.TeamID ", _cntDatabase);
 
                   //data adapters
@@ -752,7 +1334,7 @@ namespace FinalProject
                  //setup combo boxes
                  cbxCategory.DataSource = dtCategory;
                  cbxCategory.DisplayMember = "TeamSport";
-                 cbxCategory.ValueMember = "TeamName";
+                 cbxCategory.ValueMember = "TeamSport";
                    
                 //close connection
                 CloseDatabase();
@@ -774,7 +1356,7 @@ namespace FinalProject
                 OpenDatabase();
 
                 //commands for data
-                SqlCommand cmdSize = new SqlCommand("SELECT distinct I.Size, T.TeamName FROM " + strSchema +
+                SqlCommand cmdSize = new SqlCommand("SELECT distinct I.Size FROM " + strSchema +
                     ".Inventory I INNER JOIN " + strSchema + ".Teams T ON I.TeamID = T.TeamID ", _cntDatabase);
 
                 //data adapters
@@ -897,116 +1479,132 @@ namespace FinalProject
         //method for filtering data grid view
         internal static void FilterInventoryCategory(DataGridView dgvInventory, ComboBox cbxCategory, ComboBox cbxSize, TextBox tbxSearch)
         {
-            //check selected index
-            if (cbxSize.SelectedIndex == 0 && cbxCategory.SelectedIndex >= 1)
+            try
             {
-                //set filter
-                (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Sport = '{0}'", cbxCategory.Text);
-                if (!dgvInventory.Columns.Contains("Item Image"))
-                {
-                    ImageInventory(dgvInventory);
-                }
-                FormatInventoryView(dgvInventory);
-            }
-            else
-            {
-                if (cbxCategory.SelectedIndex >= 1 && cbxSize.SelectedIndex >= 1)
-                {
-                    //set multiple filters
-                    (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Sport = '{0}' AND Size = '{1}'", cbxCategory.Text, cbxSize.Text);
-                    if (!dgvInventory.Columns.Contains("Item Image"))
-                    {
-                        ImageInventory(dgvInventory);
-                    }
-                    FormatInventoryView(dgvInventory);
-                }
-                else if (cbxCategory.SelectedIndex == 0 && cbxSize.SelectedIndex >= 1)
-                {
-                    //set filter
-                    (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Size = '{0}'", cbxSize.Text);
-                    if (!dgvInventory.Columns.Contains("Item Image"))
-                    {
-                        ImageInventory(dgvInventory);
-                    }
-                    FormatInventoryView(dgvInventory);
-                }
-                else
-                {
-                    (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = "";
-                    if (!dgvInventory.Columns.Contains("Item Image"))
-                    {
-                        ImageInventory(dgvInventory);
-                    }
-                    FormatInventoryView(dgvInventory);
-                    tbxSearch.Focus();
-                }
-            }
-        }
-        internal static void FilterInventorySize(DataGridView dgvInventory, ComboBox cbxSize, ComboBox cbxCategory, TextBox tbxSearch)
-        {            
-            
-            //check selected index
-            if (cbxCategory.SelectedIndex == 0 && cbxSize.SelectedIndex >= 1)
-            {
-                //set filter
-                (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Size = '{0}'", cbxSize.Text);
-                if (!dgvInventory.Columns.Contains("Item Image"))
-                {
-                    ImageInventory(dgvInventory);
-                }
-                FormatInventoryView(dgvInventory);
-            }
-            else
-            {
-                if (cbxSize.SelectedIndex >= 1 && cbxCategory.SelectedIndex >= 1)
-                {
-                    //set multiple filters
-                    (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Sport = '{0}' AND Size = '{1}'", cbxCategory.Text, cbxSize.Text);
-                    if (!dgvInventory.Columns.Contains("Item Image"))
-                    {
-                        ImageInventory(dgvInventory);
-                    }
-                    FormatInventoryView(dgvInventory);
-                }
-                else if (cbxSize.SelectedIndex == 0 && cbxCategory.SelectedIndex >= 1)
+                //check selected index
+                if (cbxSize.SelectedIndex == 0 && cbxCategory.SelectedIndex >= 1)
                 {
                     //set filter
                     (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Sport = '{0}'", cbxCategory.Text);
                     if (!dgvInventory.Columns.Contains("Item Image"))
                     {
-                        ImageInventory(dgvInventory);
+                        /*ImageInventory(dgvInventory)*/
+                        ;
                     }
                     FormatInventoryView(dgvInventory);
                 }
                 else
                 {
-                    (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = "";
-                    if (!dgvInventory.Columns.Contains("Item Image"))
+                    if (cbxCategory.SelectedIndex >= 1 && cbxSize.SelectedIndex >= 1)
                     {
-                        ImageInventory(dgvInventory);
+                        //set multiple filters
+                        (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Sport = '{0}' AND Size = '{1}'", cbxCategory.Text, cbxSize.Text);
+                        if (!dgvInventory.Columns.Contains("Item Image"))
+                        {
+                            //ImageInventory(dgvInventory);
+                        }
+                        FormatInventoryView(dgvInventory);
                     }
-                    FormatInventoryView(dgvInventory);
-                    tbxSearch.Focus();
+                    else if (cbxCategory.SelectedIndex == 0 && cbxSize.SelectedIndex >= 1)
+                    {
+                        //set filter
+                        (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Size = '{0}'", cbxSize.Text);
+                        if (!dgvInventory.Columns.Contains("Item Image"))
+                        {
+                            //ImageInventory(dgvInventory);
+                        }
+                        FormatInventoryView(dgvInventory);
+                    }
+                    else
+                    {
+                        (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = "";
+                        if (!dgvInventory.Columns.Contains("Item Image"))
+                        {
+                            //ImageInventory(dgvInventory);
+                        }
+                        FormatInventoryView(dgvInventory);
+                        tbxSearch.Focus();
+                    }
                 }
             }
+            catch (Exception)
+            {
+                //error message
+                MessageBox.Show("Could not filter category. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-
+        internal static void FilterInventorySize(DataGridView dgvInventory, ComboBox cbxSize, ComboBox cbxCategory, TextBox tbxSearch)
+        {
+            try
+            {
+                //check selected index
+                if (cbxCategory.SelectedIndex == 0 && cbxSize.SelectedIndex >= 1)
+                {
+                    //set filter
+                    (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Size = '{0}'", cbxSize.Text);
+                    if (!dgvInventory.Columns.Contains("Item Image"))
+                    {
+                        //ImageInventory(dgvInventory);
+                    }
+                    FormatInventoryView(dgvInventory);
+                }
+                else
+                {
+                    if (cbxSize.SelectedIndex >= 1 && cbxCategory.SelectedIndex >= 1)
+                    {
+                        //set multiple filters
+                        (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Sport = '{0}' AND Size = '{1}'", cbxCategory.Text, cbxSize.Text);
+                        if (!dgvInventory.Columns.Contains("Item Image"))
+                        {
+                            //ImageInventory(dgvInventory);
+                        }
+                        FormatInventoryView(dgvInventory);
+                    }
+                    else if (cbxSize.SelectedIndex == 0 && cbxCategory.SelectedIndex >= 1)
+                    {
+                        //set filter
+                        (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Sport = '{0}'", cbxCategory.Text);
+                        if (!dgvInventory.Columns.Contains("Item Image"))
+                        {
+                            //ImageInventory(dgvInventory);
+                        }
+                        FormatInventoryView(dgvInventory);
+                    }
+                    else
+                    {
+                        (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = "";
+                        if (!dgvInventory.Columns.Contains("Item Image"))
+                        {
+                            //ImageInventory(dgvInventory);
+                        }
+                        FormatInventoryView(dgvInventory);
+                        tbxSearch.Focus();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                //error message
+                MessageBox.Show("Could not filter size. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         //method for searching
         internal static void SearchInventory(DataGridView dgvInventory, TextBox tbxSearch, ComboBox cbxSize)
-        {            
+        {
+            try
+            {
                 //check for empty text box
                 if (String.IsNullOrEmpty(tbxSearch.Text) || String.IsNullOrWhiteSpace(tbxSearch.Text))
                 {
                     MessageBox.Show("Search was left blank. Please enter what you need to search. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
-                {                    
+                {
                     //go through each row
                     foreach (DataGridViewRow row in dgvInventory.Rows)
                     {
-                        //MessageBox.Show(row.Cells.ToString());
                         for (int i = 0; i < row.Cells.Count; i++)
-                        {        
+                        {
                             //check value for null
                             if (row.Cells[i].Value != null)
                             {
@@ -1018,8 +1616,14 @@ namespace FinalProject
                                 }
                             }
                         }
-                    }                
+                    }
                 }
+            }
+            catch (Exception)
+            {
+                //error message
+                MessageBox.Show("Could not search inventory. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         //methods for handling database errors

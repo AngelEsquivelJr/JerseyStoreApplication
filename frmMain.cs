@@ -26,6 +26,9 @@ namespace FinalProject
         public frmMain()
         {
             InitializeComponent();
+
+            //set up cart data grid view
+            dgvCart.DataSource = clsCartData.cartItems;        
         }        
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -73,6 +76,8 @@ namespace FinalProject
             //call method to fill category combo and size combo
             clsSQL.FillCategoryCombo(cbxCategories);
             clsSQL.FillSizeCombo(cbxSizes);
+            //clear cart
+            clsSQL.ClearCart(dgvCart);
 
             //check if guest
             if (clsSQL.strLogonName == "Guest")
@@ -80,6 +85,7 @@ namespace FinalProject
                 //set form for guest
                 btnCheck.Enabled = false;
                 btnAddtoCart.Enabled = false;
+                btnDiscountCode.Enabled = false;
                 lblIntroDesc.Text = "Please login to make an order.";
                 //set label
                 lblIntro.Text = "Welcome " + clsSQL.strLogonName + "!";
@@ -94,7 +100,7 @@ namespace FinalProject
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            //clear search textbox and categories combobox
+            //clear search text box and categories combo box
             tbxSearch.Clear();
             cbxCategories.SelectedIndex = 0;
             cbxSizes.SelectedIndex = 0;
@@ -104,7 +110,7 @@ namespace FinalProject
 
         private void btnClearBilling_Click(object sender, EventArgs e)
         {
-            //clear billing textboxes
+            //clear billing text boxes
             tbxCardNumber.Clear();
             tbxExpiration.Clear();
             tbxCCV.Clear();
@@ -115,7 +121,13 @@ namespace FinalProject
         private void btnClearCart_Click(object sender, EventArgs e)
         {
             //clear cart
-            
+            clsSQL.ClearCart(dgvCart);
+            //clear text boxes
+            tbxItems.Clear();
+            tbxGross.Clear();
+            tbxSub.Clear();
+            tbxTax.Clear();
+            tbxTotal.Clear();
             //set focus
             btnAddtoCart.Focus();
         }
@@ -200,7 +212,7 @@ namespace FinalProject
 
         private void btnAddtoCart_Click(object sender, EventArgs e)
         {
-            
+            clsSQL.AddCartView(dgvInventory, dgvCart, cbxQuantity, tbxItems, tbxGross, tbxSub, tbxDiscount, tbxTax, tbxTotal);
         }
 
         private void cbxSizes_SelectedIndexChanged(object sender, EventArgs e)
@@ -213,6 +225,45 @@ namespace FinalProject
         {
             //call method for filtering view
             clsSQL.FilterInventoryCategory(dgvInventory, cbxCategories, cbxSizes, tbxSearch);
+        }
+
+        private void btnCartAdd_Click(object sender, EventArgs e)
+        {
+            //set amount for count
+            int.TryParse(btnRemove.Text, out int intCount);
+            //add to count and change remove button
+            intCount++;
+            btnRemove.Text = intCount.ToString();
+        }
+
+        private void btnCartSubtract_Click(object sender, EventArgs e)
+        {
+            //set amount for count
+            int.TryParse(btnRemove.Text, out int intCount);
+            //subtract to count and change remove button
+            if (intCount > 0)
+            {
+                intCount--;
+            }
+            btnRemove.Text = intCount.ToString();
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            //call method for removing from cart
+            clsSQL.RemoveCart(dgvCart, btnRemove, tbxItems, tbxGross, tbxSub, tbxDiscount, tbxTax, tbxTotal);
+        }
+
+        private void btnDiscountCode_Click(object sender, EventArgs e)
+        {
+            //call method to apply discount
+            clsSQL.ApplyDiscount(dgvCart, tbxGross, tbxCode, tbxDiscount, tbxSub, tbxTax, tbxTotal);
+        }
+
+        private void btnCheck_Click(object sender, EventArgs e)
+        {
+            //call method to checkout
+            clsSQL.CheckOut(dgvCart, tbxGross, tbxItems, tbxDiscount, tbxTax, tbxTotal);
         }
     }
 }
