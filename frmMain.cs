@@ -78,6 +78,12 @@ namespace FinalProject
             clsSQL.FillSizeCombo(cbxSizes);
             //clear cart
             clsSQL.ClearCart(dgvCart);
+            //clear text boxes
+            tbxItems.Clear();
+            tbxGross.Clear();
+            tbxSub.Clear();
+            tbxTax.Clear();
+            tbxTotal.Clear();
 
             //check if guest
             if (clsSQL.strLogonName == "Guest")
@@ -165,7 +171,7 @@ namespace FinalProject
         private void tbxCardNumber_Click(object sender, EventArgs e)
         {
             //clears card number text
-            if (tbxCardNumber.Text == "1234-5678-1234-5678")
+            if (tbxCardNumber.Text == "1002-3004-1115-1116")
             {
                 tbxCardNumber.Clear();
                 tbxCardNumber.ForeColor = Color.Black;
@@ -263,7 +269,13 @@ namespace FinalProject
         private void btnCheck_Click(object sender, EventArgs e)
         {
             //call method to checkout
-            clsSQL.CheckOut(dgvCart, tbxGross, tbxItems, tbxDiscount, tbxTax, tbxTotal);
+            clsSQL.CheckOut(this, dgvInventory, dgvCart, tbxGross, tbxSub, tbxItems, tbxDiscount, tbxTax, tbxTotal, tbxCardNumber, tbxExpiration, tbxCCV);
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            //help file
+            clsHelp.OpenHelp("CustomerHelp.pdf");
         }
     }
 }

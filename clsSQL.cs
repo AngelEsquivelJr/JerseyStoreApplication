@@ -45,8 +45,11 @@ namespace FinalProject
         //build a connection to database
         private static SqlConnection _cntDatabase = new SqlConnection(CONNECT_STRING);
 
-        //var for login name
+        //var for login name and ids
         public static string strLogonName = "Guest";
+        public static string strName = "Guest";
+        public static string strPID = "0";
+        public static string strDID = "0";
 
         //method to open database
         internal static void OpenDatabase()
@@ -175,96 +178,96 @@ namespace FinalProject
             {
 
                 //command query for logon name
-                SqlCommand cmd4 = new SqlCommand(strSelectQuery2, _cntDatabase);
-                cmd4.Parameters.AddWithValue("@LogonName", boxParams.tbxUser.Text);
-                SqlDataReader rd4 = cmd4.ExecuteReader();
+                SqlCommand cmdSelectLogon = new SqlCommand(strSelectQuery2, _cntDatabase);
+                cmdSelectLogon.Parameters.AddWithValue("@LogonName", boxParams.tbxUser.Text);
+                SqlDataReader rdLogon = cmdSelectLogon.ExecuteReader();
 
                 //if statement to check if username already exists
-                if (rd4.Read())
+                if (rdLogon.Read())
                 {
                     //string for returned value
-                    string strUsername = rd4.GetValue(0).ToString();
+                    string strUsername = rdLogon.GetValue(0).ToString();
 
                     //if returned username is the same send error
                     if (strUsername.ToUpper().Contains(boxParams.tbxUser.Text.ToUpper()))
                     {
                         MessageBox.Show("The username entered already exists. Please enter a new username.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        rd4.Close();
+                        rdLogon.Close();
                         CloseDatabase();
                         return false;
                     }
                     else
-                        rd4.Close();
+                        rdLogon.Close();
 
                 }
                 else
                 {
                     //close reader
-                    rd4.Close();
+                    rdLogon.Close();
                 }
 
                 //sets up querys to insert user data
-                SqlCommand cmd = new SqlCommand(strInsertQuery, _cntDatabase);
-                cmd.Parameters.AddWithValue("@Title", boxParams.cbxTitle.Text.Trim());
-                cmd.Parameters.AddWithValue("@NameFirst", boxParams.tbxFirstName.Text.Trim());
-                cmd.Parameters.AddWithValue("@NameMiddle", boxParams.tbxMiddleName.Text.Trim());
-                cmd.Parameters.AddWithValue("@NameLast", boxParams.tbxLastName.Text.Trim());
-                cmd.Parameters.AddWithValue("@Suffix", boxParams.tbxSuffix.Text.Trim());
-                cmd.Parameters.AddWithValue("@Address1", boxParams.tbxAddress1.Text.Trim());
-                cmd.Parameters.AddWithValue("@Address2", boxParams.tbxAddress2.Text.Trim());
-                cmd.Parameters.AddWithValue("@Address3", boxParams.tbxAddress3.Text.Trim());
-                cmd.Parameters.AddWithValue("@City", boxParams.tbxCity.Text.Trim());
-                cmd.Parameters.AddWithValue("@Zipcode", boxParams.tbxZipcode.Text.Trim());
-                cmd.Parameters.AddWithValue("@State", boxParams.cbxState.Text.Trim());
-                cmd.Parameters.AddWithValue("@Email", boxParams.tbxEmail.Text.Trim());
-                cmd.Parameters.AddWithValue("@PhonePrimary", boxParams.tbxPhone1.Text.Trim());
-                cmd.Parameters.AddWithValue("@PhoneSecondary", boxParams.tbxPhone2.Text.Trim());
+                SqlCommand cmdInsert = new SqlCommand(strInsertQuery, _cntDatabase);
+                cmdInsert.Parameters.AddWithValue("@Title", boxParams.cbxTitle.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@NameFirst", boxParams.tbxFirstName.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@NameMiddle", boxParams.tbxMiddleName.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@NameLast", boxParams.tbxLastName.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Suffix", boxParams.tbxSuffix.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Address1", boxParams.tbxAddress1.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Address2", boxParams.tbxAddress2.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Address3", boxParams.tbxAddress3.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@City", boxParams.tbxCity.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Zipcode", boxParams.tbxZipcode.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@State", boxParams.cbxState.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Email", boxParams.tbxEmail.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@PhonePrimary", boxParams.tbxPhone1.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@PhoneSecondary", boxParams.tbxPhone2.Text.Trim());
 
                 //executes querys and closes reader
-                SqlDataReader rd = cmd.ExecuteReader();
-                rd.Close();
+                SqlDataReader rdInsert = cmdInsert.ExecuteReader();
+                rdInsert.Close();
 
                 //command query for personId
-                SqlCommand cmd3 = new SqlCommand(strSelectQuery, _cntDatabase);
-                cmd3.Parameters.AddWithValue("@NameFirst", boxParams.tbxFirstName.Text);
-                SqlDataReader rd3 = cmd3.ExecuteReader();
+                SqlCommand cmdSelect = new SqlCommand(strSelectQuery, _cntDatabase);
+                cmdSelect.Parameters.AddWithValue("@NameFirst", boxParams.tbxFirstName.Text);
+                SqlDataReader rdSelect = cmdSelect.ExecuteReader();
 
                 //if statement to set person id
-                if (rd3.Read())
+                if (rdSelect.Read())
                 {
                     //string for returned values
-                    string strPersonID = rd3.GetValue(0).ToString();
-                    string strName = rd3.GetValue(1).ToString();
+                    string strPersonID = rdSelect.GetValue(0).ToString();
+                    string strName = rdSelect.GetValue(1).ToString();
                     //set string to int var
                     intPersonID = int.Parse(strPersonID);
                     //close reader
-                    rd3.Close();
+                    rdSelect.Close();
                 }
                 else
                 {
                     //error for not finding person id / username
                     MessageBox.Show("Could not find proper Username for PersonID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    rd3.Close();
+                    rdSelect.Close();
                     CloseDatabase();
                     return false;
                 }
 
 
                 //insert data to logon
-                SqlCommand cmd2 = new SqlCommand(strInsertQuery2, _cntDatabase);
-                cmd2.Parameters.AddWithValue("@PersonID", intPersonID);
-                cmd2.Parameters.AddWithValue("@LogonName", boxParams.tbxUser.Text.Trim());
-                cmd2.Parameters.AddWithValue("@Password", boxParams.tbxPassword.Text.Trim());
-                cmd2.Parameters.AddWithValue("@FirstChallengeQuestion", intID1);
-                cmd2.Parameters.AddWithValue("@FirstChallengeAnswer", boxParams.tbxAnswer1.Text.Trim());
-                cmd2.Parameters.AddWithValue("@SecondChallengeQuestion", intID2);
-                cmd2.Parameters.AddWithValue("@SecondChallengeAnswer", boxParams.tbxAnswer2.Text.Trim());
-                cmd2.Parameters.AddWithValue("@ThirdChallengeQuestion", intID3);
-                cmd2.Parameters.AddWithValue("@ThirdChallengeAnswer", boxParams.tbxAnswer3.Text.Trim());
+                SqlCommand cmdInsert2 = new SqlCommand(strInsertQuery2, _cntDatabase);
+                cmdInsert2.Parameters.AddWithValue("@PersonID", intPersonID);
+                cmdInsert2.Parameters.AddWithValue("@LogonName", boxParams.tbxUser.Text.Trim());
+                cmdInsert2.Parameters.AddWithValue("@Password", boxParams.tbxPassword.Text.Trim());
+                cmdInsert2.Parameters.AddWithValue("@FirstChallengeQuestion", intID1);
+                cmdInsert2.Parameters.AddWithValue("@FirstChallengeAnswer", boxParams.tbxAnswer1.Text.Trim());
+                cmdInsert2.Parameters.AddWithValue("@SecondChallengeQuestion", intID2);
+                cmdInsert2.Parameters.AddWithValue("@SecondChallengeAnswer", boxParams.tbxAnswer2.Text.Trim());
+                cmdInsert2.Parameters.AddWithValue("@ThirdChallengeQuestion", intID3);
+                cmdInsert2.Parameters.AddWithValue("@ThirdChallengeAnswer", boxParams.tbxAnswer3.Text.Trim());
 
                 //executes querys and closes reader
-                SqlDataReader rd2 = cmd2.ExecuteReader();
-                rd2.Close();
+                SqlDataReader rdInsert2 = cmdInsert2.ExecuteReader();
+                rdInsert2.Close();
 
 
                 //closes database
@@ -288,7 +291,7 @@ namespace FinalProject
             OpenDatabase();
 
             //string command for logon table
-            string strSelectQuery = "SELECT LogonName, Password, PositionTitle FROM " + strSchema + ".Logon " +
+            string strSelectQuery = "SELECT LogonName, PersonID, Password, PositionTitle FROM " + strSchema + ".Logon " +
                 "WHERE LogonName = @LogonName";
             try
             {
@@ -302,8 +305,9 @@ namespace FinalProject
                 {
                     //string for returned values
                     string strUsername = rd.GetValue(0).ToString();
-                    string strPassword = rd.GetValue(1).ToString();
-                    string strTitle = rd.GetValue(2).ToString();
+                    string strPersonID = rd.GetValue(1).ToString();
+                    string strPassword = rd.GetValue(2).ToString();
+                    string strTitle = rd.GetValue(3).ToString();
 
                     //if returned username is the same
                     //make sure its not case sensitive
@@ -314,6 +318,7 @@ namespace FinalProject
                         {
                             //set logon name var
                             strLogonName = strUsername;
+                            strPID = strPersonID;
                             //debug messagebox to see position title
                             MessageBox.Show("You are logging in as a " + strTitle + ".", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             //returns true and closes reader
@@ -475,15 +480,15 @@ namespace FinalProject
                                 {
                                     //if answers are correct update old password
                                     //string command to update password
-                                    string sqlquery2 = "UPDATE " + strSchema + ".Logon SET Password = @Password" +
+                                    string strUpdateQuery = "UPDATE " + strSchema + ".Logon SET Password = @Password" +
                                     " WHERE LogonName = @LogonName";
 
                                     //insert new password and return success
                                     //command query
-                                    SqlCommand cmd2 = new SqlCommand(sqlquery2, _cntDatabase);
-                                    cmd2.Parameters.AddWithValue("@LogonName", tbxUser.Text);
-                                    cmd2.Parameters.AddWithValue("@Password", tbxPassTwo.Text.Trim());
-                                    SqlDataReader rd2 = cmd2.ExecuteReader();
+                                    SqlCommand cmdUpdate = new SqlCommand(strUpdateQuery, _cntDatabase);
+                                    cmdUpdate.Parameters.AddWithValue("@LogonName", tbxUser.Text);
+                                    cmdUpdate.Parameters.AddWithValue("@Password", tbxPassTwo.Text.Trim());
+                                    SqlDataReader rd2 = cmdUpdate.ExecuteReader();
 
                                     rd2.Close();
 
@@ -703,7 +708,10 @@ namespace FinalProject
         public static List<string> strNames = new List<string>();
         public static List<double> dblPrice = new List<double>();
         public static List<string> strPrice = new List<string>();
-        public static List<string> strQuantity = new List<string>();
+        public static List<int> intQuantity = new List<int>();
+        public static List<int> intItemQuantity = new List<int>();
+        public static List<int> intNewQuantity = new List<int>();
+        public static List<int> intInventoryID = new List<int>();
         public static List<string> strTotal = new List<string>();
         public static List<double> dblCartPrice = new List<double>();
         public static List<int> intProdCount = new List<int>();
@@ -739,220 +747,238 @@ namespace FinalProject
                     int.TryParse(strID, out int intID);
                     double.TryParse(strPrice, out dblSelectedPrice);
 
-                    //add to cart list
-                    if (strCart.Contains(strItemName))
+                    //check item quantity is greater than 0
+                    if (intQuantity > 0)
                     {
-                        //set count
-                        if (intComboQuantity > 1)
+                        //add to cart list
+                        if (strCart.Contains(strItemName))
                         {
-                            //add count to list
-                            intCount = intComboQuantity;
+                            //set count
+                            if (intComboQuantity > 1)
+                            {
+                                //add count to list
+                                intCount = intComboQuantity;
 
-                            for (int i = 0; i < strCart.Count; i++)
-                            {
-                                int intCheck = intComboQuantity + intProdCount[i];
-                                if (intCheck > intQuantity)
+                                for (int i = 0; i < strCart.Count; i++)
                                 {
-                                    intProdCount[i] = intQuantity;
-                                    MessageBox.Show(intCheck + " items were selected. The maximum stock was added.", "Item Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                }
-                                else
-                                {
-                                    intProdCount[i] = intProdCount[i] + intCount;
-                                }
-                            }
-                        }
-                        else if (intComboQuantity == 0 && cbxQuantity.SelectedIndex == 2)
-                        {
-                            intCount = 0;
-                            MessageBox.Show(intCount + " items were selected.", "Item Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            intCount = 1;
-                            //add count to list
-                            for (int i = 0; i < strCart.Count; i++)
-                            {
-                                intProdCount[i]++;
-                            }
-                        }
-                    }
-                    else if (!strCart.Contains(strItemName))
-                    {
-                        strCart.Clear();
-                        intProdCount.Clear();
-                        dblPrice.Clear();
-                        //set count
-                        if (intComboQuantity > 1)
-                        {
-                            intCount = intComboQuantity;
-                            intProdCount.Add(intCount);
-                            dblPrice.Add(dblSelectedPrice);
-                            //add to cart list
-                            strCart.Add(strItemName);
-                        }
-                        else if (intComboQuantity == 0 && cbxQuantity.SelectedIndex == 2)
-                        {
-                            intCount = 0;
-                            MessageBox.Show(intCount + " items were selected.", "Item Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            intCount = 1;
-                            intProdCount.Add(intCount);
-                            dblPrice.Add(dblSelectedPrice);
-                            //add to cart list
-                            strCart.Add(strItemName);
-                        }
-                    }
-
-                    //set price
-                    if (intCount >= 1)
-                    {
-                        for (int i = 0; i < strCart.Count; i++)
-                        {
-                            //set price total
-                            dblTotal = dblPrice[i] * intProdCount[i];
-                            //go through each row
-                            foreach (DataGridViewRow row in dgvCart.Rows)
-                            {
-                                for (int j = 0; j < row.Cells.Count; j++)
-                                {
-                                    //check value for null
-                                    if (row.Cells[j].Value != null)
+                                    int intCheck = intComboQuantity + intProdCount[i];
+                                    if (intCheck > intQuantity)
                                     {
-                                        //look for matching text
-                                        if (row.Cells[j].Value.ToString().Contains(strItemName))
-                                        {
-                                            //select matching row
-                                            dgvCart.CurrentCell = row.Cells[j];
-                                            //get selected quantity
-                                            int intSelectedRowIndexCart = dgvCart.SelectedRows[0].Index;
-                                            DataGridViewRow selectedRowCart = dgvCart.Rows[intSelectedRowIndexCart];
-                                            string strQuantityCart = Convert.ToString(selectedRowCart.Cells["Quantity"].Value);
-                                            int.TryParse(strQuantityCart, out int intQuantityCart);
+                                        intProdCount[i] = intQuantity;
+                                        MessageBox.Show(intCheck + " items were selected. The maximum stock was added.", "Item Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                    else
+                                    {
+                                        intProdCount[i] = intProdCount[i] + intCount;
+                                    }
+                                }
+                            }
+                            else if (intComboQuantity == 0 && cbxQuantity.SelectedIndex == 2)
+                            {
+                                intCount = 0;
+                                MessageBox.Show(intCount + " items were selected.", "Item Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                intCount = 1;                                
+                                //add count to list
+                                for (int i = 0; i < strCart.Count; i++)
+                                {
+                                    if (intProdCount[i] == 0)
+                                    {
+                                        intProdCount.Add(intCount); 
+                                        intProdCount[i]++;
+                                    }
+                                    else
+                                    {
+                                        intProdCount[i]++;
+                                    }
+                                }
+                            }
+                        }
+                        else if (!strCart.Contains(strItemName))
+                        {
+                            strCart.Clear();
+                            intProdCount.Clear();
+                            dblPrice.Clear();
+                            //set count
+                            if (intComboQuantity > 1)
+                            {
+                                intCount = intComboQuantity;
+                                intProdCount.Add(intCount);
+                                dblPrice.Add(dblSelectedPrice);
+                                //add to cart list
+                                strCart.Add(strItemName);
+                            }
+                            else if (intComboQuantity == 0 && cbxQuantity.SelectedIndex == 2)
+                            {
+                                intCount = 0;
+                                MessageBox.Show(intCount + " items were selected.", "Item Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                intCount = 1;
+                                intProdCount.Add(intCount);
+                                dblPrice.Add(dblSelectedPrice);
+                                //add to cart list
+                                strCart.Add(strItemName);
+                            }
+                        }
 
-                                            if (intQuantityCart < intQuantity)
+
+                        //set price
+                        if (intCount >= 1)
+                        {
+                            for (int i = 0; i < strCart.Count; i++)
+                            {
+                                //set price total
+                                dblTotal = dblPrice[i] * intProdCount[i];
+                                //go through each row
+                                foreach (DataGridViewRow row in dgvCart.Rows)
+                                {
+                                    for (int j = 0; j < row.Cells.Count; j++)
+                                    {
+                                        //check value for null
+                                        if (row.Cells[j].Value != null)
+                                        {
+                                            //look for matching text
+                                            if (row.Cells[j].Value.ToString().Contains(strItemName))
                                             {
-                                                //if statement to set quantity and total in cart
-                                                if (intQuantityCart == 1)
+                                                //select matching row
+                                                dgvCart.CurrentCell = row.Cells[j];
+                                                //get selected quantity
+                                                int intSelectedRowIndexCart = dgvCart.SelectedRows[0].Index;
+                                                DataGridViewRow selectedRowCart = dgvCart.Rows[intSelectedRowIndexCart];
+                                                string strQuantityCart = Convert.ToString(selectedRowCart.Cells["Quantity"].Value);
+                                                int.TryParse(strQuantityCart, out int intQuantityCart);
+
+                                                if (intQuantityCart < intQuantity)
                                                 {
-                                                    selectedRowCart.Cells["Quantity"].Value = intProdCount[i];
-                                                    selectedRowCart.Cells["Total"].Value = "$" + dblTotal.ToString("0.##");
-                                                }
-                                                else
-                                                {
-                                                    int intNew = intQuantityCart + intCount;
-                                                    dblTotal = dblPrice[i] * intNew;
-                                                    //check if greater than the quantity
-                                                    if (intNew > intQuantity)
+                                                    //if statement to set quantity and total in cart
+                                                    if (intQuantityCart == 1)
                                                     {
-                                                        intNew = intQuantity;
+                                                        selectedRowCart.Cells["Quantity"].Value = intProdCount[i];
+                                                        selectedRowCart.Cells["Total"].Value = "$" + dblTotal.ToString("0.##");
                                                     }
-                                                    selectedRowCart.Cells["Quantity"].Value = intNew;
-                                                    selectedRowCart.Cells["Total"].Value = "$" + dblTotal.ToString("0.##");
+                                                    else
+                                                    {
+                                                        int intNew = intQuantityCart + intCount;
+                                                        dblTotal = dblPrice[i] * intNew;
+                                                        //check if greater than the quantity
+                                                        if (intNew > intQuantity)
+                                                        {
+                                                            intNew = intQuantity;
+                                                        }
+                                                        selectedRowCart.Cells["Quantity"].Value = intNew;
+                                                        selectedRowCart.Cells["Total"].Value = "$" + dblTotal.ToString("0.##");
+                                                    }
                                                 }
                                             }
                                         }
                                     }
                                 }
-                            }
 
-                            //add items
-                            if (dgvCart == null || dgvCart.Rows.Count < 1)
-                            {
-                                clsCartItems items = new clsCartItems
+                                //add items
+                                if (dgvCart == null || dgvCart.Rows.Count < 1)
                                 {
-                                    Quantity = intProdCount[i],
-                                    Name = strItemName,
-                                    Size = strSize,
-                                    Price = "$" + dblSelectedPrice.ToString(),
-                                    Total = "$" + dblTotal.ToString("0.##"),
-                                    ID = intID,
-                                };
-                                clsCartData.cartItems.Add(items);
-                                //format cart view
-                                FormatCartView(dgvCart);
-                                //check if there is a selected row
-                                if (dgvCart.SelectedRows.Count == 0)
-                                {
-                                    dgvCart.Rows[dgvCart.Rows.Count - 1].Cells[1].Selected = true;
-                                }
-                            }
-                            else
-                            {
-                                //make sure theres a selected row
-                                if (dgvCart.SelectedRows.Count > 0)
-                                {
-                                    int intSelectedRowIndex = dgvCart.SelectedRows[0].Index;
-                                    DataGridViewRow selectedRow = dgvCart.Rows[intSelectedRowIndex];
-                                    //if not in data grid view add item
-                                    if (selectedRow.Cells["Name"].Value.ToString() != strItemName)
+                                    clsCartItems items = new clsCartItems
                                     {
-                                        clsCartItems items = new clsCartItems
+                                        Quantity = intProdCount[i],
+                                        Name = strItemName,
+                                        Size = strSize,
+                                        Price = "$" + dblSelectedPrice.ToString(),
+                                        Total = "$" + dblTotal.ToString("0.##"),
+                                        ID = intID,
+                                    };
+                                    clsCartData.cartItems.Add(items);
+                                    //format cart view
+                                    FormatCartView(dgvCart);
+                                    //check if there is a selected row
+                                    if (dgvCart.SelectedRows.Count == 0)
+                                    {
+                                        dgvCart.Rows[dgvCart.Rows.Count - 1].Cells[1].Selected = true;
+                                    }
+                                }
+                                else
+                                {
+                                    //make sure theres a selected row
+                                    if (dgvCart.SelectedRows.Count > 0)
+                                    {
+                                        int intSelectedRowIndex = dgvCart.SelectedRows[0].Index;
+                                        DataGridViewRow selectedRow = dgvCart.Rows[intSelectedRowIndex];
+                                        //if not in data grid view add item
+                                        if (selectedRow.Cells["Name"].Value.ToString() != strItemName)
                                         {
-                                            Quantity = intProdCount[i],
-                                            Name = strItemName,
-                                            Size = strSize,
-                                            Price = "$" + dblSelectedPrice.ToString(),
-                                            Total = "$" + dblTotal.ToString("0.##"),
-                                            ID = intID,
-                                        };
-                                        clsCartData.cartItems.Add(items);
-                                        //format cart view
-                                        FormatCartView(dgvCart);
+                                            clsCartItems items = new clsCartItems
+                                            {
+                                                Quantity = intProdCount[i],
+                                                Name = strItemName,
+                                                Size = strSize,
+                                                Price = "$" + dblSelectedPrice.ToString(),
+                                                Total = "$" + dblTotal.ToString("0.##"),
+                                                ID = intID,
+                                            };
+                                            clsCartData.cartItems.Add(items);
+                                            //format cart view
+                                            FormatCartView(dgvCart);
+                                        }
                                     }
                                 }
                             }
-                        }
 
-                        //set text boxes in order summary
-                        int intTotalItems = 0;
-                        double dblGrossSub = 0;
-                        double dblTaxAmount = 0;
-                        double dblTotalAmount = 0;
-                        //total items
-                        for (int i = 0; i < dgvCart.Rows.Count; ++i)
-                        {
-                            intTotalItems += Convert.ToInt32(dgvCart.Rows[i].Cells[0].Value);
-                        }
-                        //gross and subtotal
-                        for (int i = 0; i < dgvCart.Rows.Count; ++i)
-                        {
-                            dblGrossSub += Convert.ToDouble((dgvCart.Rows[i].Cells[4].Value).ToString().Substring(1));
-                        }
+                            //set text boxes in order summary
+                            int intTotalItems = 0;
+                            double dblGrossSub = 0;
+                            double dblTaxAmount = 0;
+                            double dblTotalAmount = 0;
+                            //total items
+                            for (int i = 0; i < dgvCart.Rows.Count; ++i)
+                            {
+                                intTotalItems += Convert.ToInt32(dgvCart.Rows[i].Cells[0].Value);
+                            }
+                            //gross and subtotal
+                            for (int i = 0; i < dgvCart.Rows.Count; ++i)
+                            {
+                                dblGrossSub += Convert.ToDouble((dgvCart.Rows[i].Cells[4].Value).ToString().Substring(1));
+                            }
 
-                        //text boxes
-                        tbxItems.Text = intTotalItems.ToString();
-                        tbxGross.Text = "$" + dblGrossSub.ToString("0.##");
-                        //check if discount is applied
-                        if (tbxDiscount.Text == "$0.00")
-                        {
-                            //sub
-                            tbxSub.Text = "$" + dblGrossSub.ToString("0.##");
-                            //taxes
-                            dblTaxAmount = dblGrossSub * 0.0825;
-                            tbxTax.Text = "$" + dblTaxAmount.ToString("0.##");
-                            //total
-                            dblTotalAmount = dblGrossSub + dblTaxAmount;
-                            tbxTotal.Text = "$" + dblTotalAmount.ToString("0.##");
-                        }
-                        else
-                        {
-                            //get discount amount
-                            double.TryParse(tbxDiscount.Text.Substring(1), out double dblDiscountAmount);
-                            //add discount
-                            double dblNewSub = dblGrossSub - dblDiscountAmount;
-                            //sub
-                            tbxSub.Text = "$" + dblNewSub.ToString("0.##");
-                            //taxes
-                            dblTaxAmount = dblNewSub * 0.0825;
-                            tbxTax.Text = "$" + dblTaxAmount.ToString("0.##");
-                            //total
-                            dblTotalAmount = dblNewSub + dblTaxAmount;
-                            tbxTotal.Text = "$" + dblTotalAmount.ToString("0.##");
-                        }
+                            //text boxes
+                            tbxItems.Text = intTotalItems.ToString();
+                            tbxGross.Text = "$" + dblGrossSub.ToString("0.##");
+                            //check if discount is applied
+                            if (tbxDiscount.Text == "$0.00")
+                            {
+                                //sub
+                                tbxSub.Text = "$" + dblGrossSub.ToString("0.##");
+                                //taxes
+                                dblTaxAmount = dblGrossSub * 0.0825;
+                                tbxTax.Text = "$" + dblTaxAmount.ToString("0.##");
+                                //total
+                                dblTotalAmount = dblGrossSub + dblTaxAmount;
+                                tbxTotal.Text = "$" + dblTotalAmount.ToString("0.##");
+                            }
+                            else
+                            {
+                                //get discount amount
+                                double.TryParse(tbxDiscount.Text.Substring(1), out double dblDiscountAmount);
+                                //add discount
+                                double dblNewSub = dblGrossSub - dblDiscountAmount;
+                                //sub
+                                tbxSub.Text = "$" + dblNewSub.ToString("0.##");
+                                //taxes
+                                dblTaxAmount = dblNewSub * 0.0825;
+                                tbxTax.Text = "$" + dblTaxAmount.ToString("0.##");
+                                //total
+                                dblTotalAmount = dblNewSub + dblTaxAmount;
+                                tbxTotal.Text = "$" + dblTotalAmount.ToString("0.##");
+                            }
 
+                        }
+                    }
+                    else
+                    {
+                        //cart message
+                        MessageBox.Show("Sorry, unfortunately this Item is out of stock. Try Again.", "Out of Stock", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
@@ -990,12 +1016,12 @@ namespace FinalProject
                     }
                     else
                     {
-                        selectedRow.Cells["Quantity"].Value = 0;
-                        selectedRow.Cells["Total"].Value = "$0.00";
+                        dgvCart.Rows.Remove(selectedRow);
                         //add count to list
                         for (int i = 0; i < strCart.Count; i++)
                         {
                             intProdCount[i] = 0;
+                            dgvCart.Rows[0].Selected = true;
                         }
                     }
 
@@ -1073,7 +1099,7 @@ namespace FinalProject
             {                
                 //string command for discounts table
                 string strItemLevelQuery = "SELECT DiscountCode, Description, DiscountLevel, InventoryID, DiscountType, DiscountDollarAmount, DiscountPercentage," +
-                    " ExpirationDate FROM " + strSchema + ".Discounts WHERE DiscountCode = @DiscountCode";
+                    " ExpirationDate, DiscountID FROM " + strSchema + ".Discounts WHERE DiscountCode = @DiscountCode";
 
                 //command query
                 SqlCommand cmdItemDiscount = new SqlCommand(strItemLevelQuery, _cntDatabase);
@@ -1083,7 +1109,7 @@ namespace FinalProject
                 if (rd.Read())
                 {
                     //vars for text boxes
-                    if (!string.IsNullOrEmpty(tbxGross.Text))
+                    if (!string.IsNullOrEmpty(tbxGross.Text) && tbxGross.Text != "$0")
                     {                        
                         string strDiscount = tbxDiscount.Text.Substring(1);
                         double dblSub, dblTax, dblNewTotal;
@@ -1099,6 +1125,9 @@ namespace FinalProject
                         string strDollar = rd.GetValue(5).ToString();
                         string strPercentage = rd.GetValue(6).ToString();
                         string strExpiration = rd.GetValue(7).ToString();
+                        string strDiscountID = rd.GetValue(8).ToString();
+                        strDID = strDiscountID;
+
 
                         //set doubles
                         double.TryParse(strPercentage, out double dblPercentage);
@@ -1247,8 +1276,134 @@ namespace FinalProject
                 MessageBox.Show("Could not apply discount code. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        //method for updating Orders table
+        internal static void WriteOrders(int intDiscountID, int intPersonID, string strDate, string strCardNumber, string strExpiration, string strCCV)
+        {
+            try
+            {                
+                //check if discount is null
+                if (intDiscountID == 0)
+                {
+                    //query to insert into orders table
+                    string strInsertQuery = "INSERT INTO " + strSchema + ".Orders (PersonID, OrderDate, CC_Number, ExpDate, CCV)" +
+                    "  VALUES (@PersonID, @OrderDate, @CC_Number, @ExpDate," +
+                    " @CCV)";
+
+                    //sets up querys to insert user data
+                    SqlCommand cmdOrders = new SqlCommand(strInsertQuery, _cntDatabase);
+                    cmdOrders.Parameters.AddWithValue("@PersonID", intPersonID);
+                    cmdOrders.Parameters.AddWithValue("@OrderDate", strDate);
+                    cmdOrders.Parameters.AddWithValue("@CC_Number", strCardNumber);
+                    cmdOrders.Parameters.AddWithValue("@ExpDate", strExpiration);
+                    cmdOrders.Parameters.AddWithValue("@CCV", strCCV);
+
+                    //executes query and closes reader
+                    SqlDataReader rdOrders = cmdOrders.ExecuteReader();
+                    rdOrders.Close();
+
+                }
+                else
+                {
+                    //query to insert into orders table
+                    string strInsertQuery = "INSERT INTO " + strSchema + ".Orders (DiscountID, PersonID, OrderDate, CC_Number, ExpDate, CCV)" +
+                    "  VALUES (@DiscountID, @PersonID, @OrderDate, @CC_Number, @ExpDate," +
+                    " @CCV)";
+
+                    //sets up querys to insert user data
+                    SqlCommand cmdOrders = new SqlCommand(strInsertQuery, _cntDatabase);
+                    cmdOrders.Parameters.AddWithValue("@DiscountID", intDiscountID);
+                    cmdOrders.Parameters.AddWithValue("@PersonID", intPersonID);
+                    cmdOrders.Parameters.AddWithValue("@OrderDate", strDate);
+                    cmdOrders.Parameters.AddWithValue("@CC_Number", strCardNumber);
+                    cmdOrders.Parameters.AddWithValue("@ExpDate", strExpiration);
+                    cmdOrders.Parameters.AddWithValue("@CCV", strCCV);
+
+                    //executes query and closes reader
+                    SqlDataReader rdOrders = cmdOrders.ExecuteReader();
+                    rdOrders.Close();
+                }
+
+            } catch(Exception ex)
+            {
+                //close database and show error                
+                CloseDatabase();
+                InsertDataFail(ex);
+            }
+        }
+        //method for updating Order Details Table
+        internal static void WriteDetails(int intOrderID, int intInventoryID, int intDiscountID, int intQuantity)
+        {
+            try
+            {
+                if (intDiscountID == 0)
+                {
+                    //query to insert into order details table
+                    string strInsertQuery = "INSERT INTO " + strSchema + ".OrderDetails (OrderID, InventoryID, Quantity)" +
+                    "  VALUES (@OrderID, @InventoryID, @Quantity)";
+
+                    //sets up querys to insert user data
+                    SqlCommand cmdDetails = new SqlCommand(strInsertQuery, _cntDatabase);
+                    cmdDetails.Parameters.AddWithValue("@OrderID", intOrderID);
+                    cmdDetails.Parameters.AddWithValue("@InventoryID", intInventoryID);
+                    cmdDetails.Parameters.AddWithValue("@Quantity", intQuantity);
+
+                    //executes query and closes reader
+                    SqlDataReader rdDetails = cmdDetails.ExecuteReader();
+                    rdDetails.Close();
+                }
+                else
+                {
+                    //query to insert into order details table
+                    string strInsertQuery = "INSERT INTO " + strSchema + ".OrderDetails (OrderID, InventoryID, DiscountID, Quantity)" +
+                    "  VALUES (@OrderID, @InventoryID, @DiscountID, @Quantity)";
+
+                    //sets up querys to insert user data
+                    SqlCommand cmdDetails = new SqlCommand(strInsertQuery, _cntDatabase);
+                    cmdDetails.Parameters.AddWithValue("@OrderID", intOrderID);
+                    cmdDetails.Parameters.AddWithValue("@InventoryID", intInventoryID);
+                    cmdDetails.Parameters.AddWithValue("@DiscountID", intDiscountID);
+                    cmdDetails.Parameters.AddWithValue("@Quantity", intQuantity);
+
+                    //executes query and closes reader
+                    SqlDataReader rdDetails = cmdDetails.ExecuteReader();
+                    rdDetails.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                //close database and show error
+                CloseDatabase();
+                InsertDataFail(ex);
+            }
+        }
+        //method for updating quantity in inventory
+        internal static void UpdateQuantity(int intQuantity, int intInventoryID)
+        {
+            try
+            {
+                //string command to update password
+                string strUpdateQuery = "UPDATE " + strSchema + ".Inventory SET Quantity = @Quantity" +
+                " WHERE InventoryID = @InventoryID";
+
+                //insert new password and return success
+                //command query
+                SqlCommand cmdUpdate = new SqlCommand(strUpdateQuery, _cntDatabase);
+                cmdUpdate.Parameters.AddWithValue("@InventoryID", intInventoryID);
+                cmdUpdate.Parameters.AddWithValue("@Quantity", intQuantity);
+                SqlDataReader rdUpdate = cmdUpdate.ExecuteReader();
+
+                rdUpdate.Close();
+            }
+            catch (Exception ex)
+            {
+                //close database and show error
+                CloseDatabase();
+                UpdateDataFail(ex);
+            }
+        }
         //method for checking out
-        internal static void CheckOut(DataGridView dgvCart, TextBox tbxGross, TextBox tbxItems, TextBox tbxDiscount, TextBox tbxTax, TextBox tbxTotal)
+        internal static void CheckOut(frmMain frmMain, DataGridView dgvInventory, DataGridView dgvCart, TextBox tbxGross, TextBox tbxSub, TextBox tbxItems, TextBox tbxDiscount, TextBox tbxTax, TextBox tbxTotal, TextBox tbxCardNumber, TextBox tbxExpiry, TextBox tbxCCV)
         {            
             try
             {
@@ -1257,51 +1412,201 @@ namespace FinalProject
                 //check if cart is empty
                 if (dgvCart.Rows.Count > 0)
                 {
-                    //vars to hold text
-                    string strGross, strItems, strDiscount, strTax, strTextTotal;                    
-
-                    //clear lists
-                    strQuantity.Clear();
-                    strNames.Clear();
-                    strPrice.Clear();
-                    strTotal.Clear();
-
-                    //get cart values
-                    for (int i = 0; i < dgvCart.Rows.Count; i++)
+                    //check card info
+                    if (clsValidation.CardInfoValidation(tbxCardNumber.Text, tbxExpiry.Text, tbxCCV.Text) && tbxCardNumber.Text != "1002-3004-1115-1116")
                     {
-                        strQuantity.Add((dgvCart.Rows[i].Cells[0].Value).ToString());
-                        strNames.Add((dgvCart.Rows[i].Cells[1].Value).ToString());
-                        strPrice.Add((dgvCart.Rows[i].Cells[3].Value).ToString().Substring(1));
-                        strTotal.Add((dgvCart.Rows[i].Cells[4].Value).ToString());
-                    }
+                        //get todays date
+                        string strDate = DateTime.Now.ToString();
 
-                    //get text box values
-                    strGross = tbxGross.Text.Substring(1);
-                    strItems = tbxItems.Text;
-                    strDiscount = tbxDiscount.Text.Substring(1);
-                    strTax = tbxTax.Text.Substring(1);
-                    strTextTotal = tbxTotal.Text.Substring(1);
-                    //for(int i =0; i < strNames.Count; i++)
-                    //{
-                    //    MessageBox.Show("Names:" + strNames[i]);
-                    //    MessageBox.Show("Prices:" + strPrice[i]);
-                    //    MessageBox.Show("Quantity:" + strQuantity[i]);
-                    //    MessageBox.Show("Total:" + strTotal[i]);
-                    //}
+                        //setup ids
+                        string strDiscountID, strPhone = "", strName = "";
+                        int intOrderID = 0;
+                        int intPersonID;
+                        //check if discount is applied
+                        if (tbxDiscount.Text == "$0.00")
+                        {
+                            strDiscountID = "0";
+                        }
+                        else
+                        {
+                            strDiscountID = strDID;
+                        }
+                        int.TryParse(strDiscountID, out int intDiscountID);
+                        
+                        //vars to hold text
+                        string strSub, strItems, strDiscount, strTax, strTextboxTotal;
+                        //clear lists
+                        intQuantity.Clear();
+                        intItemQuantity.Clear();
+                        intNewQuantity.Clear();
+                        strNames.Clear();
+                        strPrice.Clear();
+                        strTotal.Clear();
+                        intInventoryID.Clear();
+
+                        //get person id
+                        string strPersonID = strPID;
+                        int.TryParse(strPersonID, out intPersonID);
+
+                        //get cart values
+                        for (int i = 0; i < dgvCart.Rows.Count; i++)
+                        {
+                            intItemQuantity.Add((int)(dgvCart.Rows[i].Cells[0].Value));
+                            strNames.Add((dgvCart.Rows[i].Cells[1].Value).ToString());
+                            strPrice.Add((dgvCart.Rows[i].Cells[3].Value).ToString());
+                            strTotal.Add((dgvCart.Rows[i].Cells[4].Value).ToString());
+                            intInventoryID.Add((int)(dgvCart.Rows[i].Cells[5].Value));
+                        }
+
+                        //get text box values
+                        strSub = tbxSub.Text;
+                        strItems = tbxItems.Text;
+                        strDiscount = tbxDiscount.Text;
+                        strTax = tbxTax.Text;
+                        strTextboxTotal = tbxTotal.Text;
+
+                        //update tables
+                        WriteOrders(intDiscountID, intPersonID, strDate, tbxCardNumber.Text, tbxExpiry.Text, tbxCCV.Text);
+
+                        //query for getting order id
+                        string strSelectQuery = "SELECT OrderID, PersonID FROM " + strSchema + ".Orders where PersonID = @PersonID;";
+                        //command query for order Id
+                        SqlCommand cmdSelect = new SqlCommand(strSelectQuery, _cntDatabase);
+                        cmdSelect.Parameters.AddWithValue("@PersonID", intPersonID);
+                        SqlDataReader rdSelect = cmdSelect.ExecuteReader();
+
+                        //if statement to set order id
+                        if (rdSelect.Read())
+                        {
+                            //string for returned values                            
+                            string strOrderID = rdSelect.GetValue(0).ToString();
+                            //set string to int var
+                            int.TryParse(strOrderID, out intOrderID);
+                            //close reader
+                            rdSelect.Close();
+                        }
+                        else
+                        {
+                            //error for not finding order id
+                            MessageBox.Show("Could not find OrderID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            rdSelect.Close();
+                            CloseDatabase();                            
+                        }
+
+                        for (int i = 0; i < intInventoryID.Count; i++)
+                        {
+                            //query for getting quantity
+                            string strQuantityQuery = "SELECT Quantity, InventoryID FROM " + strSchema + ".Inventory where InventoryID = @InventoryID;";
+                            //command query for Quantity
+                            SqlCommand cmdQuantity = new SqlCommand(strQuantityQuery, _cntDatabase);
+                            cmdQuantity.Parameters.AddWithValue("@InventoryID", intInventoryID[i]);
+                            SqlDataReader rdQuantity = cmdQuantity.ExecuteReader();
+
+                            //if statement to set Quantity
+                            if (rdQuantity.Read())
+                            {
+                                //string for returned values                            
+                                string strQuantity = rdQuantity.GetValue(0).ToString();
+                                //set string to int var
+                                int.TryParse(strQuantity, out int intItemQuantity);
+                                intQuantity.Add(intItemQuantity);
+                                //close reader
+                                rdQuantity.Close();
+                            }
+                            else
+                            {
+                                //error for not finding Quantity
+                                MessageBox.Show("Could not find Quantity.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                rdQuantity.Close();
+                                CloseDatabase();
+                            }
+                        }
+
+                        for (int i = 0; i < intInventoryID.Count; i++)
+                        {
+                            intNewQuantity.Add(intQuantity[i] - intItemQuantity[i]);
+                            //update details
+                            WriteDetails(intOrderID, intInventoryID[i], intDiscountID, intItemQuantity[i]);
+                            //update quantity
+                            UpdateQuantity(intNewQuantity[i], intInventoryID[i]);
+                        }
+
+                        //query for getting name and phone
+                        string strSelectNameQuery = "SELECT PersonID, NameFirst, NameLast, PhonePrimary FROM " + strSchema + ".Person where PersonID = @PersonID;";
+                        //command query for name and phone
+                        SqlCommand cmdSelectName = new SqlCommand(strSelectNameQuery, _cntDatabase);
+                        cmdSelectName.Parameters.AddWithValue("@PersonID", intPersonID);
+                        SqlDataReader rdSelectName = cmdSelectName.ExecuteReader();
+
+                        //if statement to set name and phone
+                        if (rdSelectName.Read())
+                        {
+                            //string for returned values                            
+                            string strFirst = rdSelectName.GetValue(1).ToString();
+                            string strLast = rdSelectName.GetValue(2).ToString();
+                            strPhone = rdSelectName.GetValue(3).ToString();
+                            strName = strFirst + " " + strLast;
+                            //close reader
+                            rdSelectName.Close();
+                        }
+                        else
+                        {
+                            //error for not finding order id
+                            MessageBox.Show("Could not find OrderID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            rdSelectName.Close();
+                            CloseDatabase();
+                        }
+                        //successful
+                        MessageBox.Show("Thank you for shopping with us! \nPlease shop again soon!", "AE Sporting Fits", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        if (tbxDiscount.Text == "$0.00")
+                        {
+                            //show receipt
+                            clsHTML.PrintReceipt(clsHTML.GenerateReceipt(strNames, intItemQuantity, strTotal, strPrice, intOrderID.ToString(), strName, strPhone, strSub, strTax, strTextboxTotal));
+                        }
+                        else
+                        {
+                            clsHTML.PrintReceipt(clsHTML.GenerateReceiptDiscount(strNames, intItemQuantity, strTotal, strPrice, intOrderID.ToString(), strName, strPhone, tbxGross.Text, strSub, strDiscount, strTax, strTextboxTotal));
+                        }                        
+
+                        //reset lists
+                        if(strNames.Count > 0)
+                        {
+                            intQuantity.Clear();
+                            intItemQuantity.Clear();
+                            intNewQuantity.Clear();
+                            strNames.Clear();
+                            strPrice.Clear();
+                            strTotal.Clear();
+                            intInventoryID.Clear();
+                        }
+
+                        //refresh form
+                        frmMain.Refresh();
+                        //clear cart
+                        ClearCart(dgvCart);
+                        //clear text boxes
+                        tbxItems.Clear();
+                        tbxGross.Clear();
+                        tbxSub.Clear();
+                        tbxTax.Clear();
+                        tbxTotal.Clear();
+                        dgvInventory.Refresh();
+                    }                    
                 }
                 else
                 {
                     CloseDatabase();
-                    //error message
+                    //empty cart message
                     MessageBox.Show("Cart is empty. Add an item to your cart to checkout!", "Empty Cart", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 CloseDatabase();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 CloseDatabase();
                 //error message
-                MessageBox.Show("Could not checkout. Please Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Could not checkout. Please Try Again." + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1488,8 +1793,7 @@ namespace FinalProject
                     (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Sport = '{0}'", cbxCategory.Text);
                     if (!dgvInventory.Columns.Contains("Item Image"))
                     {
-                        /*ImageInventory(dgvInventory)*/
-                        ;
+                        ImageInventory(dgvInventory);
                     }
                     FormatInventoryView(dgvInventory);
                 }
@@ -1501,7 +1805,7 @@ namespace FinalProject
                         (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Sport = '{0}' AND Size = '{1}'", cbxCategory.Text, cbxSize.Text);
                         if (!dgvInventory.Columns.Contains("Item Image"))
                         {
-                            //ImageInventory(dgvInventory);
+                            ImageInventory(dgvInventory);
                         }
                         FormatInventoryView(dgvInventory);
                     }
@@ -1511,7 +1815,7 @@ namespace FinalProject
                         (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Size = '{0}'", cbxSize.Text);
                         if (!dgvInventory.Columns.Contains("Item Image"))
                         {
-                            //ImageInventory(dgvInventory);
+                            ImageInventory(dgvInventory);
                         }
                         FormatInventoryView(dgvInventory);
                     }
@@ -1520,7 +1824,7 @@ namespace FinalProject
                         (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = "";
                         if (!dgvInventory.Columns.Contains("Item Image"))
                         {
-                            //ImageInventory(dgvInventory);
+                            ImageInventory(dgvInventory);
                         }
                         FormatInventoryView(dgvInventory);
                         tbxSearch.Focus();
@@ -1544,7 +1848,7 @@ namespace FinalProject
                     (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Size = '{0}'", cbxSize.Text);
                     if (!dgvInventory.Columns.Contains("Item Image"))
                     {
-                        //ImageInventory(dgvInventory);
+                        ImageInventory(dgvInventory);
                     }
                     FormatInventoryView(dgvInventory);
                 }
@@ -1556,7 +1860,7 @@ namespace FinalProject
                         (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Sport = '{0}' AND Size = '{1}'", cbxCategory.Text, cbxSize.Text);
                         if (!dgvInventory.Columns.Contains("Item Image"))
                         {
-                            //ImageInventory(dgvInventory);
+                           ImageInventory(dgvInventory);
                         }
                         FormatInventoryView(dgvInventory);
                     }
@@ -1566,7 +1870,7 @@ namespace FinalProject
                         (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Sport = '{0}'", cbxCategory.Text);
                         if (!dgvInventory.Columns.Contains("Item Image"))
                         {
-                            //ImageInventory(dgvInventory);
+                            ImageInventory(dgvInventory);
                         }
                         FormatInventoryView(dgvInventory);
                     }
@@ -1575,7 +1879,7 @@ namespace FinalProject
                         (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = "";
                         if (!dgvInventory.Columns.Contains("Item Image"))
                         {
-                            //ImageInventory(dgvInventory);
+                            ImageInventory(dgvInventory);
                         }
                         FormatInventoryView(dgvInventory);
                         tbxSearch.Focus();

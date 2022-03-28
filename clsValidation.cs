@@ -611,7 +611,7 @@ namespace FinalProject
         //full card info validation
         internal static bool CardInfoValidation(string strCardNumber, string strExpiry, string strCcv)
         {
-            var cardCheck = new Regex(@"^[1-9][0-9]{3}-[1-3]{4}-[0-9]{4}-[0-9]{4}$");
+            var cardCheck = new Regex(@"^[1-9][0-9]{3}(-[0-9]{4}){3}$");
             var monthCheck = new Regex(@"^(0[1-9]|1[0-2])$");
             var yearCheck = new Regex(@"^20[0-9]{2}$");
             var ccvCheck = new Regex(@"^\d{3}$");

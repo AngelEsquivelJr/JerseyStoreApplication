@@ -57,6 +57,7 @@ namespace FinalProject
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.dgvCart = new System.Windows.Forms.DataGridView();
             this.btnCartAdd = new System.Windows.Forms.Button();
             this.btnCartSubtract = new System.Windows.Forms.Button();
@@ -81,13 +82,12 @@ namespace FinalProject
             this.cbxCategories = new System.Windows.Forms.ComboBox();
             this.tbxSearch = new System.Windows.Forms.TextBox();
             this.btnClear = new System.Windows.Forms.Button();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.btnHelp = new System.Windows.Forms.Button();
             this.lblIntroDesc = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.cbxQuantity = new System.Windows.Forms.ComboBox();
-            this.label18 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCart)).BeginInit();
@@ -332,6 +332,17 @@ namespace FinalProject
             this.groupBox1.TabIndex = 62;
             this.groupBox1.TabStop = false;
             // 
+            // label18
+            // 
+            this.label18.BackColor = System.Drawing.Color.Azure;
+            this.label18.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label18.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(12, 296);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(134, 15);
+            this.label18.TabIndex = 67;
+            this.label18.Text = "             Remove   ";
+            // 
             // dgvCart
             // 
             this.dgvCart.AllowUserToAddRows = false;
@@ -482,7 +493,7 @@ namespace FinalProject
             this.tbxCardNumber.Name = "tbxCardNumber";
             this.tbxCardNumber.Size = new System.Drawing.Size(187, 23);
             this.tbxCardNumber.TabIndex = 57;
-            this.tbxCardNumber.Text = "1234-5678-1234-5678";
+            this.tbxCardNumber.Text = "1002-3004-1115-1116";
             this.tbxCardNumber.Click += new System.EventHandler(this.tbxCardNumber_Click);
             this.tbxCardNumber.TextChanged += new System.EventHandler(this.tbxCardNumber_TextChanged);
             this.tbxCardNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxCardNumber_KeyPress);
@@ -669,6 +680,16 @@ namespace FinalProject
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(6, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 19);
+            this.label1.TabIndex = 43;
+            this.label1.Text = "Search:";
+            // 
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -680,16 +701,6 @@ namespace FinalProject
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 19);
-            this.label1.TabIndex = 43;
-            this.label1.Text = "Search:";
-            // 
             // btnHelp
             // 
             this.btnHelp.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -699,6 +710,7 @@ namespace FinalProject
             this.btnHelp.TabIndex = 69;
             this.btnHelp.Text = "&Help";
             this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
             // lblIntroDesc
             // 
@@ -734,17 +746,6 @@ namespace FinalProject
             this.cbxQuantity.Name = "cbxQuantity";
             this.cbxQuantity.Size = new System.Drawing.Size(158, 27);
             this.cbxQuantity.TabIndex = 71;
-            // 
-            // label18
-            // 
-            this.label18.BackColor = System.Drawing.Color.Azure;
-            this.label18.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label18.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(12, 296);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(134, 15);
-            this.label18.TabIndex = 67;
-            this.label18.Text = "             Remove   ";
             // 
             // frmMain
             // 
