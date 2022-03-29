@@ -134,6 +134,7 @@ namespace FinalProject
             tbxSub.Clear();
             tbxTax.Clear();
             tbxTotal.Clear();
+
             //set focus
             btnAddtoCart.Focus();
         }
@@ -171,7 +172,7 @@ namespace FinalProject
         private void tbxCardNumber_Click(object sender, EventArgs e)
         {
             //clears card number text
-            if (tbxCardNumber.Text == "1002-3004-1115-1116")
+            if (tbxCardNumber.Text == "1234-1234-1234-1234")
             {
                 tbxCardNumber.Clear();
                 tbxCardNumber.ForeColor = Color.Black;
@@ -181,7 +182,7 @@ namespace FinalProject
         private void tbxExpiration_Click(object sender, EventArgs e)
         {
             //clears expiration text
-            if (tbxExpiration.Text == "12/2023")
+            if (tbxExpiration.Text == "12/2023 ")
             {
                 tbxExpiration.Clear();
                 tbxExpiration.ForeColor = Color.Black;
@@ -191,7 +192,7 @@ namespace FinalProject
         private void tbxCCV_Click(object sender, EventArgs e)
         {
             //clears ccv text
-            if (tbxCCV.Text == "123")
+            if (tbxCCV.Text == "123 ")
             {
                 tbxCCV.Clear();
                 tbxCCV.ForeColor = Color.Black;
@@ -269,7 +270,7 @@ namespace FinalProject
         private void btnCheck_Click(object sender, EventArgs e)
         {
             //call method to checkout
-            clsSQL.CheckOut(this, dgvInventory, dgvCart, tbxGross, tbxSub, tbxItems, tbxDiscount, tbxTax, tbxTotal, tbxCardNumber, tbxExpiration, tbxCCV);
+            clsSQL.CheckOut(tbxCode, dgvInventory, dgvCart, tbxGross, tbxSub, tbxItems, tbxDiscount, tbxTax, tbxTotal, tbxCardNumber, tbxExpiration, tbxCCV);
         }
 
         private void btnHelp_Click(object sender, EventArgs e)

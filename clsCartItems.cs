@@ -20,7 +20,7 @@ namespace FinalProject
     {
         //class vars
         private string strItem, strSize, strTotal, strPrice;
-        private int intQuantity, intInventoryID;
+        private int intQuantity;
 
         //class items
         public int Quantity
@@ -47,11 +47,6 @@ namespace FinalProject
         {
             get => strTotal;
             set { strTotal = value;}
-        }
-        public int ID
-        {
-            get => intInventoryID;
-            set { intInventoryID = value; }
         }
     }
 }

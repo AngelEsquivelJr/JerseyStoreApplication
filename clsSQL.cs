@@ -568,25 +568,26 @@ namespace FinalProject
             try
             {
                 //close previous connections and open new one
-                CloseDatabase();
-                OpenDatabase();
+                //CloseDatabase();
+                //OpenDatabase();
                 
                 for (int i = 0; i < dgvInventory.Rows.Count; i++)
-                {                    
-                    //set image to byte and use temporary image
-                    imageData = (byte[])_dtInventoryTable.Rows[i]["Image"];
-                    Image tmpImage = Image.FromStream(new MemoryStream(imageData));
-                    //scale image and set resized image
-                    double dblScaleImg = (double)intWidth / (double)tmpImage.Width;
-                    Graphics tmpGraphics = default(Graphics);
-                    Bitmap tmpResizedImage = new Bitmap(Convert.ToInt32(dblScaleImg * tmpImage.Width), Convert.ToInt32(dblScaleImg * tmpImage.Height));
-                    tmpGraphics = Graphics.FromImage(tmpResizedImage);
-                    tmpGraphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
-                    tmpGraphics.DrawImage(tmpImage, 0, 0, tmpResizedImage.Width + 1, tmpResizedImage.Height + 1);
-                    Image imgOut = tmpResizedImage;
+                {
+                        //set image to byte and use temporary image
+                        imageData = (byte[])_dtInventoryTable.Rows[i]["Image"];
+                        Image tmpImage = Image.FromStream(new MemoryStream(imageData));
+                        //scale image and set resized image
+                        double dblScaleImg = (double)intWidth / (double)tmpImage.Width;
+                        Graphics tmpGraphics = default(Graphics);
+                        Bitmap tmpResizedImage = new Bitmap(Convert.ToInt32(dblScaleImg * tmpImage.Width), Convert.ToInt32(dblScaleImg * tmpImage.Height));
+                        tmpGraphics = Graphics.FromImage(tmpResizedImage);
+                        tmpGraphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+                        tmpGraphics.DrawImage(tmpImage, 0, 0, tmpResizedImage.Width + 1, tmpResizedImage.Height + 1);
+                        Image imgOut = tmpResizedImage;
 
-                    //add image to data grid view
-                    dgvInventory.Rows[i].Cells[0].Value = imgOut;
+                        //add image to data grid view
+                        dgvInventory.Rows[i].Cells[0].Value = imgOut;
+                    
                 }
                 CloseDatabase();
             }
@@ -601,7 +602,7 @@ namespace FinalProject
         internal static void BindInventoryView(DataGridView dgvInventory)
         {
             //clear inventory
-            dgvInventory.Rows.Clear();
+            //dgvInventory.Rows.Clear();
             //set command object to null
             _sqlInventoryCommand = null;
 
@@ -610,7 +611,7 @@ namespace FinalProject
             _dtInventoryTable = new DataTable();
 
             //string query
-            string strDGVQuery = "Select ItemImage as 'Image', ItemName as 'Name', RetailPrice as 'Price', Size, Quantity, ItemDescription as 'Description', Color, T.TeamSport as 'Sport', InventoryID as 'ID' from " + strSchema + ".Inventory I INNER JOIN " +
+            string strDGVQuery = "Select ItemImage as 'Image', ItemName as 'Name', RetailPrice as 'Price', Size, Quantity, ItemDescription as 'Description', Color, T.TeamSport as 'Sport' from " + strSchema + ".Inventory I INNER JOIN " +
                 strSchema + ".Teams T ON I.TeamID = T.TeamID";
 
             //set command object to null
@@ -624,8 +625,7 @@ namespace FinalProject
             _daInventory.Fill(_dtInventoryTable);
             //bind grid view to data table
             dgvInventory.DataSource = _dtInventoryTable;
-
-            (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = "";
+            
         }
         internal static void FormatCartView(DataGridView dgvCart)
         {
@@ -671,13 +671,20 @@ namespace FinalProject
             //fill tables and objects
             try
             {
+                string strFilter = "";
+
                 //setup data
                 BindInventoryView(dgvInventory);
 
-                //setup image column
-                DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();
-                imageColumn.HeaderText = "Item Image";
-                dgvInventory.Columns.Insert(0, imageColumn);
+                (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = strFilter;
+
+                if (dgvInventory.Columns.Count <= 8 && !dgvInventory.Columns.Contains("Item Image"))
+                {
+                    //setup image column
+                    DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();
+                    imageColumn.HeaderText = "Item Image";
+                    dgvInventory.Columns.Insert(0, imageColumn);
+                }
 
                 //setup image
                 ImageInventory(dgvInventory);
@@ -724,7 +731,7 @@ namespace FinalProject
             string strSize;
             string strPrice;
             string strQuantity;
-            string strID;
+
             //vars for cost and count
             double dblSelectedPrice, dblTotal;
             int intCount = 0;
@@ -739,12 +746,10 @@ namespace FinalProject
                     strSize = Convert.ToString(selectedRowInventory.Cells["Size"].Value);
                     strPrice = Convert.ToString(selectedRowInventory.Cells["Price"].Value);
                     strQuantity = Convert.ToString(selectedRowInventory.Cells["Quantity"].Value);
-                    strID = Convert.ToString(selectedRowInventory.Cells["ID"].Value);
                     string strComboQuantity = cbxQuantity.Text;
                     //set quantity to int
                     int.TryParse(strComboQuantity, out int intComboQuantity);
                     int.TryParse(strQuantity, out int intQuantity);
-                    int.TryParse(strID, out int intID);
                     double.TryParse(strPrice, out dblSelectedPrice);
 
                     //check item quantity is greater than 0
@@ -888,7 +893,6 @@ namespace FinalProject
                                         Size = strSize,
                                         Price = "$" + dblSelectedPrice.ToString(),
                                         Total = "$" + dblTotal.ToString("0.##"),
-                                        ID = intID,
                                     };
                                     clsCartData.cartItems.Add(items);
                                     //format cart view
@@ -916,7 +920,6 @@ namespace FinalProject
                                                 Size = strSize,
                                                 Price = "$" + dblSelectedPrice.ToString(),
                                                 Total = "$" + dblTotal.ToString("0.##"),
-                                                ID = intID,
                                             };
                                             clsCartData.cartItems.Add(items);
                                             //format cart view
@@ -1082,12 +1085,23 @@ namespace FinalProject
         //method to clear cart
         internal static void ClearCart(DataGridView dgvCart)
         {
-            //clear cart items
-            strCart.Clear();
-            intProdCount.Clear();
-            dblPrice.Clear();
-            dgvCart.Rows.Clear();            
-            dgvCart.Refresh();
+            try
+            {
+                if (dgvCart.Rows.Count > 0)
+                {
+                    //clear cart items
+                    strCart.Clear();
+                    intProdCount.Clear();
+                    dblPrice.Clear();
+                    dgvCart.Rows.Clear();
+                    dgvCart.Refresh();
+                }
+            }
+            catch(Exception)
+            {
+                //error message
+                MessageBox.Show("Could not clear cart. Please Try Again." , "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         //method for applying discount
         internal static void ApplyDiscount(DataGridView dgvCart, TextBox tbxGross, TextBox tbxCode, TextBox tbxDiscount, TextBox tbxSub, TextBox tbxTax, TextBox tbxTotal)
@@ -1403,7 +1417,7 @@ namespace FinalProject
             }
         }
         //method for checking out
-        internal static void CheckOut(frmMain frmMain, DataGridView dgvInventory, DataGridView dgvCart, TextBox tbxGross, TextBox tbxSub, TextBox tbxItems, TextBox tbxDiscount, TextBox tbxTax, TextBox tbxTotal, TextBox tbxCardNumber, TextBox tbxExpiry, TextBox tbxCCV)
+        internal static void CheckOut(TextBox tbxCode, DataGridView dgvInventory, DataGridView dgvCart, TextBox tbxGross, TextBox tbxSub, TextBox tbxItems, TextBox tbxDiscount, TextBox tbxTax, TextBox tbxTotal, TextBox tbxCardNumber, TextBox tbxExpiry, TextBox tbxCCV)
         {            
             try
             {
@@ -1413,7 +1427,7 @@ namespace FinalProject
                 if (dgvCart.Rows.Count > 0)
                 {
                     //check card info
-                    if (clsValidation.CardInfoValidation(tbxCardNumber.Text, tbxExpiry.Text, tbxCCV.Text) && tbxCardNumber.Text != "1002-3004-1115-1116")
+                    if (clsValidation.CardInfoValidation(tbxCardNumber.Text, tbxExpiry.Text, tbxCCV.Text) && tbxCardNumber.Text != "1234-1234-1234-1234")
                     {
                         //get todays date
                         string strDate = DateTime.Now.ToString();
@@ -1455,7 +1469,6 @@ namespace FinalProject
                             strNames.Add((dgvCart.Rows[i].Cells[1].Value).ToString());
                             strPrice.Add((dgvCart.Rows[i].Cells[3].Value).ToString());
                             strTotal.Add((dgvCart.Rows[i].Cells[4].Value).ToString());
-                            intInventoryID.Add((int)(dgvCart.Rows[i].Cells[5].Value));
                         }
 
                         //get text box values
@@ -1493,13 +1506,13 @@ namespace FinalProject
                             CloseDatabase();                            
                         }
 
-                        for (int i = 0; i < intInventoryID.Count; i++)
+                        for (int i = 0; i < strNames.Count; i++)
                         {
                             //query for getting quantity
-                            string strQuantityQuery = "SELECT Quantity, InventoryID FROM " + strSchema + ".Inventory where InventoryID = @InventoryID;";
+                            string strQuantityQuery = "SELECT Quantity, InventoryID FROM " + strSchema + ".Inventory where ItemName = @ItemName;";
                             //command query for Quantity
                             SqlCommand cmdQuantity = new SqlCommand(strQuantityQuery, _cntDatabase);
-                            cmdQuantity.Parameters.AddWithValue("@InventoryID", intInventoryID[i]);
+                            cmdQuantity.Parameters.AddWithValue("@ItemName", strNames[i]);
                             SqlDataReader rdQuantity = cmdQuantity.ExecuteReader();
 
                             //if statement to set Quantity
@@ -1507,9 +1520,12 @@ namespace FinalProject
                             {
                                 //string for returned values                            
                                 string strQuantity = rdQuantity.GetValue(0).ToString();
+                                string strInventoryId = rdQuantity.GetValue(1).ToString();
                                 //set string to int var
                                 int.TryParse(strQuantity, out int intItemQuantity);
+                                int.TryParse(strInventoryId, out int intID);
                                 intQuantity.Add(intItemQuantity);
+                                intInventoryID.Add(intID);
                                 //close reader
                                 rdQuantity.Close();
                             }
@@ -1581,13 +1597,18 @@ namespace FinalProject
                             intInventoryID.Clear();
                         }
 
-                        //refresh form
-                        frmMain.Refresh();
+                        CloseDatabase();
+                        //refresh inventory
+                        dgvInventory.DataSource = null;
+                        clsSQL.InitializeInventoryView(dgvInventory);
+
                         //clear cart
                         ClearCart(dgvCart);
                         //clear text boxes
                         tbxItems.Clear();
+                        tbxDiscount.Text = "$0.00"; ;
                         tbxGross.Clear();
+                        tbxCode.Clear();
                         tbxSub.Clear();
                         tbxTax.Clear();
                         tbxTotal.Clear();
@@ -1786,6 +1807,7 @@ namespace FinalProject
         {
             try
             {
+
                 //check selected index
                 if (cbxSize.SelectedIndex == 0 && cbxCategory.SelectedIndex >= 1)
                 {
@@ -1795,6 +1817,7 @@ namespace FinalProject
                     {
                         ImageInventory(dgvInventory);
                     }
+
                     FormatInventoryView(dgvInventory);
                 }
                 else
