@@ -478,7 +478,7 @@ namespace FinalProject
             this.tbxExpiration.Name = "tbxExpiration";
             this.tbxExpiration.Size = new System.Drawing.Size(187, 23);
             this.tbxExpiration.TabIndex = 58;
-            this.tbxExpiration.Text = "12/2023";
+            this.tbxExpiration.Text = "12/2023 ";
             this.tbxExpiration.Click += new System.EventHandler(this.tbxExpiration_Click);
             this.tbxExpiration.TextChanged += new System.EventHandler(this.tbxExpiration_TextChanged);
             this.tbxExpiration.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxExpiration_KeyPress);

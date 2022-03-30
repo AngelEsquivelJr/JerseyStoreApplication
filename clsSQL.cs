@@ -1024,7 +1024,10 @@ namespace FinalProject
                         for (int i = 0; i < strCart.Count; i++)
                         {
                             intProdCount[i] = 0;
-                            dgvCart.Rows[0].Selected = true;
+                            if (dgvCart.Rows.Count > 0)
+                            {
+                                dgvCart.Rows[0].Selected = true;
+                            }
                         }
                     }
 
@@ -1114,6 +1117,47 @@ namespace FinalProject
                 //string command for discounts table
                 string strItemLevelQuery = "SELECT DiscountCode, Description, DiscountLevel, InventoryID, DiscountType, DiscountDollarAmount, DiscountPercentage," +
                     " ExpirationDate, DiscountID FROM " + strSchema + ".Discounts WHERE DiscountCode = @DiscountCode";
+                //clear lists
+                strNames.Clear();
+                intInventoryID.Clear();
+                //get names
+                for (int i = 0; i < dgvCart.Rows.Count; i++)
+                {
+                    strNames.Add((dgvCart.Rows[i].Cells[1].Value).ToString());
+                }
+
+                for (int i = 0; i < strNames.Count; i++)
+                {
+                    //query for getting id
+                    string strQuantityQuery = "SELECT InventoryID, RetailPrice  FROM " + strSchema + ".Inventory where ItemName = @ItemName;";
+                    //command query for Quantity
+                    SqlCommand cmdQuantity = new SqlCommand(strQuantityQuery, _cntDatabase);
+                    cmdQuantity.Parameters.AddWithValue("@ItemName", strNames[i]);
+                    SqlDataReader rdQuantity = cmdQuantity.ExecuteReader();
+
+                    //if statement to set id
+                    if (rdQuantity.Read())
+                    {
+                        //string for returned values                            
+                        string strInventoryId = rdQuantity.GetValue(0).ToString();
+                        string strPrice = rdQuantity.GetValue(1).ToString();
+                        //set string to int var
+                        int.TryParse(strInventoryId, out int intID);
+                        intInventoryID.Add(intID);
+                        //set price
+                        double.TryParse(strPrice, out double dblSelectedCartPrice);
+                        dblCartPrice.Add(dblSelectedCartPrice);
+                        //close reader
+                        rdQuantity.Close();
+                    }
+                    else
+                    {
+                        //error for not finding Quantity
+                        MessageBox.Show("Could not find ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        rdQuantity.Close();
+                        CloseDatabase();
+                    }
+                }
 
                 //command query
                 SqlCommand cmdItemDiscount = new SqlCommand(strItemLevelQuery, _cntDatabase);
@@ -1153,31 +1197,7 @@ namespace FinalProject
                         {
                             //check expiration
                             if (expiryDate > DateTime.Now)
-                            {
-                                //go through each row
-                                foreach (DataGridViewRow row in dgvCart.Rows)
-                                {
-                                    for (int i = 0; i < row.Cells.Count; i++)
-                                    {
-                                        //check value for null
-                                        if (row.Cells[i].Value != null)
-                                        {
-                                            //look for inventory id
-                                            if (row.Cells[i].Value.ToString().Contains(strInventoryID))
-                                            {
-                                                //select matching text
-                                                dgvCart.CurrentCell = row.Cells[i];
-                                                //get selected price
-                                                int intSelectedRowIndexCart = dgvCart.SelectedRows[0].Index;
-                                                DataGridViewRow selectedRowCart = dgvCart.Rows[intSelectedRowIndexCart];
-                                                string strPrice = Convert.ToString(selectedRowCart.Cells["Price"].Value).Substring(1);
-                                                double.TryParse(strPrice, out double dblSelectedCartPrice);
-                                                dblCartPrice.Add(dblSelectedCartPrice);
-                                            }
-                                        }
-                                    }
-                                }
-
+                            {                               
                                 //check discount level
                                 if (strLevel == "1")
                                 {
@@ -1482,10 +1502,11 @@ namespace FinalProject
                         WriteOrders(intDiscountID, intPersonID, strDate, tbxCardNumber.Text, tbxExpiry.Text, tbxCCV.Text);
 
                         //query for getting order id
-                        string strSelectQuery = "SELECT OrderID, PersonID FROM " + strSchema + ".Orders where PersonID = @PersonID;";
+                        string strSelectQuery = "SELECT OrderID, PersonID FROM " + strSchema + ".Orders where PersonID = @PersonID AND OrderDate = @OrderDate;";
                         //command query for order Id
                         SqlCommand cmdSelect = new SqlCommand(strSelectQuery, _cntDatabase);
                         cmdSelect.Parameters.AddWithValue("@PersonID", intPersonID);
+                        cmdSelect.Parameters.AddWithValue("@OrderDate", strDate);
                         SqlDataReader rdSelect = cmdSelect.ExecuteReader();
 
                         //if statement to set order id
@@ -1508,7 +1529,7 @@ namespace FinalProject
 
                         for (int i = 0; i < strNames.Count; i++)
                         {
-                            //query for getting quantity
+                            //query for getting quantity and id
                             string strQuantityQuery = "SELECT Quantity, InventoryID FROM " + strSchema + ".Inventory where ItemName = @ItemName;";
                             //command query for Quantity
                             SqlCommand cmdQuantity = new SqlCommand(strQuantityQuery, _cntDatabase);
@@ -1573,7 +1594,7 @@ namespace FinalProject
                             CloseDatabase();
                         }
                         //successful
-                        MessageBox.Show("Thank you for shopping with us! \nPlease shop again soon!", "AE Sporting Fits", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Thank you for shopping with us! \nPlease shop with us again soon!", "AE Sporting Fits", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         if (tbxDiscount.Text == "$0.00")
                         {
