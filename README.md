@@ -81,8 +81,9 @@ Include any essential instructions for:
 - Thank you (name contributors)
 
 ### TODO
-- Wait for approval. Then begin working on Customer View.
+- Wait for approval. Then begin working on Manager View.
 - If not passed, fix all mistakes.
+- Once approved waste no time on manager view.
 - Features planned
 - Known bugs (shortlist)
 
