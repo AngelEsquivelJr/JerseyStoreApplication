@@ -2,7 +2,7 @@
 name: Project Proposal - License File
 about: Project Proposal - License File
 title: Project Proposal - License File
-labels: Bug, Documentation, Project Proposal
+labels: Project Proposal
 assignees: ''
 
 ---

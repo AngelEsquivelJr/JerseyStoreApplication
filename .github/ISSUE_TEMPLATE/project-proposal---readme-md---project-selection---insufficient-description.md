@@ -2,7 +2,7 @@
 name: Project Proposal - README.md - Project Selection - Insufficient Description
 about: Project Proposal - README.md - Project Selection - Insufficient Description
 title: Project Proposal - README.md - Project Selection - Insufficient Description
-labels: Documentation, Project Proposal
+labels: Project Proposal
 assignees: ''
 
 ---

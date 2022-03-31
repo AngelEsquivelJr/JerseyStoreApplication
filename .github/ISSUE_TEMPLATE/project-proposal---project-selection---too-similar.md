@@ -2,7 +2,7 @@
 name: Project Proposal - Project Selection - Too Similar
 about: Project Proposal - Project Selection - Too Similar
 title: Project Proposal - Project Selection - Too Similar
-labels: Documentation, Project Proposal
+labels: Project Proposal
 assignees: ''
 
 ---

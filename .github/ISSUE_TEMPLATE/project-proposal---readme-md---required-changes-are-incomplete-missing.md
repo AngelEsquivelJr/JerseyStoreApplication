@@ -2,7 +2,7 @@
 name: Project Proposal - README.md - Required changes are incomplete/missing
 about: Project Proposal - README.md - Required changes are incomplete/missing
 title: Project Proposal - README.md - Required changes are incomplete/missing
-labels: Documentation, Incomplete/missing/incorrect, Project Proposal
+labels: Project Proposal
 assignees: ''
 
 ---

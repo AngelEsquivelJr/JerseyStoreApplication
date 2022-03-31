@@ -2,7 +2,7 @@
 name: Project Proposal - README.md - Required Element(s) Not present
 about: Project Proposal - README.md - Required Element(s) Not present
 title: Project Proposal - README.md - Required Element(s) Not present
-labels: Bug, Documentation, Project Proposal
+labels: Project Proposal
 assignees: ''
 
 ---

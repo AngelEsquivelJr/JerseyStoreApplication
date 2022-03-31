@@ -2,7 +2,7 @@
 name: Project Proposal - README.md - Logo/Icon
 about: Project Proposal - Logo/Icon
 title: Project Proposal - Logo/Icon
-labels: Documentation, Incomplete/missing/incorrect, Project Proposal
+labels: Project Proposal
 assignees: ''
 
 ---

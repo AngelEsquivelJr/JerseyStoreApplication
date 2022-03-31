@@ -2,7 +2,7 @@
 name: CPT_Bug report
 about: Create a report to help us improve
 title: CPT_Bug report
-labels: Bug
+labels: ''
 assignees: ''
 
 ---
