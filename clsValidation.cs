@@ -650,7 +650,7 @@ namespace FinalProject
             DateTime cardExpiry = new DateTime(year, month, lastDateOfExpiryMonth, 23, 59, 59);
 
             //check expiry greater than today & within next 5 years
-            if (cardExpiry < DateTime.Now && cardExpiry > DateTime.Now.AddYears(5))
+            if (cardExpiry < DateTime.Now || cardExpiry > DateTime.Now.AddYears(5))
             {
                 MessageBox.Show("The expiration date that was entered is invalid. Please try again.", "Expiration Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
