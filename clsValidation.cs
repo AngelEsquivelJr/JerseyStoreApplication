@@ -620,13 +620,13 @@ namespace FinalProject
         //full card info validation
         internal static bool CardInfoValidation(string strCardNumber, string strExpiry, string strCcv)
         {
-            Regex cardCheck = new Regex(@"^[1-9][0-9]{3}(-[0-9]{4}){3}$");
-            Regex monthCheck = new Regex(@"^(0[1-9]|1[0-2])$");
-            Regex yearCheck = new Regex(@"^20[0-9]{2}$");
-            Regex ccvCheck = new Regex(@"^\d{3}$");
+            Regex regexCardCheck = new Regex(@"^[1-9][0-9]{3}(-[0-9]{4}){3}$");
+            Regex regexMonthCheck = new Regex(@"^(0[1-9]|1[0-2])$");
+            Regex regexYearCheck = new Regex(@"^20[0-9]{2}$");
+            Regex regexCcvCheck = new Regex(@"^\d{3}$");
 
             //check card number
-            if (!cardCheck.IsMatch(strCardNumber))
+            if (!regexCardCheck.IsMatch(strCardNumber))
             {
                 MessageBox.Show("The card number that was entered is invalid. Please try again.", "Card Number Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -634,8 +634,8 @@ namespace FinalProject
             }            
 
             //set expiration date as mm/yyyy
-            var dateParts = strExpiry.Split('/');
-            if (!monthCheck.IsMatch(dateParts[0]) || !yearCheck.IsMatch(dateParts[1]))
+            var strDateParts = strExpiry.Split('/');
+            if (!regexMonthCheck.IsMatch(strDateParts[0]) || !regexYearCheck.IsMatch(strDateParts[1]))
             {
                 MessageBox.Show("The expiration date that was entered is invalid. Please try again.", "Expiration Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -643,43 +643,52 @@ namespace FinalProject
             }
 
             //vars for date
-            int.TryParse(dateParts[1], out int year);
-            int.TryParse(dateParts[0], out int month);
-            //get expiration date
-            int lastDateOfExpiryMonth = DateTime.DaysInMonth(year, month);
-            DateTime cardExpiry = new DateTime(year, month, lastDateOfExpiryMonth, 23, 59, 59);
+            int year, month;
 
-            //check expiry greater than today & within next 5 years
-            if (cardExpiry < DateTime.Now || cardExpiry > DateTime.Now.AddYears(5))
+            if (int.TryParse(strDateParts[1], out year) && int.TryParse(strDateParts[0], out month))
             {
-                MessageBox.Show("The expiration date that was entered is invalid. Please try again.", "Expiration Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+                //get expiration date
+                int intLastDateOfExpiryMonth = DateTime.DaysInMonth(year, month);
+                DateTime dateCardExpiry = new DateTime(year, month, intLastDateOfExpiryMonth, 23, 59, 59);
 
-            //check ccv
-            if (ccvCheck.IsMatch(strCcv))
-            {
-                return true;
+                //check expiry greater than today & within next 5 years
+                if (dateCardExpiry < DateTime.Now || dateCardExpiry > DateTime.Now.AddYears(5))
+                {
+                    MessageBox.Show("The expiration date that was entered is invalid. Please try again.", "Expiration Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+                //check ccv
+                if (regexCcvCheck.IsMatch(strCcv))
+                {
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("The card verification number that was entered is invalid. Please try again.", "CCV Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
             }
             else
             {
-                MessageBox.Show("The card verification number that was entered is invalid. Please try again.", "CCV Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Could not check expiration date. Please try again.", "CCV Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
 
         //method for required field
-        internal static bool NameValidation(string strFName, string strLName)
+        internal static bool NameValidation(string strFirstName, string strLastName)
         {
-            if (string.IsNullOrEmpty(strFName))
+            if (string.IsNullOrEmpty(strFirstName))
             {
                 MessageBox.Show("Missing one or more required fields.", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            else if (string.IsNullOrEmpty(strLName))
+            else if (string.IsNullOrEmpty(strLastName))
             {
                 MessageBox.Show("Missing one or more required fields. ", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -687,9 +696,9 @@ namespace FinalProject
             }
             else
             {
-                if (SpaceCheck(strFName))
+                if (SpaceCheck(strFirstName))
                 {
-                    if (SpaceCheck(strLName))
+                    if (SpaceCheck(strLastName))
                     {
                         return true;
                     }
@@ -707,9 +716,9 @@ namespace FinalProject
         }
 
         //methods for all required fields
-        internal static bool RequiredFields(string strNameF, string strNameL, string strAddress, string strCity, string strState)
+        internal static bool RequiredFields(string strNameFirst, string strNameLast, string strAddress, string strCity, string strState)
         {
-            if (NameValidation(strNameF, strNameL))
+            if (NameValidation(strNameFirst, strNameLast))
             {
                 if (AddressValidation(strAddress))
                 {
@@ -734,11 +743,11 @@ namespace FinalProject
             }
         }
 
-        internal static bool RequiredFieldsTwo(string strQues1, string strQues2, string strQues3, string strAns1, string strAns2, string strAns3)
+        internal static bool RequiredFieldsTwo(string strQuestion1, string strQuestion2, string strQuestion3, string strAnswer1, string strAnswer2, string strAnswer3)
         {
-            if (QuestionValidation(strQues1, strQues2, strQues3))
+            if (QuestionValidation(strQuestion1, strQuestion2, strQuestion3))
             {
-                if (AnswerValidation(strAns1, strAns2, strAns3))
+                if (AnswerValidation(strAnswer1, strAnswer2, strAnswer3))
                 {
                     return true;
                 }

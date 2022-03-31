@@ -69,17 +69,24 @@ namespace FinalProject
             this.Close();
         }
 
+        //get current date time
+        static DateTime dateNow = DateTime.Now.AddYears(1);
+        static string strDate = dateNow.ToString("MM/yyyy");
+
         private void frmMain_Load(object sender, EventArgs e)
         {
             try
             {
+                //set card number text box
+                tbxExpiration.Text = strDate + " ";
+                tbxExpiration.ForeColor = Color.LightGray;
                 //call method to set up data grid view
                 clsSQL.InitializeInventoryView(dgvInventory);
                 //call method to fill category combo and size combo
                 clsSQL.FillCategoryCombo(cbxCategories);
                 clsSQL.FillSizeCombo(cbxSizes);
                 //clear cart
-                clsSQL.ClearCart(dgvCart);
+                clsCart.ClearCart(dgvCart);
                 //clear text boxes
                 tbxItems.Clear();
                 tbxGross.Clear();
@@ -153,7 +160,7 @@ namespace FinalProject
             try
             {
                 //clear cart
-                clsSQL.ClearCart(dgvCart);
+                clsCart.ClearCart(dgvCart);
                 //clear text boxes
                 tbxItems.Clear();
                 tbxGross.Clear();
@@ -180,7 +187,7 @@ namespace FinalProject
         private void btnSearch_Click(object sender, EventArgs e)
         {            
             //call method for searching
-            clsSQL.SearchInventory(dgvInventory, tbxSearch, cbxSizes);
+            clsCart.SearchInventory(dgvInventory, tbxSearch, cbxSizes);
         }
 
         private void tbxCardNumber_KeyPress(object sender, KeyPressEventArgs e)
@@ -214,7 +221,7 @@ namespace FinalProject
         private void tbxExpiration_Click(object sender, EventArgs e)
         {
             //clears expiration text
-            if (tbxExpiration.Text == "12/2023 ")
+            if (tbxExpiration.Text ==  strDate + " ")
             {
                 tbxExpiration.Clear();
                 tbxExpiration.ForeColor = Color.Black;
@@ -251,19 +258,19 @@ namespace FinalProject
 
         private void btnAddtoCart_Click(object sender, EventArgs e)
         {
-            clsSQL.AddCartView(dgvInventory, dgvCart, cbxQuantity, tbxItems, tbxGross, tbxSub, tbxDiscount, tbxTax, tbxTotal);
+            clsCart.AddCartView(dgvInventory, dgvCart, cbxQuantity, tbxItems, tbxGross, tbxSub, tbxDiscount, tbxTax, tbxTotal);
         }
 
         private void cbxSizes_SelectedIndexChanged(object sender, EventArgs e)
         {
             //call method for filtering view
-            clsSQL.FilterInventorySize(dgvInventory, cbxSizes, cbxCategories, tbxSearch);
+            clsCart.FilterInventorySize(dgvInventory, cbxSizes, cbxCategories, tbxSearch);
         }
 
         private void cbxCategories_SelectedIndexChanged(object sender, EventArgs e)
         {
             //call method for filtering view
-            clsSQL.FilterInventoryCategory(dgvInventory, cbxCategories, cbxSizes, tbxSearch);
+            clsCart.FilterInventoryCategory(dgvInventory, cbxCategories, cbxSizes, tbxSearch);
         }
 
         private void btnCartAdd_Click(object sender, EventArgs e)
@@ -308,7 +315,7 @@ namespace FinalProject
         private void btnRemove_Click(object sender, EventArgs e)
         {
             //call method for removing from cart
-            clsSQL.RemoveCart(dgvCart, btnRemove, tbxItems, tbxGross, tbxSub, tbxDiscount, tbxTax, tbxTotal);
+            clsCart.RemoveCart(dgvCart, btnRemove, tbxItems, tbxGross, tbxSub, tbxDiscount, tbxTax, tbxTotal);
         }
 
         private void btnDiscountCode_Click(object sender, EventArgs e)

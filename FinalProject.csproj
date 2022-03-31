@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="clsCartData.cs" />
     <Compile Include="clsCartItems.cs" />
+    <Compile Include="clsCart.cs" />
     <Compile Include="clsHelp.cs" />
     <Compile Include="clsHTML.cs" />
     <Compile Include="clsLogon.cs" />
