@@ -69,6 +69,7 @@
     <Compile Include="clsHelp.cs" />
     <Compile Include="clsHTML.cs" />
     <Compile Include="clsLogon.cs" />
+    <Compile Include="clsParameters.cs" />
     <Compile Include="clsSQL.cs" />
     <Compile Include="clsValidation.cs" />
     <Compile Include="frmLogon.cs">

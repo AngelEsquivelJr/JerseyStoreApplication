@@ -79,71 +79,71 @@ namespace FinalProject
         internal static void FillQuestionCombo(ComboBox cbxQuestion1, ComboBox cbxQuestion2, ComboBox cbxQuestion3)
         {
             OpenDatabase();
-            //commands for data
-            SqlCommand cmdSet1 = new SqlCommand("Select QuestionID, QuestionPrompt from " + strSchema + ".SecurityQuestions WHERE SetID = 1", _cntDatabase);
-            SqlCommand cmdSet2 = new SqlCommand("Select QuestionID, QuestionPrompt from " + strSchema + ".SecurityQuestions WHERE SetID = 2", _cntDatabase);
-            SqlCommand cmdSet3 = new SqlCommand("Select QuestionID, QuestionPrompt from " + strSchema + ".SecurityQuestions WHERE SetID = 3", _cntDatabase);
+            try
+            {
+                //commands for data
+                SqlCommand cmdSet1 = new SqlCommand("Select QuestionID, QuestionPrompt from " + strSchema + ".SecurityQuestions WHERE SetID = 1", _cntDatabase);
+                SqlCommand cmdSet2 = new SqlCommand("Select QuestionID, QuestionPrompt from " + strSchema + ".SecurityQuestions WHERE SetID = 2", _cntDatabase);
+                SqlCommand cmdSet3 = new SqlCommand("Select QuestionID, QuestionPrompt from " + strSchema + ".SecurityQuestions WHERE SetID = 3", _cntDatabase);
 
-            //data adapters
-            SqlDataAdapter daSet1 = new SqlDataAdapter(cmdSet1);
-            SqlDataAdapter daSet2 = new SqlDataAdapter(cmdSet2);
-            SqlDataAdapter daSet3 = new SqlDataAdapter(cmdSet3);
+                //data adapters
+                SqlDataAdapter daSet1 = new SqlDataAdapter(cmdSet1);
+                SqlDataAdapter daSet2 = new SqlDataAdapter(cmdSet2);
+                SqlDataAdapter daSet3 = new SqlDataAdapter(cmdSet3);
 
 
-            //data table
-            DataTable dtSet1 = new DataTable();
-            DataTable dtSet2 = new DataTable();
-            DataTable dtSet3 = new DataTable();
+                //data table
+                DataTable dtSet1 = new DataTable();
+                DataTable dtSet2 = new DataTable();
+                DataTable dtSet3 = new DataTable();
 
-            //fill data set
-            daSet1.Fill(dtSet1);
-            daSet2.Fill(dtSet2);
-            daSet3.Fill(dtSet3);
+                //fill data set
+                daSet1.Fill(dtSet1);
+                daSet2.Fill(dtSet2);
+                daSet3.Fill(dtSet3);
 
-            //insert to data table
-            DataRow drSet1 = dtSet1.NewRow();
-            drSet1[0] = 0;
-            drSet1[1] = "Please Select";
-            dtSet1.Rows.InsertAt(drSet1, 0);
+                //insert to data table
+                DataRow drSet1 = dtSet1.NewRow();
+                drSet1[0] = 0;
+                drSet1[1] = "Please Select";
+                dtSet1.Rows.InsertAt(drSet1, 0);
 
-            DataRow drSet2 = dtSet2.NewRow();
-            drSet2[0] = 0;
-            drSet2[1] = "Please Select";
-            dtSet2.Rows.InsertAt(drSet2, 0);
+                DataRow drSet2 = dtSet2.NewRow();
+                drSet2[0] = 0;
+                drSet2[1] = "Please Select";
+                dtSet2.Rows.InsertAt(drSet2, 0);
 
-            DataRow drSet3 = dtSet3.NewRow();
-            drSet3[0] = 0;
-            drSet3[1] = "Please Select";
-            dtSet3.Rows.InsertAt(drSet3, 0);
+                DataRow drSet3 = dtSet3.NewRow();
+                drSet3[0] = 0;
+                drSet3[1] = "Please Select";
+                dtSet3.Rows.InsertAt(drSet3, 0);
 
-            //close connection
-            CloseDatabase();
+                //close connection
+                CloseDatabase();
 
-            //setup comboboxes
-            cbxQuestion1.DataSource = dtSet1;
-            cbxQuestion1.DisplayMember = "QuestionPrompt";
-            cbxQuestion1.ValueMember = "QuestionID";
+                //setup comboboxes
+                cbxQuestion1.DataSource = dtSet1;
+                cbxQuestion1.DisplayMember = "QuestionPrompt";
+                cbxQuestion1.ValueMember = "QuestionID";
 
-            cbxQuestion2.DataSource = dtSet2;
-            cbxQuestion2.DisplayMember = "QuestionPrompt";
-            cbxQuestion2.ValueMember = "QuestionID";
+                cbxQuestion2.DataSource = dtSet2;
+                cbxQuestion2.DisplayMember = "QuestionPrompt";
+                cbxQuestion2.ValueMember = "QuestionID";
 
-            cbxQuestion3.DataSource = dtSet3;
-            cbxQuestion3.DisplayMember = "QuestionPrompt";
-            cbxQuestion3.ValueMember = "QuestionID";
+                cbxQuestion3.DataSource = dtSet3;
+                cbxQuestion3.DisplayMember = "QuestionPrompt";
+                cbxQuestion3.ValueMember = "QuestionID";
+            }
+            catch (Exception)
+            {
+                //error message
+                MessageBox.Show("Could not fill security question combo boxes. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-        }
-
-        //structure for holding textbox and combobox parameters
-        public struct ParametersSQL
-        {
-            public ComboBox cbxTitle, cbxState, cbxSecQuestion1, cbxSecQuestion2, cbxSecQuestion3;
-
-            public TextBox tbxFirstName, tbxMiddleName, tbxLastName, tbxSuffix, tbxAddress1, tbxAddress2, tbxAddress3, tbxCity, tbxZipcode, tbxEmail, tbxPhone1, tbxPhone2, tbxAnswer1, tbxAnswer2, tbxAnswer3, tbxUser, tbxPassword;
         }
 
         //method to write new user info to database
-        internal static bool WriteLoginData(ParametersSQL boxParams)
+        internal static bool WriteLoginData(clsParameters.SignupParameters signupParameters)
         {
 
             //var for question id and person id
@@ -168,9 +168,9 @@ namespace FinalProject
             string strSelectQuery2 = "SELECT LogonName FROM " + strSchema + ".Logon where LogonName = @LogonName;";
 
             //set proper set id to question id var
-            bolID1 = int.TryParse(boxParams.cbxSecQuestion1.SelectedValue.ToString(), out intID1);
-            bolID2 = int.TryParse(boxParams.cbxSecQuestion2.SelectedValue.ToString(), out intID2);
-            bolID3 = int.TryParse(boxParams.cbxSecQuestion3.SelectedValue.ToString(), out intID3);
+            bolID1 = int.TryParse(signupParameters.cbxSecQuestion1.SelectedValue.ToString(), out intID1);
+            bolID2 = int.TryParse(signupParameters.cbxSecQuestion2.SelectedValue.ToString(), out intID2);
+            bolID3 = int.TryParse(signupParameters.cbxSecQuestion3.SelectedValue.ToString(), out intID3);
 
             OpenDatabase();
 
@@ -179,7 +179,7 @@ namespace FinalProject
 
                 //command query for logon name
                 SqlCommand cmdSelectLogon = new SqlCommand(strSelectQuery2, _cntDatabase);
-                cmdSelectLogon.Parameters.AddWithValue("@LogonName", boxParams.tbxUser.Text);
+                cmdSelectLogon.Parameters.AddWithValue("@LogonName", signupParameters.tbxUsername.Text);
                 SqlDataReader rdLogon = cmdSelectLogon.ExecuteReader();
 
                 //if statement to check if username already exists
@@ -189,7 +189,7 @@ namespace FinalProject
                     string strUsername = rdLogon.GetValue(0).ToString();
 
                     //if returned username is the same send error
-                    if (strUsername.ToUpper().Contains(boxParams.tbxUser.Text.ToUpper()))
+                    if (strUsername.ToUpper().Contains(signupParameters.tbxUsername.Text.ToUpper()))
                     {
                         MessageBox.Show("The username entered already exists. Please enter a new username.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         rdLogon.Close();
@@ -208,20 +208,20 @@ namespace FinalProject
 
                 //sets up querys to insert user data
                 SqlCommand cmdInsert = new SqlCommand(strInsertQuery, _cntDatabase);
-                cmdInsert.Parameters.AddWithValue("@Title", boxParams.cbxTitle.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@NameFirst", boxParams.tbxFirstName.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@NameMiddle", boxParams.tbxMiddleName.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@NameLast", boxParams.tbxLastName.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@Suffix", boxParams.tbxSuffix.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@Address1", boxParams.tbxAddress1.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@Address2", boxParams.tbxAddress2.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@Address3", boxParams.tbxAddress3.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@City", boxParams.tbxCity.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@Zipcode", boxParams.tbxZipcode.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@State", boxParams.cbxState.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@Email", boxParams.tbxEmail.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@PhonePrimary", boxParams.tbxPhone1.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@PhoneSecondary", boxParams.tbxPhone2.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Title", signupParameters.cbxTitle.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@NameFirst", signupParameters.tbxFirstName.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@NameMiddle", signupParameters.tbxMiddleName.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@NameLast", signupParameters.tbxLastName.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Suffix", signupParameters.tbxSuffix.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Address1", signupParameters.tbxAddress1.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Address2", signupParameters.tbxAddress2.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Address3", signupParameters.tbxAddress3.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@City", signupParameters.tbxCity.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Zipcode", signupParameters.tbxZipcode.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@State", signupParameters.cbxState.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Email", signupParameters.tbxEmail.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@PhonePrimary", signupParameters.tbxPhone1.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@PhoneSecondary", signupParameters.tbxPhone2.Text.Trim());
 
                 //executes querys and closes reader
                 SqlDataReader rdInsert = cmdInsert.ExecuteReader();
@@ -229,7 +229,7 @@ namespace FinalProject
 
                 //command query for personId
                 SqlCommand cmdSelect = new SqlCommand(strSelectQuery, _cntDatabase);
-                cmdSelect.Parameters.AddWithValue("@NameFirst", boxParams.tbxFirstName.Text);
+                cmdSelect.Parameters.AddWithValue("@NameFirst", signupParameters.tbxFirstName.Text);
                 SqlDataReader rdSelect = cmdSelect.ExecuteReader();
 
                 //if statement to set person id
@@ -256,14 +256,14 @@ namespace FinalProject
                 //insert data to logon
                 SqlCommand cmdInsert2 = new SqlCommand(strInsertQuery2, _cntDatabase);
                 cmdInsert2.Parameters.AddWithValue("@PersonID", intPersonID);
-                cmdInsert2.Parameters.AddWithValue("@LogonName", boxParams.tbxUser.Text.Trim());
-                cmdInsert2.Parameters.AddWithValue("@Password", boxParams.tbxPassword.Text.Trim());
+                cmdInsert2.Parameters.AddWithValue("@LogonName", signupParameters.tbxUsername.Text.Trim());
+                cmdInsert2.Parameters.AddWithValue("@Password", signupParameters.tbxPassword.Text.Trim());
                 cmdInsert2.Parameters.AddWithValue("@FirstChallengeQuestion", intID1);
-                cmdInsert2.Parameters.AddWithValue("@FirstChallengeAnswer", boxParams.tbxAnswer1.Text.Trim());
+                cmdInsert2.Parameters.AddWithValue("@FirstChallengeAnswer", signupParameters.tbxAnswer1.Text.Trim());
                 cmdInsert2.Parameters.AddWithValue("@SecondChallengeQuestion", intID2);
-                cmdInsert2.Parameters.AddWithValue("@SecondChallengeAnswer", boxParams.tbxAnswer2.Text.Trim());
+                cmdInsert2.Parameters.AddWithValue("@SecondChallengeAnswer", signupParameters.tbxAnswer2.Text.Trim());
                 cmdInsert2.Parameters.AddWithValue("@ThirdChallengeQuestion", intID3);
-                cmdInsert2.Parameters.AddWithValue("@ThirdChallengeAnswer", boxParams.tbxAnswer3.Text.Trim());
+                cmdInsert2.Parameters.AddWithValue("@ThirdChallengeAnswer", signupParameters.tbxAnswer3.Text.Trim());
 
                 //executes querys and closes reader
                 SqlDataReader rdInsert2 = cmdInsert2.ExecuteReader();
@@ -567,9 +567,6 @@ namespace FinalProject
 
             try
             {
-                //close previous connections and open new one
-                //CloseDatabase();
-                //OpenDatabase();
                 
                 for (int i = 0; i < dgvInventory.Rows.Count; i++)
                 {
@@ -601,8 +598,6 @@ namespace FinalProject
         //method to format and bind data grid view
         internal static void BindInventoryView(DataGridView dgvInventory)
         {
-            //clear inventory
-            //dgvInventory.Rows.Clear();
             //set command object to null
             _sqlInventoryCommand = null;
 
@@ -1437,17 +1432,17 @@ namespace FinalProject
             }
         }
         //method for checking out
-        internal static void CheckOut(TextBox tbxCode, DataGridView dgvInventory, DataGridView dgvCart, TextBox tbxGross, TextBox tbxSub, TextBox tbxItems, TextBox tbxDiscount, TextBox tbxTax, TextBox tbxTotal, TextBox tbxCardNumber, TextBox tbxExpiry, TextBox tbxCCV)
+        internal static void CheckOut(clsParameters.CheckoutParameters checkoutParameters)
         {            
             try
             {
                 OpenDatabase();
 
                 //check if cart is empty
-                if (dgvCart.Rows.Count > 0)
+                if (checkoutParameters.dgvCart.Rows.Count > 0)
                 {
                     //check card info
-                    if (clsValidation.CardInfoValidation(tbxCardNumber.Text, tbxExpiry.Text, tbxCCV.Text) && tbxCardNumber.Text != "1234-1234-1234-1234")
+                    if (clsValidation.CardInfoValidation(checkoutParameters.tbxCardNumber.Text, checkoutParameters.tbxExpiry.Text, checkoutParameters.tbxCCV.Text))
                     {
                         //get todays date
                         string strDate = DateTime.Now.ToString();
@@ -1457,7 +1452,7 @@ namespace FinalProject
                         int intOrderID = 0;
                         int intPersonID;
                         //check if discount is applied
-                        if (tbxDiscount.Text == "$0.00")
+                        if (checkoutParameters.tbxDiscount.Text == "$0.00")
                         {
                             strDiscountID = "0";
                         }
@@ -1483,23 +1478,23 @@ namespace FinalProject
                         int.TryParse(strPersonID, out intPersonID);
 
                         //get cart values
-                        for (int i = 0; i < dgvCart.Rows.Count; i++)
+                        for (int i = 0; i < checkoutParameters.dgvCart.Rows.Count; i++)
                         {
-                            intItemQuantity.Add((int)(dgvCart.Rows[i].Cells[0].Value));
-                            strNames.Add((dgvCart.Rows[i].Cells[1].Value).ToString());
-                            strPrice.Add((dgvCart.Rows[i].Cells[3].Value).ToString());
-                            strTotal.Add((dgvCart.Rows[i].Cells[4].Value).ToString());
+                            intItemQuantity.Add((int)(checkoutParameters.dgvCart.Rows[i].Cells[0].Value));
+                            strNames.Add((checkoutParameters.dgvCart.Rows[i].Cells[1].Value).ToString());
+                            strPrice.Add((checkoutParameters.dgvCart.Rows[i].Cells[3].Value).ToString());
+                            strTotal.Add((checkoutParameters.dgvCart.Rows[i].Cells[4].Value).ToString());
                         }
 
                         //get text box values
-                        strSub = tbxSub.Text;
-                        strItems = tbxItems.Text;
-                        strDiscount = tbxDiscount.Text;
-                        strTax = tbxTax.Text;
-                        strTextboxTotal = tbxTotal.Text;
+                        strSub = checkoutParameters.tbxSub.Text;
+                        strItems = checkoutParameters.tbxItems.Text;
+                        strDiscount = checkoutParameters.tbxDiscount.Text;
+                        strTax = checkoutParameters.tbxTax.Text;
+                        strTextboxTotal = checkoutParameters.tbxTotal.Text;
 
                         //update tables
-                        WriteOrders(intDiscountID, intPersonID, strDate, tbxCardNumber.Text, tbxExpiry.Text, tbxCCV.Text);
+                        WriteOrders(intDiscountID, intPersonID, strDate, checkoutParameters.tbxCardNumber.Text, checkoutParameters.tbxExpiry.Text, checkoutParameters.tbxCCV.Text);
 
                         //query for getting order id
                         string strSelectQuery = "SELECT OrderID, PersonID FROM " + strSchema + ".Orders where PersonID = @PersonID AND OrderDate = @OrderDate;";
@@ -1581,8 +1576,9 @@ namespace FinalProject
                             //string for returned values                            
                             string strFirst = rdSelectName.GetValue(1).ToString();
                             string strLast = rdSelectName.GetValue(2).ToString();
-                            strPhone = rdSelectName.GetValue(3).ToString();
+                            string strPhoneNumber = rdSelectName.GetValue(3).ToString();
                             strName = strFirst + " " + strLast;
+                            strPhone = strPhoneNumber;
                             //close reader
                             rdSelectName.Close();
                         }
@@ -1594,16 +1590,16 @@ namespace FinalProject
                             CloseDatabase();
                         }
                         //successful
-                        MessageBox.Show("Thank you for shopping with us! \nPlease shop with us again soon!", "AE Sporting Fits", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Purchase successful! Thank you for shopping with us! \nPlease shop with us again soon!", "AE Sporting Fits", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        if (tbxDiscount.Text == "$0.00")
+                        if (checkoutParameters.tbxDiscount.Text == "$0.00")
                         {
                             //show receipt
                             clsHTML.PrintReceipt(clsHTML.GenerateReceipt(strNames, intItemQuantity, strTotal, strPrice, intOrderID.ToString(), strName, strPhone, strSub, strTax, strTextboxTotal));
                         }
                         else
                         {
-                            clsHTML.PrintReceipt(clsHTML.GenerateReceiptDiscount(strNames, intItemQuantity, strTotal, strPrice, intOrderID.ToString(), strName, strPhone, tbxGross.Text, strSub, strDiscount, strTax, strTextboxTotal));
+                            clsHTML.PrintReceipt(clsHTML.GenerateReceiptDiscount(strNames, intItemQuantity, strTotal, strPrice, intOrderID.ToString(), strName, strPhone, checkoutParameters.tbxGross.Text, strSub, strDiscount, strTax, strTextboxTotal));
                         }                        
 
                         //reset lists
@@ -1620,20 +1616,20 @@ namespace FinalProject
 
                         CloseDatabase();
                         //refresh inventory
-                        dgvInventory.DataSource = null;
-                        clsSQL.InitializeInventoryView(dgvInventory);
+                        checkoutParameters.dgvInventory.DataSource = null;
+                        clsSQL.InitializeInventoryView(checkoutParameters.dgvInventory);
 
                         //clear cart
-                        ClearCart(dgvCart);
+                        ClearCart(checkoutParameters.dgvCart);
                         //clear text boxes
-                        tbxItems.Clear();
-                        tbxDiscount.Text = "$0.00"; ;
-                        tbxGross.Clear();
-                        tbxCode.Clear();
-                        tbxSub.Clear();
-                        tbxTax.Clear();
-                        tbxTotal.Clear();
-                        dgvInventory.Refresh();
+                        checkoutParameters.tbxItems.Clear();
+                        checkoutParameters.tbxDiscount.Text = "$0.00"; ;
+                        checkoutParameters.tbxGross.Clear();
+                        checkoutParameters.tbxCode.Clear();
+                        checkoutParameters.tbxSub.Clear();
+                        checkoutParameters.tbxTax.Clear();
+                        checkoutParameters.tbxTotal.Clear();
+                        checkoutParameters.dgvInventory.Refresh();
                     }                    
                 }
                 else

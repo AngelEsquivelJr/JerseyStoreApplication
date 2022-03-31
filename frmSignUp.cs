@@ -176,33 +176,34 @@ namespace FinalProject
         private void btnSignUp_Click(object sender, EventArgs e)
         {
             //set up parameters
-            clsLogon.LogonParams bxParams = new clsLogon.LogonParams();
-
-            bxParams.cbxTitle = cbxTitle;
-            bxParams.tbxFirstName = tbxFirstName;
-            bxParams.tbxMiddleName = tbxMiddleName;
-            bxParams.tbxLastName = tbxLastName;
-            bxParams.tbxSuffix = tbxSuffix;
-            bxParams.tbxCity = tbxCity;
-            bxParams.tbxAddress1 = tbxAddress1;
-            bxParams.tbxAddress2 = tbxAddress2;
-            bxParams.tbxAddress3 = tbxAddress3;
-            bxParams.tbxPhone1 = tbxPhoneOne;
-            bxParams.tbxPhone2 = tbxPhoneTwo;
-            bxParams.cbxState = cbxState;
-            bxParams.tbxEmail = tbxEmailInput;
-            bxParams.tbxZipcode = tbxZipcode;
-            bxParams.tbxUser = tbxUsername;
-            bxParams.tbxPassword = tbxPassword;
-            bxParams.cbxSecQuest1 = cbxSecurityOne;
-            bxParams.cbxSecQuest2 = cbxSecurityTwo;
-            bxParams.cbxSecQuest3 = cbxSecurityThree;
-            bxParams.tbxAnswer1 = tbxAnswerOne;
-            bxParams.tbxAnswer2 = tbxAnswerTwo;
-            bxParams.tbxAnswer3 = tbxAnswerThree;
+            clsParameters.SignupParameters signupParameters = new clsParameters.SignupParameters
+            {
+                cbxTitle = cbxTitle,
+                tbxFirstName = tbxFirstName,
+                tbxMiddleName = tbxMiddleName,
+                tbxLastName = tbxLastName,
+                tbxSuffix = tbxSuffix,
+                tbxCity = tbxCity,
+                tbxAddress1 = tbxAddress1,
+                tbxAddress2 = tbxAddress2,
+                tbxAddress3 = tbxAddress3,
+                tbxPhone1 = tbxPhoneOne,
+                tbxPhone2 = tbxPhoneTwo,
+                cbxState = cbxState,
+                tbxEmail = tbxEmailInput,
+                tbxZipcode = tbxZipcode,
+                tbxUsername = tbxUsername,
+                tbxPassword = tbxPassword,
+                cbxSecQuestion1 = cbxSecurityOne,
+                cbxSecQuestion2 = cbxSecurityTwo,
+                cbxSecQuestion3 = cbxSecurityThree,
+                tbxAnswer1 = tbxAnswerOne,
+                tbxAnswer2 = tbxAnswerTwo,
+                tbxAnswer3 = tbxAnswerThree
+            };
 
             //clsLogon method for signing up
-            clsLogon.SignUp(bxParams, frmLogin, this);
+            clsLogon.SignUp(signupParameters, frmLogin, this);
         }
 
         private void btnShow_Click(object sender, EventArgs e)

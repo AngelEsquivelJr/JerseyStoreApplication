@@ -35,7 +35,6 @@ namespace FinalProject
         internal static void UsernameAllowedKeys(KeyPressEventArgs e)
         {
             //allow letters,digits only
-            //A¶@123456
             //allow backspace to work
             if (char.IsLetterOrDigit(e.KeyChar) || char.IsControl(e.KeyChar))
             {
@@ -306,13 +305,23 @@ namespace FinalProject
             {
                 if (SpaceCheck(strCity))
                 {
-                    return true;
+                    if (!Char.IsLetter(strCity[0]))
+                    {
+                        MessageBox.Show("Please enter a valid city name. ", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
                 else
                 {
                     return false;
                 }
             }
+
         }
 
         //method for required field
@@ -611,10 +620,10 @@ namespace FinalProject
         //full card info validation
         internal static bool CardInfoValidation(string strCardNumber, string strExpiry, string strCcv)
         {
-            var cardCheck = new Regex(@"^[1-9][0-9]{3}(-[0-9]{4}){3}$");
-            var monthCheck = new Regex(@"^(0[1-9]|1[0-2])$");
-            var yearCheck = new Regex(@"^20[0-9]{2}$");
-            var ccvCheck = new Regex(@"^\d{3}$");
+            Regex cardCheck = new Regex(@"^[1-9][0-9]{3}(-[0-9]{4}){3}$");
+            Regex monthCheck = new Regex(@"^(0[1-9]|1[0-2])$");
+            Regex yearCheck = new Regex(@"^20[0-9]{2}$");
+            Regex ccvCheck = new Regex(@"^\d{3}$");
 
             //check card number
             if (!cardCheck.IsMatch(strCardNumber))
@@ -622,14 +631,7 @@ namespace FinalProject
                 MessageBox.Show("The card number that was entered is invalid. Please try again.", "Card Number Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
-            }
-            //check ccv
-            if (!ccvCheck.IsMatch(strCcv))
-            {
-                MessageBox.Show("The card verification number that was entered is invalid. Please try again.", "CCV Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+            }            
 
             //set expiration date as mm/yyyy
             var dateParts = strExpiry.Split('/');
@@ -641,20 +643,28 @@ namespace FinalProject
             }
 
             //vars for date
-            int.TryParse(dateParts[1], out var year);
-            int.TryParse(dateParts[0], out var month);
+            int.TryParse(dateParts[1], out int year);
+            int.TryParse(dateParts[0], out int month);
             //get expiration date
-            var lastDateOfExpiryMonth = DateTime.DaysInMonth(year, month);
-            var cardExpiry = new DateTime(year, month, lastDateOfExpiryMonth, 23, 59, 59);
+            int lastDateOfExpiryMonth = DateTime.DaysInMonth(year, month);
+            DateTime cardExpiry = new DateTime(year, month, lastDateOfExpiryMonth, 23, 59, 59);
 
             //check expiry greater than today & within next 5 years
-            if (cardExpiry > DateTime.Now && cardExpiry < DateTime.Now.AddYears(5))
+            if (cardExpiry < DateTime.Now && cardExpiry > DateTime.Now.AddYears(5))
+            {
+                MessageBox.Show("The expiration date that was entered is invalid. Please try again.", "Expiration Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            //check ccv
+            if (ccvCheck.IsMatch(strCcv))
             {
                 return true;
             }
             else
             {
-                MessageBox.Show("The expiration date that was entered is invalid. Please try again.", "Expiration Error",
+                MessageBox.Show("The card verification number that was entered is invalid. Please try again.", "CCV Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -739,38 +749,31 @@ namespace FinalProject
                 return false;
         }
 
-        public struct StringParams
-        {
-            public string strUsername, strPassword, strAddress, strCity, strState, strZipCode, strPhone, strPhone2;
-            public string strQuestion1, strQuestion2, strQuestion3, strAnswer1, strAnswer2, strAnswer3;
-            public string strNameFirst, strNameLast, strEmail;
-        }
-
         //method for calling all validations for signing up
-        internal static bool Validate(StringParams strParams)
+        internal static bool Validate(clsParameters.SignupParameters strParameters)
         {
             //check required fields
-            if (RequiredFields(strParams.strNameFirst, strParams.strNameLast, strParams.strAddress, strParams.strCity, strParams.strState))
+            if (RequiredFields(strParameters.tbxFirstName.Text, strParameters.tbxLastName.Text, strParameters.tbxAddress1.Text, strParameters.tbxCity.Text, strParameters.cbxState.Text))
             {
                 //check zip code
-                if (ZipCodeValidation(strParams.strZipCode))
+                if (ZipCodeValidation(strParameters.tbxZipcode.Text))
                 {
                     //check phones
-                    if (PhoneValidation(strParams.strPhone))
+                    if (PhoneValidation(strParameters.tbxPhone1.Text))
                     {
-                        if (PhoneValidation(strParams.strPhone2))
+                        if (PhoneValidation(strParameters.tbxPhone2.Text))
                         {
                             //check email
-                            if (EmailValidation(strParams.strEmail))
+                            if (EmailValidation(strParameters.tbxEmail.Text))
                             {
                                 //check username
-                                if (UsernameValidation(strParams.strUsername))
+                                if (UsernameValidation(strParameters.tbxUsername.Text))
                                 {
                                     //check password
-                                    if (PasswordValidation(strParams.strPassword))
+                                    if (PasswordValidation(strParameters.tbxPassword.Text))
                                     {
                                         //check required fields
-                                        if (RequiredFieldsTwo(strParams.strQuestion1, strParams.strQuestion2, strParams.strQuestion3, strParams.strAnswer1, strParams.strAnswer2, strParams.strAnswer3))
+                                        if (RequiredFieldsTwo(strParameters.cbxSecQuestion1.Text, strParameters.cbxSecQuestion2.Text, strParameters.cbxSecQuestion3.Text, strParameters.tbxAnswer1.Text, strParameters.tbxAnswer2.Text, strParameters.tbxAnswer3.Text))
                                         {
                                             return true;
                                         }
@@ -797,8 +800,6 @@ namespace FinalProject
             }
             else
                 return false;
-
-
         }
 
     }

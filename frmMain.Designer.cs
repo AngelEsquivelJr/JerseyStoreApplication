@@ -500,7 +500,7 @@ namespace FinalProject
             this.tbxCardNumber.Name = "tbxCardNumber";
             this.tbxCardNumber.Size = new System.Drawing.Size(187, 23);
             this.tbxCardNumber.TabIndex = 2;
-            this.tbxCardNumber.Text = "1234-1234-1234-1234";
+            this.tbxCardNumber.Text = "1234-1234-1234-1234 ";
             this.tbxCardNumber.Click += new System.EventHandler(this.tbxCardNumber_Click);
             this.tbxCardNumber.TextChanged += new System.EventHandler(this.tbxCardNumber_TextChanged);
             this.tbxCardNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxCardNumber_KeyPress);

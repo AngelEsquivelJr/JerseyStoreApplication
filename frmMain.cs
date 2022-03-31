@@ -71,72 +71,104 @@ namespace FinalProject
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            //call method to set up data grid view
-            clsSQL.InitializeInventoryView(dgvInventory);
-            //call method to fill category combo and size combo
-            clsSQL.FillCategoryCombo(cbxCategories);
-            clsSQL.FillSizeCombo(cbxSizes);
-            //clear cart
-            clsSQL.ClearCart(dgvCart);
-            //clear text boxes
-            tbxItems.Clear();
-            tbxGross.Clear();
-            tbxSub.Clear();
-            tbxTax.Clear();
-            tbxTotal.Clear();
+            try
+            {
+                //call method to set up data grid view
+                clsSQL.InitializeInventoryView(dgvInventory);
+                //call method to fill category combo and size combo
+                clsSQL.FillCategoryCombo(cbxCategories);
+                clsSQL.FillSizeCombo(cbxSizes);
+                //clear cart
+                clsSQL.ClearCart(dgvCart);
+                //clear text boxes
+                tbxItems.Clear();
+                tbxGross.Clear();
+                tbxSub.Clear();
+                tbxTax.Clear();
+                tbxTotal.Clear();
 
-            //check if guest
-            if (clsSQL.strLogonName == "Guest")
-            {
-                //set form for guest
-                btnCheck.Enabled = false;
-                btnAddtoCart.Enabled = false;
-                btnDiscountCode.Enabled = false;
-                lblIntroDesc.Text = "Please login to make an order.";
-                //set label
-                lblIntro.Text = "Welcome " + clsSQL.strLogonName + "!";
+                //check if guest
+                if (clsSQL.strLogonName == "Guest")
+                {
+                    //set form for guest
+                    btnCheck.Enabled = false;
+                    btnAddtoCart.Enabled = false;
+                    btnDiscountCode.Enabled = false;
+                    lblIntroDesc.Text = "Please login to make an order.";
+                    //set label
+                    lblIntro.Text = "Welcome " + clsSQL.strLogonName + "!";
+                }
+                else
+                {
+                    //set labels
+                    lblIntroDesc.Text = " ";
+                    lblIntro.Text = "Welcome " + clsSQL.strLogonName + "!";
+                }
             }
-            else
+            catch (Exception)
             {
-                //set labels
-                lblIntroDesc.Text = " ";
-                lblIntro.Text = "Welcome " + clsSQL.strLogonName + "!";
+                //error message
+                MessageBox.Show("Could not load main form. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            //clear search text box and categories combo box
-            tbxSearch.Clear();
-            cbxCategories.SelectedIndex = 0;
-            cbxSizes.SelectedIndex = 0;
-            //set focus
-            tbxSearch.Focus();
+            try
+            {
+                //clear search text box and categories combo box
+                tbxSearch.Clear();
+                cbxCategories.SelectedIndex = 0;
+                cbxSizes.SelectedIndex = 0;
+                //set focus
+                tbxSearch.Focus();
+            }
+            catch (Exception)
+            {
+                //error message
+                MessageBox.Show("Could not clear search text box and filters. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnClearBilling_Click(object sender, EventArgs e)
         {
-            //clear billing text boxes
-            tbxCardNumber.Clear();
-            tbxExpiration.Clear();
-            tbxCCV.Clear();
-            //set focus
-            tbxCardNumber.Focus();
+            try
+            {
+                //clear billing text boxes
+                tbxCardNumber.Clear();
+                tbxExpiration.Clear();
+                tbxCCV.Clear();
+                //set focus
+                tbxCardNumber.Focus();
+            }
+            catch (Exception)
+            {
+                //error message
+                MessageBox.Show("Could not clear card info text boxes. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnClearCart_Click(object sender, EventArgs e)
         {
-            //clear cart
-            clsSQL.ClearCart(dgvCart);
-            //clear text boxes
-            tbxItems.Clear();
-            tbxGross.Clear();
-            tbxSub.Clear();
-            tbxTax.Clear();
-            tbxTotal.Clear();
+            try
+            {
+                //clear cart
+                clsSQL.ClearCart(dgvCart);
+                //clear text boxes
+                tbxItems.Clear();
+                tbxGross.Clear();
+                tbxSub.Clear();
+                tbxTax.Clear();
+                tbxTotal.Clear();
 
-            //set focus
-            btnAddtoCart.Focus();
+                //set focus
+                btnAddtoCart.Focus();
+            }
+            catch (Exception)
+            {
+                //error message
+                MessageBox.Show("Could not clear cart. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void dgvInventory_SelectionChanged(object sender, EventArgs e)
@@ -172,7 +204,7 @@ namespace FinalProject
         private void tbxCardNumber_Click(object sender, EventArgs e)
         {
             //clears card number text
-            if (tbxCardNumber.Text == "1234-1234-1234-1234")
+            if (tbxCardNumber.Text == "1234-1234-1234-1234 ")
             {
                 tbxCardNumber.Clear();
                 tbxCardNumber.ForeColor = Color.Black;
@@ -236,23 +268,41 @@ namespace FinalProject
 
         private void btnCartAdd_Click(object sender, EventArgs e)
         {
-            //set amount for count
-            int.TryParse(btnRemove.Text, out int intCount);
-            //add to count and change remove button
-            intCount++;
-            btnRemove.Text = intCount.ToString();
+            try
+            {
+                string strRemove = btnRemove.Text;
+                //set amount for count
+                int.TryParse(strRemove, out int intCount);
+                //add to count and change remove button
+                intCount++;
+                btnRemove.Text = intCount.ToString();
+            }
+            catch (Exception)
+            {
+                //error message
+                MessageBox.Show("Could not add to remove button. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnCartSubtract_Click(object sender, EventArgs e)
         {
-            //set amount for count
-            int.TryParse(btnRemove.Text, out int intCount);
-            //subtract to count and change remove button
-            if (intCount > 0)
+            try
             {
-                intCount--;
+                string strRemove = btnRemove.Text;
+                //set amount for count
+                int.TryParse(strRemove, out int intCount);
+                //subtract to count and change remove button
+                if (intCount > 0)
+                {
+                    intCount--;
+                }
+                btnRemove.Text = intCount.ToString();
             }
-            btnRemove.Text = intCount.ToString();
+            catch (Exception)
+            {
+                //error message
+                MessageBox.Show("Could not subtract to remove button. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -269,8 +319,24 @@ namespace FinalProject
 
         private void btnCheck_Click(object sender, EventArgs e)
         {
+            clsParameters.CheckoutParameters checkoutParameters = new clsParameters.CheckoutParameters
+            {
+                dgvCart = dgvCart,
+                dgvInventory = dgvInventory,
+                tbxCardNumber = tbxCardNumber,
+                tbxCCV = tbxCCV,
+                tbxExpiry = tbxExpiration,
+                tbxGross = tbxGross,
+                tbxCode =tbxCode,
+                tbxDiscount =tbxDiscount,
+                tbxItems = tbxItems,
+                tbxSub =tbxSub,
+                tbxTax =tbxTax,
+                tbxTotal = tbxTotal
+            };
+
             //call method to checkout
-            clsSQL.CheckOut(tbxCode, dgvInventory, dgvCart, tbxGross, tbxSub, tbxItems, tbxDiscount, tbxTax, tbxTotal, tbxCardNumber, tbxExpiration, tbxCCV);
+            clsSQL.CheckOut(checkoutParameters);
         }
 
         private void btnHelp_Click(object sender, EventArgs e)

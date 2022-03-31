@@ -147,21 +147,29 @@ namespace FinalProject
         {
             //call the clsLogon method for updating form
             clsLogon.UpdateReset(tbxUsername, tbxQuestionOne, tbxQuestionTwo, tbxQuestionThree, this, btnReset, btnUpdate);
-            //clear text boxes          
-            tbxAnswerOne.Clear();
-            tbxAnswerTwo.Clear();
-            tbxAnswerThree.Clear();
-            //set focus to first text box
-            //enable password fields
-            if (tbxUsername.ReadOnly == true)
+            try
             {
-                tbxAnswerOne.Focus();
-                tbxPassword.ReadOnly = false;
-                tbxPassTwo.ReadOnly = false;
+                //clear text boxes          
+                tbxAnswerOne.Clear();
+                tbxAnswerTwo.Clear();
+                tbxAnswerThree.Clear();
+                //set focus to first text box
+                //enable password fields
+                if (tbxUsername.ReadOnly == true)
+                {
+                    tbxAnswerOne.Focus();
+                    tbxPassword.ReadOnly = false;
+                    tbxPassTwo.ReadOnly = false;
+                }
+                else
+                {
+                    tbxUsername.Focus();
+                }
             }
-            else
+            catch (Exception)
             {
-                tbxUsername.Focus();
+                //error message
+                MessageBox.Show("Could not update screen. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }

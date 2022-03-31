@@ -24,68 +24,14 @@ namespace FinalProject
 {
     internal class clsLogon
     {
-
-        //structure for holding textbox and combobox parameters
-        public struct LogonParams
-        {
-            public ComboBox cbxTitle, cbxState, cbxSecQuest1, cbxSecQuest2, cbxSecQuest3;
-
-            public TextBox tbxFirstName, tbxMiddleName, tbxLastName, tbxSuffix, tbxAddress1, tbxAddress2, tbxAddress3, tbxCity, tbxZipcode, tbxEmail, tbxPhone1, tbxPhone2, tbxAnswer1, tbxAnswer2, tbxAnswer3, tbxUser, tbxPassword;
-        }
-
         //method for signing up
-        internal static void SignUp(LogonParams logonParams, frmLogon frmLogon, frmSignUp frmSignup)
-        {
-            //set values from validation parameters
-            clsValidation.StringParams strParams = new clsValidation.StringParams();
-            clsSQL.ParametersSQL boxParams = new clsSQL.ParametersSQL();
-
-            strParams.strNameFirst = logonParams.tbxFirstName.Text;
-            strParams.strNameLast = logonParams.tbxLastName.Text;
-            strParams.strCity = logonParams.tbxCity.Text;
-            strParams.strAddress = logonParams.tbxAddress1.Text;
-            strParams.strPhone = logonParams.tbxPhone1.Text;
-            strParams.strPhone2 = logonParams.tbxPhone2.Text;
-            strParams.strState = logonParams.cbxState.Text;
-            strParams.strEmail = logonParams.tbxEmail.Text;
-            strParams.strZipCode = logonParams.tbxZipcode.Text;
-            strParams.strUsername = logonParams.tbxUser.Text;
-            strParams.strPassword = logonParams.tbxPassword.Text;
-            strParams.strQuestion1 = logonParams.cbxSecQuest1.Text;
-            strParams.strQuestion2 = logonParams.cbxSecQuest2.Text;
-            strParams.strQuestion3 = logonParams.cbxSecQuest3.Text;
-            strParams.strAnswer1 = logonParams.tbxAnswer1.Text;
-            strParams.strAnswer2 = logonParams.tbxAnswer2.Text;
-            strParams.strAnswer3 = logonParams.tbxAnswer3.Text;
-
-            boxParams.cbxTitle = logonParams.cbxTitle;
-            boxParams.tbxFirstName = logonParams.tbxFirstName;
-            boxParams.tbxMiddleName = logonParams.tbxMiddleName;
-            boxParams.tbxLastName = logonParams.tbxLastName;
-            boxParams.tbxSuffix = logonParams.tbxSuffix;
-            boxParams.tbxCity = logonParams.tbxCity;
-            boxParams.tbxAddress1 = logonParams.tbxAddress1;
-            boxParams.tbxAddress2 = logonParams.tbxAddress2;
-            boxParams.tbxAddress3 = logonParams.tbxAddress3;
-            boxParams.tbxPhone1 = logonParams.tbxPhone1;
-            boxParams.tbxPhone2 = logonParams.tbxPhone2;
-            boxParams.cbxState = logonParams.cbxState;
-            boxParams.tbxEmail = logonParams.tbxEmail;
-            boxParams.tbxZipcode = logonParams.tbxZipcode;
-            boxParams.tbxUser = logonParams.tbxUser;
-            boxParams.tbxPassword = logonParams.tbxPassword;
-            boxParams.cbxSecQuestion1 = logonParams.cbxSecQuest1;
-            boxParams.cbxSecQuestion2 = logonParams.cbxSecQuest2;
-            boxParams.cbxSecQuestion3 = logonParams.cbxSecQuest3;
-            boxParams.tbxAnswer1 = logonParams.tbxAnswer1;
-            boxParams.tbxAnswer2 = logonParams.tbxAnswer2;
-            boxParams.tbxAnswer3 = logonParams.tbxAnswer3;
-
+        internal static void SignUp(clsParameters.SignupParameters loginParameters, frmLogon frmLogon, frmSignUp frmSignup)
+        {         
             //call proper clsValidation method for validation
-            if (clsValidation.Validate(strParams))
+            if (clsValidation.Validate(loginParameters))
             {
                 //call clsSql method for logging in
-                if(clsSQL.WriteLoginData(boxParams))
+                if(clsSQL.WriteLoginData(loginParameters))
                 {
                     //message for success and returns to login form
                     MessageBox.Show("Account Created Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -93,7 +39,6 @@ namespace FinalProject
                     frmLogon.Show();
                 }
             }
-
         }
 
         //method for logging in

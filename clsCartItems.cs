@@ -4,8 +4,8 @@
 // Course: INEW 2332.7Z1 (Final Project)
 // Program Description:
 // Application used to browse and buy jerseys.
-// Form Purpose:
-// This form is used to fill the cart data grid view.
+// Class Purpose:
+// This class is used to fill the cart data grid view.
 // 
 
 using System;
