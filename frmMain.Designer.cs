@@ -440,7 +440,7 @@ namespace FinalProject
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(51, 21);
             this.btnRemove.TabIndex = 4;
-            this.btnRemove.Text = "&0";
+            this.btnRemove.Text = "0";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 

@@ -276,13 +276,19 @@ namespace FinalProject
         private void btnCartAdd_Click(object sender, EventArgs e)
         {
             try
-            {
-                string strRemove = btnRemove.Text;
+            {                
                 //set amount for count
-                int.TryParse(strRemove, out int intCount);
-                //add to count and change remove button
-                intCount++;
-                btnRemove.Text = intCount.ToString();
+                if (int.TryParse(btnRemove.Text, out int intCount))
+                {
+                    //add to count and change remove button
+                    intCount++;
+                    btnRemove.Text = intCount.ToString();
+                }
+                else
+                {
+                //error message
+                MessageBox.Show("Could not convert count. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception)
             {
@@ -295,15 +301,23 @@ namespace FinalProject
         {
             try
             {
+                int intCount;
                 string strRemove = btnRemove.Text;
                 //set amount for count
-                int.TryParse(strRemove, out int intCount);
-                //subtract to count and change remove button
-                if (intCount > 0)
+                if (int.TryParse(strRemove, out intCount))
                 {
-                    intCount--;
+                    //subtract to count and change remove button
+                    if (intCount > 0)
+                    {
+                        intCount--;
+                    }
+                    btnRemove.Text = intCount.ToString();
                 }
-                btnRemove.Text = intCount.ToString();
+                else
+                {
+                    //error message
+                    MessageBox.Show("Could not subtract to remove button. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception)
             {
