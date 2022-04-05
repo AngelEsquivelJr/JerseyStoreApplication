@@ -176,7 +176,6 @@ namespace FinalProject
 
             try
             {
-
                 //command query for logon name
                 SqlCommand cmdSelectLogon = new SqlCommand(strSelectQuery2, _cntDatabase);
                 cmdSelectLogon.Parameters.AddWithValue("@LogonName", signupParameters.tbxUsername.Text);
@@ -318,8 +317,7 @@ namespace FinalProject
                             //set logon name var
                             strLogonName = strUsername;
                             strPID = strPersonID;
-                            //debug messagebox to see position title
-                            MessageBox.Show("You are logging in as a " + strTitle + ".", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            
                             //returns true and closes reader
                             rd.Close();
                             //close database
@@ -549,6 +547,7 @@ namespace FinalProject
         }
 
         //Main Form Information
+
         //data command
         public static SqlCommand _sqlInventoryCommand;
         //data adapter
@@ -809,10 +808,10 @@ namespace FinalProject
                                                             dblNewTotal = dblSub + dblTax;
 
                                                             //add discount, sub, tax, and total
-                                                            tbxDiscount.Text = "$" + dblDiscount.ToString("0.##");
-                                                            tbxSub.Text = "$" + dblSub.ToString("0.##");
-                                                            tbxTax.Text = "$" + dblTax.ToString("0.##");
-                                                            tbxTotal.Text = "$" + dblNewTotal.ToString("0.##");
+                                                            tbxDiscount.Text = dblDiscount.ToString("C");
+                                                            tbxSub.Text = dblSub.ToString("C");
+                                                            tbxTax.Text = dblTax.ToString("C");
+                                                            tbxTotal.Text = dblNewTotal.ToString("C");
                                                     }
                                                 }
                                                 else
@@ -829,10 +828,10 @@ namespace FinalProject
                                                             dblNewTotal = dblSub + dblTax;
 
                                                             //add discount, sub, tax, and total
-                                                            tbxDiscount.Text = "$" + dblDiscount.ToString("0.##");
-                                                            tbxSub.Text = "$" + dblSub.ToString("0.##");
-                                                            tbxTax.Text = "$" + dblTax.ToString("0.##");
-                                                            tbxTotal.Text = "$" + dblNewTotal.ToString("0.##");
+                                                            tbxDiscount.Text = dblDiscount.ToString("C");
+                                                            tbxSub.Text = dblSub.ToString("C");
+                                                            tbxTax.Text = dblTax.ToString("C");
+                                                            tbxTotal.Text = dblNewTotal.ToString("C");
                                                         }
                                                     }
 
@@ -854,10 +853,10 @@ namespace FinalProject
                                                     dblNewTotal = dblSub + dblTax;
 
                                                     //add discount, sub, tax, and total
-                                                    tbxDiscount.Text = "$" + dblDiscount.ToString("0.##");
-                                                    tbxSub.Text = "$" + dblSub.ToString("0.##");
-                                                    tbxTax.Text = "$" + dblTax.ToString("0.##");
-                                                    tbxTotal.Text = "$" + dblNewTotal.ToString("0.##");
+                                                    tbxDiscount.Text = dblDiscount.ToString("C");
+                                                    tbxSub.Text = dblSub.ToString("C");
+                                                    tbxTax.Text = dblTax.ToString("C");
+                                                    tbxTotal.Text = dblNewTotal.ToString("C");
                                                 }
                                             }
                                             else
@@ -873,10 +872,10 @@ namespace FinalProject
                                                     dblNewTotal = dblSub + dblTax;
 
                                                     //add discount, sub, tax, and total
-                                                    tbxDiscount.Text = "$" + dblDiscount.ToString("0.##");
-                                                    tbxSub.Text = "$" + dblSub.ToString("0.##");
-                                                    tbxTax.Text = "$" + dblTax.ToString("0.##");
-                                                    tbxTotal.Text = "$" + dblNewTotal.ToString("0.##");
+                                                    tbxDiscount.Text = dblDiscount.ToString("C");
+                                                    tbxSub.Text = dblSub.ToString("C");
+                                                    tbxTax.Text = dblTax.ToString("C");
+                                                    tbxTotal.Text = dblNewTotal.ToString("C");
                                                 }
                                             }
                                         }
@@ -1103,7 +1102,7 @@ namespace FinalProject
                                 WriteOrders(intDiscountID, intPersonID, strDate, checkoutParameters.tbxCardNumber.Text, checkoutParameters.tbxExpiry.Text, checkoutParameters.tbxCCV.Text);
 
                                 //query for getting order id
-                                string strSelectQuery = "SELECT OrderID, PersonID FROM " + strSchema + ".Orders where PersonID = @PersonID AND OrderDate = @OrderDate;";
+                                string strSelectQuery = "SELECT max(OrderID), PersonID FROM " + strSchema + ".Orders where PersonID = @PersonID AND OrderDate = @OrderDate GROUP BY PersonID;";
                                 //command query for order Id
                                 SqlCommand cmdSelect = new SqlCommand(strSelectQuery, _cntDatabase);
                                 cmdSelect.Parameters.AddWithValue("@PersonID", intPersonID);
@@ -1202,14 +1201,14 @@ namespace FinalProject
                                 //successful
                                 MessageBox.Show("Purchase successful! Thank you for shopping with us! \nPlease shop with us again soon!", "AE Sporting Fits", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                                //show receipts
                                 if (checkoutParameters.tbxDiscount.Text == "$0.00")
-                                {
-                                    //show receipt
-                                    clsHTML.PrintReceipt(clsHTML.GenerateReceipt(strNames, intItemQuantity, strTotal, strPrice, intOrderID.ToString(), strName, strPhone, strSub, strTax, strTextboxTotal));
+                                {                                    
+                                    clsHTML.PrintReceipt(clsHTML.GenerateReceipt(strNames, intItemQuantity, strTotal, strPrice, intOrderID.ToString(), strName, strPhone, strSub, strTax, strTextboxTotal), intOrderID.ToString());
                                 }
                                 else
                                 {
-                                    clsHTML.PrintReceipt(clsHTML.GenerateReceiptDiscount(strNames, intItemQuantity, strTotal, strPrice, intOrderID.ToString(), strName, strPhone, checkoutParameters.tbxGross.Text, strSub, strDiscount, strTax, strTextboxTotal));
+                                    clsHTML.PrintReceipt(clsHTML.GenerateReceiptDiscount(strNames, intItemQuantity, strTotal, strPrice, intOrderID.ToString(), strName, strPhone, checkoutParameters.tbxGross.Text, strSub, strDiscount, strTax, strTextboxTotal), intOrderID.ToString());
                                 }
 
                                 //reset lists
@@ -1233,7 +1232,7 @@ namespace FinalProject
                                 clsCart.ClearCart(checkoutParameters.dgvCart);
                                 //clear text boxes
                                 checkoutParameters.tbxItems.Clear();
-                                checkoutParameters.tbxDiscount.Text = "$0.00"; ;
+                                checkoutParameters.tbxDiscount.Text = "$0.00";
                                 checkoutParameters.tbxGross.Clear();
                                 checkoutParameters.tbxCode.Clear();
                                 checkoutParameters.tbxSub.Clear();

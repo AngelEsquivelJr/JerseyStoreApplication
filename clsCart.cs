@@ -82,6 +82,7 @@ namespace FinalProject
             //vars for cost and count
             double dblSelectedPrice, dblTotal;
             int intCount = 0;
+            int intDGV;
 
             try
             {
@@ -106,11 +107,11 @@ namespace FinalProject
                         }
                     }
 
-                    if (int.TryParse(strQuantity, out int intQuantity) &&
+                    if (int.TryParse(strQuantity, out int intQuantityInventory) &&
                     double.TryParse(strPrice, out dblSelectedPrice))
                     {
                         //check item quantity is greater than 0
-                        if (intQuantity > 0)
+                        if (intQuantityInventory > 0)
                         {
                             //add to cart list
                             if (strCart.Contains(strItemName))
@@ -124,14 +125,19 @@ namespace FinalProject
                                     for (int i = 0; i < strCart.Count; i++)
                                     {
                                         int intCheck = intComboQuantity + intProdCount[i];
-                                        if (intCheck > intQuantity)
+                                        if (intCheck > intQuantityInventory)
                                         {
-                                            intProdCount[i] = intQuantity;
+                                            //update data grid view
+                                            selectedRowInventory.Cells["Quantity"].Value = 0;
+                                            intProdCount[i] = intQuantityInventory;
                                             MessageBox.Show(intCheck + " items were selected. The maximum stock was added.", "Item Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                         }
                                         else
                                         {
                                             intProdCount[i] = intProdCount[i] + intCount;
+                                            //update data grid view
+                                            intDGV = intQuantityInventory - intCount;
+                                            selectedRowInventory.Cells["Quantity"].Value = intDGV;
                                         }
                                     }
                                 }
@@ -150,10 +156,16 @@ namespace FinalProject
                                         {
                                             intProdCount.Add(intCount);
                                             intProdCount[i]++;
+                                            //update data grid view
+                                            intDGV = intQuantityInventory - intCount;
+                                            selectedRowInventory.Cells["Quantity"].Value = intDGV;
                                         }
                                         else
                                         {
                                             intProdCount[i]++;
+                                            //update data grid view
+                                            intDGV = intQuantityInventory - intCount;
+                                            selectedRowInventory.Cells["Quantity"].Value = intDGV;
                                         }
                                     }
                                 }
@@ -169,6 +181,9 @@ namespace FinalProject
                                     intCount = intComboQuantity;
                                     intProdCount.Add(intCount);
                                     dblPrice.Add(dblSelectedPrice);
+                                    //update data grid view
+                                    intDGV = intQuantityInventory - intCount;
+                                    selectedRowInventory.Cells["Quantity"].Value = intDGV;
                                     //add to cart list
                                     strCart.Add(strItemName);
                                 }
@@ -182,6 +197,9 @@ namespace FinalProject
                                     intCount = 1;
                                     intProdCount.Add(intCount);
                                     dblPrice.Add(dblSelectedPrice);
+                                    //update data grid view
+                                    intDGV = intQuantityInventory - intCount;
+                                    selectedRowInventory.Cells["Quantity"].Value = intDGV;
                                     //add to cart list
                                     strCart.Add(strItemName);
                                 }
@@ -214,25 +232,20 @@ namespace FinalProject
                                                     string strQuantityCart = Convert.ToString(selectedRowCart.Cells["Quantity"].Value);
                                                     if (int.TryParse(strQuantityCart, out int intQuantityCart))
                                                     {
-                                                        if (intQuantityCart < intQuantity)
+                                                        if (intQuantityInventory >= 1)
                                                         {
                                                             //if statement to set quantity and total in cart
                                                             if (intQuantityCart == 1)
                                                             {
                                                                 selectedRowCart.Cells["Quantity"].Value = intProdCount[i];
-                                                                selectedRowCart.Cells["Total"].Value = "$" + dblTotal.ToString("0.##");
+                                                                selectedRowCart.Cells["Total"].Value = dblTotal.ToString("C");
                                                             }
                                                             else
                                                             {
                                                                 int intNew = intQuantityCart + intCount;
                                                                 dblTotal = dblPrice[i] * intNew;
-                                                                //check if greater than the quantity
-                                                                if (intNew > intQuantity)
-                                                                {
-                                                                    intNew = intQuantity;
-                                                                }
                                                                 selectedRowCart.Cells["Quantity"].Value = intNew;
-                                                                selectedRowCart.Cells["Total"].Value = "$" + dblTotal.ToString("0.##");
+                                                                selectedRowCart.Cells["Total"].Value = dblTotal.ToString("C");
                                                             }
                                                         }
                                                     }
@@ -249,8 +262,8 @@ namespace FinalProject
                                             Quantity = intProdCount[i],
                                             Name = strItemName,
                                             Size = strSize,
-                                            Price = "$" + dblSelectedPrice.ToString(),
-                                            Total = "$" + dblTotal.ToString("0.##"),
+                                            Price = dblSelectedPrice.ToString("C"),
+                                            Total = dblTotal.ToString("C"),
                                         };
                                         clsCartData.cartItems.Add(items);
                                         //format cart view
@@ -276,8 +289,8 @@ namespace FinalProject
                                                     Quantity = intProdCount[i],
                                                     Name = strItemName,
                                                     Size = strSize,
-                                                    Price = "$" + dblSelectedPrice.ToString(),
-                                                    Total = "$" + dblTotal.ToString("0.##"),
+                                                    Price = dblSelectedPrice.ToString("C"),
+                                                    Total = dblTotal.ToString("C"),
                                                 };
                                                 clsCartData.cartItems.Add(items);
                                                 //format cart view
@@ -305,18 +318,18 @@ namespace FinalProject
 
                                 //text boxes
                                 tbxItems.Text = intTotalItems.ToString();
-                                tbxGross.Text = "$" + dblGrossSub.ToString("0.##");
+                                tbxGross.Text = dblGrossSub.ToString("C");
                                 //check if discount is applied
                                 if (tbxDiscount.Text == "$0.00")
                                 {
                                     //sub
-                                    tbxSub.Text = "$" + dblGrossSub.ToString("0.##");
+                                    tbxSub.Text = dblGrossSub.ToString("C");
                                     //taxes
                                     dblTaxAmount = dblGrossSub * 0.0825;
-                                    tbxTax.Text = "$" + dblTaxAmount.ToString("0.##");
+                                    tbxTax.Text = dblTaxAmount.ToString("C");
                                     //total
                                     dblTotalAmount = dblGrossSub + dblTaxAmount;
-                                    tbxTotal.Text = "$" + dblTotalAmount.ToString("0.##");
+                                    tbxTotal.Text = dblTotalAmount.ToString("C");
                                 }
                                 else
                                 {
@@ -326,13 +339,13 @@ namespace FinalProject
                                         //add discount
                                         double dblNewSub = dblGrossSub - dblDiscountAmount;
                                         //sub
-                                        tbxSub.Text = "$" + dblNewSub.ToString("0.##");
+                                        tbxSub.Text = dblNewSub.ToString("C");
                                         //taxes
                                         dblTaxAmount = dblNewSub * 0.0825;
-                                        tbxTax.Text = "$" + dblTaxAmount.ToString("0.##");
+                                        tbxTax.Text = dblTaxAmount.ToString("C");
                                         //total
                                         dblTotalAmount = dblNewSub + dblTaxAmount;
-                                        tbxTotal.Text = "$" + dblTotalAmount.ToString("0.##");
+                                        tbxTotal.Text = dblTotalAmount.ToString("C");
                                     }
                                 }
 
@@ -352,9 +365,74 @@ namespace FinalProject
                 MessageBox.Show("Could not add to cart. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        //method to set limit in remove button
+        internal static void RemoveAddCart(DataGridView dgvCart, Button btnRemove)
+        {
+            try
+            {
+                //make sure theres a selected row
+                if (dgvCart.SelectedRows.Count > 0)
+                {
+                    //get selected quantity
+                    int intSelectedRowIndex = dgvCart.SelectedRows[0].Index;
+                    DataGridViewRow selectedRow = dgvCart.Rows[intSelectedRowIndex];
+                    string strQuantityCart = Convert.ToString(selectedRow.Cells["Quantity"].Value);
+                    if (int.TryParse(strQuantityCart, out int intQuantityCart))
+                    {
+                        //set amount for count
+                        if (int.TryParse(btnRemove.Text, out int intCount))
+                        {
+                            //add to count and change remove button
+                            intCount++;
+                            if (intCount <= intQuantityCart)
+                            {
+                                btnRemove.Text = intCount.ToString();
+                            }
+                        }
+                        else
+                        {
+                            //error message
+                            MessageBox.Show("Could not convert count. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                //error message
+                MessageBox.Show("Could not add to remove button. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        internal static void RemoveSubtractCart(Button btnRemove)
+        {
+            try
+            {
+                string strRemove = btnRemove.Text;
+                //set amount for count
+                if (int.TryParse(strRemove, out int intCount))
+                {
+                    //subtract to count and change remove button
+                    if (intCount > 0)
+                    {
+                        intCount--;
+                    }
+                    btnRemove.Text = intCount.ToString();
+                }
+                else
+                {
+                    //error message
+                    MessageBox.Show("Could not subtract to remove button. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception)
+            {
+                //error message
+                MessageBox.Show("Could not subtract to remove button. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         //method to remove from cart
-        internal static void RemoveCart(DataGridView dgvCart, Button btnRemove, TextBox tbxItems, TextBox tbxGross, TextBox tbxSub, TextBox tbxDiscount, TextBox tbxTax, TextBox tbxTotal)
+        internal static void RemoveCart(DataGridView dgvInventory, DataGridView dgvCart, Button btnRemove, TextBox tbxItems, TextBox tbxGross, TextBox tbxSub, TextBox tbxDiscount, TextBox tbxTax, TextBox tbxTotal)
         {
             try
             {
@@ -367,87 +445,125 @@ namespace FinalProject
                     string strQuantityCart = Convert.ToString(selectedRow.Cells["Quantity"].Value);
                     string strPriceCart = Convert.ToString(selectedRow.Cells["Price"].Value).Substring(1);
                     string strTotalCart = Convert.ToString(selectedRow.Cells["Total"].Value).Substring(1);
-                    if (int.TryParse(strQuantityCart, out int intQuantityCart) &&
-                    double.TryParse(strPriceCart, out double dblPriceCart) &&
-                    double.TryParse(strTotalCart, out double dblTotalCart) &&
-                    int.TryParse(btnRemove.Text, out int intCount))
+                    string strItemName = Convert.ToString(selectedRow.Cells["Name"].Value);
+
+                    //select item your removing from inventory
+                    foreach (DataGridViewRow row in dgvInventory.Rows)
                     {
-                        int intRemoveQuantity = intQuantityCart - intCount;
-                        double dblRemoveTotal = dblPriceCart * intRemoveQuantity;
-                        if (intRemoveQuantity > 0)
+                        // 1 is the column index
+                        if (row.Cells[1].Value.ToString().Equals(strItemName))
                         {
-                            selectedRow.Cells["Quantity"].Value = intRemoveQuantity;
-                            selectedRow.Cells["Total"].Value = "$" + dblRemoveTotal.ToString("0.##");
+                            row.Selected = true;
                         }
-                        else
+                    }
+
+                    if (dgvInventory.SelectedCells.Count > 0)
+                    {
+                        //change quantity in inventory
+                        int intSelectedRowIndexInventory = dgvInventory.SelectedRows[0].Index;
+                        DataGridViewRow selectedRowInventory = dgvInventory.Rows[intSelectedRowIndexInventory];
+                        string strQuantity = Convert.ToString(selectedRowInventory.Cells["Quantity"].Value);
+
+                        if (int.TryParse(strQuantityCart, out int intQuantityCart) &&
+                        double.TryParse(strPriceCart, out double dblPriceCart) &&
+                        double.TryParse(strTotalCart, out double dblTotalCart) &&
+                        int.TryParse(btnRemove.Text, out int intCount) && int.TryParse(strQuantity, out int intQuantityInventory))
                         {
-                            dgvCart.Rows.Remove(selectedRow);
-                            //add count to list
-                            for (int i = 0; i < strCart.Count; i++)
+                            if (intQuantityCart < intCount)
                             {
-                                intProdCount[i] = 0;
-                                if (dgvCart.Rows.Count > 0)
-                                {
-                                    dgvCart.Rows[0].Selected = true;
-                                }
+                                //message for remove button being greater than quantity in cart
+                                MessageBox.Show("The quantity trying to be removed is greater than the quantity in your cart. Please decrease the amount.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
-                        }
-
-                        //set text boxes in order summary
-                        int intTotalItems = 0;
-                        double dblGrossSub = 0;
-                        double dblTaxAmount = 0;
-                        double dblTotalAmount = 0;
-                        //total items
-                        for (int i = 0; i < dgvCart.Rows.Count; ++i)
-                        {
-                            intTotalItems += Convert.ToInt32(dgvCart.Rows[i].Cells[0].Value);
-                        }
-                        //gross and subtotal
-                        for (int i = 0; i < dgvCart.Rows.Count; ++i)
-                        {
-                            dblGrossSub += Convert.ToDouble((dgvCart.Rows[i].Cells[4].Value).ToString().Substring(1));
-                        }
-
-                        //text boxes
-                        tbxItems.Text = intTotalItems.ToString();
-                        tbxGross.Text = " $" + dblGrossSub.ToString("0.##");
-                        //check if discount is applied
-                        if (tbxDiscount.Text == "$0.00")
-                        {
-                            //sub
-                            tbxSub.Text = " $" + dblGrossSub.ToString("0.##");
-                            //taxes
-                            dblTaxAmount = dblGrossSub * 0.0825;
-                            tbxTax.Text = " $" + dblTaxAmount.ToString("0.##");
-                            //total
-                            dblTotalAmount = dblGrossSub + dblTaxAmount;
-                            tbxTotal.Text = " $" + dblTotalAmount.ToString("0.##");
-                        }
-                        else
-                        {
-                            //get discount amount
-                            if (double.TryParse(tbxDiscount.Text.Substring(1), out double dblDiscountAmount))
+                            else
                             {
-                                if (intTotalItems <= 0)
+                                int intRemoveQuantity = intQuantityCart - intCount;
+                                int intAddQuantity = intQuantityInventory + intCount;
+
+                                double dblRemoveTotal = dblPriceCart * intRemoveQuantity;
+                                if (intRemoveQuantity > 0)
                                 {
-                                    
-                                    tbxSub.Clear();
-                                    tbxTax.Clear();
-                                    tbxTotal.Clear();
+                                    if (intRemoveQuantity < intCount)
+                                    {
+                                        btnRemove.Text = intRemoveQuantity.ToString();
+                                    }
+
+                                    selectedRow.Cells["Quantity"].Value = intRemoveQuantity;
+                                    selectedRow.Cells["Total"].Value = dblRemoveTotal.ToString("C");
+                                    selectedRowInventory.Cells["Quantity"].Value = intAddQuantity;
                                 }
                                 else
                                 {
-                                    //add discount
-                                    double dblNewSub = dblGrossSub - dblDiscountAmount;
+                                    dgvCart.Rows.Remove(selectedRow);
+                                    selectedRowInventory.Cells["Quantity"].Value = intAddQuantity;
+                                    btnRemove.Text = "0";
+                                    //add count to list
+                                    for (int i = 0; i < strCart.Count; i++)
+                                    {
+                                        intProdCount[i] = 0;
+                                        if (dgvCart.Rows.Count > 0)
+                                        {
+                                            dgvCart.Rows[0].Selected = true;
+                                        }
+                                    }
+                                }
+
+                                //set text boxes in order summary
+                                int intTotalItems = 0;
+                                double dblGrossSub = 0;
+                                double dblTaxAmount = 0;
+                                double dblTotalAmount = 0;
+                                //total items
+                                for (int i = 0; i < dgvCart.Rows.Count; ++i)
+                                {
+                                    intTotalItems += Convert.ToInt32(dgvCart.Rows[i].Cells[0].Value);
+                                }
+                                //gross and subtotal
+                                for (int i = 0; i < dgvCart.Rows.Count; ++i)
+                                {
+                                    dblGrossSub += Convert.ToDouble((dgvCart.Rows[i].Cells[4].Value).ToString().Substring(1));
+                                }
+
+                                //text boxes
+                                tbxItems.Text = intTotalItems.ToString();
+                                tbxGross.Text = dblGrossSub.ToString("C");
+                                //check if discount is applied
+                                if (tbxDiscount.Text == "$0.00")
+                                {
                                     //sub
-                                    tbxSub.Text = " $" + dblNewSub.ToString("0.##");
+                                    tbxSub.Text = dblGrossSub.ToString("C");
                                     //taxes
-                                    dblTaxAmount = dblNewSub * 0.0825;
-                                    tbxTax.Text = " $" + dblTaxAmount.ToString("0.##");
+                                    dblTaxAmount = dblGrossSub * 0.0825;
+                                    tbxTax.Text = dblTaxAmount.ToString("C");
                                     //total
-                                    dblTotalAmount = dblNewSub + dblTaxAmount;
-                                    tbxTotal.Text = " $" + dblTotalAmount.ToString("0.##");
+                                    dblTotalAmount = dblGrossSub + dblTaxAmount;
+                                    tbxTotal.Text = dblTotalAmount.ToString("C");
+                                }
+                                else
+                                {
+                                    //get discount amount
+                                    if (double.TryParse(tbxDiscount.Text.Substring(1), out double dblDiscountAmount))
+                                    {
+                                        if (intTotalItems <= 0)
+                                        {
+
+                                            tbxSub.Clear();
+                                            tbxTax.Clear();
+                                            tbxTotal.Clear();
+                                        }
+                                        else
+                                        {
+                                            //add discount
+                                            double dblNewSub = dblGrossSub - dblDiscountAmount;
+                                            //sub
+                                            tbxSub.Text = dblNewSub.ToString("C");
+                                            //taxes
+                                            dblTaxAmount = dblNewSub * 0.0825;
+                                            tbxTax.Text = dblTaxAmount.ToString("C");
+                                            //total
+                                            dblTotalAmount = dblNewSub + dblTaxAmount;
+                                            tbxTotal.Text = dblTotalAmount.ToString("C");
+                                        }
+                                    }
                                 }
                             }
                         }

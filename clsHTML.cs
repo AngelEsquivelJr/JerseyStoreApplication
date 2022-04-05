@@ -185,14 +185,20 @@ namespace FinalProject
         }
 
         //method for receipt display
-        public static void PrintReceipt(StringBuilder sbHtml)
+        public static void PrintReceipt(StringBuilder sbHtml, string strOrderID)
         {
             try
             {
+                if (!Directory.Exists("AESportingFits"))
+                {
+                    //create sub folder
+                    Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AESportingFits"));
+                }
                 //get path of html
                 string strFileName = string.Empty;
                 strFileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                string strFile = Path.Combine(strFileName, "Receipt.html");
+                string strSubFolder = Path.Combine(strFileName, "AESportingFits");
+                string strFile = Path.Combine(strSubFolder, "Receipt - Order "+ strOrderID +".html");
                 File.WriteAllText(strFile, sbHtml.ToString());
                 System.Diagnostics.Process.Start(strFile);
             }

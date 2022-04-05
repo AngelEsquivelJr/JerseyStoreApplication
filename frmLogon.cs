@@ -146,8 +146,8 @@ namespace FinalProject
         private void llbBrowse_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             //open main form and hide login form
-            frmMain.Show();
             this.Hide();
+            frmMain.Show();            
         }
     }
 }

@@ -56,8 +56,8 @@ namespace FinalProject
                     if (clsSQL.ReadLoginData(tbxUser, tbxPass))
                     {
                         //if credentials are true successfully login
-                        main.Show();
                         logon.Hide();
+                        main.Show();                        
                     }
                 }
             }

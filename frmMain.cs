@@ -40,8 +40,8 @@ namespace FinalProject
             if (string.IsNullOrEmpty(tbxTotal.Text) || string.IsNullOrEmpty(tbxCCV.Text))
             {
                 //asks user for confirmation of exit and returns to previous form
-                DialogResult drResult = MessageBox.Show("Are you sure you want to exit? ",
-                  "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult drResult = MessageBox.Show("Are you sure you want to logout? ",
+                  "Close", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 switch (drResult)
                 {
                     case DialogResult.Yes:
@@ -63,7 +63,7 @@ namespace FinalProject
             }
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void btnClose_Click(object sender, EventArgs e)
         {
             //close form
             this.Close();
@@ -167,6 +167,12 @@ namespace FinalProject
                 tbxSub.Clear();
                 tbxTax.Clear();
                 tbxTotal.Clear();
+                tbxCode.Clear();
+                tbxDiscount.Text = "$0.00";
+                //refresh inventory
+                //refresh inventory
+                dgvInventory.DataSource = null;
+                clsSQL.InitializeInventoryView(dgvInventory);
 
                 //set focus
                 btnAddtoCart.Focus();
@@ -276,19 +282,8 @@ namespace FinalProject
         private void btnCartAdd_Click(object sender, EventArgs e)
         {
             try
-            {                
-                //set amount for count
-                if (int.TryParse(btnRemove.Text, out int intCount))
-                {
-                    //add to count and change remove button
-                    intCount++;
-                    btnRemove.Text = intCount.ToString();
-                }
-                else
-                {
-                //error message
-                MessageBox.Show("Could not convert count. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            {
+                clsCart.RemoveAddCart(dgvCart, btnRemove);
             }
             catch (Exception)
             {
@@ -301,23 +296,7 @@ namespace FinalProject
         {
             try
             {
-                int intCount;
-                string strRemove = btnRemove.Text;
-                //set amount for count
-                if (int.TryParse(strRemove, out intCount))
-                {
-                    //subtract to count and change remove button
-                    if (intCount > 0)
-                    {
-                        intCount--;
-                    }
-                    btnRemove.Text = intCount.ToString();
-                }
-                else
-                {
-                    //error message
-                    MessageBox.Show("Could not subtract to remove button. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                clsCart.RemoveSubtractCart(btnRemove);
             }
             catch (Exception)
             {
@@ -329,7 +308,7 @@ namespace FinalProject
         private void btnRemove_Click(object sender, EventArgs e)
         {
             //call method for removing from cart
-            clsCart.RemoveCart(dgvCart, btnRemove, tbxItems, tbxGross, tbxSub, tbxDiscount, tbxTax, tbxTotal);
+            clsCart.RemoveCart(dgvInventory, dgvCart, btnRemove, tbxItems, tbxGross, tbxSub, tbxDiscount, tbxTax, tbxTotal);
         }
 
         private void btnDiscountCode_Click(object sender, EventArgs e)

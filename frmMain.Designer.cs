@@ -45,7 +45,7 @@ namespace FinalProject
             this.tbxDiscount = new System.Windows.Forms.TextBox();
             this.tbxGross = new System.Windows.Forms.TextBox();
             this.tbxCode = new System.Windows.Forms.TextBox();
-            this.btnExit = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.tbxItems = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -114,7 +114,7 @@ namespace FinalProject
             this.groupBox2.Controls.Add(this.tbxDiscount);
             this.groupBox2.Controls.Add(this.tbxGross);
             this.groupBox2.Controls.Add(this.tbxCode);
-            this.groupBox2.Controls.Add(this.btnExit);
+            this.groupBox2.Controls.Add(this.btnClose);
             this.groupBox2.Controls.Add(this.tbxItems);
             this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.label13);
@@ -125,7 +125,7 @@ namespace FinalProject
             this.groupBox2.Controls.Add(this.btnCheck);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Location = new System.Drawing.Point(1007, 321);
+            this.groupBox2.Location = new System.Drawing.Point(1198, 330);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(201, 277);
             this.groupBox2.TabIndex = 4;
@@ -208,17 +208,17 @@ namespace FinalProject
             this.tbxCode.Size = new System.Drawing.Size(99, 20);
             this.tbxCode.TabIndex = 6;
             // 
-            // btnExit
+            // btnClose
             // 
-            this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnExit.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(109, 244);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(86, 26);
-            this.btnExit.TabIndex = 17;
-            this.btnExit.Text = "E&xit";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnClose.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.Location = new System.Drawing.Point(109, 244);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(86, 26);
+            this.btnClose.TabIndex = 17;
+            this.btnClose.Text = "Clos&e";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // tbxItems
             // 
@@ -333,7 +333,7 @@ namespace FinalProject
             this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Controls.Add(this.btnClearCart);
             this.groupBox1.Controls.Add(this.btnRemove);
-            this.groupBox1.Location = new System.Drawing.Point(745, -8);
+            this.groupBox1.Location = new System.Drawing.Point(936, 1);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(463, 342);
             this.groupBox1.TabIndex = 2;
@@ -374,6 +374,7 @@ namespace FinalProject
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvCart.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCart.Location = new System.Drawing.Point(6, 38);
+            this.dgvCart.MultiSelect = false;
             this.dgvCart.Name = "dgvCart";
             this.dgvCart.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -416,7 +417,7 @@ namespace FinalProject
             this.label15.BackColor = System.Drawing.Color.Azure;
             this.label15.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label15.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(147, 14);
+            this.label15.Location = new System.Drawing.Point(159, 14);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(140, 21);
             this.label15.TabIndex = 0;
@@ -454,7 +455,7 @@ namespace FinalProject
             this.gbx2.Controls.Add(this.label5);
             this.gbx2.Controls.Add(this.label4);
             this.gbx2.Controls.Add(this.label3);
-            this.gbx2.Location = new System.Drawing.Point(751, 321);
+            this.gbx2.Location = new System.Drawing.Point(942, 330);
             this.gbx2.Name = "gbx2";
             this.gbx2.Size = new System.Drawing.Size(203, 277);
             this.gbx2.TabIndex = 3;
@@ -562,9 +563,9 @@ namespace FinalProject
             // btnAddtoCart
             // 
             this.btnAddtoCart.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddtoCart.Location = new System.Drawing.Point(664, 536);
+            this.btnAddtoCart.Location = new System.Drawing.Point(835, 537);
             this.btnAddtoCart.Name = "btnAddtoCart";
-            this.btnAddtoCart.Size = new System.Drawing.Size(75, 55);
+            this.btnAddtoCart.Size = new System.Drawing.Size(95, 55);
             this.btnAddtoCart.TabIndex = 6;
             this.btnAddtoCart.Text = "&Add to Cart";
             this.btnAddtoCart.UseVisualStyleBackColor = true;
@@ -594,6 +595,7 @@ namespace FinalProject
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvInventory.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvInventory.Location = new System.Drawing.Point(175, 24);
+            this.dgvInventory.MultiSelect = false;
             this.dgvInventory.Name = "dgvInventory";
             this.dgvInventory.ReadOnly = true;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -605,7 +607,7 @@ namespace FinalProject
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvInventory.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvInventory.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvInventory.Size = new System.Drawing.Size(564, 506);
+            this.dgvInventory.Size = new System.Drawing.Size(755, 506);
             this.dgvInventory.TabIndex = 3;
             this.dgvInventory.SelectionChanged += new System.EventHandler(this.dgvInventory_SelectionChanged);
             // 
@@ -760,8 +762,8 @@ namespace FinalProject
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
-            this.CancelButton = this.btnExit;
-            this.ClientSize = new System.Drawing.Size(1220, 602);
+            this.CancelButton = this.btnClose;
+            this.ClientSize = new System.Drawing.Size(1411, 608);
             this.Controls.Add(this.cbxQuantity);
             this.Controls.Add(this.lblIntroDesc);
             this.Controls.Add(this.btnHelp);
@@ -817,7 +819,7 @@ namespace FinalProject
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btnCheck;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnCartAdd;
