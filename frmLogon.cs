@@ -102,7 +102,7 @@ namespace FinalProject
         private void frmLogon_FormClosing(object sender, FormClosingEventArgs e)
         {
             //allow exit through x button
-            //close datatbase upon exit
+            //close database upon exit
             Application.Exit();
             clsSQL.CloseDatabase();
         }

@@ -98,7 +98,7 @@ namespace FinalProject
 
         }
 
-        public static StringBuilder GenerateReceiptDiscount(List<string> strItems, List<int> intQuantity, List<string> strItemTotal, List<string> strPrice, string strOrderID, string strName, string strPhone, string strGross, string strSub, string strDiscount, string strTax, string strTotalAmount)
+        public static StringBuilder GenerateReceiptDiscount(List<string> strItems, List<int> intQuantity, List<string> strItemTotal, List<string> strPrice, string strOrderID, string strName, string strPhone, string strGross, string strSub, string strDiscount, string strTax, string strTotalAmount, string strDType)
         {
             StringBuilder sbHtml = new StringBuilder();
             StringBuilder sbCss = new StringBuilder();
@@ -157,9 +157,16 @@ namespace FinalProject
             sbHtml.Append("<td class='text-right'>Sub total</td>");
             sbHtml.Append("<td class='totals'>" + strGross + "</td>");
             sbHtml.Append("</tr>");
-            sbHtml.Append("<tr>");
-            sbHtml.Append("<td class='text-right'>Discount</td>");
-            sbHtml.Append("<td class='totals'>" + strDiscount + "</td>");
+            sbHtml.Append("<tr>");            
+            if(strDType.Contains("%"))
+            {
+                sbHtml.Append("<td class='text-right'>Discount -                 " + strDType + "</td>");
+            }
+            else
+            {
+                sbHtml.Append("<td class='text-right'>Discount</td>");
+            }
+            sbHtml.Append("<td class='totals'>-(" + strDiscount + ")</td>");
             sbHtml.Append("</tr>");
             sbHtml.Append("<tr>");
             sbHtml.Append("<td class='text-right'>Discounted Sub total</td>");

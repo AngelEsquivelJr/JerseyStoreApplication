@@ -31,7 +31,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 
 namespace FinalProject
@@ -50,6 +49,7 @@ namespace FinalProject
         public static string strName = "Guest";
         public static string strPID = "0";
         public static string strDID = "0";
+        public static string strDiscountType = "0";
 
         //method to open database
         internal static void OpenDatabase()
@@ -670,17 +670,17 @@ namespace FinalProject
         }
 
         //list vars for cart and checkout
-        public static List<string> strCart = new List<string>();
-        public static List<string> strNames = new List<string>();
-        public static List<double> dblPrice = new List<double>();
-        public static List<string> strPrice = new List<string>();
-        public static List<int> intQuantity = new List<int>();
-        public static List<int> intItemQuantity = new List<int>();
-        public static List<int> intNewQuantity = new List<int>();
-        public static List<int> intInventoryID = new List<int>();
-        public static List<string> strTotal = new List<string>();
-        public static List<double> dblCartPrice = new List<double>();
-        public static List<int> intProdCount = new List<int>();
+        public static List<string> lstStrCart = new List<string>();
+        public static List<string> lstStrNames = new List<string>();
+        public static List<double> lstDblPrice = new List<double>();
+        public static List<string> lstStrPrice = new List<string>();
+        public static List<int> lstIntQuantity = new List<int>();
+        public static List<int> lstIntItemQuantity = new List<int>();
+        public static List<int> lstIntNewQuantity = new List<int>();
+        public static List<int> lstIntInventoryID = new List<int>();
+        public static List<string> lstStrTotal = new List<string>();
+        public static List<double> lstDblCartPrice = new List<double>();
+        public static List<int> lstIntProdCount = new List<int>();
 
         //method for applying discount
         internal static void ApplyDiscount(DataGridView dgvCart, TextBox tbxGross, TextBox tbxCode, TextBox tbxDiscount, TextBox tbxSub, TextBox tbxTax, TextBox tbxTotal)
@@ -694,21 +694,21 @@ namespace FinalProject
                 string strItemLevelQuery = "SELECT DiscountCode, Description, DiscountLevel, InventoryID, DiscountType, DiscountDollarAmount, DiscountPercentage," +
                     " ExpirationDate, DiscountID FROM " + strSchema + ".Discounts WHERE DiscountCode = @DiscountCode";
                 //clear lists
-                strNames.Clear();
-                intInventoryID.Clear();
+                lstStrNames.Clear();
+                lstIntInventoryID.Clear();
                 //get names
                 for (int i = 0; i < dgvCart.Rows.Count; i++)
                 {
-                    strNames.Add((dgvCart.Rows[i].Cells[1].Value).ToString());
+                    lstStrNames.Add((dgvCart.Rows[i].Cells[1].Value).ToString());
                 }
 
-                for (int i = 0; i < strNames.Count; i++)
+                for (int i = 0; i < lstStrNames.Count; i++)
                 {
                     //query for getting id
                     string strQuantityQuery = "SELECT InventoryID, RetailPrice  FROM " + strSchema + ".Inventory where ItemName = @ItemName;";
                     //command query for Quantity
                     SqlCommand cmdQuantity = new SqlCommand(strQuantityQuery, _cntDatabase);
-                    cmdQuantity.Parameters.AddWithValue("@ItemName", strNames[i]);
+                    cmdQuantity.Parameters.AddWithValue("@ItemName", lstStrNames[i]);
                     SqlDataReader rdQuantity = cmdQuantity.ExecuteReader();
 
                     //if statement to set id
@@ -720,11 +720,11 @@ namespace FinalProject
                         //set string to int var
                         if (int.TryParse(strInventoryId, out int intID))
                         {
-                            intInventoryID.Add(intID);
+                            lstIntInventoryID.Add(intID);
                             //set price
                             if (double.TryParse(strPrice, out double dblSelectedCartPrice))
                             {
-                                dblCartPrice.Add(dblSelectedCartPrice);
+                                lstDblCartPrice.Add(dblSelectedCartPrice);
                                 //close reader
                                 rdQuantity.Close();
                             }
@@ -799,10 +799,13 @@ namespace FinalProject
                                                     if (double.TryParse(strPercentage, out double dblPercentage))
                                                     {
                                                         //discount, sub, tax, and total
-                                                        for (int i = 0; i < dblCartPrice.Count; i++)
+                                                        for (int i = 0; i < lstDblCartPrice.Count; i++)
                                                         {
-                                                            dblDiscount = dblCartPrice[i] * dblPercentage;
+                                                            dblDiscount = lstDblCartPrice[i] * dblPercentage;
                                                         }
+
+                                                        strDiscountType = dblPercentage.ToString("P");
+
                                                             dblSub = dblTotal - dblDiscount;
                                                             dblTax = dblSub * 0.0825;
                                                             dblNewTotal = dblSub + dblTax;
@@ -820,10 +823,11 @@ namespace FinalProject
                                                     if (double.TryParse(strDollar, out double dblDollar))
                                                     {
                                                         //discount, sub, tax, and total
-                                                        for (int i = 0; i < dblCartPrice.Count; i++)
+                                                        for (int i = 0; i < lstDblCartPrice.Count; i++)
                                                         {
+                                                            strDiscountType = dblDollar.ToString("C");
                                                             dblDiscount = dblDollar;
-                                                            dblSub = dblTotal - (dblCartPrice[i] - dblDiscount);
+                                                            dblSub = dblTotal - (lstDblCartPrice[i] - dblDiscount);
                                                             dblTax = dblSub * 0.0825;
                                                             dblNewTotal = dblSub + dblTax;
 
@@ -851,6 +855,7 @@ namespace FinalProject
                                                     dblSub = dblTotal - dblDiscount;
                                                     dblTax = dblSub * 0.0825;
                                                     dblNewTotal = dblSub + dblTax;
+                                                    strDiscountType = dblPercentage.ToString("P");
 
                                                     //add discount, sub, tax, and total
                                                     tbxDiscount.Text = dblDiscount.ToString("C");
@@ -865,6 +870,7 @@ namespace FinalProject
                                                 //dollar
                                                 if (double.TryParse(strDollar, out double dblDollar))
                                                 {
+                                                    strDiscountType = dblDollar.ToString("C");
                                                     //discount, sub, tax, and total
                                                     dblDiscount = dblDollar;
                                                     dblSub = dblTotal - dblDiscount;
@@ -1069,13 +1075,13 @@ namespace FinalProject
                             //vars to hold text
                             string strSub, strItems, strDiscount, strTax, strTextboxTotal;
                             //clear lists
-                            intQuantity.Clear();
-                            intItemQuantity.Clear();
-                            intNewQuantity.Clear();
-                            strNames.Clear();
-                            strPrice.Clear();
-                            strTotal.Clear();
-                            intInventoryID.Clear();
+                            lstIntQuantity.Clear();
+                            lstIntItemQuantity.Clear();
+                            lstIntNewQuantity.Clear();
+                            lstStrNames.Clear();
+                            lstStrPrice.Clear();
+                            lstStrTotal.Clear();
+                            lstIntInventoryID.Clear();
 
                             //get person id
                             string strPersonID = strPID;
@@ -1085,10 +1091,10 @@ namespace FinalProject
                                 //get cart values
                                 for (int i = 0; i < checkoutParameters.dgvCart.Rows.Count; i++)
                                 {
-                                    intItemQuantity.Add((int)(checkoutParameters.dgvCart.Rows[i].Cells[0].Value));
-                                    strNames.Add((checkoutParameters.dgvCart.Rows[i].Cells[1].Value).ToString());
-                                    strPrice.Add((checkoutParameters.dgvCart.Rows[i].Cells[3].Value).ToString());
-                                    strTotal.Add((checkoutParameters.dgvCart.Rows[i].Cells[4].Value).ToString());
+                                    lstIntItemQuantity.Add((int)(checkoutParameters.dgvCart.Rows[i].Cells[0].Value));
+                                    lstStrNames.Add((checkoutParameters.dgvCart.Rows[i].Cells[1].Value).ToString());
+                                    lstStrPrice.Add((checkoutParameters.dgvCart.Rows[i].Cells[3].Value).ToString());
+                                    lstStrTotal.Add((checkoutParameters.dgvCart.Rows[i].Cells[4].Value).ToString());
                                 }
 
                                 //get text box values
@@ -1129,13 +1135,13 @@ namespace FinalProject
                                     CloseDatabase();
                                 }
 
-                                for (int i = 0; i < strNames.Count; i++)
+                                for (int i = 0; i < lstStrNames.Count; i++)
                                 {
                                     //query for getting quantity and id
                                     string strQuantityQuery = "SELECT Quantity, InventoryID FROM " + strSchema + ".Inventory where ItemName = @ItemName;";
                                     //command query for Quantity
                                     SqlCommand cmdQuantity = new SqlCommand(strQuantityQuery, _cntDatabase);
-                                    cmdQuantity.Parameters.AddWithValue("@ItemName", strNames[i]);
+                                    cmdQuantity.Parameters.AddWithValue("@ItemName", lstStrNames[i]);
                                     SqlDataReader rdQuantity = cmdQuantity.ExecuteReader();
 
                                     //if statement to set Quantity
@@ -1148,8 +1154,8 @@ namespace FinalProject
                                         if (int.TryParse(strQuantity, out int intItemQuantity) &&
                                         int.TryParse(strInventoryId, out int intID))
                                         {
-                                            intQuantity.Add(intItemQuantity);
-                                            intInventoryID.Add(intID);
+                                            lstIntQuantity.Add(intItemQuantity);
+                                            lstIntInventoryID.Add(intID);
                                             //close reader
                                             rdQuantity.Close();
                                         }
@@ -1163,13 +1169,13 @@ namespace FinalProject
                                     }
                                 }
 
-                                for (int i = 0; i < intInventoryID.Count; i++)
+                                for (int i = 0; i < lstIntInventoryID.Count; i++)
                                 {
-                                    intNewQuantity.Add(intQuantity[i] - intItemQuantity[i]);
+                                    lstIntNewQuantity.Add(lstIntQuantity[i] - lstIntItemQuantity[i]);
                                     //update details
-                                    WriteDetails(intOrderID, intInventoryID[i], intDiscountID, intItemQuantity[i]);
+                                    WriteDetails(intOrderID, lstIntInventoryID[i], intDiscountID, lstIntItemQuantity[i]);
                                     //update quantity
-                                    UpdateQuantity(intNewQuantity[i], intInventoryID[i]);
+                                    UpdateQuantity(lstIntNewQuantity[i], lstIntInventoryID[i]);
                                 }
 
                                 //query for getting name and phone
@@ -1204,23 +1210,23 @@ namespace FinalProject
                                 //show receipts
                                 if (checkoutParameters.tbxDiscount.Text == "$0.00")
                                 {                                    
-                                    clsHTML.PrintReceipt(clsHTML.GenerateReceipt(strNames, intItemQuantity, strTotal, strPrice, intOrderID.ToString(), strName, strPhone, strSub, strTax, strTextboxTotal), intOrderID.ToString());
+                                    clsHTML.PrintReceipt(clsHTML.GenerateReceipt(lstStrNames, lstIntItemQuantity, lstStrTotal, lstStrPrice, intOrderID.ToString(), strName, strPhone, strSub, strTax, strTextboxTotal), intOrderID.ToString());
                                 }
                                 else
                                 {
-                                    clsHTML.PrintReceipt(clsHTML.GenerateReceiptDiscount(strNames, intItemQuantity, strTotal, strPrice, intOrderID.ToString(), strName, strPhone, checkoutParameters.tbxGross.Text, strSub, strDiscount, strTax, strTextboxTotal), intOrderID.ToString());
+                                    clsHTML.PrintReceipt(clsHTML.GenerateReceiptDiscount(lstStrNames, lstIntItemQuantity, lstStrTotal, lstStrPrice, intOrderID.ToString(), strName, strPhone, checkoutParameters.tbxGross.Text, strSub, strDiscount, strTax, strTextboxTotal, strDiscountType), intOrderID.ToString());
                                 }
 
                                 //reset lists
-                                if (strNames.Count > 0)
+                                if (lstStrNames.Count > 0)
                                 {
-                                    intQuantity.Clear();
-                                    intItemQuantity.Clear();
-                                    intNewQuantity.Clear();
-                                    strNames.Clear();
-                                    strPrice.Clear();
-                                    strTotal.Clear();
-                                    intInventoryID.Clear();
+                                    lstIntQuantity.Clear();
+                                    lstIntItemQuantity.Clear();
+                                    lstIntNewQuantity.Clear();
+                                    lstStrNames.Clear();
+                                    lstStrPrice.Clear();
+                                    lstStrTotal.Clear();
+                                    lstIntInventoryID.Clear();
                                 }
 
                                 CloseDatabase();
