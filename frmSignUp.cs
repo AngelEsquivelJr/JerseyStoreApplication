@@ -1,4 +1,15 @@
-﻿using System;
+﻿//*******************************************
+//*******************************************
+// Programmer: Angel Esquivel
+// Course: INEW 2332.7Z1 (Final Project)
+// Program Description:
+// Application used to browse and buy jerseys.
+// Form Purpose:
+// This form is used to create an account for the application.
+// 
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -138,11 +149,6 @@ namespace FinalProject
             clsValidation.UsernameAllowedKeys(e);
         }
 
-        private void tbxPassword_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
         private void tbxPassword_KeyPress(object sender, KeyPressEventArgs e)
         {
             //validation method for allowed keys
@@ -170,40 +176,41 @@ namespace FinalProject
         private void btnSignUp_Click(object sender, EventArgs e)
         {
             //set up parameters
-            clsLogon.BoxParams bxParams = new clsLogon.BoxParams();
-
-            bxParams.cTitle = cbxTitle;
-            bxParams.tFirstN = tbxFirstName;
-            bxParams.tMiddleN = tbxMiddleName;
-            bxParams.tLastN = tbxLastName;
-            bxParams.tSuffix = tbxSuffix;
-            bxParams.tCity = tbxCity;
-            bxParams.tAddress1 = tbxAddress1;
-            bxParams.tAddress2 = tbxAddress2;
-            bxParams.tAddress3 = tbxAddress3;
-            bxParams.tPhone1 = tbxPhoneOne;
-            bxParams.tPhone2 = tbxPhoneTwo;
-            bxParams.cState = cbxState;
-            bxParams.tEmail = tbxEmailInput;
-            bxParams.tZipcode = tbxZipcode;
-            bxParams.tUser = tbxUsername;
-            bxParams.tPassword = tbxPassword;
-            bxParams.cSecQuest1 = cbxSecurityOne;
-            bxParams.cSecQuest2 = cbxSecurityTwo;
-            bxParams.cSecQuest3 = cbxSecurityThree;
-            bxParams.tAnswer1 = tbxAnswerOne;
-            bxParams.tAnswer2 = tbxAnswerTwo;
-            bxParams.tAnswer3 = tbxAnswerThree;
+            clsParameters.SignupParameters signupParameters = new clsParameters.SignupParameters
+            {
+                cbxTitle = cbxTitle,
+                tbxFirstName = tbxFirstName,
+                tbxMiddleName = tbxMiddleName,
+                tbxLastName = tbxLastName,
+                tbxSuffix = tbxSuffix,
+                tbxCity = tbxCity,
+                tbxAddress1 = tbxAddress1,
+                tbxAddress2 = tbxAddress2,
+                tbxAddress3 = tbxAddress3,
+                tbxPhone1 = tbxPhoneOne,
+                tbxPhone2 = tbxPhoneTwo,
+                cbxState = cbxState,
+                tbxEmail = tbxEmailInput,
+                tbxZipcode = tbxZipcode,
+                tbxUsername = tbxUsername,
+                tbxPassword = tbxPassword,
+                cbxSecQuestion1 = cbxSecurityOne,
+                cbxSecQuestion2 = cbxSecurityTwo,
+                cbxSecQuestion3 = cbxSecurityThree,
+                tbxAnswer1 = tbxAnswerOne,
+                tbxAnswer2 = tbxAnswerTwo,
+                tbxAnswer3 = tbxAnswerThree
+            };
 
             //clsLogon method for signing up
-            clsLogon.SignUp(bxParams, frmLogin, this);
+            clsLogon.SignUp(signupParameters, frmLogin, this);
         }
 
         private void btnShow_Click(object sender, EventArgs e)
         {
             //get path of images
-            string pathShow = Path.GetFullPath(@"Resources\showPassEye.png");
-            string pathUnShow = Path.GetFullPath(@"Resources\unshowPassEye.png");
+            string strShow = Path.GetFullPath(@"Resources\showPassEye.png");
+            string strUnShow = Path.GetFullPath(@"Resources\unshowPassEye.png");
 
             try
             {
@@ -211,13 +218,13 @@ namespace FinalProject
                 if (tbxPassword.PasswordChar == (char)0)
                 {
                     tbxPassword.PasswordChar = '*';
-                    btnShow.Image = Image.FromFile(pathShow);
+                    btnShow.Image = Image.FromFile(strShow);
 
                 }
                 else
                 {
                     tbxPassword.PasswordChar = (char)0;
-                    btnShow.Image = Image.FromFile(pathUnShow);
+                    btnShow.Image = Image.FromFile(strUnShow);
                 }
             }
             catch (Exception)
@@ -247,7 +254,7 @@ namespace FinalProject
             //if statement to allow access to other textboxes
             if (string.IsNullOrEmpty(tbxAddress1.Text) == false)
             {
-                tbxAddress2.ReadOnly = false;                
+                tbxAddress2.ReadOnly = false;
             }
             else
             {
@@ -274,18 +281,14 @@ namespace FinalProject
 
         private void frmSignUp_Load(object sender, EventArgs e)
         {
-            clsSQL.FillCombo(cbxSecurityOne, cbxSecurityTwo, cbxSecurityThree);
+            //sql method to fill combos
+            clsSQL.FillQuestionCombo(cbxSecurityOne, cbxSecurityTwo, cbxSecurityThree);
         }
 
         private void btnHelp_Click(object sender, EventArgs e)
         {
             //call clsHelp method to open help file
-            clsHelp.OpenHelp("SignUpHelpFinals.pdf");
-        }
-
-        private void tbxEmailInput_TextChanged(object sender, EventArgs e)
-        {
-
+            clsHelp.OpenHelp("SignUpHelp.pdf");
         }
     }
 }

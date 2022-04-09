@@ -24,68 +24,14 @@ namespace FinalProject
 {
     internal class clsLogon
     {
-
-        //structure for holding textbox and combobox parameters
-        public struct BoxParams
-        {
-            public ComboBox cTitle, cState, cSecQuest1, cSecQuest2, cSecQuest3;
-
-            public TextBox tFirstN, tMiddleN, tLastN, tSuffix, tAddress1, tAddress2, tAddress3, tCity, tZipcode, tEmail, tPhone1, tPhone2, tAnswer1, tAnswer2, tAnswer3, tUser, tPassword;
-        }
-
         //method for signing up
-        internal static void SignUp(BoxParams bxParams, frmLogon frmLogon, frmSignUp frmSignup)
-        {
-            //set values from validation parameters
-            clsValidation.StringParams stParams = new clsValidation.StringParams();
-            clsSQL.SQLBoxParams sqlParams = new clsSQL.SQLBoxParams();
-
-            stParams.strNameF = bxParams.tFirstN.Text;
-            stParams.strNameL = bxParams.tLastN.Text;
-            stParams.strCity = bxParams.tCity.Text;
-            stParams.strAddress = bxParams.tAddress1.Text;
-            stParams.strPhone = bxParams.tPhone1.Text;
-            stParams.strPhone2 = bxParams.tPhone2.Text;
-            stParams.strState = bxParams.cState.Text;
-            stParams.strEmail = bxParams.tEmail.Text;
-            stParams.strZipCode = bxParams.tZipcode.Text;
-            stParams.strUsername = bxParams.tUser.Text;
-            stParams.strPassword = bxParams.tPassword.Text;
-            stParams.strQues1 = bxParams.cSecQuest1.Text;
-            stParams.strQues2 = bxParams.cSecQuest2.Text;
-            stParams.strQues3 = bxParams.cSecQuest3.Text;
-            stParams.strAns1 = bxParams.tAnswer1.Text;
-            stParams.strAns2 = bxParams.tAnswer2.Text;
-            stParams.strAns3 = bxParams.tAnswer3.Text;
-
-            sqlParams.cTitle = bxParams.cTitle;
-            sqlParams.tFirstN = bxParams.tFirstN;
-            sqlParams.tMiddleN = bxParams.tMiddleN;
-            sqlParams.tLastN = bxParams.tLastN;
-            sqlParams.tSuffix = bxParams.tSuffix;
-            sqlParams.tCity = bxParams.tCity;
-            sqlParams.tAddress1 = bxParams.tAddress1;
-            sqlParams.tAddress2 = bxParams.tAddress2;
-            sqlParams.tAddress3 = bxParams.tAddress3;
-            sqlParams.tPhone1 = bxParams.tPhone1;
-            sqlParams.tPhone2 = bxParams.tPhone2;
-            sqlParams.cState = bxParams.cState;
-            sqlParams.tEmail = bxParams.tEmail;
-            sqlParams.tZipcode = bxParams.tZipcode;
-            sqlParams.tUser = bxParams.tUser;
-            sqlParams.tPassword = bxParams.tPassword;
-            sqlParams.cSecQuest1 = bxParams.cSecQuest1;
-            sqlParams.cSecQuest2 = bxParams.cSecQuest2;
-            sqlParams.cSecQuest3 = bxParams.cSecQuest3;
-            sqlParams.tAnswer1 = bxParams.tAnswer1;
-            sqlParams.tAnswer2 = bxParams.tAnswer2;
-            sqlParams.tAnswer3 = bxParams.tAnswer3;
-
+        internal static void SignUp(clsParameters.SignupParameters loginParameters, frmLogon frmLogon, frmSignUp frmSignup)
+        {         
             //call proper clsValidation method for validation
-            if (clsValidation.Validate(stParams))
+            if (clsValidation.Validate(loginParameters))
             {
                 //call clsSql method for logging in
-                if(clsSQL.WriteLoginData(sqlParams))
+                if(clsSQL.WriteLoginData(loginParameters))
                 {
                     //message for success and returns to login form
                     MessageBox.Show("Account Created Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -93,7 +39,6 @@ namespace FinalProject
                     frmLogon.Show();
                 }
             }
-
         }
 
         //method for logging in
@@ -110,9 +55,9 @@ namespace FinalProject
                     //check credentials
                     if (clsSQL.ReadLoginData(tbxUser, tbxPass))
                     {
-                        //if credentials are true succesfully login
-                        //main.Show();
-                        //logon.Hide();
+                        //if credentials are true successfully login
+                        logon.Hide();
+                        main.Show();                        
                     }
                 }
             }

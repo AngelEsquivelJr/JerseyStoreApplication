@@ -27,34 +27,21 @@ namespace FinalProject
             InitializeComponent();
         }
 
-        private void frmMain_Load(object sender, EventArgs e)
-        {
-        }
-
         private void btnExit_Click(object sender, EventArgs e)
         {
             //exits application
             Application.Exit();
         }
 
-        private void btnShow_MouseDown(object sender, MouseEventArgs e)
-        {
-            
-        }
-        private void btnShow_MouseUp(object sender, MouseEventArgs e)
-        {
-            
-        }
-
         private void tbxUsername_Click(object sender, EventArgs e)
         {
-            //clears textbox text
+            //clears username text
             if (tbxUsername.Text == "Username")
             {
                 tbxUsername.Clear();
                 tbxUsername.ForeColor = Color.Black;
             }
-            
+
         }
 
         private void tbxPassword_Click(object sender, EventArgs e)
@@ -86,8 +73,8 @@ namespace FinalProject
         private void btnShow_Click(object sender, EventArgs e)
         {
             //get path of images
-            string pathShow = Path.GetFullPath(@"Resources\showPassEye.png");
-            string pathUnShow = Path.GetFullPath(@"Resources\unshowPassEye.png");
+            string strShow = Path.GetFullPath(@"Resources\showPassEye.png");
+            string strUnshow = Path.GetFullPath(@"Resources\unshowPassEye.png");
 
             try
             {
@@ -95,13 +82,13 @@ namespace FinalProject
                 if (tbxPassword.PasswordChar == (char)0)
                 {
                     tbxPassword.PasswordChar = '*';
-                    btnShow.Image = Image.FromFile(pathShow);
+                    btnShow.Image = Image.FromFile(strShow);
 
                 }
                 else
                 {
                     tbxPassword.PasswordChar = (char)0;
-                    btnShow.Image = Image.FromFile(pathUnShow);
+                    btnShow.Image = Image.FromFile(strUnshow);
                 }
             }
             catch (Exception)
@@ -141,7 +128,7 @@ namespace FinalProject
         private void btnHelp_Click(object sender, EventArgs e)
         {
             //call clsHelp method to open help file
-            clsHelp.OpenHelp("LoginHelpFinals.pdf");
+            clsHelp.OpenHelp("LoginHelp.pdf");
         }
 
         private void tbxUsername_TextChanged(object sender, EventArgs e)
@@ -154,6 +141,13 @@ namespace FinalProject
         {
             //make text proper color
             tbxPassword.ForeColor = Color.Black;
+        }
+
+        private void llbBrowse_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //open main form and hide login form
+            this.Hide();
+            frmMain.Show();            
         }
     }
 }

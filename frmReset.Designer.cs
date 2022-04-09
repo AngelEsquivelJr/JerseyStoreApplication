@@ -307,6 +307,7 @@ namespace FinalProject
             // 
             // frmReset
             // 
+            this.AcceptButton = this.btnUpdate;
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
