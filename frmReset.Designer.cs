@@ -30,11 +30,11 @@ namespace FinalProject
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmReset));
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lbl1 = new System.Windows.Forms.Label();
+            this.lbl5 = new System.Windows.Forms.Label();
             this.tbxUsername = new System.Windows.Forms.TextBox();
             this.tbxPassword = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lbl6 = new System.Windows.Forms.Label();
             this.tbxPassTwo = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
@@ -42,9 +42,9 @@ namespace FinalProject
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnShowTwo = new System.Windows.Forms.Button();
             this.btnShow = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lbl4 = new System.Windows.Forms.Label();
+            this.lbl3 = new System.Windows.Forms.Label();
+            this.lbl2 = new System.Windows.Forms.Label();
             this.tbxAnswerThree = new System.Windows.Forms.TextBox();
             this.tbxAnswerTwo = new System.Windows.Forms.TextBox();
             this.tbxAnswerOne = new System.Windows.Forms.TextBox();
@@ -55,25 +55,25 @@ namespace FinalProject
             this.gbxOne.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label3
+            // lbl1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 41);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(99, 21);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Username";
+            this.lbl1.AutoSize = true;
+            this.lbl1.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl1.Location = new System.Drawing.Point(6, 41);
+            this.lbl1.Name = "lbl1";
+            this.lbl1.Size = new System.Drawing.Size(99, 21);
+            this.lbl1.TabIndex = 10;
+            this.lbl1.Text = "Username";
             // 
-            // label4
+            // lbl5
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(5, 349);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(140, 21);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "New Password";
+            this.lbl5.AutoSize = true;
+            this.lbl5.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl5.Location = new System.Drawing.Point(5, 349);
+            this.lbl5.Name = "lbl5";
+            this.lbl5.Size = new System.Drawing.Size(140, 21);
+            this.lbl5.TabIndex = 14;
+            this.lbl5.Text = "New Password";
             // 
             // tbxUsername
             // 
@@ -97,15 +97,15 @@ namespace FinalProject
             this.tbxPassword.Size = new System.Drawing.Size(190, 30);
             this.tbxPassword.TabIndex = 6;
             // 
-            // label5
+            // lbl6
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(344, 349);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(172, 21);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "Confirm Password";
+            this.lbl6.AutoSize = true;
+            this.lbl6.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl6.Location = new System.Drawing.Point(344, 349);
+            this.lbl6.Name = "lbl6";
+            this.lbl6.Size = new System.Drawing.Size(172, 21);
+            this.lbl6.TabIndex = 15;
+            this.lbl6.Text = "Confirm Password";
             // 
             // tbxPassTwo
             // 
@@ -147,9 +147,9 @@ namespace FinalProject
             this.gbxOne.Controls.Add(this.btnUpdate);
             this.gbxOne.Controls.Add(this.btnShowTwo);
             this.gbxOne.Controls.Add(this.btnShow);
-            this.gbxOne.Controls.Add(this.label6);
-            this.gbxOne.Controls.Add(this.label2);
-            this.gbxOne.Controls.Add(this.label1);
+            this.gbxOne.Controls.Add(this.lbl4);
+            this.gbxOne.Controls.Add(this.lbl3);
+            this.gbxOne.Controls.Add(this.lbl2);
             this.gbxOne.Controls.Add(this.tbxAnswerThree);
             this.gbxOne.Controls.Add(this.tbxAnswerTwo);
             this.gbxOne.Controls.Add(this.tbxAnswerOne);
@@ -157,11 +157,11 @@ namespace FinalProject
             this.gbxOne.Controls.Add(this.tbxQuestionTwo);
             this.gbxOne.Controls.Add(this.tbxQuestionOne);
             this.gbxOne.Controls.Add(this.tbxUsername);
-            this.gbxOne.Controls.Add(this.label3);
-            this.gbxOne.Controls.Add(this.label4);
+            this.gbxOne.Controls.Add(this.lbl1);
+            this.gbxOne.Controls.Add(this.lbl5);
             this.gbxOne.Controls.Add(this.tbxPassTwo);
             this.gbxOne.Controls.Add(this.tbxPassword);
-            this.gbxOne.Controls.Add(this.label5);
+            this.gbxOne.Controls.Add(this.lbl6);
             this.gbxOne.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbxOne.Location = new System.Drawing.Point(12, 12);
             this.gbxOne.Name = "gbxOne";
@@ -207,32 +207,32 @@ namespace FinalProject
             this.btnShow.UseVisualStyleBackColor = true;
             this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
             // 
-            // label6
+            // lbl4
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(82, 253);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(23, 19);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "3:";
+            this.lbl4.AutoSize = true;
+            this.lbl4.Location = new System.Drawing.Point(82, 253);
+            this.lbl4.Name = "lbl4";
+            this.lbl4.Size = new System.Drawing.Size(23, 19);
+            this.lbl4.TabIndex = 13;
+            this.lbl4.Text = "3:";
             // 
-            // label2
+            // lbl3
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(82, 176);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(23, 19);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "2:";
+            this.lbl3.AutoSize = true;
+            this.lbl3.Location = new System.Drawing.Point(82, 176);
+            this.lbl3.Name = "lbl3";
+            this.lbl3.Size = new System.Drawing.Size(23, 19);
+            this.lbl3.TabIndex = 12;
+            this.lbl3.Text = "2:";
             // 
-            // label1
+            // lbl2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(82, 99);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(23, 19);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "1:";
+            this.lbl2.AutoSize = true;
+            this.lbl2.Location = new System.Drawing.Point(82, 99);
+            this.lbl2.Name = "lbl2";
+            this.lbl2.Size = new System.Drawing.Size(23, 19);
+            this.lbl2.TabIndex = 11;
+            this.lbl2.Text = "1:";
             // 
             // tbxAnswerThree
             // 
@@ -333,11 +333,11 @@ namespace FinalProject
         }
 
         #endregion
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lbl1;
+        private System.Windows.Forms.Label lbl5;
         private System.Windows.Forms.TextBox tbxUsername;
         private System.Windows.Forms.TextBox tbxPassword;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lbl6;
         private System.Windows.Forms.TextBox tbxPassTwo;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnReset;
@@ -348,9 +348,9 @@ namespace FinalProject
         private System.Windows.Forms.TextBox tbxAnswerThree;
         private System.Windows.Forms.TextBox tbxAnswerTwo;
         private System.Windows.Forms.TextBox tbxAnswerOne;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbl4;
+        private System.Windows.Forms.Label lbl3;
+        private System.Windows.Forms.Label lbl2;
         private System.Windows.Forms.Button btnHelp;
         private System.Windows.Forms.Button btnShow;
         private System.Windows.Forms.Button btnShowTwo;

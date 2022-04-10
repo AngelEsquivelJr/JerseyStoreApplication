@@ -321,18 +321,18 @@ namespace FinalProject
         {
             clsParameters.CheckoutParameters checkoutParameters = new clsParameters.CheckoutParameters
             {
-                dgvCart = dgvCart,
-                dgvInventory = dgvInventory,
-                tbxCardNumber = tbxCardNumber,
-                tbxCCV = tbxCCV,
-                tbxExpiry = tbxExpiration,
-                tbxGross = tbxGross,
-                tbxCode =tbxCode,
-                tbxDiscount =tbxDiscount,
-                tbxItems = tbxItems,
-                tbxSub =tbxSub,
-                tbxTax =tbxTax,
-                tbxTotal = tbxTotal
+                dgvCartP = dgvCart,
+                dgvInventoryP = dgvInventory,
+                tbxCardNumberP = tbxCardNumber,
+                tbxCCVP = tbxCCV,
+                tbxExpiryP = tbxExpiration,
+                tbxGrossP = tbxGross,
+                tbxCodeP =tbxCode,
+                tbxDiscountP =tbxDiscount,
+                tbxItemsP = tbxItems,
+                tbxSubP =tbxSub,
+                tbxTaxP =tbxTax,
+                tbxTotalP = tbxTotal
             };
 
             //call method to checkout

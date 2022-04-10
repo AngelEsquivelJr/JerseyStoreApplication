@@ -29,10 +29,18 @@ namespace FinalProject
 
         public struct CheckoutParameters
         {
-            public DataGridView dgvCart, dgvInventory;
+            public DataGridView dgvCartP, dgvInventoryP;
 
-            public TextBox tbxCardNumber, tbxExpiry, tbxCCV, tbxItems, tbxGross, tbxCode, tbxDiscount, tbxSub, tbxTax, tbxTotal;
+            public TextBox tbxCardNumberP, tbxExpiryP, tbxCCVP, tbxItemsP, tbxGrossP, tbxCodeP, tbxDiscountP, tbxSubP, tbxTaxP, tbxTotalP;
         }
 
+        public struct InventoryParameters
+        {
+            public ComboBox cbxDiscontinuedP, cbxTeamIDP;
+
+            public PictureBox pbxItemImageP;
+
+            public TextBox tbxInventoryIDP, tbxItemNameP, tbxItemDescriptionP, tbxRetailPriceP, tbxCostP, tbxQuantityP, tbxSizeP, tbxColorP, tbxRestockP;
+        }
     }
 }

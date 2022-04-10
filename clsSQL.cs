@@ -605,7 +605,7 @@ namespace FinalProject
 
             //string query
             string strDGVQuery = "Select ItemImage as 'Image', ItemName as 'Name', RetailPrice as 'Price', Size, Quantity, ItemDescription as 'Description', Color, T.TeamSport as 'Sport' from " + strSchema + ".Inventory I INNER JOIN " +
-                strSchema + ".Teams T ON I.TeamID = T.TeamID";
+                strSchema + ".Teams T ON I.TeamID = T.TeamID Where Quantity > 0";
 
             //set command object to null
             _sqlInventoryCommand = null;
@@ -1048,10 +1048,10 @@ namespace FinalProject
                 OpenDatabase();
 
                 //check if cart is empty
-                if (checkoutParameters.dgvCart.Rows.Count > 0)
+                if (checkoutParameters.dgvCartP.Rows.Count > 0)
                 {
                     //check card info
-                    if (clsValidation.CardInfoValidation(checkoutParameters.tbxCardNumber.Text, checkoutParameters.tbxExpiry.Text, checkoutParameters.tbxCCV.Text))
+                    if (clsValidation.CardInfoValidation(checkoutParameters.tbxCardNumberP.Text, checkoutParameters.tbxExpiryP.Text, checkoutParameters.tbxCCVP.Text))
                     {
                         //get todays date
                         string strDate = DateTime.Now.ToString();
@@ -1061,7 +1061,7 @@ namespace FinalProject
                         int intOrderID = 0;
                         int intPersonID;
                         //check if discount is applied
-                        if (checkoutParameters.tbxDiscount.Text == "$0.00")
+                        if (checkoutParameters.tbxDiscountP.Text == "$0.00")
                         {
                             strDiscountID = "0";
                         }
@@ -1089,23 +1089,23 @@ namespace FinalProject
                             {
 
                                 //get cart values
-                                for (int i = 0; i < checkoutParameters.dgvCart.Rows.Count; i++)
+                                for (int i = 0; i < checkoutParameters.dgvCartP.Rows.Count; i++)
                                 {
-                                    lstIntItemQuantity.Add((int)(checkoutParameters.dgvCart.Rows[i].Cells[0].Value));
-                                    lstStrNames.Add((checkoutParameters.dgvCart.Rows[i].Cells[1].Value).ToString());
-                                    lstStrPrice.Add((checkoutParameters.dgvCart.Rows[i].Cells[3].Value).ToString());
-                                    lstStrTotal.Add((checkoutParameters.dgvCart.Rows[i].Cells[4].Value).ToString());
+                                    lstIntItemQuantity.Add((int)(checkoutParameters.dgvCartP.Rows[i].Cells[0].Value));
+                                    lstStrNames.Add((checkoutParameters.dgvCartP.Rows[i].Cells[1].Value).ToString());
+                                    lstStrPrice.Add((checkoutParameters.dgvCartP.Rows[i].Cells[3].Value).ToString());
+                                    lstStrTotal.Add((checkoutParameters.dgvCartP.Rows[i].Cells[4].Value).ToString());
                                 }
 
                                 //get text box values
-                                strSub = checkoutParameters.tbxSub.Text;
-                                strItems = checkoutParameters.tbxItems.Text;
-                                strDiscount = checkoutParameters.tbxDiscount.Text;
-                                strTax = checkoutParameters.tbxTax.Text;
-                                strTextboxTotal = checkoutParameters.tbxTotal.Text;
+                                strSub = checkoutParameters.tbxSubP.Text;
+                                strItems = checkoutParameters.tbxItemsP.Text;
+                                strDiscount = checkoutParameters.tbxDiscountP.Text;
+                                strTax = checkoutParameters.tbxTaxP.Text;
+                                strTextboxTotal = checkoutParameters.tbxTotalP.Text;
 
                                 //update tables
-                                WriteOrders(intDiscountID, intPersonID, strDate, checkoutParameters.tbxCardNumber.Text, checkoutParameters.tbxExpiry.Text, checkoutParameters.tbxCCV.Text);
+                                WriteOrders(intDiscountID, intPersonID, strDate, checkoutParameters.tbxCardNumberP.Text, checkoutParameters.tbxExpiryP.Text, checkoutParameters.tbxCCVP.Text);
 
                                 //query for getting order id
                                 string strSelectQuery = "SELECT max(OrderID), PersonID FROM " + strSchema + ".Orders where PersonID = @PersonID AND OrderDate = @OrderDate GROUP BY PersonID;";
@@ -1208,13 +1208,13 @@ namespace FinalProject
                                 MessageBox.Show("Purchase successful! Thank you for shopping with us! \nPlease shop with us again soon!", "AE Sporting Fits", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                                 //show receipts
-                                if (checkoutParameters.tbxDiscount.Text == "$0.00")
+                                if (checkoutParameters.tbxDiscountP.Text == "$0.00")
                                 {                                    
                                     clsHTML.PrintReceipt(clsHTML.GenerateReceipt(lstStrNames, lstIntItemQuantity, lstStrTotal, lstStrPrice, intOrderID.ToString(), strName, strPhone, strSub, strTax, strTextboxTotal), intOrderID.ToString());
                                 }
                                 else
                                 {
-                                    clsHTML.PrintReceipt(clsHTML.GenerateReceiptDiscount(lstStrNames, lstIntItemQuantity, lstStrTotal, lstStrPrice, intOrderID.ToString(), strName, strPhone, checkoutParameters.tbxGross.Text, strSub, strDiscount, strTax, strTextboxTotal, strDiscountType), intOrderID.ToString());
+                                    clsHTML.PrintReceipt(clsHTML.GenerateReceiptDiscount(lstStrNames, lstIntItemQuantity, lstStrTotal, lstStrPrice, intOrderID.ToString(), strName, strPhone, checkoutParameters.tbxGrossP.Text, strSub, strDiscount, strTax, strTextboxTotal, strDiscountType), intOrderID.ToString());
                                 }
 
                                 //reset lists
@@ -1231,20 +1231,20 @@ namespace FinalProject
 
                                 CloseDatabase();
                                 //refresh inventory
-                                checkoutParameters.dgvInventory.DataSource = null;
-                                clsSQL.InitializeInventoryView(checkoutParameters.dgvInventory);
+                                checkoutParameters.dgvInventoryP.DataSource = null;
+                                clsSQL.InitializeInventoryView(checkoutParameters.dgvInventoryP);
 
                                 //clear cart
-                                clsCart.ClearCart(checkoutParameters.dgvCart);
+                                clsCart.ClearCart(checkoutParameters.dgvCartP);
                                 //clear text boxes
-                                checkoutParameters.tbxItems.Clear();
-                                checkoutParameters.tbxDiscount.Text = "$0.00";
-                                checkoutParameters.tbxGross.Clear();
-                                checkoutParameters.tbxCode.Clear();
-                                checkoutParameters.tbxSub.Clear();
-                                checkoutParameters.tbxTax.Clear();
-                                checkoutParameters.tbxTotal.Clear();
-                                checkoutParameters.dgvInventory.Refresh();
+                                checkoutParameters.tbxItemsP.Clear();
+                                checkoutParameters.tbxDiscountP.Text = "$0.00";
+                                checkoutParameters.tbxGrossP.Clear();
+                                checkoutParameters.tbxCodeP.Clear();
+                                checkoutParameters.tbxSubP.Clear();
+                                checkoutParameters.tbxTaxP.Clear();
+                                checkoutParameters.tbxTotalP.Clear();
+                                checkoutParameters.dgvInventoryP.Refresh();
                             }
                         }
                     }                    
