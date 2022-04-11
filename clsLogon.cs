@@ -42,7 +42,7 @@ namespace FinalProject
         }
 
         //method for logging in
-        internal static void Login(TextBox tbxPass, TextBox tbxUser, frmLogon logon, frmMain main)
+        internal static void Login(TextBox tbxPass, TextBox tbxUser, frmLogon frmLogon, frmMain frmMain, frmManager frmManager)
         {
             //call proper clsValidation methods for validation
             //check username validation
@@ -55,9 +55,18 @@ namespace FinalProject
                     //check credentials
                     if (clsSQL.ReadLoginData(tbxUser, tbxPass))
                     {
-                        //if credentials are true successfully login
-                        logon.Hide();
-                        main.Show();                        
+                        //check position to determine where to go
+                        if (clsSQL.strPositionTitle == "Manager")
+                        {
+                            frmLogon.Hide();
+                            frmManager.Show();
+                        }
+                        else
+                        {
+                            //if credentials are true successfully login
+                            frmLogon.Hide();
+                            frmMain.Show();
+                        }
                     }
                 }
             }

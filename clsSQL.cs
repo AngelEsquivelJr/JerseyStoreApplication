@@ -47,6 +47,7 @@ namespace FinalProject
         //var for login name and ids
         public static string strLogonName = "Guest";
         public static string strName = "Guest";
+        public static string strPositionTitle = "Empty";
         public static string strPID = "0";
         public static string strDID = "0";
         public static string strDiscountType = "0";
@@ -317,6 +318,7 @@ namespace FinalProject
                             //set logon name var
                             strLogonName = strUsername;
                             strPID = strPersonID;
+                            strPositionTitle = strTitle;
                             
                             //returns true and closes reader
                             rd.Close();

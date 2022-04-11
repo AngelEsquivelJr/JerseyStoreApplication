@@ -114,7 +114,7 @@ namespace FinalProject
                         if (intQuantityInventory > 0)
                         {
                             //add to cart list
-                            if (strCart.Contains(strItemName))
+                            if (strCart.Contains(strItemName + strSize))
                             {
                                 //set count
                                 if (intComboQuantity > 1)
@@ -170,7 +170,7 @@ namespace FinalProject
                                     }
                                 }
                             }
-                            else if (!strCart.Contains(strItemName))
+                            else if (!strCart.Contains(strItemName + strSize))
                             {
                                 strCart.Clear();
                                 intProdCount.Clear();
@@ -185,7 +185,7 @@ namespace FinalProject
                                     intDGV = intQuantityInventory - intCount;
                                     selectedRowInventory.Cells["Quantity"].Value = intDGV;
                                     //add to cart list
-                                    strCart.Add(strItemName);
+                                    strCart.Add(strItemName + strSize);
                                 }
                                 else if (intComboQuantity == 0 && cbxQuantity.SelectedIndex == 2)
                                 {
@@ -201,7 +201,7 @@ namespace FinalProject
                                     intDGV = intQuantityInventory - intCount;
                                     selectedRowInventory.Cells["Quantity"].Value = intDGV;
                                     //add to cart list
-                                    strCart.Add(strItemName);
+                                    strCart.Add(strItemName + strSize);
                                 }
                             }
 
