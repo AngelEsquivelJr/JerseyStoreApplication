@@ -53,6 +53,7 @@ namespace FinalProject
             this.btnRefresh.TabIndex = 71;
             this.btnRefresh.Text = "Re&fresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // lblManager
             // 
@@ -116,6 +117,7 @@ namespace FinalProject
             this.btnClose.TabIndex = 6;
             this.btnClose.Text = "&Close";
             this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnInventory
             // 
@@ -129,6 +131,7 @@ namespace FinalProject
             this.btnInventory.TabIndex = 1;
             this.btnInventory.Text = "&Inventory";
             this.btnInventory.UseVisualStyleBackColor = true;
+            this.btnInventory.Click += new System.EventHandler(this.btnInventory_Click);
             // 
             // btnReports
             // 
@@ -142,6 +145,7 @@ namespace FinalProject
             this.btnReports.TabIndex = 4;
             this.btnReports.Text = "&Reports";
             this.btnReports.UseVisualStyleBackColor = true;
+            this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
             // 
             // btnDiscounts
             // 
@@ -155,6 +159,7 @@ namespace FinalProject
             this.btnDiscounts.TabIndex = 3;
             this.btnDiscounts.Text = "Edit &Discounts";
             this.btnDiscounts.UseVisualStyleBackColor = true;
+            this.btnDiscounts.Click += new System.EventHandler(this.btnDiscounts_Click);
             // 
             // btnCustomer
             // 
@@ -168,6 +173,7 @@ namespace FinalProject
             this.btnCustomer.TabIndex = 0;
             this.btnCustomer.Text = "C&ustomers";
             this.btnCustomer.UseVisualStyleBackColor = true;
+            this.btnCustomer.Click += new System.EventHandler(this.btnCustomer_Click);
             // 
             // frmManager
             // 
@@ -188,6 +194,8 @@ namespace FinalProject
             this.Name = "frmManager";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AE Sporting Fits | Manager Dashboard";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmManager_FormClosing);
+            this.Load += new System.EventHandler(this.frmManager_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRestock)).EndInit();
             this.gbxOne.ResumeLayout(false);
             this.ResumeLayout(false);

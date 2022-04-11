@@ -1438,6 +1438,559 @@ namespace FinalProject
             CloseDatabase();
         }
 
+        //Manager Form Information
+        //restock
+        //data command
+        public static SqlCommand _sqlRestockCommand;
+        //data adapter
+        public static SqlDataAdapter _daRestock = new SqlDataAdapter();
+        //data tables
+        public static DataTable _dtRestockTable = new DataTable();
+        //inventory
+        //data command
+        public static SqlCommand _sqlManagerICommand;
+        //data adapter
+        public static SqlDataAdapter _daManagerI = new SqlDataAdapter();
+        //data tables
+        public static DataTable _dtManagerITable = new DataTable();
+        //customers
+        //data command
+        public static SqlCommand _sqlCustomersCommand;
+        //data adapter
+        public static SqlDataAdapter _daCustomers = new SqlDataAdapter();
+        //data tables
+        public static DataTable _dtCustomersTable = new DataTable();
+
+        //method to show restock needed
+        internal static void InitializeRestockView(DataGridView dgvRestock, Label lblRestock)
+        {
+            //open database
+            OpenDatabase();
+
+            //fill tables and objects
+            try
+            {
+                //setup data
+                //set command object to null
+                _sqlRestockCommand = null;
+
+                //reset data adapter and data table to new
+                _daRestock = new SqlDataAdapter();
+                _dtRestockTable = new DataTable();
+
+                //string query
+                string strDGVQuery = "Select InventoryID, ItemName as 'Name', Quantity from " + strSchema + ".Inventory" +
+                    " WHERE Quantity <= RestockThreshold AND Discontinued != 0";
+
+                //set command object to null
+                _sqlRestockCommand = null;
+
+                //est command obj
+                _sqlRestockCommand = new SqlCommand(strDGVQuery, _cntDatabase);
+                //establish data adapter
+                _daRestock.SelectCommand = _sqlRestockCommand;
+                //fill data table
+                _daRestock.Fill(_dtRestockTable);
+                //bind grid view to data table
+                dgvRestock.DataSource = _dtRestockTable;
+
+                //format data grid view
+                foreach (DataGridViewRow row in dgvRestock.Rows)
+                {
+                    row.Height = 100;
+                }
+
+                for (int i = 0; i < dgvRestock.ColumnCount; i++)
+                {
+                    dgvRestock.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    dgvRestock.AutoResizeColumns();
+                    dgvRestock.AllowUserToAddRows = false;
+                    dgvRestock.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    dgvRestock.Columns[i].DefaultCellStyle.Font = new Font("Rockwell", 9F, FontStyle.Bold);
+                }
+
+                if (dgvRestock.Rows.Count > 0)
+                {
+                    lblRestock.Visible = true;
+                }
+
+                //close database
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error in SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CloseDatabase();
+            }
+
+            //dispose of command, adapter, and table 
+            _sqlRestockCommand.Dispose();
+            _daRestock.Dispose();
+            _dtRestockTable.Dispose();
+            //close database
+            CloseDatabase();
+        }
+        //method to set images from database
+        internal static void ImageInventoryManager(DataGridView dgvInventory)
+        {
+            //make byte var
+            byte[] imageData = null;
+            Int32 intWidth = 140;
+
+            try
+            {
+
+                for (int i = 0; i < dgvInventory.Rows.Count; i++)
+                {
+                    //set image to byte and use temporary image
+                    imageData = (byte[])_dtManagerITable.Rows[i]["Image"];
+                    Image tmpImage = Image.FromStream(new MemoryStream(imageData));
+                    //scale image and set resized image
+                    double dblScaleImg = (double)intWidth / (double)tmpImage.Width;
+                    Graphics tmpGraphics = default(Graphics);
+                    Bitmap tmpResizedImage = new Bitmap(Convert.ToInt32(dblScaleImg * tmpImage.Width), Convert.ToInt32(dblScaleImg * tmpImage.Height));
+                    tmpGraphics = Graphics.FromImage(tmpResizedImage);
+                    tmpGraphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+                    tmpGraphics.DrawImage(tmpImage, 0, 0, tmpResizedImage.Width + 1, tmpResizedImage.Height + 1);
+                    Image imgOut = tmpResizedImage;
+
+                    //add image to data grid view
+                    dgvInventory.Rows[i].Cells[6].Value = imgOut;
+
+                }
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                //error message
+                MessageBox.Show(ex.Message, "Error gathering images.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //method to show inventory
+        internal static void InitializeManagerInventoryView(DataGridView dgvInventory)
+        {
+            //open database
+            OpenDatabase();
+
+            //fill tables and objects
+            try
+            {
+                //setup data
+                //set command object to null
+                _sqlManagerICommand = null;
+
+                //reset data adapter and data table to new
+                _daManagerI = new SqlDataAdapter();
+                _dtManagerITable = new DataTable();
+
+                //string query
+                string strDGVQuery = "Select InventoryID, ItemName as 'Name', ItemDescription as 'Description', RetailPrice as 'Retail Price', Cost, Quantity, " +
+                    "ItemImage as 'Image', Discontinued, Size, Color, TeamID, RestockThreshold from " + strSchema + ".Inventory";
+
+                //set command object to null
+                _sqlManagerICommand = null;
+
+                //est command obj
+                _sqlManagerICommand = new SqlCommand(strDGVQuery, _cntDatabase);
+                //establish data adapter
+                _daManagerI.SelectCommand = _sqlManagerICommand;
+                //fill data table
+                _daManagerI.Fill(_dtManagerITable);
+                //bind grid view to data table
+                dgvInventory.DataSource = _dtManagerITable;
+
+                if (!dgvInventory.Columns.Contains("Item Image"))
+                {
+                    //setup image column
+                    DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();
+                    imageColumn.HeaderText = "Item Image";
+                    dgvInventory.Columns.Insert(6, imageColumn);
+                }
+
+                //setup image
+                ImageInventoryManager(dgvInventory);
+                dgvInventory.Columns.Remove("Image");
+
+                //format data grid view
+                foreach (DataGridViewRow row in dgvInventory.Rows)
+                {
+                    row.Height = 140;
+                }
+
+                for (int i = 0; i < dgvInventory.ColumnCount; i++)
+                {
+                    dgvInventory.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    dgvInventory.AutoResizeColumns();
+                    dgvInventory.AllowUserToAddRows = false;
+                    dgvInventory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    dgvInventory.Columns[i].DefaultCellStyle.Font = new Font("Rockwell", 9F, FontStyle.Bold);
+                }
+
+                //close database
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error in SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CloseDatabase();
+            }
+
+            //dispose of command, adapter, and table 
+            _sqlManagerICommand.Dispose();
+            _daManagerI.Dispose();
+            _dtManagerITable.Dispose();
+            //close database
+            CloseDatabase();
+        }
+        //method to show customers
+        internal static void InitializeCustomerView(DataGridView dgvCustomers)
+        {
+            //open database
+            OpenDatabase();
+
+            //fill tables and objects
+            try
+            {
+                //setup data
+                //set command object to null
+                _sqlCustomersCommand = null;
+
+                //reset data adapter and data table to new
+                _daCustomers = new SqlDataAdapter();
+                _dtCustomersTable = new DataTable();
+
+                //string query
+                string strDGVQuery = "Select PersonID, Title, NameFirst as 'First Name', NameMiddle as 'Middle Name', NameLast as 'Last Name', Suffix, Address1, Address2, Address3, " +
+                    "City, Zipcode, State, Email, PhonePrimary as 'Primary Phone', PhoneSecondary as 'Secondary Phone', PersonDeleted as 'Deleted' from " + strSchema + ".Person";
+
+                //set command object to null
+                _sqlCustomersCommand = null;
+
+                //est command obj
+                _sqlCustomersCommand = new SqlCommand(strDGVQuery, _cntDatabase);
+                //establish data adapter
+                _daCustomers.SelectCommand = _sqlCustomersCommand;
+                //fill data table
+                _daCustomers.Fill(_dtCustomersTable);
+                //bind grid view to data table
+                dgvCustomers.DataSource = _dtCustomersTable;
+
+                //format data grid view
+                for (int i = 0; i < dgvCustomers.ColumnCount; i++)
+                {
+                    dgvCustomers.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    dgvCustomers.AutoResizeColumns();
+                    dgvCustomers.AllowUserToAddRows = false;
+                    dgvCustomers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    dgvCustomers.Columns[i].DefaultCellStyle.Font = new Font("Rockwell", 9F, FontStyle.Bold);
+                }
+
+                //close database
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error in SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CloseDatabase();
+            }
+
+            //dispose of command, adapter, and table 
+            _sqlCustomersCommand.Dispose();
+            _daCustomers.Dispose();
+            _dtCustomersTable.Dispose();
+            //close database
+            CloseDatabase();
+        }
+        //method to fill combo for teamID
+        internal static void FillTeamIDCombo(ComboBox cbxTeamID)
+        {
+            try
+            {
+                //close previous connections and open new one
+                CloseDatabase();
+                OpenDatabase();
+
+                //commands for data
+                SqlCommand cmdTeamID = new SqlCommand("SELECT distinct T.TeamID FROM " + strSchema +
+                    ".Inventory I INNER JOIN " + strSchema + ".Teams T ON I.TeamID = T.TeamID ", _cntDatabase);
+
+                //data adapters
+                SqlDataAdapter daTeamID = new SqlDataAdapter(cmdTeamID);
+
+                //data table
+                DataTable dtTeamID = new DataTable();
+
+                //fill data set
+                daTeamID.Fill(dtTeamID);
+
+                //insert to data table
+                DataRow drTeamID = dtTeamID.NewRow();
+                dtTeamID.Rows.InsertAt(drTeamID, 0);
+
+                //setup combo boxes
+                cbxTeamID.DataSource = dtTeamID;
+                cbxTeamID.DisplayMember = "TeamID";
+                cbxTeamID.ValueMember = "TeamID";
+
+                //close connection
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to Fill TeamID Combo Box. " + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CloseDatabase();
+            }
+            //close connection
+            CloseDatabase();
+        }
+        //method to fill combo for title
+        internal static void FillPositionTitleCombo(ComboBox cbxFilterTitle)
+        {
+            try
+            {
+                //close previous connections and open new one
+                CloseDatabase();
+                OpenDatabase();
+
+                //commands for data
+                SqlCommand cmdTitle = new SqlCommand("SELECT distinct PositionTitle FROM " + strSchema +
+                    ".Logon", _cntDatabase);
+
+                //data adapters
+                SqlDataAdapter daTitle = new SqlDataAdapter(cmdTitle);
+
+                //data table
+                DataTable dtTitle = new DataTable();
+                //fill data set
+                daTitle.Fill(dtTitle);
+                //insert to data table
+                DataRow drTitle = dtTitle.NewRow();
+                dtTitle.Rows.InsertAt(drTitle, 0);
+
+                //setup combo boxes
+                cbxFilterTitle.DataSource = dtTitle;
+                cbxFilterTitle.DisplayMember = "PositionTitle";
+                cbxFilterTitle.ValueMember = "PositionTitle";
+
+                //close connection
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to Fill Filter Title Combo Box. " + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CloseDatabase();
+            }
+            //close connection
+            CloseDatabase();
+        }
+        //method for updating inventory
+        internal static void UpdateInventory(clsParameters.InventoryParameters inventoryParameters)
+        {
+            try
+            {
+                //set up discontinued
+                string strDiscontinued;
+                if (inventoryParameters.cbxDiscontinuedP.SelectedIndex == 1)
+                {
+                    strDiscontinued = "0";
+                }
+                else if (inventoryParameters.cbxDiscontinuedP.SelectedIndex == 2)
+                {
+                    strDiscontinued = "1";
+                }
+                else
+                {
+                    strDiscontinued = "";
+                }
+
+                //change picture to byte
+                Image imgItem = inventoryParameters.pbxItemImageP.Image;
+
+                //string command to update inventory
+                string strUpdateQuery = "UPDATE " + strSchema + ".Inventory SET ItemName = @ItemName, ItemDescription = @ItemDescription, RetailPrice = @RetailPrice, Cost = @Cost, Quantity = @Quantity," +
+                " ItemImage = @ItemImage, Discontinued = @Discontinued, Size = @Size, Color = @Color, TeamID = @TeamID, RestockThreshold = @RestockThreshold WHERE InventoryID = @InventoryID";
+
+                if (int.TryParse(inventoryParameters.tbxInventoryIDP.Text, out int intInventoryID) &&
+                    int.TryParse(inventoryParameters.tbxQuantityP.Text.Trim(), out int intQuantity) &&
+                    double.TryParse(inventoryParameters.tbxCostP.Text.Trim(), out double dblCost) &&
+                    double.TryParse(inventoryParameters.tbxRetailPriceP.Text.Trim(), out double dblRetail) &&
+                    int.TryParse(inventoryParameters.cbxTeamIDP.Text.Trim(), out int intTeamID) &&
+                    int.TryParse(inventoryParameters.tbxRestockP.Text.Trim(), out int intRestock))
+                {
+                    //command query
+                    SqlCommand cmdUpdate = new SqlCommand(strUpdateQuery, _cntDatabase);
+                    cmdUpdate.Parameters.AddWithValue("@InventoryID", intInventoryID);
+                    cmdUpdate.Parameters.AddWithValue("@ItemName", inventoryParameters.tbxItemNameP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@ItemDescription", inventoryParameters.tbxItemDescriptionP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@RetailPrice", dblRetail);
+                    cmdUpdate.Parameters.AddWithValue("@Cost", dblCost);
+                    cmdUpdate.Parameters.AddWithValue("@Quantity", intQuantity);
+                    cmdUpdate.Parameters.AddWithValue("@ItemImage", clsManager.ImagetoByteArray(imgItem));
+                    cmdUpdate.Parameters.AddWithValue("@Discontinued", strDiscontinued);
+                    cmdUpdate.Parameters.AddWithValue("@Size", inventoryParameters.tbxSizeP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Color", inventoryParameters.tbxColorP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@TeamID", intTeamID);
+                    cmdUpdate.Parameters.AddWithValue("@RestockThreshold", intRestock);
+                    SqlDataReader rdUpdate = cmdUpdate.ExecuteReader();
+
+                    rdUpdate.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                //close database and show error
+                CloseDatabase();
+                UpdateDataFail(ex);
+            }
+        }
+        //method for updating customers
+        internal static void UpdateCustomers(clsParameters.SignupParameters signupParameters)
+        {
+            try
+            {
+                //set up discontinued
+                string strDeleted;
+                if (signupParameters.cbxDeleted.SelectedIndex == 1)
+                {
+                    strDeleted = "0";
+                }
+                else if (signupParameters.cbxDeleted.SelectedIndex == 2)
+                {
+                    strDeleted = "1";
+                }
+                else
+                {
+                    strDeleted = "";
+                }
+
+                //string command to update inventory
+                string strUpdateQuery = "UPDATE " + strSchema + ".Person SET Title = @Title, NameFirst = @NameFirst, NameMiddle = @NameMiddle, NameLast = @NameLast, Suffix = @Suffix," +
+                " Address1 = @Address1, Address2 = @Address2, Address3 = @Address3, City = @city, Zipcode = @ZIpcode, State = @State, Email = @Email," +
+                " PhonePrimary = @PhonePrimary, PhoneSecondary = @PhoneSecondary, PersonDeleted = @PersonDeleted WHERE PersonID = @PersonID";
+
+                if (int.TryParse(signupParameters.tbxPersonID.Text, out int intPersonID))
+                {
+                    //command query
+                    SqlCommand cmdUpdate = new SqlCommand(strUpdateQuery, _cntDatabase);
+                    cmdUpdate.Parameters.AddWithValue("@PersonID", intPersonID);
+                    cmdUpdate.Parameters.AddWithValue("@Title", signupParameters.cbxTitle.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@NameFirst", signupParameters.tbxFirstName.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@NameMiddle", signupParameters.tbxMiddleName.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@NameLast", signupParameters.tbxLastName.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Suffix", signupParameters.tbxSuffix.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Address1", signupParameters.tbxAddress1.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Address2", signupParameters.tbxAddress2.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Address3", signupParameters.tbxAddress3.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@City", signupParameters.tbxCity.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Zipcode", signupParameters.tbxZipcode.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@State", signupParameters.cbxState.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Email", signupParameters.tbxEmail.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@PhonePrimary", signupParameters.tbxPhone1.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@PhoneSecondary", signupParameters.tbxPhone2.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@PersonDeleted", strDeleted);
+                    SqlDataReader rdUpdate = cmdUpdate.ExecuteReader();
+
+                    rdUpdate.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                //close database and show error
+                CloseDatabase();
+                UpdateDataFail(ex);
+            }
+        }
+        //method for updating customer into manager
+        internal static void UpdateToManager(TextBox tbxPersonID)
+        {
+            try
+            {
+                //set up discontinued
+                string strPosition = "Manager";
+
+                //string command to update inventory
+                string strUpdateQuery = "UPDATE " + strSchema + ".Logon SET PositionTitle = @PositionTitle, " +
+                " WHERE PersonID = @PersonID";
+
+                if (int.TryParse(tbxPersonID.Text, out int intPersonID))
+                {
+                    //command query
+                    SqlCommand cmdUpdate = new SqlCommand(strUpdateQuery, _cntDatabase);
+                    cmdUpdate.Parameters.AddWithValue("@PersonID", intPersonID);
+                    cmdUpdate.Parameters.AddWithValue("@PositionTitle", strPosition);
+                    SqlDataReader rdUpdate = cmdUpdate.ExecuteReader();
+
+                    rdUpdate.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                //close database and show error
+                CloseDatabase();
+                UpdateDataFail(ex);
+            }
+        }
+        //method for adding to inventory
+        internal static void AddInventory(clsParameters.InventoryParameters inventoryParameters)
+        {
+            try
+            {
+                //set up discontinued
+                string strDiscontinued;
+                if (inventoryParameters.cbxDiscontinuedP.SelectedIndex == 1)
+                {
+                    strDiscontinued = "0";
+                }
+                else if (inventoryParameters.cbxDiscontinuedP.SelectedIndex == 2)
+                {
+                    strDiscontinued = "1";
+                }
+                else
+                {
+                    strDiscontinued = "";
+                }
+
+                //change picture to byte
+                Image imgItem = inventoryParameters.pbxItemImageP.Image;
+
+                //query to insert into orders table
+                string strInsertQuery = "INSERT INTO " + strSchema + ".Inventory (ItemName, ItemDescription, RetailPrice, Cost, Quantity," +
+                        " ItemImage, Discontinued, Size, Color, TeamID, RestockThreshold)" +
+                    "  VALUES (@ItemName, @ItemDescription, @RetailPrice, @Cost, @Quantity," +
+                    " @ItemImage, @Discontinued, @Size, @Color, @TeamID, @RestockThreshold)";
+
+                if (int.TryParse(inventoryParameters.tbxQuantityP.Text.Trim(), out int intQuantity) &&
+                double.TryParse(inventoryParameters.tbxCostP.Text.Trim(), out double dblCost) &&
+                double.TryParse(inventoryParameters.tbxRetailPriceP.Text.Trim(), out double dblRetail) &&
+                int.TryParse(inventoryParameters.cbxTeamIDP.Text.Trim(), out int intTeamID) &&
+                int.TryParse(inventoryParameters.tbxRestockP.Text.Trim(), out int intRestock))
+                {
+                    //command query
+                    SqlCommand cmdInventory = new SqlCommand(strInsertQuery, _cntDatabase);
+                    cmdInventory.Parameters.AddWithValue("@ItemName", inventoryParameters.tbxItemNameP.Text.Trim());
+                    cmdInventory.Parameters.AddWithValue("@ItemDescription", inventoryParameters.tbxItemDescriptionP.Text.Trim());
+                    cmdInventory.Parameters.AddWithValue("@RetailPrice", dblRetail);
+                    cmdInventory.Parameters.AddWithValue("@Cost", dblCost);
+                    cmdInventory.Parameters.AddWithValue("@Quantity", intQuantity);
+                    cmdInventory.Parameters.AddWithValue("@ItemImage", clsManager.ImagetoByteArray(imgItem));
+                    cmdInventory.Parameters.AddWithValue("@Discontinued", strDiscontinued);
+                    cmdInventory.Parameters.AddWithValue("@Size", inventoryParameters.tbxSizeP.Text.Trim());
+                    cmdInventory.Parameters.AddWithValue("@Color", inventoryParameters.tbxColorP.Text.Trim());
+                    cmdInventory.Parameters.AddWithValue("@TeamID", intTeamID);
+                    cmdInventory.Parameters.AddWithValue("@RestockThreshold", intRestock);
+                    SqlDataReader rdInventory = cmdInventory.ExecuteReader();
+
+                    rdInventory.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                //close database and show error                
+                CloseDatabase();
+                InsertDataFail(ex);
+            }
+        }
+
         //methods for handling database errors
         internal static void ConnectionFail(Exception ex)
         {

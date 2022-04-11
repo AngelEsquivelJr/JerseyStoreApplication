@@ -29,6 +29,7 @@ namespace FinalProject
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmInventory));
             this.gbx2 = new System.Windows.Forms.GroupBox();
             this.cbxTeamID = new System.Windows.Forms.ComboBox();
@@ -200,6 +201,7 @@ namespace FinalProject
             this.btnAdd.Text = "A&dd";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Visible = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnBrowse
             // 
@@ -210,6 +212,7 @@ namespace FinalProject
             this.btnBrowse.TabIndex = 65;
             this.btnBrowse.Text = "&Browse Image";
             this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
             // btnEdit
             // 
@@ -220,6 +223,7 @@ namespace FinalProject
             this.btnEdit.TabIndex = 64;
             this.btnEdit.Text = "A&pply Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // lbl8
             // 
@@ -358,11 +362,27 @@ namespace FinalProject
             // 
             // dgvInventory
             // 
+            this.dgvInventory.AllowUserToAddRows = false;
+            this.dgvInventory.AllowUserToDeleteRows = false;
+            this.dgvInventory.AllowUserToResizeColumns = false;
+            this.dgvInventory.AllowUserToResizeRows = false;
             this.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.LightCyan;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvInventory.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvInventory.Location = new System.Drawing.Point(12, 2);
+            this.dgvInventory.MultiSelect = false;
             this.dgvInventory.Name = "dgvInventory";
+            this.dgvInventory.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvInventory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvInventory.Size = new System.Drawing.Size(1079, 325);
             this.dgvInventory.TabIndex = 45;
+            this.dgvInventory.SelectionChanged += new System.EventHandler(this.dgvInventory_SelectionChanged);
             // 
             // gbx1
             // 
@@ -404,6 +424,7 @@ namespace FinalProject
             this.btnClose.TabIndex = 12;
             this.btnClose.Text = "&Close";
             this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnHelp
             // 
@@ -430,6 +451,7 @@ namespace FinalProject
             this.btnAddInventory.TabIndex = 10;
             this.btnAddInventory.Text = "&Add Inventory";
             this.btnAddInventory.UseVisualStyleBackColor = true;
+            this.btnAddInventory.Click += new System.EventHandler(this.btnAddInventory_Click);
             // 
             // btnEditInventory
             // 
@@ -443,6 +465,7 @@ namespace FinalProject
             this.btnEditInventory.TabIndex = 9;
             this.btnEditInventory.Text = "&Edit Inventory";
             this.btnEditInventory.UseVisualStyleBackColor = true;
+            this.btnEditInventory.Click += new System.EventHandler(this.btnEditInventory_Click);
             // 
             // frmInventory
             // 
@@ -461,6 +484,7 @@ namespace FinalProject
             this.Name = "frmInventory";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AE Sporting Fits | Inventory";
+            this.Load += new System.EventHandler(this.frmInventory_Load);
             this.gbx2.ResumeLayout(false);
             this.gbx2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxItemImage)).EndInit();
