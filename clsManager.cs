@@ -264,7 +264,7 @@ namespace FinalProject
                     (dgvCustomer.DataSource as DataTable).DefaultView.RowFilter = "";
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //error message
                 MessageBox.Show("Could not filter position. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -277,8 +277,15 @@ namespace FinalProject
             {
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
-                    imgItem.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
-                    return memoryStream.ToArray();
+                    if (imgItem != null)
+                    {
+                        imgItem.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                        return memoryStream.ToArray();
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
             }
             catch(Exception ex)

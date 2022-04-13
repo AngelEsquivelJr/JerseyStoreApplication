@@ -113,11 +113,12 @@ namespace FinalProject
             };
 
             //call method to add discount
-            clsSQL.AddDiscounts(discountParameters);
-
-            //refresh view
-            dgvDiscounts.DataSource = null;
-            clsSQL.InitializeDiscountsView(dgvDiscounts);
+            if(clsSQL.AddDiscounts(discountParameters))
+            {
+                //refresh view
+                dgvDiscounts.DataSource = null;
+                clsSQL.InitializeDiscountsView(dgvDiscounts);
+            }            
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -137,11 +138,12 @@ namespace FinalProject
             };
 
             //call method to edit discounts
-            clsSQL.UpdateDiscounts(discountParameters);
-
-            //refresh view
-            dgvDiscounts.DataSource = null;
-            clsSQL.InitializeDiscountsView(dgvDiscounts);
+            if(clsSQL.UpdateDiscounts(discountParameters))
+            {
+                //refresh view
+                dgvDiscounts.DataSource = null;
+                clsSQL.InitializeDiscountsView(dgvDiscounts);
+            }
         }
     }
 }

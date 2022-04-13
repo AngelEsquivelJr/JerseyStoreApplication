@@ -2022,6 +2022,18 @@ namespace FinalProject
                     //command query
                     SqlCommand cmdUpdate = new SqlCommand(strUpdateQuery, _cntDatabase);
                     cmdUpdate.Parameters.AddWithValue("@InventoryID", intInventoryID);
+                    if(string.IsNullOrEmpty(inventoryParameters.tbxItemNameP.Text))
+                    {
+                        MessageBox.Show("The item name can not be blank. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return;
+                    }
+                    if (string.IsNullOrEmpty(inventoryParameters.tbxItemDescriptionP.Text))
+                    {
+                        MessageBox.Show("The item description can not be blank. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return;
+                    }
                     cmdUpdate.Parameters.AddWithValue("@ItemName", inventoryParameters.tbxItemNameP.Text.Trim());
                     cmdUpdate.Parameters.AddWithValue("@ItemDescription", inventoryParameters.tbxItemDescriptionP.Text.Trim());
                     cmdUpdate.Parameters.AddWithValue("@RetailPrice", dblRetail);
@@ -2036,6 +2048,12 @@ namespace FinalProject
                     SqlDataReader rdUpdate = cmdUpdate.ExecuteReader();
 
                     rdUpdate.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Unable to update item. Please ensure all fields are entered correctly. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CloseDatabase();
+                    return;
                 }
                 CloseDatabase();
                 dgvInventory.DataSource = null;
@@ -2109,7 +2127,7 @@ namespace FinalProject
             }
         }
         //method for updating discounts
-        internal static void UpdateDiscounts(clsParameters.DiscountParameters discountParameters)
+        internal static bool UpdateDiscounts(clsParameters.DiscountParameters discountParameters)
         {
             try
             {
@@ -2119,6 +2137,7 @@ namespace FinalProject
                 string strLevel, strType;
                 if (discountParameters.cbxLevelP.SelectedIndex == 0)
                 {
+                    //item level
                     strLevel = "1";
                 }
                 else if (discountParameters.cbxLevelP.SelectedIndex == 1)
@@ -2132,6 +2151,7 @@ namespace FinalProject
 
                 if (discountParameters.cbxTypeP.SelectedIndex == 0)
                 {
+                    //percentage
                     strType = "0";
                 }
                 else if (discountParameters.cbxTypeP.SelectedIndex == 1)
@@ -2143,43 +2163,119 @@ namespace FinalProject
                     strType = "";
                 }
 
-                //string command to update inventory
-                string strUpdateQuery = "UPDATE " + strSchema + ".Discounts SET DiscountCode = @DiscountCode, Description = @Description, DiscountLevel = @DiscountLevel, InventoryID = @InventoryID, DiscountType = @DiscountType," +
-                " DiscountPercentage = @DiscountPercentage, DiscountDollarAmount = @DiscountDollarAmount, StartDate = @StartDate, ExpirationDate = @ExpirationDate" +
-                " WHERE DiscountID = @DiscountID";
+                string strUpdateQuery;
+                if (discountParameters.cbxLevelP.SelectedIndex == 0 && discountParameters.cbxTypeP.SelectedIndex == 0)
+                {
+                    //item level and percentage
+                    strUpdateQuery = "UPDATE " + strSchema + ".Discounts SET DiscountCode = @DiscountCode, Description = @Description, DiscountLevel = @DiscountLevel, InventoryID = @InventoryID, DiscountType = @DiscountType," +
+                    " DiscountPercentage = @DiscountPercentage, StartDate = @StartDate, ExpirationDate = @ExpirationDate" +
+                    " WHERE DiscountID = @DiscountID";
+                }
+                else if(discountParameters.cbxLevelP.SelectedIndex == 0 && discountParameters.cbxTypeP.SelectedIndex == 1)
+                {
+                    //item level and dollar
+                    strUpdateQuery = "UPDATE " + strSchema + ".Discounts SET DiscountCode = @DiscountCode, Description = @Description, DiscountLevel = @DiscountLevel, InventoryID = @InventoryID, DiscountType = @DiscountType," +
+                    "  DiscountDollarAmount = @DiscountDollarAmount, StartDate = @StartDate, ExpirationDate = @ExpirationDate" +
+                    " WHERE DiscountID = @DiscountID";
+                }
+                else if (discountParameters.cbxLevelP.SelectedIndex == 1 && discountParameters.cbxTypeP.SelectedIndex == 0)
+                {
+                    //cart and percentage
+                    strUpdateQuery = "UPDATE " + strSchema + ".Discounts SET DiscountCode = @DiscountCode, Description = @Description, DiscountLevel = @DiscountLevel, DiscountType = @DiscountType," +
+                    " DiscountPercentage = @DiscountPercentage, StartDate = @StartDate, ExpirationDate = @ExpirationDate" +
+                    " WHERE DiscountID = @DiscountID";
+                }
+                else
+                {
+                    //cart and dollar
+                    strUpdateQuery = "UPDATE " + strSchema + ".Discounts SET DiscountCode = @DiscountCode, Description = @Description, DiscountLevel = @DiscountLevel, DiscountType = @DiscountType," +
+                    "  DiscountDollarAmount = @DiscountDollarAmount, StartDate = @StartDate, ExpirationDate = @ExpirationDate" +
+                    " WHERE DiscountID = @DiscountID";
+                }
 
                 if (int.TryParse(discountParameters.tbxDiscountIDP.Text, out int intDiscountID))
                 {
                     //command query
                     SqlCommand cmdUpdate = new SqlCommand(strUpdateQuery, _cntDatabase);
                     cmdUpdate.Parameters.AddWithValue("@DiscountID", intDiscountID);
+                    if (string.IsNullOrEmpty(discountParameters.tbxDiscountCodeP.Text))
+                    {
+                        MessageBox.Show("The discount code can not be blank for the discount. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return false;
+                    }
+                    if (string.IsNullOrEmpty(discountParameters.tbxDescriptionP.Text))
+                    {
+                        MessageBox.Show("The description can not be blank for the discount. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return false;
+                    }
                     cmdUpdate.Parameters.AddWithValue("@DiscountCode", discountParameters.tbxDiscountCodeP.Text.Trim());
                     cmdUpdate.Parameters.AddWithValue("@Description", discountParameters.tbxDescriptionP.Text.Trim());
+                    if (int.TryParse(discountParameters.tbxInventoryIDP.Text, out int intID))
+                    {
+                        cmdUpdate.Parameters.AddWithValue("@InventoryID", intID);
+                    }
+                    else if (!string.IsNullOrEmpty(discountParameters.tbxInventoryIDP.Text))
+                    {
+                        MessageBox.Show("Please enter a numeric value for inventory id. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return false;
+                    }
+                    else if (string.IsNullOrEmpty(discountParameters.tbxInventoryIDP.Text) && discountParameters.cbxLevelP.SelectedIndex == 0)
+                    {
+                        MessageBox.Show("The inventory ID can not be blank if the level is set to item level. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return false;
+                    }
+
                     if (double.TryParse(discountParameters.tbxDollarP.Text, out double dblDollar))
                     {
                         cmdUpdate.Parameters.AddWithValue("@DiscountDollarAmount", dblDollar);
                     }
-                    else
+                    else if(!string.IsNullOrEmpty(discountParameters.tbxDollarP.Text))
                     {
-                        cmdUpdate.Parameters.AddWithValue("@DiscountDollarAmount", discountParameters.tbxDollarP.Text);
+                        MessageBox.Show("Please enter a numeric value for dollar amount. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return false;
+                    }
+                    else if(string.IsNullOrEmpty(discountParameters.tbxDollarP.Text) && discountParameters.cbxTypeP.SelectedIndex == 1)
+                    {
+                        MessageBox.Show("The dollar amount can not be blank if the type is set to dollar. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return false;
                     }
 
                     if(double.TryParse(discountParameters.tbxPercentageP.Text, out double dblPercentage))
                     {
                         cmdUpdate.Parameters.AddWithValue("@DiscountPercentage", dblPercentage);
                     }
-                    else
+                    else if (!string.IsNullOrEmpty(discountParameters.tbxPercentageP.Text))
                     {
-                        cmdUpdate.Parameters.AddWithValue("@DiscountPercentage", discountParameters.tbxPercentageP.Text);
+                        MessageBox.Show("Please enter a numeric value for percentage amount. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return false;
                     }
-                    if (int.TryParse(discountParameters.tbxInventoryIDP.Text, out int intID))
+                    else if (string.IsNullOrEmpty(discountParameters.tbxPercentageP.Text) && discountParameters.cbxTypeP.SelectedIndex == 0)
                     {
-                        cmdUpdate.Parameters.AddWithValue("@InventoryID", intID);
-                    }
-                    else
+                        MessageBox.Show("The percentage amount can not be blank if the type is set to percent. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return false;
+                    }                    
+
+                    if (string.IsNullOrEmpty(discountParameters.tbxStartP.Text))
                     {
-                        cmdUpdate.Parameters.AddWithValue("@InventoryID", discountParameters.tbxInventoryIDP.Text);
+                        MessageBox.Show("The start date can not be blank for the discount. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return false;
                     }
+                    if (string.IsNullOrEmpty(discountParameters.tbxExpirationP.Text))
+                    {
+                        MessageBox.Show("The expiration date can not be blank for the discount. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return false;
+                    }
+
                     cmdUpdate.Parameters.AddWithValue("@StartDate", discountParameters.tbxStartP.Text);
                     cmdUpdate.Parameters.AddWithValue("@ExpirationDate", discountParameters.tbxExpirationP.Text);
                     cmdUpdate.Parameters.AddWithValue("@DiscountType", strType);
@@ -2189,12 +2285,14 @@ namespace FinalProject
                     rdUpdate.Close();
                 }
                 CloseDatabase();
+                return true;
             }
             catch (Exception ex)
             {
                 //close database and show error
                 CloseDatabase();
                 UpdateDataFail(ex);
+                return false;
             }
         }
         //method for updating customer into manager
@@ -2267,6 +2365,18 @@ namespace FinalProject
                 {
                     //command query
                     SqlCommand cmdInventory = new SqlCommand(strInsertQuery, _cntDatabase);
+                    if (string.IsNullOrEmpty(inventoryParameters.tbxItemNameP.Text))
+                    {
+                        MessageBox.Show("The item name can not be blank. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return;
+                    }
+                    if (string.IsNullOrEmpty(inventoryParameters.tbxItemDescriptionP.Text))
+                    {
+                        MessageBox.Show("The item description can not be blank. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return;
+                    }
                     cmdInventory.Parameters.AddWithValue("@ItemName", inventoryParameters.tbxItemNameP.Text.Trim());
                     cmdInventory.Parameters.AddWithValue("@ItemDescription", inventoryParameters.tbxItemDescriptionP.Text.Trim());
                     cmdInventory.Parameters.AddWithValue("@RetailPrice", dblRetail);
@@ -2282,6 +2392,12 @@ namespace FinalProject
 
                     rdInventory.Close();
                 }
+                else
+                {
+                    MessageBox.Show("Unable to update item. Please ensure all fields are entered correctly. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CloseDatabase();
+                    return;
+                }
                 CloseDatabase();
             }
             catch (Exception ex)
@@ -2292,7 +2408,7 @@ namespace FinalProject
             }
         }
         //method for adding to discounts
-        internal static void AddDiscounts(clsParameters.DiscountParameters discountParameters)
+        internal static bool AddDiscounts(clsParameters.DiscountParameters discountParameters)
         {
             try
             {
@@ -2325,44 +2441,136 @@ namespace FinalProject
                     strLevel = "";
                 }
 
-
-                //query to insert into discounts table
-                string strInsertQuery = "INSERT INTO " + strSchema + ".Discounts (DiscountCode, Description, DiscountDollarAmount, DiscountPercentage, InventoryID," +
-                        " StartDate, ExpirationDate, DiscountLevel, DiscountType)" +
-                    "  VALUES (@DiscountCode, @Description, @DiscountDollarAmount, @DiscountPercentage, @InventoryID," +
-                    " @StartDate, @ExpirationDate, @DiscountLevel, @DiscountType)";
-
-
-                    //command query
-                    SqlCommand cmdUpdate = new SqlCommand(strInsertQuery, _cntDatabase);
-                if (DateTime.TryParse(discountParameters.tbxStartP.Text, out DateTime dateStart) &&
-                    DateTime.TryParse(discountParameters.tbxExpirationP.Text, out DateTime dateExpiry) && double.TryParse(discountParameters.tbxDollarP.Text, out double dblDollar) &&
-                    double.TryParse(discountParameters.tbxPercentageP.Text, out double dblPercentage))
+                string strInsertQuery;
+                if (discountParameters.cbxLevelP.SelectedIndex == 0 && discountParameters.cbxTypeP.SelectedIndex == 0)
                 {
-                    cmdUpdate.Parameters.AddWithValue("@DiscountCode", discountParameters.tbxDiscountCodeP.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@Description", discountParameters.tbxDescriptionP.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@DiscountDollarAmount", dblDollar);
-                    cmdUpdate.Parameters.AddWithValue("@DiscountPercentage", dblPercentage);
-                    if (int.TryParse(discountParameters.tbxInventoryIDP.Text, out int intID))
-                    {
-                        cmdUpdate.Parameters.AddWithValue("@InventoryID", intID);
-                    }
-                    cmdUpdate.Parameters.AddWithValue("@StartDate", dateStart);
-                    cmdUpdate.Parameters.AddWithValue("@ExpirationDate", dateExpiry);
-                    cmdUpdate.Parameters.AddWithValue("@DiscountType", strType);
-                    cmdUpdate.Parameters.AddWithValue("@DiscountLevel", strLevel);
-                    SqlDataReader rdUpdate = cmdUpdate.ExecuteReader();
-
-                    rdUpdate.Close();
+                    //item level and percentage
+                    strInsertQuery = "INSERT INTO " + strSchema + ".Discounts (DiscountCode, Description, DiscountPercentage, InventoryID," +
+                        " StartDate, ExpirationDate, DiscountLevel, DiscountType)" +
+                    "  VALUES (@DiscountCode, @Description, @DiscountPercentage, @InventoryID," +
+                    " @StartDate, @ExpirationDate, @DiscountLevel, @DiscountType)";
+                }
+                else if (discountParameters.cbxLevelP.SelectedIndex == 0 && discountParameters.cbxTypeP.SelectedIndex == 1)
+                {
+                    //item level and dollar
+                    strInsertQuery = "INSERT INTO " + strSchema + ".Discounts (DiscountCode, Description, DiscountDollarAmount, InventoryID," +
+                        " StartDate, ExpirationDate, DiscountLevel, DiscountType)" +
+                    "  VALUES (@DiscountCode, @Description, @DiscountDollarAmount, @InventoryID," +
+                    " @StartDate, @ExpirationDate, @DiscountLevel, @DiscountType)";
+                }
+                else if (discountParameters.cbxLevelP.SelectedIndex == 1 && discountParameters.cbxTypeP.SelectedIndex == 0)
+                {
+                    //cart and percentage
+                    strInsertQuery = "INSERT INTO " + strSchema + ".Discounts (DiscountCode, Description, DiscountPercentage," +
+                        " StartDate, ExpirationDate, DiscountLevel, DiscountType)" +
+                    "  VALUES (@DiscountCode, @Description, @DiscountPercentage," +
+                    " @StartDate, @ExpirationDate, @DiscountLevel, @DiscountType)";
+                }
+                else
+                {
+                    //cart and dollar
+                    strInsertQuery = "INSERT INTO " + strSchema + ".Discounts (DiscountCode, Description, DiscountDollarAmount," + 
+                        " StartDate, ExpirationDate, DiscountLevel, DiscountType)" +
+                        "  VALUES (@DiscountCode, @Description, @DiscountDollarAmount," + 
+                        " @StartDate, @ExpirationDate, @DiscountLevel, @DiscountType)";
                 }
 
+                //command query
+                SqlCommand cmdUpdate = new SqlCommand(strInsertQuery, _cntDatabase);
+                if (string.IsNullOrEmpty(discountParameters.tbxDiscountCodeP.Text))
+                {
+                    MessageBox.Show("The discount code can not be blank for the discount. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CloseDatabase();
+                    return false;
+                }
+                if (string.IsNullOrEmpty(discountParameters.tbxDescriptionP.Text))
+                {
+                    MessageBox.Show("The description can not be blank for the discount. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CloseDatabase();
+                    return false;
+                }
+                cmdUpdate.Parameters.AddWithValue("@DiscountCode", discountParameters.tbxDiscountCodeP.Text.Trim());
+                cmdUpdate.Parameters.AddWithValue("@Description", discountParameters.tbxDescriptionP.Text.Trim());
+                if (int.TryParse(discountParameters.tbxInventoryIDP.Text, out int intID))
+                {
+                    cmdUpdate.Parameters.AddWithValue("@InventoryID", intID);
+                }
+                else if (!string.IsNullOrEmpty(discountParameters.tbxInventoryIDP.Text))
+                {
+                    MessageBox.Show("Please enter a numeric value for inventory id. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CloseDatabase();
+                    return false;
+                }
+                else if (string.IsNullOrEmpty(discountParameters.tbxInventoryIDP.Text) && discountParameters.cbxLevelP.SelectedIndex == 0)
+                {
+                    MessageBox.Show("The inventory ID can not be blank if the level is set to item level. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CloseDatabase();
+                    return false;
+                }
+
+                if (double.TryParse(discountParameters.tbxDollarP.Text, out double dblDollar))
+                {
+                    cmdUpdate.Parameters.AddWithValue("@DiscountDollarAmount", dblDollar);
+                }
+                else if (!string.IsNullOrEmpty(discountParameters.tbxDollarP.Text))
+                {
+                    MessageBox.Show("Please enter a numeric value for dollar amount. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CloseDatabase();
+                    return false;
+                }
+                else if (string.IsNullOrEmpty(discountParameters.tbxDollarP.Text) && discountParameters.cbxTypeP.SelectedIndex == 1)
+                {
+                    MessageBox.Show("The dollar amount can not be blank if the type is set to dollar. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CloseDatabase();
+                    return false;
+                }
+
+                if (double.TryParse(discountParameters.tbxPercentageP.Text, out double dblPercentage))
+                {
+                    cmdUpdate.Parameters.AddWithValue("@DiscountPercentage", dblPercentage);
+                }
+                else if (!string.IsNullOrEmpty(discountParameters.tbxPercentageP.Text))
+                {
+                    MessageBox.Show("Please enter a numeric value for percentage amount. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CloseDatabase();
+                    return false;
+                }
+                else if (string.IsNullOrEmpty(discountParameters.tbxPercentageP.Text) && discountParameters.cbxTypeP.SelectedIndex == 0)
+                {
+                    MessageBox.Show("The percentage amount can not be blank if the type is set to percent. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CloseDatabase();
+                    return false;
+                }                
+
+                if(string.IsNullOrEmpty(discountParameters.tbxStartP.Text))
+                {
+                    MessageBox.Show("The start date can not be blank for the discount. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CloseDatabase();
+                    return false;
+                }
+                if (string.IsNullOrEmpty(discountParameters.tbxExpirationP.Text))
+                {
+                    MessageBox.Show("The expiration date can not be blank for the discount. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CloseDatabase();
+                    return false;
+                }
+                cmdUpdate.Parameters.AddWithValue("@StartDate", discountParameters.tbxStartP.Text.Trim());
+                cmdUpdate.Parameters.AddWithValue("@ExpirationDate", discountParameters.tbxExpirationP.Text.Trim());
+                cmdUpdate.Parameters.AddWithValue("@DiscountType", strType);
+                cmdUpdate.Parameters.AddWithValue("@DiscountLevel", strLevel);
+                SqlDataReader rdUpdate = cmdUpdate.ExecuteReader();
+
+                rdUpdate.Close();
+
                 CloseDatabase();
+                return true;
             }
             catch (Exception ex)
             {
                 //close database and show error                
                 CloseDatabase();
                 InsertDataFail(ex);
+                return false;
             }
         }
         //methods for handling database errors

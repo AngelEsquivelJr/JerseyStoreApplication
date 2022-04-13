@@ -42,7 +42,7 @@ namespace FinalProject
             this.gbxSales = new System.Windows.Forms.GroupBox();
             this.btnPrintSales = new System.Windows.Forms.Button();
             this.lbl1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbxDays = new System.Windows.Forms.ComboBox();
             this.calendarSalesReports = new System.Windows.Forms.MonthCalendar();
             this.gbxInventory.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -141,6 +141,7 @@ namespace FinalProject
             this.btnClose.TabIndex = 12;
             this.btnClose.Text = "&Close";
             this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnHelp
             // 
@@ -159,7 +160,7 @@ namespace FinalProject
             // 
             this.gbxSales.Controls.Add(this.btnPrintSales);
             this.gbxSales.Controls.Add(this.lbl1);
-            this.gbxSales.Controls.Add(this.comboBox1);
+            this.gbxSales.Controls.Add(this.cbxDays);
             this.gbxSales.Controls.Add(this.calendarSalesReports);
             this.gbxSales.Location = new System.Drawing.Point(160, 12);
             this.gbxSales.Name = "gbxSales";
@@ -189,25 +190,28 @@ namespace FinalProject
             this.lbl1.Text = "Sales Reports";
             this.lbl1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // comboBox1
+            // cbxDays
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cbxDays.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxDays.FormattingEnabled = true;
+            this.cbxDays.Items.AddRange(new object[] {
             "Daily",
             "Weekly",
             "Monthly"});
-            this.comboBox1.Location = new System.Drawing.Point(10, 228);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(150, 24);
-            this.comboBox1.TabIndex = 1;
+            this.cbxDays.Location = new System.Drawing.Point(10, 228);
+            this.cbxDays.Name = "cbxDays";
+            this.cbxDays.Size = new System.Drawing.Size(150, 24);
+            this.cbxDays.TabIndex = 1;
+            this.cbxDays.SelectedIndexChanged += new System.EventHandler(this.cbxDays_SelectedIndexChanged);
             // 
             // calendarSalesReports
             // 
             this.calendarSalesReports.CalendarDimensions = new System.Drawing.Size(2, 1);
             this.calendarSalesReports.Location = new System.Drawing.Point(10, 46);
+            this.calendarSalesReports.MinDate = new System.DateTime(2022, 1, 1, 0, 0, 0, 0);
             this.calendarSalesReports.Name = "calendarSalesReports";
             this.calendarSalesReports.TabIndex = 0;
+            this.calendarSalesReports.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.calendarSalesReports_DateSelected);
             // 
             // frmReports
             // 
@@ -226,6 +230,7 @@ namespace FinalProject
             this.Name = "frmReports";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AE Sporting Fits | Reports";
+            this.Load += new System.EventHandler(this.frmReports_Load);
             this.gbxInventory.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.gbxSales.ResumeLayout(false);
@@ -247,7 +252,7 @@ namespace FinalProject
         private System.Windows.Forms.GroupBox gbxSales;
         private System.Windows.Forms.Button btnPrintSales;
         private System.Windows.Forms.Label lbl1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbxDays;
         private System.Windows.Forms.MonthCalendar calendarSalesReports;
     }
 }

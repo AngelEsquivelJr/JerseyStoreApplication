@@ -83,13 +83,13 @@ namespace FinalProject
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvDiscounts.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvDiscounts.Location = new System.Drawing.Point(492, 12);
+            this.dgvDiscounts.Location = new System.Drawing.Point(481, 4);
             this.dgvDiscounts.MultiSelect = false;
             this.dgvDiscounts.Name = "dgvDiscounts";
             this.dgvDiscounts.ReadOnly = true;
             this.dgvDiscounts.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvDiscounts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDiscounts.Size = new System.Drawing.Size(786, 375);
+            this.dgvDiscounts.Size = new System.Drawing.Size(966, 375);
             this.dgvDiscounts.TabIndex = 49;
             this.dgvDiscounts.SelectionChanged += new System.EventHandler(this.dgvDiscounts_SelectionChanged);
             // 
@@ -118,7 +118,7 @@ namespace FinalProject
             this.groupBox2.Controls.Add(this.lbl3);
             this.groupBox2.Controls.Add(this.lbl2);
             this.groupBox2.Controls.Add(this.tbxDiscountID);
-            this.groupBox2.Location = new System.Drawing.Point(160, 12);
+            this.groupBox2.Location = new System.Drawing.Point(149, 4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(326, 375);
             this.groupBox2.TabIndex = 48;
@@ -337,7 +337,7 @@ namespace FinalProject
             this.groupBox1.Controls.Add(this.lblTitle);
             this.groupBox1.Controls.Add(this.btnClose);
             this.groupBox1.Controls.Add(this.btnHelp);
-            this.groupBox1.Location = new System.Drawing.Point(2, 12);
+            this.groupBox1.Location = new System.Drawing.Point(0, 4);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -452,7 +452,7 @@ namespace FinalProject
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
-            this.ClientSize = new System.Drawing.Size(1283, 389);
+            this.ClientSize = new System.Drawing.Size(1453, 382);
             this.Controls.Add(this.dgvDiscounts);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);

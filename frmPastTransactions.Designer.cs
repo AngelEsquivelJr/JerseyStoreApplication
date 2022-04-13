@@ -99,7 +99,7 @@ namespace FinalProject
             this.lblName.BackColor = System.Drawing.Color.Transparent;
             this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblName.ForeColor = System.Drawing.Color.LightCyan;
-            this.lblName.Location = new System.Drawing.Point(-1, 102);
+            this.lblName.Location = new System.Drawing.Point(3, 77);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(82, 20);
             this.lblName.TabIndex = 53;
@@ -111,7 +111,7 @@ namespace FinalProject
             this.lbl1.BackColor = System.Drawing.Color.Transparent;
             this.lbl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl1.ForeColor = System.Drawing.Color.LightCyan;
-            this.lbl1.Location = new System.Drawing.Point(-1, 81);
+            this.lbl1.Location = new System.Drawing.Point(3, 56);
             this.lbl1.Name = "lbl1";
             this.lbl1.Size = new System.Drawing.Size(83, 21);
             this.lbl1.TabIndex = 52;
