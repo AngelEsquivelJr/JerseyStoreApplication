@@ -37,29 +37,32 @@ namespace FinalProject
             //login form
             frmLogon frmLogin = new frmLogon();
 
-            if (string.IsNullOrEmpty(tbxTotal.Text) || string.IsNullOrEmpty(tbxCCV.Text))
+            if (clsSQL.strPositionTitle != "Manager")
             {
-                //asks user for confirmation of exit and returns to previous form
-                DialogResult drResult = MessageBox.Show("Are you sure you want to logout? ",
-                  "Close", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                switch (drResult)
+                if (string.IsNullOrEmpty(tbxTotal.Text) || string.IsNullOrEmpty(tbxCCV.Text))
                 {
-                    case DialogResult.Yes:
-                        frmLogin.Show();
-                        //reset logon name
-                        clsSQL.strLogonName = "Guest";
-                        break;
-                    case DialogResult.No:
-                        e.Cancel = true;
-                        break;
+                    //asks user for confirmation of exit and returns to previous form
+                    DialogResult drResult = MessageBox.Show("Are you sure you want to logout? ",
+                      "Close", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    switch (drResult)
+                    {
+                        case DialogResult.Yes:
+                            frmLogin.Show();
+                            //reset logon name
+                            clsSQL.strLogonName = "Guest";
+                            break;
+                        case DialogResult.No:
+                            e.Cancel = true;
+                            break;
+                    }
                 }
-            }
-            else
-            {
-                //return to login
-                frmLogin.Show();
-                //reset logon name
-                clsSQL.strLogonName = "Guest";
+                else
+                {
+                    //return to login
+                    frmLogin.Show();
+                    //reset logon name
+                    clsSQL.strLogonName = "Guest";
+                }
             }
         }
 
@@ -110,6 +113,11 @@ namespace FinalProject
                     //set labels
                     lblIntroDesc.Text = " ";
                     lblIntro.Text = "Welcome " + clsSQL.strLogonName + "!";
+                    if(clsSQL.strPositionTitle == "Manager")
+                    {
+                        lblManager.Visible = true;
+                        lblManager.Text = "Manager: " + clsSQL.strName;
+                    }
                 }
             }
             catch (Exception)

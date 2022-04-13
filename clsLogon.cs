@@ -36,7 +36,10 @@ namespace FinalProject
                     //message for success and returns to login form
                     MessageBox.Show("Account Created Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     frmSignup.Close();
-                    frmLogon.Show();
+                    if (clsSQL.strPositionTitle != "Manager")
+                    {
+                        frmLogon.Show();
+                    }
                 }
             }
         }

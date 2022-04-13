@@ -57,7 +57,14 @@ namespace FinalProject
             sbHtml.Append($"<div class='invoice'> <header> <div class='company-address'><b>AE Sporting Fits</b></div> ");
             sbHtml.Append("<div class='invoice-details'>Order #: " + strOrderID + "<br /> Date: " + DateTime.Now.ToString() + "</div>");
             sbHtml.Append("</header><section>");
-            sbHtml.Append("<div class='customer-info'>Customer: "+ strName +"<br /> Phone #: " + strPhone + "<br /> </div> </section>");
+            if (clsSQL.strPositionTitle != "Manager")
+            {
+                sbHtml.Append("<div class='customer-info'>Customer: " + strName + "<br /> Phone #: " + strPhone + "<br /> </div> </section>");
+            }
+            else
+            {
+                sbHtml.Append("<div class='customer-info'>Customer: " + strName + "<br /> Phone #: " + strPhone + "<br /> <br /> Manager: " + clsSQL.strName + "<br /> </div> </section>");
+            }
             sbHtml.Append("<div class='clear-fix'> </div> <section>");
             sbHtml.Append("<div class='item-table-panel'> <table border = '0' " +
                 "cellspacing='0' class='item-table'> <tr> <th class='itemname'> Item </th> <th class='price'> Item Price </th> <th class='quantity'> Quantity </th> " +
@@ -134,7 +141,14 @@ namespace FinalProject
             sbHtml.Append($"<div class='invoice'> <header> <div class='company-address'><b>AE Sporting Fits</b></div> ");
             sbHtml.Append("<div class='invoice-details'>Order #: " + strOrderID + "<br /> Date: " + DateTime.Now.ToString() + "</div>");
             sbHtml.Append("</header><section>");
-            sbHtml.Append("<div class='customer-info'>Customer: " + strName + "<br /> Phone #: " + strPhone + "<br /> </div> </section>");
+            if (clsSQL.strPositionTitle != "Manager")
+            {
+                sbHtml.Append("<div class='customer-info'>Customer: " + strName + "<br /> Phone #: " + strPhone + "<br /> </div> </section>");
+            }
+            else
+            {
+                sbHtml.Append("<div class='customer-info'>Customer: " + strName + "<br /> Phone #: " + strPhone + "<br /> <br /> Manager: " + clsSQL.strName + "<br /> </div> </section>");
+            }
             sbHtml.Append("<div class='clear-fix'> </div> <section>");
             sbHtml.Append("<div class='item-table-panel'> <table border = '0' " +
                 "cellspacing='0' class='item-table'> <tr> <th class='itemname'> Item </th> <th class='price'> Item Price </th> <th class='quantity'> Quantity </th> " +

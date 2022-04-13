@@ -20,7 +20,7 @@ namespace FinalProject
         private void frmManager_Load(object sender, EventArgs e)
         {
             //call method to show restock view
-            //clsSQL.InitializeRestockView(dgvRestock, lblRestock);
+            clsSQL.InitializeRestockView(dgvRestock, lblRestock);
             //set label
             lblManager.Text = "Manager: " + clsSQL.strName;
         }
@@ -31,7 +31,7 @@ namespace FinalProject
             frmLogon frmLogin = new frmLogon();
 
             //asks user for confirmation of exit and returns to previous form
-            DialogResult drResult = MessageBox.Show("Are you sure you want to close? ",
+            DialogResult drResult = MessageBox.Show("Are you sure you want to logout? ",
                   "Close", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             switch (drResult)
             {
@@ -47,8 +47,8 @@ namespace FinalProject
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             //refresh restock view
-            //dgvRestock.DataSource = null;
-            //clsSQL.InitializeRestockView(dgvRestock, lblRestock);
+            dgvRestock.DataSource = null;
+            clsSQL.InitializeRestockView(dgvRestock, lblRestock);
         }
 
         private void btnClose_Click(object sender, EventArgs e)

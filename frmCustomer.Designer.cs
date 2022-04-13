@@ -31,28 +31,28 @@ namespace FinalProject
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCustomer));
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label24 = new System.Windows.Forms.Label();
+            this.gbx2 = new System.Windows.Forms.GroupBox();
+            this.lbl18 = new System.Windows.Forms.Label();
             this.btnAddManager = new System.Windows.Forms.Button();
             this.cbxFilterTitle = new System.Windows.Forms.ComboBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lbl17 = new System.Windows.Forms.Label();
+            this.gbx3 = new System.Windows.Forms.GroupBox();
             this.tbxCitySearch = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
+            this.lbl23 = new System.Windows.Forms.Label();
             this.tbxLastSearch = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
+            this.lbl21 = new System.Windows.Forms.Label();
             this.tbxZipcodeSearch = new System.Windows.Forms.TextBox();
-            this.label23 = new System.Windows.Forms.Label();
+            this.lbl25 = new System.Windows.Forms.Label();
             this.tbxPhoneSearch = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
+            this.lbl24 = new System.Windows.Forms.Label();
             this.tbxEmailSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
+            this.lbl22 = new System.Windows.Forms.Label();
+            this.lbl20 = new System.Windows.Forms.Label();
             this.tbxFirstSearch = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lbl19 = new System.Windows.Forms.Label();
+            this.gbx1 = new System.Windows.Forms.GroupBox();
             this.cbxDeleted = new System.Windows.Forms.ComboBox();
             this.cbxState = new System.Windows.Forms.ComboBox();
             this.cbxTitle = new System.Windows.Forms.ComboBox();
@@ -67,66 +67,68 @@ namespace FinalProject
             this.tbxSuffix = new System.Windows.Forms.TextBox();
             this.tbxLastName = new System.Windows.Forms.TextBox();
             this.tbxMiddleName = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.lbl15 = new System.Windows.Forms.Label();
+            this.lbl16 = new System.Windows.Forms.Label();
+            this.lbl14 = new System.Windows.Forms.Label();
+            this.lbl13 = new System.Windows.Forms.Label();
+            this.lbl9 = new System.Windows.Forms.Label();
+            this.lbl8 = new System.Windows.Forms.Label();
+            this.lbl5 = new System.Windows.Forms.Label();
             this.btnEdit = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lbl12 = new System.Windows.Forms.Label();
+            this.lbl11 = new System.Windows.Forms.Label();
+            this.lbl10 = new System.Windows.Forms.Label();
+            this.lbl7 = new System.Windows.Forms.Label();
+            this.lbl6 = new System.Windows.Forms.Label();
+            this.lbl4 = new System.Windows.Forms.Label();
+            this.lbl3 = new System.Windows.Forms.Label();
+            this.lbl2 = new System.Windows.Forms.Label();
+            this.lbl1 = new System.Windows.Forms.Label();
             this.tbxFirstName = new System.Windows.Forms.TextBox();
             this.tbxPersonID = new System.Windows.Forms.TextBox();
             this.dgvCustomers = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblState = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblSubtitle = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnHelp = new System.Windows.Forms.Button();
             this.btnCustomerLogin = new System.Windows.Forms.Button();
             this.btnCustomerInfo = new System.Windows.Forms.Button();
-            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnAddCustomer = new System.Windows.Forms.Button();
             this.btnTransactions = new System.Windows.Forms.Button();
-            this.groupBox4.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.lbl = new System.Windows.Forms.Label();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.gbx2.SuspendLayout();
+            this.gbx3.SuspendLayout();
+            this.gbx1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomers)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox4
+            // gbx2
             // 
-            this.groupBox4.BackColor = System.Drawing.Color.LightGray;
-            this.groupBox4.Controls.Add(this.label24);
-            this.groupBox4.Controls.Add(this.btnAddManager);
-            this.groupBox4.Controls.Add(this.cbxFilterTitle);
-            this.groupBox4.Controls.Add(this.label20);
-            this.groupBox4.Location = new System.Drawing.Point(161, 482);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(414, 96);
-            this.groupBox4.TabIndex = 51;
-            this.groupBox4.TabStop = false;
+            this.gbx2.BackColor = System.Drawing.Color.LightGray;
+            this.gbx2.Controls.Add(this.lbl18);
+            this.gbx2.Controls.Add(this.btnAddManager);
+            this.gbx2.Controls.Add(this.cbxFilterTitle);
+            this.gbx2.Controls.Add(this.lbl17);
+            this.gbx2.Location = new System.Drawing.Point(161, 482);
+            this.gbx2.Name = "gbx2";
+            this.gbx2.Size = new System.Drawing.Size(414, 96);
+            this.gbx2.TabIndex = 51;
+            this.gbx2.TabStop = false;
             // 
-            // label24
+            // lbl18
             // 
-            this.label24.BackColor = System.Drawing.Color.Transparent;
-            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.label24.Location = new System.Drawing.Point(23, 37);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(91, 20);
-            this.label24.TabIndex = 70;
-            this.label24.Text = "Filter Position:";
-            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbl18.BackColor = System.Drawing.Color.Transparent;
+            this.lbl18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl18.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.lbl18.Location = new System.Drawing.Point(23, 37);
+            this.lbl18.Name = "lbl18";
+            this.lbl18.Size = new System.Drawing.Size(91, 20);
+            this.lbl18.TabIndex = 70;
+            this.lbl18.Text = "Filter Position:";
+            this.lbl18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnAddManager
             // 
@@ -151,118 +153,119 @@ namespace FinalProject
             this.cbxFilterTitle.Name = "cbxFilterTitle";
             this.cbxFilterTitle.Size = new System.Drawing.Size(150, 21);
             this.cbxFilterTitle.TabIndex = 68;
+            this.cbxFilterTitle.SelectedIndexChanged += new System.EventHandler(this.cbxFilterTitle_SelectedIndexChanged);
             // 
-            // label20
+            // lbl17
             // 
-            this.label20.BackColor = System.Drawing.Color.Transparent;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.label20.Location = new System.Drawing.Point(-27, -6);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(136, 41);
-            this.label20.TabIndex = 67;
-            this.label20.Text = "Managers";
-            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbl17.BackColor = System.Drawing.Color.Transparent;
+            this.lbl17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl17.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.lbl17.Location = new System.Drawing.Point(-27, -6);
+            this.lbl17.Name = "lbl17";
+            this.lbl17.Size = new System.Drawing.Size(136, 41);
+            this.lbl17.TabIndex = 67;
+            this.lbl17.Text = "Managers";
+            this.lbl17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // groupBox3
+            // gbx3
             // 
-            this.groupBox3.BackColor = System.Drawing.Color.LightGray;
-            this.groupBox3.Controls.Add(this.tbxCitySearch);
-            this.groupBox3.Controls.Add(this.label26);
-            this.groupBox3.Controls.Add(this.tbxLastSearch);
-            this.groupBox3.Controls.Add(this.label25);
-            this.groupBox3.Controls.Add(this.tbxZipcodeSearch);
-            this.groupBox3.Controls.Add(this.label23);
-            this.groupBox3.Controls.Add(this.tbxPhoneSearch);
-            this.groupBox3.Controls.Add(this.label22);
-            this.groupBox3.Controls.Add(this.tbxEmailSearch);
-            this.groupBox3.Controls.Add(this.btnSearch);
-            this.groupBox3.Controls.Add(this.btnClear);
-            this.groupBox3.Controls.Add(this.label21);
-            this.groupBox3.Controls.Add(this.label19);
-            this.groupBox3.Controls.Add(this.tbxFirstSearch);
-            this.groupBox3.Controls.Add(this.label18);
-            this.groupBox3.Location = new System.Drawing.Point(581, 482);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(833, 96);
-            this.groupBox3.TabIndex = 50;
-            this.groupBox3.TabStop = false;
+            this.gbx3.BackColor = System.Drawing.Color.LightGray;
+            this.gbx3.Controls.Add(this.tbxCitySearch);
+            this.gbx3.Controls.Add(this.lbl23);
+            this.gbx3.Controls.Add(this.tbxLastSearch);
+            this.gbx3.Controls.Add(this.lbl21);
+            this.gbx3.Controls.Add(this.tbxZipcodeSearch);
+            this.gbx3.Controls.Add(this.lbl25);
+            this.gbx3.Controls.Add(this.tbxPhoneSearch);
+            this.gbx3.Controls.Add(this.lbl24);
+            this.gbx3.Controls.Add(this.tbxEmailSearch);
+            this.gbx3.Controls.Add(this.btnSearch);
+            this.gbx3.Controls.Add(this.btnClear);
+            this.gbx3.Controls.Add(this.lbl22);
+            this.gbx3.Controls.Add(this.lbl20);
+            this.gbx3.Controls.Add(this.tbxFirstSearch);
+            this.gbx3.Controls.Add(this.lbl19);
+            this.gbx3.Location = new System.Drawing.Point(629, 482);
+            this.gbx3.Name = "gbx3";
+            this.gbx3.Size = new System.Drawing.Size(833, 96);
+            this.gbx3.TabIndex = 50;
+            this.gbx3.TabStop = false;
             // 
             // tbxCitySearch
             // 
-            this.tbxCitySearch.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxCitySearch.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxCitySearch.Location = new System.Drawing.Point(290, 70);
             this.tbxCitySearch.Multiline = true;
             this.tbxCitySearch.Name = "tbxCitySearch";
             this.tbxCitySearch.Size = new System.Drawing.Size(192, 20);
             this.tbxCitySearch.TabIndex = 93;
             // 
-            // label26
+            // lbl23
             // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(260, 70);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(30, 13);
-            this.label26.TabIndex = 92;
-            this.label26.Text = "City:";
+            this.lbl23.AutoSize = true;
+            this.lbl23.Location = new System.Drawing.Point(260, 70);
+            this.lbl23.Name = "lbl23";
+            this.lbl23.Size = new System.Drawing.Size(30, 13);
+            this.lbl23.TabIndex = 92;
+            this.lbl23.Text = "City:";
             // 
             // tbxLastSearch
             // 
-            this.tbxLastSearch.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxLastSearch.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxLastSearch.Location = new System.Drawing.Point(66, 70);
             this.tbxLastSearch.Multiline = true;
             this.tbxLastSearch.Name = "tbxLastSearch";
             this.tbxLastSearch.Size = new System.Drawing.Size(180, 20);
             this.tbxLastSearch.TabIndex = 91;
             // 
-            // label25
+            // lbl21
             // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(0, 68);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(63, 13);
-            this.label25.TabIndex = 90;
-            this.label25.Text = "Last Name:";
+            this.lbl21.AutoSize = true;
+            this.lbl21.Location = new System.Drawing.Point(0, 68);
+            this.lbl21.Name = "lbl21";
+            this.lbl21.Size = new System.Drawing.Size(63, 13);
+            this.lbl21.TabIndex = 90;
+            this.lbl21.Text = "Last Name:";
             // 
             // tbxZipcodeSearch
             // 
-            this.tbxZipcodeSearch.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxZipcodeSearch.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxZipcodeSearch.Location = new System.Drawing.Point(538, 70);
             this.tbxZipcodeSearch.Multiline = true;
             this.tbxZipcodeSearch.Name = "tbxZipcodeSearch";
             this.tbxZipcodeSearch.Size = new System.Drawing.Size(204, 20);
             this.tbxZipcodeSearch.TabIndex = 89;
             // 
-            // label23
+            // lbl25
             // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(483, 70);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(51, 13);
-            this.label23.TabIndex = 88;
-            this.label23.Text = "Zipcode:";
+            this.lbl25.AutoSize = true;
+            this.lbl25.Location = new System.Drawing.Point(483, 70);
+            this.lbl25.Name = "lbl25";
+            this.lbl25.Size = new System.Drawing.Size(51, 13);
+            this.lbl25.TabIndex = 88;
+            this.lbl25.Text = "Zipcode:";
             // 
             // tbxPhoneSearch
             // 
-            this.tbxPhoneSearch.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxPhoneSearch.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxPhoneSearch.Location = new System.Drawing.Point(538, 28);
             this.tbxPhoneSearch.Multiline = true;
             this.tbxPhoneSearch.Name = "tbxPhoneSearch";
             this.tbxPhoneSearch.Size = new System.Drawing.Size(204, 20);
             this.tbxPhoneSearch.TabIndex = 87;
             // 
-            // label22
+            // lbl24
             // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(488, 30);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(43, 13);
-            this.label22.TabIndex = 86;
-            this.label22.Text = " Phone:";
+            this.lbl24.AutoSize = true;
+            this.lbl24.Location = new System.Drawing.Point(488, 30);
+            this.lbl24.Name = "lbl24";
+            this.lbl24.Size = new System.Drawing.Size(43, 13);
+            this.lbl24.TabIndex = 86;
+            this.lbl24.Text = " Phone:";
             // 
             // tbxEmailSearch
             // 
-            this.tbxEmailSearch.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxEmailSearch.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxEmailSearch.Location = new System.Drawing.Point(290, 29);
             this.tbxEmailSearch.Multiline = true;
             this.tbxEmailSearch.Name = "tbxEmailSearch";
@@ -291,86 +294,87 @@ namespace FinalProject
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // label21
+            // lbl22
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(252, 30);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(39, 13);
-            this.label21.TabIndex = 74;
-            this.label21.Text = "Email:";
+            this.lbl22.AutoSize = true;
+            this.lbl22.Location = new System.Drawing.Point(252, 30);
+            this.lbl22.Name = "lbl22";
+            this.lbl22.Size = new System.Drawing.Size(39, 13);
+            this.lbl22.TabIndex = 74;
+            this.lbl22.Text = "Email:";
             // 
-            // label19
+            // lbl20
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(0, 30);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(65, 13);
-            this.label19.TabIndex = 60;
-            this.label19.Text = "First Name:";
+            this.lbl20.AutoSize = true;
+            this.lbl20.Location = new System.Drawing.Point(0, 30);
+            this.lbl20.Name = "lbl20";
+            this.lbl20.Size = new System.Drawing.Size(65, 13);
+            this.lbl20.TabIndex = 60;
+            this.lbl20.Text = "First Name:";
             // 
             // tbxFirstSearch
             // 
-            this.tbxFirstSearch.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxFirstSearch.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxFirstSearch.Location = new System.Drawing.Point(66, 28);
             this.tbxFirstSearch.Multiline = true;
             this.tbxFirstSearch.Name = "tbxFirstSearch";
             this.tbxFirstSearch.Size = new System.Drawing.Size(180, 20);
             this.tbxFirstSearch.TabIndex = 59;
             // 
-            // label18
+            // lbl19
             // 
-            this.label18.BackColor = System.Drawing.Color.Transparent;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.label18.Location = new System.Drawing.Point(6, -6);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(136, 41);
-            this.label18.TabIndex = 58;
-            this.label18.Text = "Customer Search";
-            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbl19.BackColor = System.Drawing.Color.Transparent;
+            this.lbl19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl19.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.lbl19.Location = new System.Drawing.Point(6, -6);
+            this.lbl19.Name = "lbl19";
+            this.lbl19.Size = new System.Drawing.Size(136, 41);
+            this.lbl19.TabIndex = 58;
+            this.lbl19.Text = "Customer Search";
+            this.lbl19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // groupBox2
+            // gbx1
             // 
-            this.groupBox2.BackColor = System.Drawing.Color.LightGray;
-            this.groupBox2.Controls.Add(this.cbxDeleted);
-            this.groupBox2.Controls.Add(this.cbxState);
-            this.groupBox2.Controls.Add(this.cbxTitle);
-            this.groupBox2.Controls.Add(this.tbxSecondary);
-            this.groupBox2.Controls.Add(this.tbxPrimary);
-            this.groupBox2.Controls.Add(this.tbxEmail);
-            this.groupBox2.Controls.Add(this.tbxZipcode);
-            this.groupBox2.Controls.Add(this.tbxCity);
-            this.groupBox2.Controls.Add(this.tbxAddress3);
-            this.groupBox2.Controls.Add(this.tbxAddress2);
-            this.groupBox2.Controls.Add(this.tbxAddress1);
-            this.groupBox2.Controls.Add(this.tbxSuffix);
-            this.groupBox2.Controls.Add(this.tbxLastName);
-            this.groupBox2.Controls.Add(this.tbxMiddleName);
-            this.groupBox2.Controls.Add(this.label17);
-            this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Controls.Add(this.label15);
-            this.groupBox2.Controls.Add(this.label14);
-            this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.btnEdit);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.tbxFirstName);
-            this.groupBox2.Controls.Add(this.tbxPersonID);
-            this.groupBox2.Location = new System.Drawing.Point(161, 2);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(281, 474);
-            this.groupBox2.TabIndex = 49;
-            this.groupBox2.TabStop = false;
+            this.gbx1.BackColor = System.Drawing.Color.LightGray;
+            this.gbx1.Controls.Add(this.lbl);
+            this.gbx1.Controls.Add(this.cbxDeleted);
+            this.gbx1.Controls.Add(this.cbxState);
+            this.gbx1.Controls.Add(this.cbxTitle);
+            this.gbx1.Controls.Add(this.tbxSecondary);
+            this.gbx1.Controls.Add(this.tbxPrimary);
+            this.gbx1.Controls.Add(this.tbxEmail);
+            this.gbx1.Controls.Add(this.tbxZipcode);
+            this.gbx1.Controls.Add(this.tbxCity);
+            this.gbx1.Controls.Add(this.tbxAddress3);
+            this.gbx1.Controls.Add(this.tbxAddress2);
+            this.gbx1.Controls.Add(this.tbxAddress1);
+            this.gbx1.Controls.Add(this.tbxSuffix);
+            this.gbx1.Controls.Add(this.tbxLastName);
+            this.gbx1.Controls.Add(this.tbxMiddleName);
+            this.gbx1.Controls.Add(this.lbl15);
+            this.gbx1.Controls.Add(this.lbl16);
+            this.gbx1.Controls.Add(this.lbl14);
+            this.gbx1.Controls.Add(this.lbl13);
+            this.gbx1.Controls.Add(this.lbl9);
+            this.gbx1.Controls.Add(this.lbl8);
+            this.gbx1.Controls.Add(this.lbl5);
+            this.gbx1.Controls.Add(this.btnEdit);
+            this.gbx1.Controls.Add(this.lbl12);
+            this.gbx1.Controls.Add(this.lbl11);
+            this.gbx1.Controls.Add(this.lbl10);
+            this.gbx1.Controls.Add(this.lbl7);
+            this.gbx1.Controls.Add(this.lbl6);
+            this.gbx1.Controls.Add(this.lbl4);
+            this.gbx1.Controls.Add(this.lbl3);
+            this.gbx1.Controls.Add(this.lbl2);
+            this.gbx1.Controls.Add(this.lbl1);
+            this.gbx1.Controls.Add(this.tbxFirstName);
+            this.gbx1.Controls.Add(this.tbxPersonID);
+            this.gbx1.Location = new System.Drawing.Point(161, 2);
+            this.gbx1.Name = "gbx1";
+            this.gbx1.Size = new System.Drawing.Size(281, 474);
+            this.gbx1.TabIndex = 49;
+            this.gbx1.TabStop = false;
             // 
             // cbxDeleted
             // 
@@ -464,26 +468,30 @@ namespace FinalProject
             // 
             // tbxSecondary
             // 
-            this.tbxSecondary.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxSecondary.Location = new System.Drawing.Point(104, 385);
+            this.tbxSecondary.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxSecondary.Location = new System.Drawing.Point(104, 361);
             this.tbxSecondary.Multiline = true;
             this.tbxSecondary.Name = "tbxSecondary";
+            this.tbxSecondary.ReadOnly = true;
             this.tbxSecondary.Size = new System.Drawing.Size(175, 20);
             this.tbxSecondary.TabIndex = 84;
+            this.tbxSecondary.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxSecondary_KeyPress);
             // 
             // tbxPrimary
             // 
-            this.tbxPrimary.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxPrimary.Location = new System.Drawing.Point(104, 359);
+            this.tbxPrimary.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxPrimary.Location = new System.Drawing.Point(104, 335);
             this.tbxPrimary.Multiline = true;
             this.tbxPrimary.Name = "tbxPrimary";
             this.tbxPrimary.Size = new System.Drawing.Size(175, 20);
             this.tbxPrimary.TabIndex = 83;
+            this.tbxPrimary.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPrimary_KeyPress);
+            this.tbxPrimary.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbxPrimary_KeyUp);
             // 
             // tbxEmail
             // 
-            this.tbxEmail.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxEmail.Location = new System.Drawing.Point(104, 333);
+            this.tbxEmail.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxEmail.Location = new System.Drawing.Point(104, 387);
             this.tbxEmail.Multiline = true;
             this.tbxEmail.Name = "tbxEmail";
             this.tbxEmail.Size = new System.Drawing.Size(175, 20);
@@ -491,7 +499,7 @@ namespace FinalProject
             // 
             // tbxZipcode
             // 
-            this.tbxZipcode.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxZipcode.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxZipcode.Location = new System.Drawing.Point(104, 307);
             this.tbxZipcode.Multiline = true;
             this.tbxZipcode.Name = "tbxZipcode";
@@ -500,129 +508,140 @@ namespace FinalProject
             // 
             // tbxCity
             // 
-            this.tbxCity.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxCity.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxCity.Location = new System.Drawing.Point(104, 255);
             this.tbxCity.Multiline = true;
             this.tbxCity.Name = "tbxCity";
             this.tbxCity.Size = new System.Drawing.Size(175, 20);
             this.tbxCity.TabIndex = 80;
+            this.tbxCity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxCity_KeyPress);
             // 
             // tbxAddress3
             // 
-            this.tbxAddress3.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxAddress3.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxAddress3.Location = new System.Drawing.Point(104, 229);
             this.tbxAddress3.Multiline = true;
             this.tbxAddress3.Name = "tbxAddress3";
+            this.tbxAddress3.ReadOnly = true;
             this.tbxAddress3.Size = new System.Drawing.Size(175, 20);
             this.tbxAddress3.TabIndex = 79;
+            this.tbxAddress3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAddress3_KeyPress);
             // 
             // tbxAddress2
             // 
-            this.tbxAddress2.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxAddress2.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxAddress2.Location = new System.Drawing.Point(104, 203);
             this.tbxAddress2.Multiline = true;
             this.tbxAddress2.Name = "tbxAddress2";
+            this.tbxAddress2.ReadOnly = true;
             this.tbxAddress2.Size = new System.Drawing.Size(175, 20);
             this.tbxAddress2.TabIndex = 78;
+            this.tbxAddress2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAddress2_KeyPress);
+            this.tbxAddress2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbxAddress2_KeyUp);
             // 
             // tbxAddress1
             // 
-            this.tbxAddress1.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxAddress1.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxAddress1.Location = new System.Drawing.Point(104, 177);
             this.tbxAddress1.Multiline = true;
             this.tbxAddress1.Name = "tbxAddress1";
             this.tbxAddress1.Size = new System.Drawing.Size(175, 20);
             this.tbxAddress1.TabIndex = 77;
+            this.tbxAddress1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAddress1_KeyPress);
+            this.tbxAddress1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbxAddress1_KeyUp);
             // 
             // tbxSuffix
             // 
-            this.tbxSuffix.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxSuffix.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxSuffix.Location = new System.Drawing.Point(104, 151);
             this.tbxSuffix.Multiline = true;
             this.tbxSuffix.Name = "tbxSuffix";
             this.tbxSuffix.Size = new System.Drawing.Size(175, 20);
             this.tbxSuffix.TabIndex = 76;
+            this.tbxSuffix.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxSuffix_KeyPress);
             // 
             // tbxLastName
             // 
-            this.tbxLastName.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxLastName.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxLastName.Location = new System.Drawing.Point(104, 125);
             this.tbxLastName.Multiline = true;
             this.tbxLastName.Name = "tbxLastName";
             this.tbxLastName.Size = new System.Drawing.Size(175, 20);
             this.tbxLastName.TabIndex = 75;
+            this.tbxLastName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxLastName_KeyPress);
             // 
             // tbxMiddleName
             // 
-            this.tbxMiddleName.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxMiddleName.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxMiddleName.Location = new System.Drawing.Point(104, 99);
             this.tbxMiddleName.Multiline = true;
             this.tbxMiddleName.Name = "tbxMiddleName";
             this.tbxMiddleName.Size = new System.Drawing.Size(175, 20);
             this.tbxMiddleName.TabIndex = 74;
+            this.tbxMiddleName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxMiddleName_KeyPress);
             // 
-            // label17
+            // lbl15
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(63, 385);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(39, 13);
-            this.label17.TabIndex = 73;
-            this.label17.Text = "Email:";
+            this.lbl15.AutoSize = true;
+            this.lbl15.Location = new System.Drawing.Point(63, 385);
+            this.lbl15.Name = "lbl15";
+            this.lbl15.Size = new System.Drawing.Size(39, 13);
+            this.lbl15.TabIndex = 73;
+            this.lbl15.Text = "Email:";
             // 
-            // label16
+            // lbl16
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(51, 411);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(49, 13);
-            this.label16.TabIndex = 72;
-            this.label16.Text = "Deleted:";
+            this.lbl16.AutoSize = true;
+            this.lbl16.Location = new System.Drawing.Point(51, 411);
+            this.lbl16.Name = "lbl16";
+            this.lbl16.Size = new System.Drawing.Size(49, 13);
+            this.lbl16.TabIndex = 72;
+            this.lbl16.Text = "Deleted:";
             // 
-            // label15
+            // lbl14
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(3, 359);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(97, 13);
-            this.label15.TabIndex = 71;
-            this.label15.Text = "Secondary Phone:";
+            this.lbl14.AutoSize = true;
+            this.lbl14.Location = new System.Drawing.Point(3, 360);
+            this.lbl14.Name = "lbl14";
+            this.lbl14.Size = new System.Drawing.Size(97, 13);
+            this.lbl14.TabIndex = 71;
+            this.lbl14.Text = "Secondary Phone:";
             // 
-            // label14
+            // lbl13
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(20, 333);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(84, 13);
-            this.label14.TabIndex = 70;
-            this.label14.Text = "Primary Phone:";
+            this.lbl13.AutoSize = true;
+            this.lbl13.Location = new System.Drawing.Point(16, 335);
+            this.lbl13.Name = "lbl13";
+            this.lbl13.Size = new System.Drawing.Size(84, 13);
+            this.lbl13.TabIndex = 70;
+            this.lbl13.Text = "Primary Phone:";
             // 
-            // label13
+            // lbl9
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(41, 229);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(62, 13);
-            this.label13.TabIndex = 69;
-            this.label13.Text = "Address 3:";
+            this.lbl9.AutoSize = true;
+            this.lbl9.Location = new System.Drawing.Point(38, 229);
+            this.lbl9.Name = "lbl9";
+            this.lbl9.Size = new System.Drawing.Size(62, 13);
+            this.lbl9.TabIndex = 69;
+            this.lbl9.Text = "Address 3:";
             // 
-            // label12
+            // lbl8
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(41, 203);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(62, 13);
-            this.label12.TabIndex = 68;
-            this.label12.Text = "Address 2:";
+            this.lbl8.AutoSize = true;
+            this.lbl8.Location = new System.Drawing.Point(38, 203);
+            this.lbl8.Name = "lbl8";
+            this.lbl8.Size = new System.Drawing.Size(62, 13);
+            this.lbl8.TabIndex = 68;
+            this.lbl8.Text = "Address 2:";
             // 
-            // label11
+            // lbl5
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(37, 125);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(63, 13);
-            this.label11.TabIndex = 67;
-            this.label11.Text = "Last Name:";
+            this.lbl5.AutoSize = true;
+            this.lbl5.Location = new System.Drawing.Point(31, 125);
+            this.lbl5.Name = "lbl5";
+            this.lbl5.Size = new System.Drawing.Size(69, 13);
+            this.lbl5.TabIndex = 67;
+            this.lbl5.Text = "*Last Name:";
             // 
             // btnEdit
             // 
@@ -635,95 +654,96 @@ namespace FinalProject
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
-            // label9
+            // lbl12
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(49, 307);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(51, 13);
-            this.label9.TabIndex = 63;
-            this.label9.Text = "Zipcode:";
+            this.lbl12.AutoSize = true;
+            this.lbl12.Location = new System.Drawing.Point(43, 307);
+            this.lbl12.Name = "lbl12";
+            this.lbl12.Size = new System.Drawing.Size(57, 13);
+            this.lbl12.TabIndex = 63;
+            this.lbl12.Text = "*Zipcode:";
             // 
-            // label8
+            // lbl11
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(62, 281);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(34, 13);
-            this.label8.TabIndex = 62;
-            this.label8.Text = "State:";
+            this.lbl11.AutoSize = true;
+            this.lbl11.Location = new System.Drawing.Point(58, 281);
+            this.lbl11.Name = "lbl11";
+            this.lbl11.Size = new System.Drawing.Size(40, 13);
+            this.lbl11.TabIndex = 62;
+            this.lbl11.Text = "*State:";
             // 
-            // label7
+            // lbl10
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(71, 255);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(30, 13);
-            this.label7.TabIndex = 61;
-            this.label7.Text = "City:";
+            this.lbl10.AutoSize = true;
+            this.lbl10.Location = new System.Drawing.Point(64, 255);
+            this.lbl10.Name = "lbl10";
+            this.lbl10.Size = new System.Drawing.Size(36, 13);
+            this.lbl10.TabIndex = 61;
+            this.lbl10.Text = "*City:";
             // 
-            // label6
+            // lbl7
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(41, 177);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(62, 13);
-            this.label6.TabIndex = 60;
-            this.label6.Text = "Address 1:";
+            this.lbl7.AutoSize = true;
+            this.lbl7.Location = new System.Drawing.Point(32, 177);
+            this.lbl7.Name = "lbl7";
+            this.lbl7.Size = new System.Drawing.Size(68, 13);
+            this.lbl7.TabIndex = 60;
+            this.lbl7.Text = "*Address 1:";
             // 
-            // label5
+            // lbl6
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(61, 151);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(37, 13);
-            this.label5.TabIndex = 59;
-            this.label5.Text = "Suffix:";
+            this.lbl6.AutoSize = true;
+            this.lbl6.Location = new System.Drawing.Point(61, 151);
+            this.lbl6.Name = "lbl6";
+            this.lbl6.Size = new System.Drawing.Size(37, 13);
+            this.lbl6.TabIndex = 59;
+            this.lbl6.Text = "Suffix:";
             // 
-            // label4
+            // lbl4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(26, 99);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(79, 13);
-            this.label4.TabIndex = 58;
-            this.label4.Text = "Middle Name:";
+            this.lbl4.AutoSize = true;
+            this.lbl4.Location = new System.Drawing.Point(21, 99);
+            this.lbl4.Name = "lbl4";
+            this.lbl4.Size = new System.Drawing.Size(79, 13);
+            this.lbl4.TabIndex = 58;
+            this.lbl4.Text = "Middle Name:";
             // 
-            // label3
+            // lbl3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(38, 73);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 13);
-            this.label3.TabIndex = 57;
-            this.label3.Text = "First Name:";
+            this.lbl3.AutoSize = true;
+            this.lbl3.Location = new System.Drawing.Point(29, 73);
+            this.lbl3.Name = "lbl3";
+            this.lbl3.Size = new System.Drawing.Size(71, 13);
+            this.lbl3.TabIndex = 57;
+            this.lbl3.Text = "*First Name:";
             // 
-            // label2
+            // lbl2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(68, 50);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 13);
-            this.label2.TabIndex = 56;
-            this.label2.Text = "Title:";
+            this.lbl2.AutoSize = true;
+            this.lbl2.Location = new System.Drawing.Point(69, 47);
+            this.lbl2.Name = "lbl2";
+            this.lbl2.Size = new System.Drawing.Size(31, 13);
+            this.lbl2.TabIndex = 56;
+            this.lbl2.Text = "Title:";
             // 
-            // label10
+            // lbl1
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(41, 19);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(58, 13);
-            this.label10.TabIndex = 55;
-            this.label10.Text = "Person ID:";
+            this.lbl1.AutoSize = true;
+            this.lbl1.Location = new System.Drawing.Point(42, 19);
+            this.lbl1.Name = "lbl1";
+            this.lbl1.Size = new System.Drawing.Size(58, 13);
+            this.lbl1.TabIndex = 55;
+            this.lbl1.Text = "Person ID:";
             // 
             // tbxFirstName
             // 
-            this.tbxFirstName.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxFirstName.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxFirstName.Location = new System.Drawing.Point(104, 73);
             this.tbxFirstName.Multiline = true;
             this.tbxFirstName.Name = "tbxFirstName";
             this.tbxFirstName.Size = new System.Drawing.Size(175, 20);
             this.tbxFirstName.TabIndex = 49;
+            this.tbxFirstName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxFirstName_KeyPress);
             // 
             // tbxPersonID
             // 
@@ -753,21 +773,23 @@ namespace FinalProject
             this.dgvCustomers.Location = new System.Drawing.Point(446, 2);
             this.dgvCustomers.MultiSelect = false;
             this.dgvCustomers.Name = "dgvCustomers";
+            this.dgvCustomers.ReadOnly = true;
             this.dgvCustomers.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvCustomers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCustomers.Size = new System.Drawing.Size(968, 474);
+            this.dgvCustomers.Size = new System.Drawing.Size(1111, 474);
             this.dgvCustomers.TabIndex = 48;
+            this.dgvCustomers.SelectionChanged += new System.EventHandler(this.dgvCustomers_SelectionChanged);
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.DarkSlateGray;
             this.groupBox1.Controls.Add(this.lblState);
-            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.lblSubtitle);
             this.groupBox1.Controls.Add(this.btnClose);
             this.groupBox1.Controls.Add(this.btnHelp);
             this.groupBox1.Controls.Add(this.btnCustomerLogin);
             this.groupBox1.Controls.Add(this.btnCustomerInfo);
-            this.groupBox1.Controls.Add(this.btnAdd);
+            this.groupBox1.Controls.Add(this.btnAddCustomer);
             this.groupBox1.Controls.Add(this.btnTransactions);
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -789,22 +811,23 @@ namespace FinalProject
             this.lblState.Text = "Customers";
             this.lblState.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label1
+            // lblSubtitle
             // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.LightCyan;
-            this.label1.Location = new System.Drawing.Point(6, 52);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(139, 43);
-            this.label1.TabIndex = 51;
-            this.label1.Text = "Select a Customer to Edit/View/Order";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblSubtitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSubtitle.ForeColor = System.Drawing.Color.LightCyan;
+            this.lblSubtitle.Location = new System.Drawing.Point(6, 52);
+            this.lblSubtitle.Name = "lblSubtitle";
+            this.lblSubtitle.Size = new System.Drawing.Size(139, 43);
+            this.lblSubtitle.TabIndex = 51;
+            this.lblSubtitle.Text = "Select a Customer to Edit/View/Order";
+            this.lblSubtitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnClose
             // 
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.Color.LightCyan;
             this.btnClose.Location = new System.Drawing.Point(8, 496);
             this.btnClose.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -819,6 +842,7 @@ namespace FinalProject
             // 
             this.btnHelp.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHelp.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHelp.ForeColor = System.Drawing.Color.LightCyan;
             this.btnHelp.Location = new System.Drawing.Point(8, 425);
             this.btnHelp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -832,6 +856,7 @@ namespace FinalProject
             // 
             this.btnCustomerLogin.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnCustomerLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCustomerLogin.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCustomerLogin.ForeColor = System.Drawing.Color.LightCyan;
             this.btnCustomerLogin.Location = new System.Drawing.Point(9, 337);
             this.btnCustomerLogin.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -840,11 +865,13 @@ namespace FinalProject
             this.btnCustomerLogin.TabIndex = 10;
             this.btnCustomerLogin.Text = "&Point of Sale";
             this.btnCustomerLogin.UseVisualStyleBackColor = true;
+            this.btnCustomerLogin.Click += new System.EventHandler(this.btnCustomerLogin_Click);
             // 
             // btnCustomerInfo
             // 
             this.btnCustomerInfo.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnCustomerInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCustomerInfo.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCustomerInfo.ForeColor = System.Drawing.Color.LightCyan;
             this.btnCustomerInfo.Location = new System.Drawing.Point(9, 110);
             this.btnCustomerInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -855,23 +882,26 @@ namespace FinalProject
             this.btnCustomerInfo.UseVisualStyleBackColor = true;
             this.btnCustomerInfo.Click += new System.EventHandler(this.btnCustomerInfo_Click);
             // 
-            // btnAdd
+            // btnAddCustomer
             // 
-            this.btnAdd.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAdd.ForeColor = System.Drawing.Color.LightCyan;
-            this.btnAdd.Location = new System.Drawing.Point(9, 181);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(136, 63);
-            this.btnAdd.TabIndex = 9;
-            this.btnAdd.Text = "&Add New Customer";
-            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAddCustomer.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnAddCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddCustomer.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddCustomer.ForeColor = System.Drawing.Color.LightCyan;
+            this.btnAddCustomer.Location = new System.Drawing.Point(9, 181);
+            this.btnAddCustomer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnAddCustomer.Name = "btnAddCustomer";
+            this.btnAddCustomer.Size = new System.Drawing.Size(136, 63);
+            this.btnAddCustomer.TabIndex = 9;
+            this.btnAddCustomer.Text = "&Add New Customer";
+            this.btnAddCustomer.UseVisualStyleBackColor = true;
+            this.btnAddCustomer.Click += new System.EventHandler(this.btnAddCustomer_Click);
             // 
             // btnTransactions
             // 
             this.btnTransactions.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnTransactions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTransactions.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTransactions.ForeColor = System.Drawing.Color.LightCyan;
             this.btnTransactions.Location = new System.Drawing.Point(9, 266);
             this.btnTransactions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -880,6 +910,28 @@ namespace FinalProject
             this.btnTransactions.TabIndex = 7;
             this.btnTransactions.Text = "View Past &Transactions";
             this.btnTransactions.UseVisualStyleBackColor = true;
+            this.btnTransactions.Click += new System.EventHandler(this.btnTransactions_Click);
+            // 
+            // lbl
+            // 
+            this.lbl.AutoSize = true;
+            this.lbl.Font = new System.Drawing.Font("Rockwell", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl.Location = new System.Drawing.Point(-3, 457);
+            this.lbl.Name = "lbl";
+            this.lbl.Size = new System.Drawing.Size(93, 13);
+            this.lbl.TabIndex = 100;
+            this.lbl.Text = "*Required Fields";
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRefresh.Location = new System.Drawing.Point(1468, 476);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(89, 28);
+            this.btnRefresh.TabIndex = 66;
+            this.btnRefresh.Text = "&Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // frmCustomer
             // 
@@ -887,10 +939,11 @@ namespace FinalProject
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(1420, 580);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
+            this.ClientSize = new System.Drawing.Size(1558, 580);
+            this.Controls.Add(this.btnRefresh);
+            this.Controls.Add(this.gbx2);
+            this.Controls.Add(this.gbx3);
+            this.Controls.Add(this.gbx1);
             this.Controls.Add(this.dgvCustomers);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Rockwell", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -901,11 +954,11 @@ namespace FinalProject
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AE Sporting Fits | Customer";
             this.Load += new System.EventHandler(this.frmCustomer_Load);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.gbx2.ResumeLayout(false);
+            this.gbx3.ResumeLayout(false);
+            this.gbx3.PerformLayout();
+            this.gbx1.ResumeLayout(false);
+            this.gbx1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomers)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -914,28 +967,28 @@ namespace FinalProject
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.GroupBox gbx2;
+        private System.Windows.Forms.Label lbl18;
         private System.Windows.Forms.Button btnAddManager;
         private System.Windows.Forms.ComboBox cbxFilterTitle;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label lbl17;
+        private System.Windows.Forms.GroupBox gbx3;
         private System.Windows.Forms.TextBox tbxCitySearch;
-        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label lbl23;
         private System.Windows.Forms.TextBox tbxLastSearch;
-        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label lbl21;
         private System.Windows.Forms.TextBox tbxZipcodeSearch;
-        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label lbl25;
         private System.Windows.Forms.TextBox tbxPhoneSearch;
-        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label lbl24;
         private System.Windows.Forms.TextBox tbxEmailSearch;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label lbl22;
+        private System.Windows.Forms.Label lbl20;
         private System.Windows.Forms.TextBox tbxFirstSearch;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label lbl19;
+        private System.Windows.Forms.GroupBox gbx1;
         private System.Windows.Forms.ComboBox cbxDeleted;
         private System.Windows.Forms.ComboBox cbxState;
         private System.Windows.Forms.ComboBox cbxTitle;
@@ -950,34 +1003,36 @@ namespace FinalProject
         private System.Windows.Forms.TextBox tbxSuffix;
         private System.Windows.Forms.TextBox tbxLastName;
         private System.Windows.Forms.TextBox tbxMiddleName;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lbl15;
+        private System.Windows.Forms.Label lbl16;
+        private System.Windows.Forms.Label lbl14;
+        private System.Windows.Forms.Label lbl13;
+        private System.Windows.Forms.Label lbl9;
+        private System.Windows.Forms.Label lbl8;
+        private System.Windows.Forms.Label lbl5;
         private System.Windows.Forms.Button btnEdit;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lbl12;
+        private System.Windows.Forms.Label lbl11;
+        private System.Windows.Forms.Label lbl10;
+        private System.Windows.Forms.Label lbl7;
+        private System.Windows.Forms.Label lbl6;
+        private System.Windows.Forms.Label lbl4;
+        private System.Windows.Forms.Label lbl3;
+        private System.Windows.Forms.Label lbl2;
+        private System.Windows.Forms.Label lbl1;
         private System.Windows.Forms.TextBox tbxFirstName;
         private System.Windows.Forms.TextBox tbxPersonID;
         private System.Windows.Forms.DataGridView dgvCustomers;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label lblState;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblSubtitle;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnHelp;
         private System.Windows.Forms.Button btnCustomerLogin;
         private System.Windows.Forms.Button btnCustomerInfo;
-        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnAddCustomer;
         private System.Windows.Forms.Button btnTransactions;
+        private System.Windows.Forms.Label lbl;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }

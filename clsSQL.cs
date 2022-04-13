@@ -169,9 +169,9 @@ namespace FinalProject
             string strSelectQuery2 = "SELECT LogonName FROM " + strSchema + ".Logon where LogonName = @LogonName;";
 
             //set proper set id to question id var
-            bolID1 = int.TryParse(signupParameters.cbxSecQuestion1.SelectedValue.ToString(), out intID1);
-            bolID2 = int.TryParse(signupParameters.cbxSecQuestion2.SelectedValue.ToString(), out intID2);
-            bolID3 = int.TryParse(signupParameters.cbxSecQuestion3.SelectedValue.ToString(), out intID3);
+            bolID1 = int.TryParse(signupParameters.cbxSecQuestion1P.SelectedValue.ToString(), out intID1);
+            bolID2 = int.TryParse(signupParameters.cbxSecQuestion2P.SelectedValue.ToString(), out intID2);
+            bolID3 = int.TryParse(signupParameters.cbxSecQuestion3P.SelectedValue.ToString(), out intID3);
 
             OpenDatabase();
 
@@ -179,7 +179,7 @@ namespace FinalProject
             {
                 //command query for logon name
                 SqlCommand cmdSelectLogon = new SqlCommand(strSelectQuery2, _cntDatabase);
-                cmdSelectLogon.Parameters.AddWithValue("@LogonName", signupParameters.tbxUsername.Text);
+                cmdSelectLogon.Parameters.AddWithValue("@LogonName", signupParameters.tbxUsernameP.Text);
                 SqlDataReader rdLogon = cmdSelectLogon.ExecuteReader();
 
                 //if statement to check if username already exists
@@ -189,7 +189,7 @@ namespace FinalProject
                     string strUsername = rdLogon.GetValue(0).ToString();
 
                     //if returned username is the same send error
-                    if (strUsername.ToUpper().Contains(signupParameters.tbxUsername.Text.ToUpper()))
+                    if (strUsername.ToUpper().Contains(signupParameters.tbxUsernameP.Text.ToUpper()))
                     {
                         MessageBox.Show("The username entered already exists. Please enter a new username.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         rdLogon.Close();
@@ -208,20 +208,20 @@ namespace FinalProject
 
                 //sets up querys to insert user data
                 SqlCommand cmdInsert = new SqlCommand(strInsertQuery, _cntDatabase);
-                cmdInsert.Parameters.AddWithValue("@Title", signupParameters.cbxTitle.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@NameFirst", signupParameters.tbxFirstName.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@NameMiddle", signupParameters.tbxMiddleName.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@NameLast", signupParameters.tbxLastName.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@Suffix", signupParameters.tbxSuffix.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@Address1", signupParameters.tbxAddress1.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@Address2", signupParameters.tbxAddress2.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@Address3", signupParameters.tbxAddress3.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@City", signupParameters.tbxCity.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@Zipcode", signupParameters.tbxZipcode.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@State", signupParameters.cbxState.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@Email", signupParameters.tbxEmail.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@PhonePrimary", signupParameters.tbxPhone1.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@PhoneSecondary", signupParameters.tbxPhone2.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Title", signupParameters.cbxTitleP.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@NameFirst", signupParameters.tbxFirstNameP.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@NameMiddle", signupParameters.tbxMiddleNameP.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@NameLast", signupParameters.tbxLastNameP.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Suffix", signupParameters.tbxSuffixP.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Address1", signupParameters.tbxAddress1P.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Address2", signupParameters.tbxAddress2P.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Address3", signupParameters.tbxAddress3P.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@City", signupParameters.tbxCityP.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Zipcode", signupParameters.tbxZipcodeP.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@State", signupParameters.cbxStateP.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Email", signupParameters.tbxEmailP.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@PhonePrimary", signupParameters.tbxPhone1P.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@PhoneSecondary", signupParameters.tbxPhone2P.Text.Trim());
 
                 //executes querys and closes reader
                 SqlDataReader rdInsert = cmdInsert.ExecuteReader();
@@ -229,7 +229,7 @@ namespace FinalProject
 
                 //command query for personId
                 SqlCommand cmdSelect = new SqlCommand(strSelectQuery, _cntDatabase);
-                cmdSelect.Parameters.AddWithValue("@NameFirst", signupParameters.tbxFirstName.Text);
+                cmdSelect.Parameters.AddWithValue("@NameFirst", signupParameters.tbxFirstNameP.Text);
                 SqlDataReader rdSelect = cmdSelect.ExecuteReader();
 
                 //if statement to set person id
@@ -256,14 +256,14 @@ namespace FinalProject
                 //insert data to logon
                 SqlCommand cmdInsert2 = new SqlCommand(strInsertQuery2, _cntDatabase);
                 cmdInsert2.Parameters.AddWithValue("@PersonID", intPersonID);
-                cmdInsert2.Parameters.AddWithValue("@LogonName", signupParameters.tbxUsername.Text.Trim());
-                cmdInsert2.Parameters.AddWithValue("@Password", signupParameters.tbxPassword.Text.Trim());
+                cmdInsert2.Parameters.AddWithValue("@LogonName", signupParameters.tbxUsernameP.Text.Trim());
+                cmdInsert2.Parameters.AddWithValue("@Password", signupParameters.tbxPasswordP.Text.Trim());
                 cmdInsert2.Parameters.AddWithValue("@FirstChallengeQuestion", intID1);
-                cmdInsert2.Parameters.AddWithValue("@FirstChallengeAnswer", signupParameters.tbxAnswer1.Text.Trim());
+                cmdInsert2.Parameters.AddWithValue("@FirstChallengeAnswer", signupParameters.tbxAnswer1P.Text.Trim());
                 cmdInsert2.Parameters.AddWithValue("@SecondChallengeQuestion", intID2);
-                cmdInsert2.Parameters.AddWithValue("@SecondChallengeAnswer", signupParameters.tbxAnswer2.Text.Trim());
+                cmdInsert2.Parameters.AddWithValue("@SecondChallengeAnswer", signupParameters.tbxAnswer2P.Text.Trim());
                 cmdInsert2.Parameters.AddWithValue("@ThirdChallengeQuestion", intID3);
-                cmdInsert2.Parameters.AddWithValue("@ThirdChallengeAnswer", signupParameters.tbxAnswer3.Text.Trim());
+                cmdInsert2.Parameters.AddWithValue("@ThirdChallengeAnswer", signupParameters.tbxAnswer3P.Text.Trim());
 
                 //executes querys and closes reader
                 SqlDataReader rdInsert2 = cmdInsert2.ExecuteReader();
@@ -290,8 +290,8 @@ namespace FinalProject
             OpenDatabase();
 
             //string command for logon table
-            string strSelectQuery = "SELECT LogonName, PersonID, Password, PositionTitle FROM " + strSchema + ".Logon " +
-                "WHERE LogonName = @LogonName";
+            string strSelectQuery = "SELECT L.LogonName, L.PersonID, L.Password, L.PositionTitle, P.NameFirst, P.NameLast FROM " + strSchema + ".Logon L " +
+                "FULL JOIN "+ strSchema + ".Person P ON L.PersonID = P.PersonID WHERE L.LogonName = @LogonName";
             try
             {
                 //command query
@@ -307,6 +307,8 @@ namespace FinalProject
                     string strPersonID = rd.GetValue(1).ToString();
                     string strPassword = rd.GetValue(2).ToString();
                     string strTitle = rd.GetValue(3).ToString();
+                    string strFirst = rd.GetValue(4).ToString();
+                    string strLast = rd.GetValue(5).ToString();
 
                     //if returned username is the same
                     //make sure its not case sensitive
@@ -319,6 +321,7 @@ namespace FinalProject
                             strLogonName = strUsername;
                             strPID = strPersonID;
                             strPositionTitle = strTitle;
+                            strName = strFirst + " " + strLast;
                             
                             //returns true and closes reader
                             rd.Close();
@@ -607,7 +610,7 @@ namespace FinalProject
 
             //string query
             string strDGVQuery = "Select ItemImage as 'Image', ItemName as 'Name', RetailPrice as 'Price', Size, Quantity, ItemDescription as 'Description', Color, T.TeamSport as 'Sport' from " + strSchema + ".Inventory I INNER JOIN " +
-                strSchema + ".Teams T ON I.TeamID = T.TeamID Where Quantity > 0";
+                strSchema + ".Teams T ON I.TeamID = T.TeamID Where Quantity > 0 AND Discontinued = 0";
 
             //set command object to null
             _sqlInventoryCommand = null;
@@ -1448,21 +1451,6 @@ namespace FinalProject
         public static SqlDataAdapter _daRestock = new SqlDataAdapter();
         //data tables
         public static DataTable _dtRestockTable = new DataTable();
-        //inventory
-        //data command
-        public static SqlCommand _sqlManagerICommand;
-        //data adapter
-        public static SqlDataAdapter _daManagerI = new SqlDataAdapter();
-        //data tables
-        public static DataTable _dtManagerITable = new DataTable();
-        //customers
-        //data command
-        public static SqlCommand _sqlCustomersCommand;
-        //data adapter
-        public static SqlDataAdapter _daCustomers = new SqlDataAdapter();
-        //data tables
-        public static DataTable _dtCustomersTable = new DataTable();
-
         //method to show restock needed
         internal static void InitializeRestockView(DataGridView dgvRestock, Label lblRestock)
         {
@@ -1482,7 +1470,7 @@ namespace FinalProject
 
                 //string query
                 string strDGVQuery = "Select InventoryID, ItemName as 'Name', Quantity from " + strSchema + ".Inventory" +
-                    " WHERE Quantity <= RestockThreshold AND Discontinued != 0";
+                    " WHERE Quantity <= RestockThreshold AND Discontinued != 1";
 
                 //set command object to null
                 _sqlRestockCommand = null;
@@ -1497,10 +1485,6 @@ namespace FinalProject
                 dgvRestock.DataSource = _dtRestockTable;
 
                 //format data grid view
-                foreach (DataGridViewRow row in dgvRestock.Rows)
-                {
-                    row.Height = 100;
-                }
 
                 for (int i = 0; i < dgvRestock.ColumnCount; i++)
                 {
@@ -1532,6 +1516,14 @@ namespace FinalProject
             //close database
             CloseDatabase();
         }
+        
+        //inventory
+        //data command
+        public static SqlCommand _sqlManagerICommand;
+        //data adapter
+        public static SqlDataAdapter _daManagerI = new SqlDataAdapter();
+        //data tables
+        public static DataTable _dtManagerITable = new DataTable();
         //method to set images from database
         internal static void ImageInventoryManager(DataGridView dgvInventory)
         {
@@ -1557,7 +1549,7 @@ namespace FinalProject
                     Image imgOut = tmpResizedImage;
 
                     //add image to data grid view
-                    dgvInventory.Rows[i].Cells[6].Value = imgOut;
+                    dgvInventory.Rows[i].Cells[0].Value = imgOut;
 
                 }
                 CloseDatabase();
@@ -1586,8 +1578,8 @@ namespace FinalProject
                 _dtManagerITable = new DataTable();
 
                 //string query
-                string strDGVQuery = "Select InventoryID, ItemName as 'Name', ItemDescription as 'Description', RetailPrice as 'Retail Price', Cost, Quantity, " +
-                    "ItemImage as 'Image', Discontinued, Size, Color, TeamID, RestockThreshold from " + strSchema + ".Inventory";
+                string strDGVQuery = "Select ItemImage as 'Image', InventoryID, ItemName as 'Name', ItemDescription as 'Description', RetailPrice as 'Retail Price', Cost, Quantity, " +
+                    "Discontinued, Size, Color, TeamID, RestockThreshold from " + strSchema + ".Inventory";
 
                 //set command object to null
                 _sqlManagerICommand = null;
@@ -1601,12 +1593,13 @@ namespace FinalProject
                 //bind grid view to data table
                 dgvInventory.DataSource = _dtManagerITable;
 
-                if (!dgvInventory.Columns.Contains("Item Image"))
+                if (dgvInventory.Columns.Count <= 12 && !dgvInventory.Columns.Contains("Item Image"))
                 {
                     //setup image column
                     DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();
+                    imageColumn.Name = "Item Image";
                     imageColumn.HeaderText = "Item Image";
-                    dgvInventory.Columns.Insert(6, imageColumn);
+                    dgvInventory.Columns.Insert(0, imageColumn);
                 }
 
                 //setup image
@@ -1644,6 +1637,14 @@ namespace FinalProject
             //close database
             CloseDatabase();
         }
+        
+        //customers
+        //data command
+        public static SqlCommand _sqlCustomersCommand;
+        //data adapter
+        public static SqlDataAdapter _daCustomers = new SqlDataAdapter();
+        //data tables
+        public static DataTable _dtCustomersTable = new DataTable();
         //method to show customers
         internal static void InitializeCustomerView(DataGridView dgvCustomers)
         {
@@ -1662,8 +1663,9 @@ namespace FinalProject
                 _dtCustomersTable = new DataTable();
 
                 //string query
-                string strDGVQuery = "Select PersonID, Title, NameFirst as 'First Name', NameMiddle as 'Middle Name', NameLast as 'Last Name', Suffix, Address1, Address2, Address3, " +
-                    "City, Zipcode, State, Email, PhonePrimary as 'Primary Phone', PhoneSecondary as 'Secondary Phone', PersonDeleted as 'Deleted' from " + strSchema + ".Person";
+                string strDGVQuery = "Select P.PersonID, Title, NameFirst as 'First Name', NameMiddle as 'Middle Name', NameLast as 'Last Name', Suffix, Address1, Address2, Address3, " +
+                    "City, Zipcode, State, Email, PhonePrimary as 'Primary Phone', PhoneSecondary as 'Secondary Phone', PersonDeleted as 'Deleted', L.PositionTitle as 'Position Title' from " + strSchema + ".Person P "+
+                    "FULL JOIN " + strSchema + ".Logon L ON P.PersonID = L.PersonID";
 
                 //set command object to null
                 _sqlCustomersCommand = null;
@@ -1700,6 +1702,203 @@ namespace FinalProject
             _sqlCustomersCommand.Dispose();
             _daCustomers.Dispose();
             _dtCustomersTable.Dispose();
+            //close database
+            CloseDatabase();
+        }
+        
+        //orders
+        //data command
+        public static SqlCommand _sqlOrdersCommand;
+        //data adapter
+        public static SqlDataAdapter _daOrders = new SqlDataAdapter();
+        //data tables
+        public static DataTable _dtOrdersTable = new DataTable();
+        //method to show orders
+        internal static void InitializeOrderView(DataGridView dgvOrders)
+        {
+            //open database
+            OpenDatabase();
+
+            //fill tables and objects
+            try
+            {
+                //setup data
+                //set command object to null
+                _sqlOrdersCommand = null;
+
+                //reset data adapter and data table to new
+                _daOrders = new SqlDataAdapter();
+                _dtOrdersTable = new DataTable();
+
+                //string query
+                string strDGVQuery = "Select PersonID, OrderID, OrderDate " +
+                    "from " + strSchema + ".Orders " +
+                    "WHERE PersonID = " + clsSQL.strPID + " Order by OrderID DESC";
+
+                //set command object to null
+                _sqlOrdersCommand = null;
+                //est command obj
+                _sqlOrdersCommand = new SqlCommand(strDGVQuery, _cntDatabase);
+                //establish data adapter
+                _daOrders.SelectCommand = _sqlOrdersCommand;
+                //fill data table
+                _daOrders.Fill(_dtOrdersTable);
+                //bind grid view to data table
+                dgvOrders.DataSource = _dtOrdersTable;
+
+                //format data grid view
+                for (int i = 0; i < dgvOrders.ColumnCount; i++)
+                {
+                    dgvOrders.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    dgvOrders.AutoResizeColumns();
+                    dgvOrders.AllowUserToAddRows = false;
+                    dgvOrders.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    dgvOrders.Columns[i].DefaultCellStyle.Font = new Font("Rockwell", 9F, FontStyle.Bold);
+                }
+
+                //close database
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error in SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CloseDatabase();
+            }
+
+            //dispose of command, adapter, and table 
+            _sqlOrdersCommand.Dispose();
+            _daOrders.Dispose();
+            _dtOrdersTable.Dispose();
+            //close database
+            CloseDatabase();
+        }
+        
+        //order details
+        //data command
+        public static SqlCommand _sqlOrderDetailsCommand;
+        //data adapter
+        public static SqlDataAdapter _daOrderDetails = new SqlDataAdapter();
+        //data tables
+        public static DataTable _dtOrderDetailsTable = new DataTable();
+        //method to show orders
+        internal static void InitializeOrderDetailsView(DataGridView dgvOrderDetails, DataGridView dgvOrders)
+        {
+            //fill tables and objects
+            try
+            {
+                //setup data
+                //set command object to null
+                _sqlOrderDetailsCommand = null;
+
+                //reset data adapter and data table to new
+                _daOrderDetails = new SqlDataAdapter();
+                _dtOrderDetailsTable = new DataTable();
+
+                //string query
+                string strDGVQuery = "Select OrderDetailsID, OrderID, O.InventoryID, I.ItemName as 'Item Name', O.Quantity, DiscountID " +
+                    "from " + strSchema + ".OrderDetails O FULL JOIN " + strSchema + ".Inventory I ON O.InventoryID = I.InventoryID " +
+                    "WHERE O.OrderID = " + clsManager.GetOrderID(dgvOrders);
+
+                //set command object to null
+                _sqlOrderDetailsCommand = null;
+                //est command obj
+                _sqlOrderDetailsCommand = new SqlCommand(strDGVQuery, _cntDatabase);
+                //establish data adapter
+                _daOrderDetails.SelectCommand = _sqlOrderDetailsCommand;
+                //fill data table
+                _daOrderDetails.Fill(_dtOrderDetailsTable);
+                //bind grid view to data table
+                dgvOrderDetails.DataSource = _dtOrderDetailsTable;
+
+                //format data grid view
+                for (int i = 0; i < dgvOrderDetails.ColumnCount; i++)
+                {
+                    dgvOrderDetails.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    dgvOrderDetails.AutoResizeColumns();
+                    dgvOrderDetails.AllowUserToAddRows = false;
+                    dgvOrderDetails.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    dgvOrderDetails.Columns[i].DefaultCellStyle.Font = new Font("Rockwell", 9F, FontStyle.Bold);
+                }
+
+                //close database
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex + "Error in SQL", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CloseDatabase();
+            }
+
+            //dispose of command, adapter, and table 
+            _sqlOrderDetailsCommand.Dispose();
+            _daOrderDetails.Dispose();
+            _dtOrderDetailsTable.Dispose();
+            //close database
+            CloseDatabase();
+        }
+
+        //discounts
+        //data command
+        public static SqlCommand _sqlDiscountsCommand;
+        //data adapter
+        public static SqlDataAdapter _daDiscounts = new SqlDataAdapter();
+        //data tables
+        public static DataTable _dtDiscountsTable = new DataTable();
+        //method to show orders
+        internal static void InitializeDiscountsView(DataGridView dgvDiscounts)
+        {
+            //open database
+            OpenDatabase();
+
+            //fill tables and objects
+            try
+            {
+                //setup data
+                //set command object to null
+                _sqlDiscountsCommand = null;
+
+                //reset data adapter and data table to new
+                _daDiscounts = new SqlDataAdapter();
+                _dtDiscountsTable = new DataTable();
+
+                //string query
+                string strDGVQuery = "Select * " +
+                    "from " + strSchema + ".Discounts";
+
+                //set command object to null
+                _sqlDiscountsCommand = null;
+                //est command obj
+                _sqlDiscountsCommand = new SqlCommand(strDGVQuery, _cntDatabase);
+                //establish data adapter
+                _daDiscounts.SelectCommand = _sqlDiscountsCommand;
+                //fill data table
+                _daDiscounts.Fill(_dtDiscountsTable);
+                //bind grid view to data table
+                dgvDiscounts.DataSource = _dtDiscountsTable;
+
+                //format data grid view
+                for (int i = 0; i < dgvDiscounts.ColumnCount; i++)
+                {
+                    dgvDiscounts.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    dgvDiscounts.AutoResizeColumns();
+                    dgvDiscounts.AllowUserToAddRows = false;
+                    dgvDiscounts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    dgvDiscounts.Columns[i].DefaultCellStyle.Font = new Font("Rockwell", 9F, FontStyle.Bold);
+                }
+
+                //close database
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex + "Error in SQL", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CloseDatabase();
+            }
+
+            //dispose of command, adapter, and table 
+            _sqlDiscountsCommand.Dispose();
+            _daDiscounts.Dispose();
+            _dtDiscountsTable.Dispose();
             //close database
             CloseDatabase();
         }
@@ -1786,17 +1985,18 @@ namespace FinalProject
             CloseDatabase();
         }
         //method for updating inventory
-        internal static void UpdateInventory(clsParameters.InventoryParameters inventoryParameters)
+        internal static void UpdateInventory(clsParameters.InventoryParameters inventoryParameters, DataGridView dgvInventory)
         {
             try
             {
+                OpenDatabase();
                 //set up discontinued
                 string strDiscontinued;
-                if (inventoryParameters.cbxDiscontinuedP.SelectedIndex == 1)
+                if (inventoryParameters.cbxDiscontinuedP.SelectedIndex == 0)
                 {
                     strDiscontinued = "0";
                 }
-                else if (inventoryParameters.cbxDiscontinuedP.SelectedIndex == 2)
+                else if (inventoryParameters.cbxDiscontinuedP.SelectedIndex == 1)
                 {
                     strDiscontinued = "1";
                 }
@@ -1837,6 +2037,9 @@ namespace FinalProject
 
                     rdUpdate.Close();
                 }
+                CloseDatabase();
+                dgvInventory.DataSource = null;
+                InitializeManagerInventoryView(dgvInventory);
             }
             catch (Exception ex)
             {
@@ -1846,17 +2049,19 @@ namespace FinalProject
             }
         }
         //method for updating customers
-        internal static void UpdateCustomers(clsParameters.SignupParameters signupParameters)
+        internal static void UpdateCustomers(clsParameters.SignupParameters customerParameters)
         {
             try
             {
+                OpenDatabase();
+
                 //set up discontinued
                 string strDeleted;
-                if (signupParameters.cbxDeleted.SelectedIndex == 1)
+                if (customerParameters.cbxDeletedP.SelectedIndex == 0)
                 {
                     strDeleted = "0";
                 }
-                else if (signupParameters.cbxDeleted.SelectedIndex == 2)
+                else if (customerParameters.cbxDeletedP.SelectedIndex == 1)
                 {
                     strDeleted = "1";
                 }
@@ -1870,30 +2075,120 @@ namespace FinalProject
                 " Address1 = @Address1, Address2 = @Address2, Address3 = @Address3, City = @city, Zipcode = @ZIpcode, State = @State, Email = @Email," +
                 " PhonePrimary = @PhonePrimary, PhoneSecondary = @PhoneSecondary, PersonDeleted = @PersonDeleted WHERE PersonID = @PersonID";
 
-                if (int.TryParse(signupParameters.tbxPersonID.Text, out int intPersonID))
+                if (int.TryParse(customerParameters.tbxPersonIDP.Text, out int intPersonID))
                 {
                     //command query
                     SqlCommand cmdUpdate = new SqlCommand(strUpdateQuery, _cntDatabase);
                     cmdUpdate.Parameters.AddWithValue("@PersonID", intPersonID);
-                    cmdUpdate.Parameters.AddWithValue("@Title", signupParameters.cbxTitle.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@NameFirst", signupParameters.tbxFirstName.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@NameMiddle", signupParameters.tbxMiddleName.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@NameLast", signupParameters.tbxLastName.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@Suffix", signupParameters.tbxSuffix.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@Address1", signupParameters.tbxAddress1.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@Address2", signupParameters.tbxAddress2.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@Address3", signupParameters.tbxAddress3.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@City", signupParameters.tbxCity.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@Zipcode", signupParameters.tbxZipcode.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@State", signupParameters.cbxState.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@Email", signupParameters.tbxEmail.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@PhonePrimary", signupParameters.tbxPhone1.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@PhoneSecondary", signupParameters.tbxPhone2.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Title", customerParameters.cbxTitleP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@NameFirst", customerParameters.tbxFirstNameP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@NameMiddle", customerParameters.tbxMiddleNameP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@NameLast", customerParameters.tbxLastNameP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Suffix", customerParameters.tbxSuffixP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Address1", customerParameters.tbxAddress1P.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Address2", customerParameters.tbxAddress2P.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Address3", customerParameters.tbxAddress3P.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@City", customerParameters.tbxCityP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Zipcode", customerParameters.tbxZipcodeP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@State", customerParameters.cbxStateP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Email", customerParameters.tbxEmailP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@PhonePrimary", customerParameters.tbxPhone1P.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@PhoneSecondary", customerParameters.tbxPhone2P.Text.Trim());
                     cmdUpdate.Parameters.AddWithValue("@PersonDeleted", strDeleted);
                     SqlDataReader rdUpdate = cmdUpdate.ExecuteReader();
 
                     rdUpdate.Close();
                 }
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                //close database and show error
+                CloseDatabase();
+                UpdateDataFail(ex);
+            }
+        }
+        //method for updating discounts
+        internal static void UpdateDiscounts(clsParameters.DiscountParameters discountParameters)
+        {
+            try
+            {
+                OpenDatabase();
+
+                //set up type and level
+                string strLevel, strType;
+                if (discountParameters.cbxLevelP.SelectedIndex == 0)
+                {
+                    strLevel = "1";
+                }
+                else if (discountParameters.cbxLevelP.SelectedIndex == 1)
+                {
+                    strLevel = "0";
+                }
+                else
+                {
+                    strLevel = "";
+                }
+
+                if (discountParameters.cbxTypeP.SelectedIndex == 0)
+                {
+                    strType = "0";
+                }
+                else if (discountParameters.cbxTypeP.SelectedIndex == 1)
+                {
+                    strType = "1";
+                }
+                else
+                {
+                    strType = "";
+                }
+
+                //string command to update inventory
+                string strUpdateQuery = "UPDATE " + strSchema + ".Discounts SET DiscountCode = @DiscountCode, Description = @Description, DiscountLevel = @DiscountLevel, InventoryID = @InventoryID, DiscountType = @DiscountType," +
+                " DiscountPercentage = @DiscountPercentage, DiscountDollarAmount = @DiscountDollarAmount, StartDate = @StartDate, ExpirationDate = @ExpirationDate" +
+                " WHERE DiscountID = @DiscountID";
+
+                if (int.TryParse(discountParameters.tbxDiscountIDP.Text, out int intDiscountID))
+                {
+                    //command query
+                    SqlCommand cmdUpdate = new SqlCommand(strUpdateQuery, _cntDatabase);
+                    cmdUpdate.Parameters.AddWithValue("@DiscountID", intDiscountID);
+                    cmdUpdate.Parameters.AddWithValue("@DiscountCode", discountParameters.tbxDiscountCodeP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Description", discountParameters.tbxDescriptionP.Text.Trim());
+                    if (double.TryParse(discountParameters.tbxDollarP.Text, out double dblDollar))
+                    {
+                        cmdUpdate.Parameters.AddWithValue("@DiscountDollarAmount", dblDollar);
+                    }
+                    else
+                    {
+                        cmdUpdate.Parameters.AddWithValue("@DiscountDollarAmount", discountParameters.tbxDollarP.Text);
+                    }
+
+                    if(double.TryParse(discountParameters.tbxPercentageP.Text, out double dblPercentage))
+                    {
+                        cmdUpdate.Parameters.AddWithValue("@DiscountPercentage", dblPercentage);
+                    }
+                    else
+                    {
+                        cmdUpdate.Parameters.AddWithValue("@DiscountPercentage", discountParameters.tbxPercentageP.Text);
+                    }
+                    if (int.TryParse(discountParameters.tbxInventoryIDP.Text, out int intID))
+                    {
+                        cmdUpdate.Parameters.AddWithValue("@InventoryID", intID);
+                    }
+                    else
+                    {
+                        cmdUpdate.Parameters.AddWithValue("@InventoryID", discountParameters.tbxInventoryIDP.Text);
+                    }
+                    cmdUpdate.Parameters.AddWithValue("@StartDate", discountParameters.tbxStartP.Text);
+                    cmdUpdate.Parameters.AddWithValue("@ExpirationDate", discountParameters.tbxExpirationP.Text);
+                    cmdUpdate.Parameters.AddWithValue("@DiscountType", strType);
+                    cmdUpdate.Parameters.AddWithValue("@DiscountLevel", strLevel);
+                    SqlDataReader rdUpdate = cmdUpdate.ExecuteReader();
+
+                    rdUpdate.Close();
+                }
+                CloseDatabase();
             }
             catch (Exception ex)
             {
@@ -1907,11 +2202,12 @@ namespace FinalProject
         {
             try
             {
+                OpenDatabase();
                 //set up discontinued
                 string strPosition = "Manager";
 
                 //string command to update inventory
-                string strUpdateQuery = "UPDATE " + strSchema + ".Logon SET PositionTitle = @PositionTitle, " +
+                string strUpdateQuery = "UPDATE " + strSchema + ".Logon SET PositionTitle = @PositionTitle " +
                 " WHERE PersonID = @PersonID";
 
                 if (int.TryParse(tbxPersonID.Text, out int intPersonID))
@@ -1924,6 +2220,7 @@ namespace FinalProject
 
                     rdUpdate.Close();
                 }
+                CloseDatabase();
             }
             catch (Exception ex)
             {
@@ -1937,15 +2234,16 @@ namespace FinalProject
         {
             try
             {
+                OpenDatabase();
                 //set up discontinued
                 string strDiscontinued;
-                if (inventoryParameters.cbxDiscontinuedP.SelectedIndex == 1)
+                if (inventoryParameters.cbxDiscontinuedP.SelectedIndex == 0)
                 {
-                    strDiscontinued = "0";
+                    strDiscontinued = "False";
                 }
-                else if (inventoryParameters.cbxDiscontinuedP.SelectedIndex == 2)
+                else if (inventoryParameters.cbxDiscontinuedP.SelectedIndex == 1)
                 {
-                    strDiscontinued = "1";
+                    strDiscontinued = "True";
                 }
                 else
                 {
@@ -1984,6 +2282,7 @@ namespace FinalProject
 
                     rdInventory.Close();
                 }
+                CloseDatabase();
             }
             catch (Exception ex)
             {
@@ -1992,7 +2291,80 @@ namespace FinalProject
                 InsertDataFail(ex);
             }
         }
+        //method for adding to discounts
+        internal static void AddDiscounts(clsParameters.DiscountParameters discountParameters)
+        {
+            try
+            {
+                OpenDatabase();
+                //set up type and level
+                string strType, strLevel;
+                if (discountParameters.cbxTypeP.SelectedIndex == 0)
+                {
+                    strType = "0";
+                }
+                else if (discountParameters.cbxTypeP.SelectedIndex == 1)
+                {
+                    strType = "1";
+                }
+                else
+                {
+                    strType = "";
+                }
 
+                if (discountParameters.cbxLevelP.SelectedIndex == 0)
+                {
+                    strLevel = "1";
+                }
+                else if (discountParameters.cbxLevelP.SelectedIndex == 1)
+                {
+                    strLevel = "0";
+                }
+                else
+                {
+                    strLevel = "";
+                }
+
+
+                //query to insert into discounts table
+                string strInsertQuery = "INSERT INTO " + strSchema + ".Discounts (DiscountCode, Description, DiscountDollarAmount, DiscountPercentage, InventoryID," +
+                        " StartDate, ExpirationDate, DiscountLevel, DiscountType)" +
+                    "  VALUES (@DiscountCode, @Description, @DiscountDollarAmount, @DiscountPercentage, @InventoryID," +
+                    " @StartDate, @ExpirationDate, @DiscountLevel, @DiscountType)";
+
+
+                    //command query
+                    SqlCommand cmdUpdate = new SqlCommand(strInsertQuery, _cntDatabase);
+                if (DateTime.TryParse(discountParameters.tbxStartP.Text, out DateTime dateStart) &&
+                    DateTime.TryParse(discountParameters.tbxExpirationP.Text, out DateTime dateExpiry) && double.TryParse(discountParameters.tbxDollarP.Text, out double dblDollar) &&
+                    double.TryParse(discountParameters.tbxPercentageP.Text, out double dblPercentage))
+                {
+                    cmdUpdate.Parameters.AddWithValue("@DiscountCode", discountParameters.tbxDiscountCodeP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Description", discountParameters.tbxDescriptionP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@DiscountDollarAmount", dblDollar);
+                    cmdUpdate.Parameters.AddWithValue("@DiscountPercentage", dblPercentage);
+                    if (int.TryParse(discountParameters.tbxInventoryIDP.Text, out int intID))
+                    {
+                        cmdUpdate.Parameters.AddWithValue("@InventoryID", intID);
+                    }
+                    cmdUpdate.Parameters.AddWithValue("@StartDate", dateStart);
+                    cmdUpdate.Parameters.AddWithValue("@ExpirationDate", dateExpiry);
+                    cmdUpdate.Parameters.AddWithValue("@DiscountType", strType);
+                    cmdUpdate.Parameters.AddWithValue("@DiscountLevel", strLevel);
+                    SqlDataReader rdUpdate = cmdUpdate.ExecuteReader();
+
+                    rdUpdate.Close();
+                }
+
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                //close database and show error                
+                CloseDatabase();
+                InsertDataFail(ex);
+            }
+        }
         //methods for handling database errors
         internal static void ConnectionFail(Exception ex)
         {

@@ -42,28 +42,35 @@ namespace FinalProject
             //set up parameters
             clsParameters.SignupParameters signupParameters = new clsParameters.SignupParameters
             {
-                tbxPersonID = tbxPersonID,
-                cbxTitle = cbxTitle,
-                tbxFirstName = tbxFirstName,
-                tbxMiddleName = tbxMiddleName,
-                tbxLastName = tbxLastName,
-                tbxSuffix = tbxSuffix,
-                tbxCity = tbxCity,
-                tbxAddress1 = tbxAddress1,
-                tbxAddress2 = tbxAddress2,
-                tbxAddress3 = tbxAddress3,
-                tbxPhone1 = tbxPrimary,
-                tbxPhone2 = tbxSecondary,
-                cbxState = cbxState,
-                tbxEmail = tbxEmail,
-                tbxZipcode = tbxZipcode,
-                cbxDeleted = cbxDeleted,
+                tbxPersonIDP = tbxPersonID,
+                cbxTitleP = cbxTitle,
+                tbxFirstNameP = tbxFirstName,
+                tbxMiddleNameP = tbxMiddleName,
+                tbxLastNameP = tbxLastName,
+                tbxSuffixP = tbxSuffix,
+                tbxCityP = tbxCity,
+                tbxAddress1P = tbxAddress1,
+                tbxAddress2P = tbxAddress2,
+                tbxAddress3P = tbxAddress3,
+                tbxPhone1P = tbxPrimary,
+                tbxPhone2P = tbxSecondary,
+                cbxStateP = cbxState,
+                tbxEmailP = tbxEmail,
+                tbxZipcodeP = tbxZipcode,
+                cbxDeletedP = cbxDeleted,
             };
 
             if (dgvCustomers.SelectedCells.Count > 0)
             {
-                //call method to edit customers
-                //clsSQL.UpdateCustomers(signupParameters);
+                //check required fields
+                if (clsValidation.ValidateTwo(signupParameters))
+                {
+                    //call method to edit customers
+                    clsSQL.UpdateCustomers(signupParameters);
+                    //refresh view
+                    dgvCustomers.DataSource = null;
+                    clsSQL.InitializeCustomerView(dgvCustomers);
+                }
             }
             else
             {
@@ -83,7 +90,10 @@ namespace FinalProject
                 {
                     case DialogResult.Yes:
                         //call method to update customer to manager
-                        //clsSQL.UpdateToManager(tbxPersonID);
+                        clsSQL.UpdateToManager(tbxPersonID);
+                        //refresh  view
+                        dgvCustomers.DataSource = null;
+                        clsSQL.InitializeCustomerView(dgvCustomers);
                         break;
                     case DialogResult.No:
                         //set focus to button
@@ -116,6 +126,165 @@ namespace FinalProject
         {
             //call method to search for customer
             clsManager.SearchCustomers(dgvCustomers, tbxFirstSearch, tbxLastSearch, tbxEmailSearch, tbxCitySearch, tbxZipcodeSearch, tbxPhoneSearch);
+        }
+
+        private void dgvCustomers_SelectionChanged(object sender, EventArgs e)
+        {
+            //set up parameters
+            clsParameters.SignupParameters customerParameters = new clsParameters.SignupParameters
+            {
+                tbxPersonIDP = tbxPersonID,
+                cbxTitleP = cbxTitle,
+                tbxFirstNameP = tbxFirstName,
+                tbxMiddleNameP = tbxMiddleName,
+                tbxLastNameP = tbxLastName,
+                tbxSuffixP = tbxSuffix,
+                tbxCityP = tbxCity,
+                tbxAddress1P = tbxAddress1,
+                tbxAddress2P = tbxAddress2,
+                tbxAddress3P = tbxAddress3,
+                tbxPhone1P = tbxPrimary,
+                tbxPhone2P = tbxSecondary,
+                cbxStateP = cbxState,
+                tbxEmailP = tbxEmail,
+                tbxZipcodeP = tbxZipcode,
+                cbxDeletedP = cbxDeleted,
+            };
+
+            //call methods for fields
+            clsManager.UpdateFieldsCustomer(dgvCustomers,customerParameters);
+        }
+
+        private void cbxFilterTitle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //call method for filter
+            clsManager.FilterCustomerPosition(dgvCustomers, cbxFilterTitle);
+        }
+
+        private void tbxAddress2_KeyUp(object sender, KeyEventArgs e)
+        {
+            //if statement to allow access to other textboxes
+            if (string.IsNullOrEmpty(tbxAddress2.Text) == false)
+            {
+                tbxAddress3.ReadOnly = false;
+            }
+            else
+            {
+                tbxAddress3.ReadOnly = true;
+                tbxAddress3.Clear();
+            }
+        }
+
+        private void tbxAddress1_KeyUp(object sender, KeyEventArgs e)
+        {
+            //if statement to allow access to other textboxes
+            if (string.IsNullOrEmpty(tbxAddress1.Text) == false)
+            {
+                tbxAddress2.ReadOnly = false;
+            }
+            else
+            {
+                tbxAddress2.ReadOnly = true;
+                tbxAddress3.ReadOnly = true;
+                tbxAddress2.Clear();
+                tbxAddress3.Clear();
+            }
+        }
+
+        private void tbxPrimary_KeyUp(object sender, KeyEventArgs e)
+        {
+            //if statement to allow access to other textboxes
+            if (string.IsNullOrEmpty(tbxPrimary.Text) == false)
+            {
+                tbxSecondary.ReadOnly = false;
+            }
+            else
+            {
+                tbxPrimary.ReadOnly = true;
+                tbxSecondary.Clear();
+            }
+        }
+
+        private void tbxFirstName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            clsValidation.NameAllowedKeys(e);
+        }
+
+        private void tbxMiddleName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            clsValidation.NameAllowedKeys(e);
+        }
+
+        private void tbxLastName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            clsValidation.NameAllowedKeys(e);
+        }
+
+        private void tbxSuffix_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            clsValidation.NameAllowedKeys(e);
+        }
+
+        private void tbxAddress1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            clsValidation.AddressAllowedKeys(e);
+        }
+
+        private void tbxAddress2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            clsValidation.AddressAllowedKeys(e);
+        }
+
+        private void tbxAddress3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            clsValidation.AddressAllowedKeys(e);
+        }
+
+        private void tbxCity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            clsValidation.CityAllowedKeys(e);
+        }
+
+        private void tbxPrimary_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            clsValidation.PhoneAllowedKeys(e);
+        }
+
+        private void tbxSecondary_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            clsValidation.PhoneAllowedKeys(e);
+        }
+
+        private void btnAddCustomer_Click(object sender, EventArgs e)
+        {
+            frmSignUp frmSign = new frmSignUp();
+            frmSign.ShowDialog();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            dgvCustomers.DataSource = null;
+            clsSQL.InitializeCustomerView(dgvCustomers);
+        }
+
+        private void btnTransactions_Click(object sender, EventArgs e)
+        {
+            //call method to get info
+            if (clsManager.GetSelectedCustomerInfo(dgvCustomers, tbxFirstName, tbxLastName, tbxPersonID))
+            {
+                frmPastTransactions frmPast = new frmPastTransactions();
+                frmPast.ShowDialog();
+            }
+        }
+
+        private void btnCustomerLogin_Click(object sender, EventArgs e)
+        {
+            //call method to get info
+            if(clsManager.GetSelectedCustomerInfo(dgvCustomers, tbxFirstName, tbxLastName, tbxPersonID))
+            {
+                frmMain frmMain = new frmMain();
+                frmMain.ShowDialog();
+            }
         }
     }
 }

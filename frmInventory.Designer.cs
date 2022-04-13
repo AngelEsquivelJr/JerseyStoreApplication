@@ -102,7 +102,7 @@ namespace FinalProject
             this.gbx2.Controls.Add(this.tbxDescription);
             this.gbx2.Controls.Add(this.tbxItemName);
             this.gbx2.Controls.Add(this.tbxInventoryID);
-            this.gbx2.Location = new System.Drawing.Point(164, 334);
+            this.gbx2.Location = new System.Drawing.Point(309, 403);
             this.gbx2.Name = "gbx2";
             this.gbx2.Size = new System.Drawing.Size(927, 221);
             this.gbx2.TabIndex = 46;
@@ -137,7 +137,7 @@ namespace FinalProject
             // 
             // tbxColor
             // 
-            this.tbxColor.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxColor.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxColor.Location = new System.Drawing.Point(783, 50);
             this.tbxColor.Multiline = true;
             this.tbxColor.Name = "tbxColor";
@@ -155,7 +155,7 @@ namespace FinalProject
             // 
             // tbxSize
             // 
-            this.tbxSize.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxSize.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxSize.Location = new System.Drawing.Point(783, 16);
             this.tbxSize.Multiline = true;
             this.tbxSize.Name = "tbxSize";
@@ -172,7 +172,7 @@ namespace FinalProject
             // 
             // tbxRestock
             // 
-            this.tbxRestock.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxRestock.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxRestock.Location = new System.Drawing.Point(783, 134);
             this.tbxRestock.Multiline = true;
             this.tbxRestock.Name = "tbxRestock";
@@ -302,12 +302,13 @@ namespace FinalProject
             this.pbxItemImage.Location = new System.Drawing.Point(493, 66);
             this.pbxItemImage.Name = "pbxItemImage";
             this.pbxItemImage.Size = new System.Drawing.Size(187, 123);
+            this.pbxItemImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbxItemImage.TabIndex = 54;
             this.pbxItemImage.TabStop = false;
             // 
             // tbxQuantity
             // 
-            this.tbxQuantity.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxQuantity.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxQuantity.Location = new System.Drawing.Point(493, 195);
             this.tbxQuantity.Multiline = true;
             this.tbxQuantity.Name = "tbxQuantity";
@@ -316,7 +317,7 @@ namespace FinalProject
             // 
             // tbxRetail
             // 
-            this.tbxRetail.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxRetail.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxRetail.Location = new System.Drawing.Point(493, 40);
             this.tbxRetail.Multiline = true;
             this.tbxRetail.Name = "tbxRetail";
@@ -325,7 +326,7 @@ namespace FinalProject
             // 
             // tbxPrice
             // 
-            this.tbxPrice.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxPrice.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxPrice.Location = new System.Drawing.Point(493, 14);
             this.tbxPrice.Multiline = true;
             this.tbxPrice.Name = "tbxPrice";
@@ -334,7 +335,7 @@ namespace FinalProject
             // 
             // tbxDescription
             // 
-            this.tbxDescription.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxDescription.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxDescription.Location = new System.Drawing.Point(134, 66);
             this.tbxDescription.Multiline = true;
             this.tbxDescription.Name = "tbxDescription";
@@ -343,7 +344,7 @@ namespace FinalProject
             // 
             // tbxItemName
             // 
-            this.tbxItemName.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxItemName.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxItemName.Location = new System.Drawing.Point(134, 40);
             this.tbxItemName.Multiline = true;
             this.tbxItemName.Name = "tbxItemName";
@@ -375,12 +376,13 @@ namespace FinalProject
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvInventory.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvInventory.Location = new System.Drawing.Point(12, 2);
+            this.dgvInventory.Location = new System.Drawing.Point(2, 2);
             this.dgvInventory.MultiSelect = false;
             this.dgvInventory.Name = "dgvInventory";
+            this.dgvInventory.ReadOnly = true;
             this.dgvInventory.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvInventory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvInventory.Size = new System.Drawing.Size(1079, 325);
+            this.dgvInventory.Size = new System.Drawing.Size(1407, 395);
             this.dgvInventory.TabIndex = 45;
             this.dgvInventory.SelectionChanged += new System.EventHandler(this.dgvInventory_SelectionChanged);
             // 
@@ -392,7 +394,7 @@ namespace FinalProject
             this.gbx1.Controls.Add(this.btnHelp);
             this.gbx1.Controls.Add(this.btnAddInventory);
             this.gbx1.Controls.Add(this.btnEditInventory);
-            this.gbx1.Location = new System.Drawing.Point(6, 334);
+            this.gbx1.Location = new System.Drawing.Point(2, 404);
             this.gbx1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbx1.Name = "gbx1";
             this.gbx1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -472,7 +474,7 @@ namespace FinalProject
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
-            this.ClientSize = new System.Drawing.Size(1099, 558);
+            this.ClientSize = new System.Drawing.Size(1409, 625);
             this.Controls.Add(this.gbx2);
             this.Controls.Add(this.dgvInventory);
             this.Controls.Add(this.gbx1);

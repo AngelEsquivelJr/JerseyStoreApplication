@@ -29,6 +29,7 @@ namespace FinalProject
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmManager));
             this.btnRefresh = new System.Windows.Forms.Button();
             this.lblManager = new System.Windows.Forms.Label();
@@ -47,7 +48,7 @@ namespace FinalProject
             // btnRefresh
             // 
             this.btnRefresh.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRefresh.Location = new System.Drawing.Point(401, 377);
+            this.btnRefresh.Location = new System.Drawing.Point(483, 377);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(94, 33);
             this.btnRefresh.TabIndex = 71;
@@ -57,12 +58,13 @@ namespace FinalProject
             // 
             // lblManager
             // 
+            this.lblManager.AutoSize = true;
             this.lblManager.BackColor = System.Drawing.Color.Transparent;
             this.lblManager.Font = new System.Drawing.Font("Rockwell", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblManager.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.lblManager.Location = new System.Drawing.Point(-3, 9);
+            this.lblManager.Location = new System.Drawing.Point(12, 9);
             this.lblManager.Name = "lblManager";
-            this.lblManager.Size = new System.Drawing.Size(136, 49);
+            this.lblManager.Size = new System.Drawing.Size(108, 23);
             this.lblManager.TabIndex = 70;
             this.lblManager.Text = "Manager: ";
             this.lblManager.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -72,7 +74,7 @@ namespace FinalProject
             this.lblRestock.BackColor = System.Drawing.Color.Transparent;
             this.lblRestock.Font = new System.Drawing.Font("Rockwell", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRestock.ForeColor = System.Drawing.Color.Red;
-            this.lblRestock.Location = new System.Drawing.Point(375, 19);
+            this.lblRestock.Location = new System.Drawing.Point(460, 19);
             this.lblRestock.Name = "lblRestock";
             this.lblRestock.Size = new System.Drawing.Size(136, 49);
             this.lblRestock.TabIndex = 69;
@@ -82,10 +84,26 @@ namespace FinalProject
             // 
             // dgvRestock
             // 
+            this.dgvRestock.AllowUserToAddRows = false;
+            this.dgvRestock.AllowUserToDeleteRows = false;
+            this.dgvRestock.AllowUserToResizeColumns = false;
+            this.dgvRestock.AllowUserToResizeRows = false;
             this.dgvRestock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.LightCyan;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRestock.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvRestock.Location = new System.Drawing.Point(324, 71);
+            this.dgvRestock.MultiSelect = false;
             this.dgvRestock.Name = "dgvRestock";
-            this.dgvRestock.Size = new System.Drawing.Size(240, 294);
+            this.dgvRestock.ReadOnly = true;
+            this.dgvRestock.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvRestock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvRestock.Size = new System.Drawing.Size(403, 294);
             this.dgvRestock.TabIndex = 68;
             // 
             // gbxOne
@@ -180,7 +198,7 @@ namespace FinalProject
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
-            this.ClientSize = new System.Drawing.Size(570, 410);
+            this.ClientSize = new System.Drawing.Size(734, 410);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.lblManager);
             this.Controls.Add(this.lblRestock);
@@ -199,6 +217,7 @@ namespace FinalProject
             ((System.ComponentModel.ISupportInitialize)(this.dgvRestock)).EndInit();
             this.gbxOne.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

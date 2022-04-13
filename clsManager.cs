@@ -187,6 +187,12 @@ namespace FinalProject
                 (dgvCustomers.DataSource as DataTable).DefaultView.RowFilter = string.Format("[Zipcode] = '{0}' AND [Email] = '{1}' AND [City] = '{2}' AND [Primary Phone] = '{3}'", tbxZip.Text, tbxEmail.Text, tbxCity.Text, tbxPhone.Text);
             }
 
+            //zip, first, and city
+            if (string.IsNullOrEmpty(tbxLast.Text) && !string.IsNullOrEmpty(tbxFirst.Text) && string.IsNullOrEmpty(tbxEmail.Text) && string.IsNullOrEmpty(tbxPhone.Text) && !string.IsNullOrEmpty(tbxZip.Text) && !string.IsNullOrEmpty(tbxCity.Text))
+            {
+                (dgvCustomers.DataSource as DataTable).DefaultView.RowFilter = string.Format("[Zipcode] = '{0}' AND [First Name] = '{1}' AND [City] = '{2}'", tbxZip.Text, tbxFirst.Text, tbxCity.Text);
+            }
+
             //5
             //zip
             if (string.IsNullOrEmpty(tbxFirst.Text) && string.IsNullOrEmpty(tbxCity.Text) && string.IsNullOrEmpty(tbxLast.Text) && string.IsNullOrEmpty(tbxPhone.Text) && string.IsNullOrEmpty(tbxEmail.Text) && !string.IsNullOrEmpty(tbxZip.Text))
@@ -242,13 +248,44 @@ namespace FinalProject
                 (dgvCustomers.DataSource as DataTable).DefaultView.RowFilter = string.Format("[Primary Phone] = '{0}' AND [Email] = '{1}'", tbxPhone.Text, tbxEmail.Text);
             }
         }
+        //method to filter customers
+        internal static void FilterCustomerPosition(DataGridView dgvCustomer, ComboBox cbxPosition)
+        {
+            try
+            {
+                //check selected index
+                if (cbxPosition.SelectedIndex >= 1)
+                {
+                    //set filter
+                    (dgvCustomer.DataSource as DataTable).DefaultView.RowFilter = string.Format("[Position Title] = '{0}'", cbxPosition.Text);
+                }
+                else
+                {
+                    (dgvCustomer.DataSource as DataTable).DefaultView.RowFilter = "";
+                }
+            }
+            catch (Exception ex)
+            {
+                //error message
+                MessageBox.Show("Could not filter position. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         //method to make image into byte[]
         internal static byte[] ImagetoByteArray(Image imgItem)
         {
-            using (MemoryStream memoryStream = new MemoryStream())
+            try
             {
-                imgItem.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
-                return memoryStream.ToArray();
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    imgItem.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                    return memoryStream.ToArray();
+                }
+            }
+            catch(Exception ex)
+            {
+                //error message
+                MessageBox.Show("Could not change image to byte. Try Again. " + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
             }
         }
         //method to update fields when editing
@@ -276,22 +313,31 @@ namespace FinalProject
                     inventoryParameters.tbxColorP.Text = Convert.ToString(selectedRowInventory.Cells["Color"].Value);
                     inventoryParameters.tbxSizeP.Text = Convert.ToString(selectedRowInventory.Cells["Size"].Value);
                     inventoryParameters.tbxRestockP.Text = Convert.ToString(selectedRowInventory.Cells["RestockThreshold"].Value);
-                    string strDiscontinued = Convert.ToString(selectedRowInventory.Cells["Discontinued"].Value);
                     inventoryParameters.cbxTeamIDP.Text = Convert.ToString(selectedRowInventory.Cells["TeamID"].Value);
-                    string strImage = Convert.ToString(selectedRowInventory.Cells["Item Image"].Value);
-
-                    if (strDiscontinued == "0")
+                    string strDiscontinued = Convert.ToString(selectedRowInventory.Cells["Discontinued"].Value);    
+                    
+                    if (strDiscontinued.Contains("False"))
                     {
                         //not discontinued
-                        inventoryParameters.cbxDiscontinuedP.SelectedIndex = 1;
+                        inventoryParameters.cbxDiscontinuedP.SelectedIndex = 0;
                     }
                     else
                     {
                         //discontinued
-                        inventoryParameters.cbxDiscontinuedP.SelectedIndex = 2;
+                        inventoryParameters.cbxDiscontinuedP.SelectedIndex = 1;
                     }
 
-                    byte[] bytImage = Encoding.ASCII.GetBytes(strImage);
+                    byte[] bytImage;
+                    if (dgvInventory.Columns.Contains("Image"))
+                    {
+                        bytImage = (byte[])(selectedRowInventory.Cells["Image"].Value);
+                    }
+                    else
+                    {
+                        Image imgItem = (Image)(selectedRowInventory.Cells["Item Image"].Value);
+                        bytImage = ImagetoByteArray(imgItem);
+                    }
+
                     using (MemoryStream msImage = new MemoryStream(bytImage))
                     {
                         Image imgLoaded = Image.FromStream(msImage);
@@ -302,7 +348,131 @@ namespace FinalProject
             catch (Exception)
             {
                 //error message
-                MessageBox.Show("Could not update fields for inventory item. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Could not update fields for inventory item. Try Again. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        internal static void UpdateFieldsCustomer(DataGridView dgvCustomers, clsParameters.SignupParameters customerParameters)
+        {
+            try
+            {
+                //get selected row values
+                if (dgvCustomers.SelectedCells.Count > 0)
+                {
+                    int intSelectedRowIndexCustomers = dgvCustomers.SelectedRows[0].Index;
+                    DataGridViewRow selectedRowCustomers = dgvCustomers.Rows[intSelectedRowIndexCustomers];
+
+                    //set values to text boxes                    
+                    customerParameters.tbxPersonIDP.Text = Convert.ToString(selectedRowCustomers.Cells["PersonID"].Value);                    
+                    customerParameters.cbxTitleP.Text = Convert.ToString(selectedRowCustomers.Cells["Title"].Value);
+                    customerParameters.tbxFirstNameP.Text = Convert.ToString(selectedRowCustomers.Cells["First Name"].Value);
+                    customerParameters.tbxMiddleNameP.Text = Convert.ToString(selectedRowCustomers.Cells["Middle Name"].Value);
+                    customerParameters.tbxLastNameP.Text = Convert.ToString(selectedRowCustomers.Cells["Last Name"].Value);
+                    customerParameters.tbxSuffixP.Text = Convert.ToString(selectedRowCustomers.Cells["Suffix"].Value);
+                    customerParameters.tbxAddress1P.Text = Convert.ToString(selectedRowCustomers.Cells["Address1"].Value);
+                    customerParameters.tbxAddress2P.Text = Convert.ToString(selectedRowCustomers.Cells["Address2"].Value);
+                    customerParameters.tbxAddress3P.Text = Convert.ToString(selectedRowCustomers.Cells["Address3"].Value);
+                    customerParameters.tbxCityP.Text = Convert.ToString(selectedRowCustomers.Cells["City"].Value);
+                    customerParameters.tbxZipcodeP.Text = Convert.ToString(selectedRowCustomers.Cells["Zipcode"].Value);
+                    customerParameters.cbxStateP.Text = Convert.ToString(selectedRowCustomers.Cells["State"].Value);
+                    customerParameters.tbxEmailP.Text = Convert.ToString(selectedRowCustomers.Cells["Email"].Value);
+                    customerParameters.tbxPhone1P.Text = Convert.ToString(selectedRowCustomers.Cells["Primary Phone"].Value);
+                    customerParameters.tbxPhone2P.Text = Convert.ToString(selectedRowCustomers.Cells["Secondary Phone"].Value);
+                    string strDeleted = Convert.ToString(selectedRowCustomers.Cells["Deleted"].Value);
+
+                    if (strDeleted.Contains("False"))
+                    {
+                        //not discontinued
+                        customerParameters.cbxDeletedP.SelectedIndex = 0;
+                    }
+                    else if(strDeleted.Contains("True"))
+                    {
+                        //discontinued
+                        customerParameters.cbxDeletedP.SelectedIndex = 1;
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                //error message
+                MessageBox.Show("Could not update fields for customer item. Try Again. " + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        internal static void UpdateFieldsDiscount(DataGridView dgvDiscounts, clsParameters.DiscountParameters discountParameters, Label lblState)
+        {
+            try
+            {
+                //get selected row values
+                if (dgvDiscounts.SelectedCells.Count > 0)
+                {
+                    int intSelectedRowIndexDiscounts = dgvDiscounts.SelectedRows[0].Index;
+                    DataGridViewRow selectedRowDiscounts = dgvDiscounts.Rows[intSelectedRowIndexDiscounts];
+
+                    //set values to text boxes
+                    if (lblState.Text == "Editing")
+                    {
+                        discountParameters.tbxDiscountIDP.Text = Convert.ToString(selectedRowDiscounts.Cells["DiscountID"].Value);
+                    }
+                    discountParameters.tbxDiscountCodeP.Text = Convert.ToString(selectedRowDiscounts.Cells["DiscountCode"].Value);
+                    discountParameters.tbxDescriptionP.Text = Convert.ToString(selectedRowDiscounts.Cells["Description"].Value);
+                    string strLevel = Convert.ToString(selectedRowDiscounts.Cells["DiscountLevel"].Value);
+                    discountParameters.tbxInventoryIDP.Text = Convert.ToString(selectedRowDiscounts.Cells["InventoryID"].Value);
+                    string strType = Convert.ToString(selectedRowDiscounts.Cells["DiscountType"].Value);
+                    discountParameters.tbxPercentageP.Text = Convert.ToString(selectedRowDiscounts.Cells["DiscountPercentage"].Value);
+                    discountParameters.tbxDollarP.Text = Convert.ToString(selectedRowDiscounts.Cells["DiscountDollarAmount"].Value);
+                    discountParameters.tbxStartP.Text = Convert.ToString(selectedRowDiscounts.Cells["StartDate"].Value);
+                    discountParameters.tbxExpirationP.Text = Convert.ToString(selectedRowDiscounts.Cells["ExpirationDate"].Value);
+
+                    if(strLevel == "1")
+                    {
+                        discountParameters.cbxLevelP.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        discountParameters.cbxLevelP.SelectedIndex = 1;
+                    }
+
+                    if (strType == "0")
+                    {
+                        discountParameters.cbxTypeP.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        discountParameters.cbxTypeP.SelectedIndex = 1;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                //error message
+                MessageBox.Show("Could not update fields for discounts. Try Again. " + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //method to get order id
+        internal static string GetOrderID(DataGridView dgvOrders)
+        {
+            try
+            {
+                string strOrderID = "";
+
+                //get selected row values
+                if (dgvOrders.SelectedCells.Count > 0)
+                {
+                    int intSelectedRowIndexOrders = dgvOrders.SelectedRows[0].Index;
+                    DataGridViewRow selectedRowOrders = dgvOrders.Rows[intSelectedRowIndexOrders];
+
+                    //get order id value                    
+                    strOrderID = Convert.ToString(selectedRowOrders.Cells["OrderID"].Value);                    
+                }
+
+                return strOrderID;
+            }
+            catch (Exception ex)
+            {
+                //error message
+                MessageBox.Show("Could not get order id from selected order. Try Again. " + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
             }
         }
         //method to select an image
@@ -331,6 +501,32 @@ namespace FinalProject
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error During Upload", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //method to get customer info
+        internal static bool GetSelectedCustomerInfo(DataGridView dgvCustomer, TextBox tbxFirst, TextBox tbxLast, TextBox tbxPersonID)
+        {
+            try
+            {
+                //check if customer is selected
+                if(dgvCustomer.SelectedRows.Count > 0)
+                {
+                    //set customer info
+                    clsSQL.strLogonName = tbxFirst.Text + " " + tbxLast.Text;
+                    clsSQL.strPID = tbxPersonID.Text;
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Please select a customer to see past transactions. Try Again.", "Past Transactions", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
+                }
+            }
+            catch(Exception)
+            {
+                // error message
+                MessageBox.Show("Could not get customer information. Try Again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
         }
     }

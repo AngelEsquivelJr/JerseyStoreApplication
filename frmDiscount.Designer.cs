@@ -29,6 +29,7 @@ namespace FinalProject
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDiscount));
             this.dgvDiscounts = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -49,7 +50,7 @@ namespace FinalProject
             this.lbl6 = new System.Windows.Forms.Label();
             this.lbl5 = new System.Windows.Forms.Label();
             this.lbl4 = new System.Windows.Forms.Label();
-            this.btnEditChanges = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
             this.lbl3 = new System.Windows.Forms.Label();
             this.lbl2 = new System.Windows.Forms.Label();
             this.tbxDiscountID = new System.Windows.Forms.TextBox();
@@ -57,9 +58,11 @@ namespace FinalProject
             this.lbl1 = new System.Windows.Forms.Label();
             this.btnAddDiscount = new System.Windows.Forms.Button();
             this.btnEditDiscount = new System.Windows.Forms.Button();
-            this.lblState = new System.Windows.Forms.Label();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnHelp = new System.Windows.Forms.Button();
+            this.lblState = new System.Windows.Forms.Label();
+            this.btnAdd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDiscounts)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -67,15 +70,33 @@ namespace FinalProject
             // 
             // dgvDiscounts
             // 
+            this.dgvDiscounts.AllowUserToAddRows = false;
+            this.dgvDiscounts.AllowUserToDeleteRows = false;
+            this.dgvDiscounts.AllowUserToResizeColumns = false;
+            this.dgvDiscounts.AllowUserToResizeRows = false;
             this.dgvDiscounts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.LightCyan;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvDiscounts.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvDiscounts.Location = new System.Drawing.Point(492, 12);
+            this.dgvDiscounts.MultiSelect = false;
             this.dgvDiscounts.Name = "dgvDiscounts";
-            this.dgvDiscounts.Size = new System.Drawing.Size(434, 375);
+            this.dgvDiscounts.ReadOnly = true;
+            this.dgvDiscounts.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvDiscounts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvDiscounts.Size = new System.Drawing.Size(786, 375);
             this.dgvDiscounts.TabIndex = 49;
+            this.dgvDiscounts.SelectionChanged += new System.EventHandler(this.dgvDiscounts_SelectionChanged);
             // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.LightGray;
+            this.groupBox2.Controls.Add(this.btnAdd);
             this.groupBox2.Controls.Add(this.cbxType);
             this.groupBox2.Controls.Add(this.cbxLevel);
             this.groupBox2.Controls.Add(this.lbl9);
@@ -93,7 +114,7 @@ namespace FinalProject
             this.groupBox2.Controls.Add(this.lbl6);
             this.groupBox2.Controls.Add(this.lbl5);
             this.groupBox2.Controls.Add(this.lbl4);
-            this.groupBox2.Controls.Add(this.btnEditChanges);
+            this.groupBox2.Controls.Add(this.btnEdit);
             this.groupBox2.Controls.Add(this.lbl3);
             this.groupBox2.Controls.Add(this.lbl2);
             this.groupBox2.Controls.Add(this.tbxDiscountID);
@@ -108,26 +129,26 @@ namespace FinalProject
             this.cbxType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxType.FormattingEnabled = true;
             this.cbxType.Items.AddRange(new object[] {
-            "Daily",
-            "Weekly",
-            "Monthly"});
+            "Percentage",
+            "Dollar"});
             this.cbxType.Location = new System.Drawing.Point(116, 172);
             this.cbxType.Name = "cbxType";
             this.cbxType.Size = new System.Drawing.Size(204, 24);
             this.cbxType.TabIndex = 96;
+            this.cbxType.SelectedIndexChanged += new System.EventHandler(this.cbxType_SelectedIndexChanged);
             // 
             // cbxLevel
             // 
             this.cbxLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxLevel.FormattingEnabled = true;
             this.cbxLevel.Items.AddRange(new object[] {
-            "Daily",
-            "Weekly",
-            "Monthly"});
+            "Item Level",
+            "Cart Level"});
             this.cbxLevel.Location = new System.Drawing.Point(116, 119);
             this.cbxLevel.Name = "cbxLevel";
             this.cbxLevel.Size = new System.Drawing.Size(204, 24);
             this.cbxLevel.TabIndex = 95;
+            this.cbxLevel.SelectedIndexChanged += new System.EventHandler(this.cbxLevel_SelectedIndexChanged);
             // 
             // lbl9
             // 
@@ -140,7 +161,7 @@ namespace FinalProject
             // 
             // tbxExpiration
             // 
-            this.tbxExpiration.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxExpiration.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxExpiration.Location = new System.Drawing.Point(116, 305);
             this.tbxExpiration.Multiline = true;
             this.tbxExpiration.Name = "tbxExpiration";
@@ -149,7 +170,7 @@ namespace FinalProject
             // 
             // tbxStart
             // 
-            this.tbxStart.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxStart.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxStart.Location = new System.Drawing.Point(116, 279);
             this.tbxStart.Multiline = true;
             this.tbxStart.Name = "tbxStart";
@@ -158,19 +179,21 @@ namespace FinalProject
             // 
             // tbxDollarAmount
             // 
-            this.tbxDollarAmount.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxDollarAmount.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxDollarAmount.Location = new System.Drawing.Point(116, 246);
             this.tbxDollarAmount.Multiline = true;
             this.tbxDollarAmount.Name = "tbxDollarAmount";
+            this.tbxDollarAmount.ReadOnly = true;
             this.tbxDollarAmount.Size = new System.Drawing.Size(204, 20);
             this.tbxDollarAmount.TabIndex = 91;
             // 
             // tbxPercentage
             // 
-            this.tbxPercentage.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxPercentage.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxPercentage.Location = new System.Drawing.Point(116, 215);
             this.tbxPercentage.Multiline = true;
             this.tbxPercentage.Name = "tbxPercentage";
+            this.tbxPercentage.ReadOnly = true;
             this.tbxPercentage.Size = new System.Drawing.Size(204, 20);
             this.tbxPercentage.TabIndex = 90;
             // 
@@ -212,16 +235,17 @@ namespace FinalProject
             // 
             // tbxInventoryID
             // 
-            this.tbxInventoryID.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxInventoryID.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxInventoryID.Location = new System.Drawing.Point(116, 145);
             this.tbxInventoryID.Multiline = true;
             this.tbxInventoryID.Name = "tbxInventoryID";
+            this.tbxInventoryID.ReadOnly = true;
             this.tbxInventoryID.Size = new System.Drawing.Size(204, 20);
             this.tbxInventoryID.TabIndex = 84;
             // 
             // tbxDescription
             // 
-            this.tbxDescription.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxDescription.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxDescription.Location = new System.Drawing.Point(116, 71);
             this.tbxDescription.Multiline = true;
             this.tbxDescription.Name = "tbxDescription";
@@ -230,7 +254,7 @@ namespace FinalProject
             // 
             // tbxDiscountCode
             // 
-            this.tbxDiscountCode.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxDiscountCode.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxDiscountCode.Location = new System.Drawing.Point(116, 45);
             this.tbxDiscountCode.Multiline = true;
             this.tbxDiscountCode.Name = "tbxDiscountCode";
@@ -264,15 +288,16 @@ namespace FinalProject
             this.lbl4.TabIndex = 70;
             this.lbl4.Text = "Description:";
             // 
-            // btnEditChanges
+            // btnEdit
             // 
-            this.btnEditChanges.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditChanges.Location = new System.Drawing.Point(116, 335);
-            this.btnEditChanges.Name = "btnEditChanges";
-            this.btnEditChanges.Size = new System.Drawing.Size(115, 30);
-            this.btnEditChanges.TabIndex = 64;
-            this.btnEditChanges.Text = "Apply E&dit";
-            this.btnEditChanges.UseVisualStyleBackColor = true;
+            this.btnEdit.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEdit.Location = new System.Drawing.Point(205, 335);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(115, 30);
+            this.btnEdit.TabIndex = 64;
+            this.btnEdit.Text = "Apply E&dit";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // lbl3
             // 
@@ -305,10 +330,11 @@ namespace FinalProject
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.groupBox1.Controls.Add(this.lblState);
             this.groupBox1.Controls.Add(this.lbl1);
             this.groupBox1.Controls.Add(this.btnAddDiscount);
             this.groupBox1.Controls.Add(this.btnEditDiscount);
-            this.groupBox1.Controls.Add(this.lblState);
+            this.groupBox1.Controls.Add(this.lblTitle);
             this.groupBox1.Controls.Add(this.btnClose);
             this.groupBox1.Controls.Add(this.btnHelp);
             this.groupBox1.Location = new System.Drawing.Point(2, 12);
@@ -323,11 +349,11 @@ namespace FinalProject
             // 
             this.lbl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl1.ForeColor = System.Drawing.Color.LightCyan;
-            this.lbl1.Location = new System.Drawing.Point(7, 70);
+            this.lbl1.Location = new System.Drawing.Point(10, 78);
             this.lbl1.Name = "lbl1";
-            this.lbl1.Size = new System.Drawing.Size(139, 43);
+            this.lbl1.Size = new System.Drawing.Size(133, 43);
             this.lbl1.TabIndex = 55;
-            this.lbl1.Text = "Select a Discount to Edit";
+            this.lbl1.Text = "Select a Discount to Edit/Add";
             this.lbl1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnAddDiscount
@@ -342,6 +368,7 @@ namespace FinalProject
             this.btnAddDiscount.TabIndex = 54;
             this.btnAddDiscount.Text = "&Add Discount";
             this.btnAddDiscount.UseVisualStyleBackColor = true;
+            this.btnAddDiscount.Click += new System.EventHandler(this.btnAddDiscount_Click);
             // 
             // btnEditDiscount
             // 
@@ -355,18 +382,19 @@ namespace FinalProject
             this.btnEditDiscount.TabIndex = 53;
             this.btnEditDiscount.Text = "&Edit Discount";
             this.btnEditDiscount.UseVisualStyleBackColor = true;
+            this.btnEditDiscount.Click += new System.EventHandler(this.btnEditDiscount_Click);
             // 
-            // lblState
+            // lblTitle
             // 
-            this.lblState.BackColor = System.Drawing.Color.Transparent;
-            this.lblState.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblState.ForeColor = System.Drawing.Color.LightCyan;
-            this.lblState.Location = new System.Drawing.Point(12, 26);
-            this.lblState.Name = "lblState";
-            this.lblState.Size = new System.Drawing.Size(123, 21);
-            this.lblState.TabIndex = 52;
-            this.lblState.Text = "Discounts";
-            this.lblState.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTitle.BackColor = System.Drawing.Color.Transparent;
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.Color.LightCyan;
+            this.lblTitle.Location = new System.Drawing.Point(12, 16);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(123, 21);
+            this.lblTitle.TabIndex = 52;
+            this.lblTitle.Text = "Discounts";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnClose
             // 
@@ -380,6 +408,7 @@ namespace FinalProject
             this.btnClose.TabIndex = 12;
             this.btnClose.Text = "&Close";
             this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnHelp
             // 
@@ -394,12 +423,36 @@ namespace FinalProject
             this.btnHelp.Text = "&Help";
             this.btnHelp.UseVisualStyleBackColor = true;
             // 
+            // lblState
+            // 
+            this.lblState.BackColor = System.Drawing.Color.Transparent;
+            this.lblState.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblState.ForeColor = System.Drawing.Color.LightCyan;
+            this.lblState.Location = new System.Drawing.Point(12, 57);
+            this.lblState.Name = "lblState";
+            this.lblState.Size = new System.Drawing.Size(123, 21);
+            this.lblState.TabIndex = 56;
+            this.lblState.Text = "Editing";
+            this.lblState.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdd.Location = new System.Drawing.Point(116, 335);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(68, 30);
+            this.btnAdd.TabIndex = 97;
+            this.btnAdd.Text = "A&dd";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Visible = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
             // frmDiscount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
-            this.ClientSize = new System.Drawing.Size(928, 389);
+            this.ClientSize = new System.Drawing.Size(1283, 389);
             this.Controls.Add(this.dgvDiscounts);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -411,6 +464,7 @@ namespace FinalProject
             this.Name = "frmDiscount";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AE Sporting Fits | Discounts";
+            this.Load += new System.EventHandler(this.frmDiscount_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDiscounts)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -440,7 +494,7 @@ namespace FinalProject
         private System.Windows.Forms.Label lbl6;
         private System.Windows.Forms.Label lbl5;
         private System.Windows.Forms.Label lbl4;
-        private System.Windows.Forms.Button btnEditChanges;
+        private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Label lbl3;
         private System.Windows.Forms.Label lbl2;
         private System.Windows.Forms.TextBox tbxDiscountID;
@@ -448,8 +502,10 @@ namespace FinalProject
         private System.Windows.Forms.Label lbl1;
         private System.Windows.Forms.Button btnAddDiscount;
         private System.Windows.Forms.Button btnEditDiscount;
-        private System.Windows.Forms.Label lblState;
+        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnHelp;
+        private System.Windows.Forms.Label lblState;
+        private System.Windows.Forms.Button btnAdd;
     }
 }

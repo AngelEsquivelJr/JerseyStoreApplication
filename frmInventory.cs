@@ -20,7 +20,7 @@ namespace FinalProject
         private void frmInventory_Load(object sender, EventArgs e)
         {
             //call method to show inventory
-            //clsSQL.InitializeManagerInventoryView(dgvInventory);
+            clsSQL.InitializeManagerInventoryView(dgvInventory);
             //call method to fill combos
             clsSQL.FillTeamIDCombo(cbxTeamID);
         }
@@ -60,7 +60,7 @@ namespace FinalProject
 
         private void btnAddInventory_Click(object sender, EventArgs e)
         {
-            //set form ready to edit
+            //set form ready to add
             lblState.Text = "Adding";
             btnEdit.Visible = false;
             btnAdd.Visible = true;
@@ -106,7 +106,7 @@ namespace FinalProject
             };
 
             //call method to update fields
-            //clsManager.UpdateFieldsInventory(dgvInventory, inventoryParameters, lblState);
+            clsManager.UpdateFieldsInventory(dgvInventory, inventoryParameters, lblState);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -129,7 +129,10 @@ namespace FinalProject
             };
 
             //call method to add to inventory
-            //clsSQL.AddInventory(inventoryParameters);
+            clsSQL.AddInventory(inventoryParameters);
+            //refresh view
+            dgvInventory.DataSource = null;
+            clsSQL.InitializeManagerInventoryView(dgvInventory);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -152,7 +155,7 @@ namespace FinalProject
             };
 
             //call method to apply edit
-            //clsSQL.UpdateInventory(inventoryParameters);
+            clsSQL.UpdateInventory(inventoryParameters, dgvInventory);
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)

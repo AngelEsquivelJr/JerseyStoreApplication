@@ -88,6 +88,7 @@ namespace FinalProject
             this.lblIntroDesc = new System.Windows.Forms.Label();
             this.lbl5 = new System.Windows.Forms.Label();
             this.cbxQuantity = new System.Windows.Forms.ComboBox();
+            this.lblManager = new System.Windows.Forms.Label();
             this.gbx4.SuspendLayout();
             this.gbx3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCart)).BeginInit();
@@ -125,7 +126,7 @@ namespace FinalProject
             this.gbx4.Controls.Add(this.btnCheck);
             this.gbx4.Controls.Add(this.lbl13);
             this.gbx4.Controls.Add(this.lbl12);
-            this.gbx4.Location = new System.Drawing.Point(1183, 330);
+            this.gbx4.Location = new System.Drawing.Point(1183, 341);
             this.gbx4.Name = "gbx4";
             this.gbx4.Size = new System.Drawing.Size(216, 277);
             this.gbx4.TabIndex = 4;
@@ -333,7 +334,7 @@ namespace FinalProject
             this.gbx3.Controls.Add(this.lbl6);
             this.gbx3.Controls.Add(this.btnClearCart);
             this.gbx3.Controls.Add(this.btnRemove);
-            this.gbx3.Location = new System.Drawing.Point(936, 1);
+            this.gbx3.Location = new System.Drawing.Point(936, 12);
             this.gbx3.Name = "gbx3";
             this.gbx3.Size = new System.Drawing.Size(463, 342);
             this.gbx3.TabIndex = 2;
@@ -455,7 +456,7 @@ namespace FinalProject
             this.gbx2.Controls.Add(this.lbl10);
             this.gbx2.Controls.Add(this.lbl9);
             this.gbx2.Controls.Add(this.lbl8);
-            this.gbx2.Location = new System.Drawing.Point(942, 330);
+            this.gbx2.Location = new System.Drawing.Point(942, 341);
             this.gbx2.Name = "gbx2";
             this.gbx2.Size = new System.Drawing.Size(203, 277);
             this.gbx2.TabIndex = 3;
@@ -756,6 +757,16 @@ namespace FinalProject
             this.cbxQuantity.Size = new System.Drawing.Size(158, 27);
             this.cbxQuantity.TabIndex = 5;
             // 
+            // lblManager
+            // 
+            this.lblManager.AutoSize = true;
+            this.lblManager.Location = new System.Drawing.Point(938, 1);
+            this.lblManager.Name = "lblManager";
+            this.lblManager.Size = new System.Drawing.Size(95, 21);
+            this.lblManager.TabIndex = 8;
+            this.lblManager.Text = "Manager:";
+            this.lblManager.Visible = false;
+            // 
             // frmMain
             // 
             this.AcceptButton = this.btnCheck;
@@ -763,7 +774,8 @@ namespace FinalProject
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(1411, 608);
+            this.ClientSize = new System.Drawing.Size(1411, 630);
+            this.Controls.Add(this.lblManager);
             this.Controls.Add(this.cbxQuantity);
             this.Controls.Add(this.lblIntroDesc);
             this.Controls.Add(this.btnHelp);
@@ -853,5 +865,6 @@ namespace FinalProject
         private System.Windows.Forms.Label lbl3;
         private System.Windows.Forms.DataGridView dgvCart;
         private System.Windows.Forms.Label lbl7;
+        private System.Windows.Forms.Label lblManager;
     }
 }
