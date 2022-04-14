@@ -352,5 +352,10 @@ namespace FinalProject
             //help file
             clsHelp.OpenHelp("CustomerHelp.pdf");
         }
+
+        private void dgvInventory_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            clsSQL.FillQuantityCombo(dgvInventory, cbxQuantity);
+        }
     }
 }

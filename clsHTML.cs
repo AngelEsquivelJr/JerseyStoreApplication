@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -205,6 +206,64 @@ namespace FinalProject
 
         }
 
+        //method to generate sales reports
+        public static StringBuilder GenerateDailySales(SqlCommand cmdDaily)
+        {
+            clsSQL.OpenDatabase();
+            StringBuilder sbHtml = new StringBuilder();
+            StringBuilder sbCss = new StringBuilder();
+            string strInfo = "";
+            SqlDataReader rdDaily;
+
+            cmdDaily.ExecuteNonQuery();
+
+            rdDaily = cmdDaily.ExecuteReader();
+
+            sbCss.Append("<style>");
+            sbCss.Append("td {padding:5px;text-align:center;font-weight:bold;text-align:center}");
+            sbCss.Append("</style>");
+
+            sbHtml.Append("<html>");
+            sbHtml.Append($"<head>{sbCss}<title>{"Daily Sales"}</title></head>");
+            sbHtml.Append($"<body>");
+            sbHtml.Append($"<h1>{"Daily Sales"}</h1>");
+
+            sbHtml.Append("<table>");
+            sbHtml.Append("<tr><td colspan=6></td></tr>");
+
+            sbHtml.Append("<tr>");
+            sbHtml.Append("<td>OrderID</td>");
+            sbHtml.Append("<td>Order Date</td>");
+            sbHtml.Append("<td>Product Name</td>");
+            sbHtml.Append("<td>Quantity</td>");
+            sbHtml.Append("</tr>");
+
+            sbHtml.Append("<tr>");
+            while (rdDaily.Read())
+            {
+                strInfo = rdDaily.GetString(4);
+                sbHtml.Append($"<td>{rdDaily.GetInt32(0)}</td>");
+                sbHtml.Append($"<td>{Convert.ToDateTime(rdDaily.GetDateTime(1)).ToString("dd/MM/yyyy")}</td>");
+                sbHtml.Append($"<td>{rdDaily.GetString(2)}</td>");
+                sbHtml.Append($"<td>{rdDaily.GetInt32(3)}</td>");
+                sbHtml.Append("</tr>");
+            }
+
+
+            sbHtml.Append("<tr><td colspan=7></td></tr>");
+            sbHtml.Append("</table>");
+            if (strInfo != "")
+            {
+                sbHtml.Append("<p>Total Daily Sales</p>");
+                sbHtml.Append($"<p>{strInfo}</p>");
+            }
+            sbHtml.Append("</body></html>");
+
+            rdDaily.Close();
+            clsSQL.CloseDatabase();
+            return sbHtml;
+        }
+
         //method for receipt display
         public static void PrintReceipt(StringBuilder sbHtml, string strOrderID)
         {
@@ -225,10 +284,37 @@ namespace FinalProject
             }
             catch (Exception)
             {
-                MessageBox.Show("You don't have write permissions", "Error System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You don't have write permissions ", "Error System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
 
+        }
+        //method for sales reports display
+        public static void PrintDailySales(StringBuilder sbHtml)
+        {
+            DateTime dateToday = DateTime.Now;
+            try
+            {
+                //get path of folders
+                string strFileName = string.Empty;
+                strFileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                string strSubFolder = Path.Combine(strFileName, "AESportingFits");                
+                if (!Directory.Exists("DailySalesReports"))
+                {
+                    //create sub folder
+                    Directory.CreateDirectory(Path.Combine(strSubFolder, "DailySalesReports"));
+                }
+                //get path of html
+                string strSubFile = Path.Combine(strSubFolder, "DailySalesReports");
+                string strFile = Path.Combine(strSubFile, dateToday.ToString("MM-dd-yyyy") + "-DailySales.html");
+                File.WriteAllText(strFile, sbHtml.ToString());
+                System.Diagnostics.Process.Start(strFile);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("You don't have write permissions " + ex, "Error System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
         }
     }
 }

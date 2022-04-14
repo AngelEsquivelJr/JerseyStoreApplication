@@ -610,6 +610,7 @@ namespace FinalProject
             this.dgvInventory.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvInventory.Size = new System.Drawing.Size(755, 506);
             this.dgvInventory.TabIndex = 2;
+            this.dgvInventory.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInventory_CellValueChanged);
             this.dgvInventory.SelectionChanged += new System.EventHandler(this.dgvInventory_SelectionChanged);
             // 
             // gbxOne

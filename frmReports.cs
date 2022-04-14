@@ -75,5 +75,14 @@ namespace FinalProject
             }
         }
 
+        private void btnPrintSales_Click(object sender, EventArgs e)
+        {            
+            if(cbxDays.SelectedIndex == 0)
+            {
+                //print daily reports
+                clsSQL.DatabaseCommandLoadDailySales();
+                clsHTML.PrintDailySales(clsHTML.GenerateDailySales(clsSQL._sqlDailySales));
+            }
+        }
     }
 }

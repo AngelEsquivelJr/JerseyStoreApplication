@@ -177,6 +177,7 @@ namespace FinalProject
             this.btnPrintSales.TabIndex = 65;
             this.btnPrintSales.Text = "Print &Sales Report";
             this.btnPrintSales.UseVisualStyleBackColor = true;
+            this.btnPrintSales.Click += new System.EventHandler(this.btnPrintSales_Click);
             // 
             // lbl1
             // 

@@ -51,6 +51,7 @@ namespace FinalProject
         public static string strPID = "0";
         public static string strDID = "0";
         public static string strDiscountType = "0";
+        public static int intItemDataQuantity = 0;
 
         //method to open database
         internal static void OpenDatabase()
@@ -591,15 +592,15 @@ namespace FinalProject
                 }
                 CloseDatabase();
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 //error message
-                MessageBox.Show(ex.Message, "Error gathering images.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error gathering all Images.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }            
         }
 
         //method to format and bind data grid view
-        internal static void BindInventoryView(DataGridView dgvInventory)
+        internal static void BindInventoryView(DataGridView dgvInventory, string strSport, string strSize)
         {
             //set command object to null
             _sqlInventoryCommand = null;
@@ -607,10 +608,32 @@ namespace FinalProject
             //reset data adapter and data table to new
             _daInventory = new SqlDataAdapter();
             _dtInventoryTable = new DataTable();
+            string strDGVQuery;
 
-            //string query
-            string strDGVQuery = "Select ItemImage as 'Image', ItemName as 'Name', RetailPrice as 'Price', Size, Quantity, ItemDescription as 'Description', Color, T.TeamSport as 'Sport' from " + strSchema + ".Inventory I INNER JOIN " +
-                strSchema + ".Teams T ON I.TeamID = T.TeamID Where Quantity > 0 AND Discontinued = 0";
+            if (strSport == "null" && strSize == "null")
+            {
+                //string query
+                strDGVQuery = "Select ItemImage as 'Image', ItemName as 'Name', RetailPrice as 'Price', Size, Quantity, ItemDescription as 'Description', Color, T.TeamSport as 'Sport' from " + strSchema + ".Inventory I INNER JOIN " +
+                    strSchema + ".Teams T ON I.TeamID = T.TeamID Where Quantity > 0 AND Discontinued = 0";
+            }
+            else if(strSport == "null" && strSize != "null")
+            {
+                //string query
+                strDGVQuery = "Select ItemImage as 'Image', ItemName as 'Name', RetailPrice as 'Price', Size, Quantity, ItemDescription as 'Description', Color, T.TeamSport as 'Sport' from " + strSchema + ".Inventory I INNER JOIN " +
+                    strSchema + ".Teams T ON I.TeamID = T.TeamID Where Quantity > 0 AND Discontinued = 0 AND Size = '"+ strSize +"'";
+            }
+            else if(strSport != "null" && strSize == "null")
+            {
+                //string query
+                strDGVQuery = "Select ItemImage as 'Image', ItemName as 'Name', RetailPrice as 'Price', Size, Quantity, ItemDescription as 'Description', Color, T.TeamSport as 'Sport' from " + strSchema + ".Inventory I INNER JOIN " +
+                    strSchema + ".Teams T ON I.TeamID = T.TeamID Where Quantity > 0 AND Discontinued = 0 AND T.TeamSport = '" + strSport + "'";
+            }
+            else
+            {
+                //string query
+                strDGVQuery = "Select ItemImage as 'Image', ItemName as 'Name', RetailPrice as 'Price', Size, Quantity, ItemDescription as 'Description', Color, T.TeamSport as 'Sport' from " + strSchema + ".Inventory I INNER JOIN " +
+                    strSchema + ".Teams T ON I.TeamID = T.TeamID Where Quantity > 0 AND Discontinued = 0 AND T.TeamSport = '" + strSport +"' AND Size = '" + strSize +"'";
+            }            
 
             //set command object to null
             _sqlInventoryCommand = null;
@@ -635,12 +658,9 @@ namespace FinalProject
             //fill tables and objects
             try
             {
-                string strFilter = "";
-
+                string strFilter = "null", strSize = "null";
                 //setup data
-                BindInventoryView(dgvInventory);
-
-                (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = strFilter;
+                BindInventoryView(dgvInventory, strFilter, strSize);
 
                 if (dgvInventory.Columns.Count <= 8 && !dgvInventory.Columns.Contains("Item Image"))
                 {
@@ -1354,7 +1374,7 @@ namespace FinalProject
             CloseDatabase();
         }
         //method to fill quantity combos
-        internal static void FillQuantityCombo(DataGridView dgvInventory, ComboBox cbxCategory)
+        internal static void FillQuantityCombo(DataGridView dgvInventory, ComboBox cbxQuantity)
         {
             //var for inventory id, item name, and size
             string strInventoryID = "";
@@ -1381,7 +1401,7 @@ namespace FinalProject
                     {
 
                         //query for getting inventory id
-                        string strSelectID = "SELECT InventoryID from " + strSchema + ".Inventory WHERE ItemName = '" + strItem + "' AND Size = '" + strSize + "'";
+                        string strSelectID = "SELECT InventoryID, Quantity from " + strSchema + ".Inventory WHERE ItemName = '" + strItem + "' AND Size = '" + strSize + "'";
                         //command query for inventory id
                         SqlCommand cmdInventoryID = new SqlCommand(strSelectID, _cntDatabase);
                         SqlDataReader rdInventoryID = cmdInventoryID.ExecuteReader();
@@ -1391,7 +1411,7 @@ namespace FinalProject
                         {
                             //string for returned values
                             strInventoryID = rdInventoryID.GetValue(0).ToString();
-
+                            string strDataQuantity = rdInventoryID.GetValue(1).ToString();
                             //close reader
                             rdInventoryID.Close();
 
@@ -1410,16 +1430,26 @@ namespace FinalProject
                             //insert to data table
                             DataRow drQuantity = dtQuantity.NewRow();
 
-                            for (int i = 0; i < intQuantity; i++)
+                            for (int i = 0; i < intQuantity + 1; i++)
                             {
                                 dtQuantity.Rows.Add(i);
                             }
+
                             dtQuantity.Rows.InsertAt(drQuantity, 0);
 
+                            if(int.TryParse(strDataQuantity, out int intDataQuantity))
+                            {
+                                intItemDataQuantity = intDataQuantity;
+                                if(intDataQuantity > intQuantity)
+                                {
+                                    dtQuantity.Rows.RemoveAt(1);
+                                }
+                            }
+
                             //setup comboboxes
-                            cbxCategory.DataSource = dtQuantity;
-                            cbxCategory.DisplayMember = "Quantity";
-                            cbxCategory.ValueMember = "Quantity";
+                            cbxQuantity.DataSource = dtQuantity;
+                            cbxQuantity.DisplayMember = "Quantity";
+                            cbxQuantity.ValueMember = "Quantity";
 
                         }
                         else
@@ -2573,6 +2603,52 @@ namespace FinalProject
                 return false;
             }
         }
+
+        //reports form
+        public static SqlCommand _sqlDailySales;
+        //add the data adapter
+        public static SqlDataAdapter _daDailySales = new SqlDataAdapter();
+        //add the data table
+        public static DataTable _dtDailySales = new DataTable();
+
+
+        public static SqlCommand _sqlWeeklySales;
+        //add the data adapter
+        public static SqlDataAdapter _daWeeklySales = new SqlDataAdapter();
+        //add the data table
+        public static DataTable _dtWeeklySales = new DataTable();
+
+
+        public static SqlCommand _sqlMonthlySales;
+        //add the data adapter
+        public static SqlDataAdapter _daMonthlySales = new SqlDataAdapter();
+        //add the data table
+        public static DataTable _dtMonthlySales = new DataTable();
+
+        internal static void DatabaseCommandLoadDailySales()
+        {
+            try
+            {
+                OpenDatabase();
+                string strQuery;
+                //string to build query 
+                strQuery = $"declare @TotalSaleOfOrder money "
+                + " set @TotalSaleOfOrder = (select top 1 sum(I.RetailPrice * D.Quantity) as 'Total Daily Sales' from " + strSchema + ".Inventory I FULL JOIN " + strSchema + ".OrderDetails D on I.InventoryID = D.InventoryID " +
+                "FULL JOIN "+ strSchema + ".Orders O on O.OrderID = D.OrderID where O.OrderDate = '2022-03-28')"
+                + " Select D.OrderID, O.OrderDate, I.ItemName, D.Quantity, format(@TotalSaleOfOrder, 'C') as 'Total Daily Sales' from " + strSchema + ".Inventory I, " + strSchema + ".OrderDetails D, " + strSchema + ".Orders O " +
+                "WHERE O.OrderDate = '2022-03-28' and D.OrderID = O.OrderID and I.InventoryID = D.InventoryID order by OrderID;";
+                //establish cmd obj
+                _sqlDailySales = new SqlCommand(strQuery, _cntDatabase);
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error in establishing Daily Sales Table.", MessageBoxButtons.OK,
+                  MessageBoxIcon.Error);
+                CloseDatabase();
+            }
+        }
+
         //methods for handling database errors
         internal static void ConnectionFail(Exception ex)
         {
