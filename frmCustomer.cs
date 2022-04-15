@@ -291,8 +291,17 @@ namespace FinalProject
             //call method to get info
             if(clsManager.GetSelectedCustomerInfo(dgvCustomers, tbxFirstName, tbxLastName, tbxPersonID))
             {
-                frmMain frmMain = new frmMain();
-                frmMain.ShowDialog();
+                //check if deleted
+                if (cbxDeleted.SelectedIndex == 0)
+                {
+                    frmMain frmMain = new frmMain();
+                    frmMain.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Please Select a customer that is not deleted. Try Again.",
+                  "Point of Sale", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
 

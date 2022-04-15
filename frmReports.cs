@@ -102,5 +102,26 @@ namespace FinalProject
                 MessageBox.Show("Please select the type of sales report you would like to print.", "Sales Reports", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        private void btnPrintAvailable_Click(object sender, EventArgs e)
+        {
+            //call methods for reports
+            clsSQL.DatabaseCommandLoadAvailableInventory();
+            clsHTML.PrintInventoryAvailable(clsHTML.GenerateInventoryAvailable(clsSQL._sqlInventoryAvailable));
+        }
+
+        private void btnPrintRestock_Click(object sender, EventArgs e)
+        {
+            //call methods for reports
+            clsSQL.DatabaseCommandLoadRestockInventory();
+            clsHTML.PrintInventoryRestock(clsHTML.GenerateInventoryRestock(clsSQL._sqlInventoryRestock));
+        }
+
+        private void btnPrintFull_Click(object sender, EventArgs e)
+        {
+            //call methods for reports
+            clsSQL.DatabaseCommandLoadFullInventory();
+            clsHTML.PrintInventoryFull(clsHTML.GenerateInventoryFull(clsSQL._sqlInventoryFull));
+        }
     }
 }

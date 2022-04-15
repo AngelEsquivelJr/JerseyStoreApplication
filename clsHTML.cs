@@ -370,6 +370,188 @@ namespace FinalProject
             return sbHtml;
         }
 
+        //method to generate inventory reports
+        public static StringBuilder GenerateInventoryAvailable(SqlCommand cmdAvailable)
+        {
+            clsSQL.OpenDatabase();
+            StringBuilder sbHtml = new StringBuilder();
+            StringBuilder sbCss = new StringBuilder();
+            string strInfo = "";
+            SqlDataReader rdAvailable;
+            DateTime dateToday = DateTime.Now;
+
+            cmdAvailable.ExecuteNonQuery();
+
+            rdAvailable = cmdAvailable.ExecuteReader();
+
+            sbCss.Append("<style>");
+            sbCss.Append("td {padding:5px;text-align:center;font-weight:bold;text-align:center}");
+            sbCss.Append("</style>");
+
+            sbHtml.Append("<html>");
+            sbHtml.Append($"<head>{sbCss}<title>{"Available Inventory Report"}</title></head>");
+            sbHtml.Append($"<body>");
+            sbHtml.Append($"<h1>{"Available Inventory Report"}</h1>");
+
+            sbHtml.Append("<table>");
+            sbHtml.Append("<tr><td colspan=6></td></tr>");
+
+            sbHtml.Append("<tr>");
+            sbHtml.Append("<td>InventoryID</td>");
+            sbHtml.Append("<td>Item Name</td>");
+            sbHtml.Append("<td>Cost</td>");
+            sbHtml.Append("<td>Retail Price</td>");
+            sbHtml.Append("<td>Quantity</td>");
+            sbHtml.Append("<td>Restock Threshold</td>");
+            sbHtml.Append("</tr>");
+
+            sbHtml.Append("<tr>");
+            while (rdAvailable.Read())
+            {
+                strInfo = dateToday.ToString("MM/dd/yyyy");
+                sbHtml.Append($"<td>{rdAvailable.GetInt32(0)}</td>");
+                sbHtml.Append($"<td>{rdAvailable.GetString(1)}</td>");
+                sbHtml.Append($"<td>{rdAvailable.GetString(2)}</td>");
+                sbHtml.Append($"<td>{rdAvailable.GetString(3)}</td>");
+                sbHtml.Append($"<td>{rdAvailable.GetInt32(4)}</td>");
+                sbHtml.Append($"<td>{rdAvailable.GetInt32(5)}</td>");
+                sbHtml.Append("</tr>");
+            }
+
+            sbHtml.Append("<tr><td colspan=7></td></tr>");
+            sbHtml.Append("</table>");
+            if (strInfo != "")
+            {
+                sbHtml.Append("<p>Date of Report</p>");
+                sbHtml.Append($"<p>{strInfo}</p>");
+            }
+            sbHtml.Append("</body></html>");
+
+            rdAvailable.Close();
+            clsSQL.CloseDatabase();
+            return sbHtml;
+        }
+        public static StringBuilder GenerateInventoryFull(SqlCommand cmdFull)
+        {
+            clsSQL.OpenDatabase();
+            StringBuilder sbHtml = new StringBuilder();
+            StringBuilder sbCss = new StringBuilder();
+            string strInfo = "";
+            SqlDataReader rdFull;
+            DateTime dateToday = DateTime.Now;
+
+            cmdFull.ExecuteNonQuery();
+
+            rdFull = cmdFull.ExecuteReader();
+
+            sbCss.Append("<style>");
+            sbCss.Append("td {padding:5px;text-align:center;font-weight:bold;text-align:center}");
+            sbCss.Append("</style>");
+
+            sbHtml.Append("<html>");
+            sbHtml.Append($"<head>{sbCss}<title>{"Full Inventory Report"}</title></head>");
+            sbHtml.Append($"<body>");
+            sbHtml.Append($"<h1>{"Full Inventory Report"}</h1>");
+
+            sbHtml.Append("<table>");
+            sbHtml.Append("<tr><td colspan=6></td></tr>");
+
+            sbHtml.Append("<tr>");
+            sbHtml.Append("<td>InventoryID</td>");
+            sbHtml.Append("<td>Item Name</td>");
+            sbHtml.Append("<td>Cost</td>");
+            sbHtml.Append("<td>Retail Price</td>");
+            sbHtml.Append("<td>Quantity</td>");
+            sbHtml.Append("<td>Restock Threshold</td>");
+            sbHtml.Append("</tr>");
+
+            sbHtml.Append("<tr>");
+            while (rdFull.Read())
+            {
+                strInfo = dateToday.ToString("MM/dd/yyyy");
+                sbHtml.Append($"<td>{rdFull.GetInt32(0)}</td>");
+                sbHtml.Append($"<td>{rdFull.GetString(1)}</td>");
+                sbHtml.Append($"<td>{rdFull.GetString(2)}</td>");
+                sbHtml.Append($"<td>{rdFull.GetString(3)}</td>");
+                sbHtml.Append($"<td>{rdFull.GetInt32(4)}</td>");
+                sbHtml.Append($"<td>{rdFull.GetInt32(5)}</td>");
+                sbHtml.Append("</tr>");
+            }
+
+            sbHtml.Append("<tr><td colspan=7></td></tr>");
+            sbHtml.Append("</table>");
+            if (strInfo != "")
+            {
+                sbHtml.Append("<p>Date of Report</p>");
+                sbHtml.Append($"<p>{strInfo}</p>");
+            }
+            sbHtml.Append("</body></html>");
+
+            rdFull.Close();
+            clsSQL.CloseDatabase();
+            return sbHtml;
+        }
+        public static StringBuilder GenerateInventoryRestock(SqlCommand cmdRestock)
+        {
+            clsSQL.OpenDatabase();
+            StringBuilder sbHtml = new StringBuilder();
+            StringBuilder sbCss = new StringBuilder();
+            string strInfo = "";
+            SqlDataReader rdRestock;
+            DateTime dateToday = DateTime.Now;
+
+            cmdRestock.ExecuteNonQuery();
+
+            rdRestock = cmdRestock.ExecuteReader();
+
+            sbCss.Append("<style>");
+            sbCss.Append("td {padding:5px;text-align:center;font-weight:bold;text-align:center}");
+            sbCss.Append("</style>");
+
+            sbHtml.Append("<html>");
+            sbHtml.Append($"<head>{sbCss}<title>{"Restock Inventory Report"}</title></head>");
+            sbHtml.Append($"<body>");
+            sbHtml.Append($"<h1>{"Restock Inventory Report"}</h1>");
+
+            sbHtml.Append("<table>");
+            sbHtml.Append("<tr><td colspan=6></td></tr>");
+
+            sbHtml.Append("<tr>");
+            sbHtml.Append("<td>InventoryID</td>");
+            sbHtml.Append("<td>Item Name</td>");
+            sbHtml.Append("<td>Cost</td>");
+            sbHtml.Append("<td>Retail Price</td>");
+            sbHtml.Append("<td>Quantity</td>");
+            sbHtml.Append("<td>Restock Threshold</td>");
+            sbHtml.Append("</tr>");
+
+            sbHtml.Append("<tr>");
+            while (rdRestock.Read())
+            {
+                strInfo = dateToday.ToString("MM/dd/yyyy");
+                sbHtml.Append($"<td>{rdRestock.GetInt32(0)}</td>");
+                sbHtml.Append($"<td>{rdRestock.GetString(1)}</td>");
+                sbHtml.Append($"<td>{rdRestock.GetString(2)}</td>");
+                sbHtml.Append($"<td>{rdRestock.GetString(3)}</td>");
+                sbHtml.Append($"<td>{rdRestock.GetInt32(4)}</td>");
+                sbHtml.Append($"<td>{rdRestock.GetInt32(5)}</td>");
+                sbHtml.Append("</tr>");
+            }
+
+            sbHtml.Append("<tr><td colspan=7></td></tr>");
+            sbHtml.Append("</table>");
+            if (strInfo != "")
+            {
+                sbHtml.Append("<p>Date of Report</p>");
+                sbHtml.Append($"<p>{strInfo}</p>");
+            }
+            sbHtml.Append("</body></html>");
+
+            rdRestock.Close();
+            clsSQL.CloseDatabase();
+            return sbHtml;
+        }
+
         //method for receipt display
         public static void PrintReceipt(StringBuilder sbHtml, string strOrderID)
         {
@@ -384,7 +566,13 @@ namespace FinalProject
                 string strFileName = string.Empty;
                 strFileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 string strSubFolder = Path.Combine(strFileName, "AESportingFits");
-                string strFile = Path.Combine(strSubFolder, "Receipt - Order "+ strOrderID +".html");
+                if (!Directory.Exists("Receipts"))
+                {
+                    //create sub folder
+                    Directory.CreateDirectory(Path.Combine(strSubFolder, "Receipts"));
+                }
+                string strSubFile = Path.Combine(strSubFolder, "Receipts");
+                string strFile = Path.Combine(strSubFile, "Receipt-Order-" + strOrderID + ".html");
                 File.WriteAllText(strFile, sbHtml.ToString());
                 System.Diagnostics.Process.Start(strFile);
             }
@@ -400,6 +588,11 @@ namespace FinalProject
         {
             try
             {
+                if (!Directory.Exists("AESportingFits"))
+                {
+                    //create sub folder
+                    Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AESportingFits"));
+                }
                 //get path of folders
                 string strFileName = string.Empty;
                 strFileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -424,6 +617,11 @@ namespace FinalProject
         {
             try
             {
+                if (!Directory.Exists("AESportingFits"))
+                {
+                    //create sub folder
+                    Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AESportingFits"));
+                }
                 //get path of folders
                 string strFileName = string.Empty;
                 strFileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -448,6 +646,11 @@ namespace FinalProject
         {
             try
             {
+                if (!Directory.Exists("AESportingFits"))
+                {
+                    //create sub folder
+                    Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AESportingFits"));
+                }
                 //get path of folders
                 string strFileName = string.Empty;
                 strFileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -459,7 +662,99 @@ namespace FinalProject
                 }
                 //get path of html
                 string strSubFile = Path.Combine(strSubFolder, "MonthlySalesReports");
-                string strFile = Path.Combine(strSubFile, dateSelected.ToString("MM-dd-yyyy") + "-MonthlySales.html");
+                string strFile = Path.Combine(strSubFile, dateSelected.ToString("MM") + "-MonthlySales.html");
+                File.WriteAllText(strFile, sbHtml.ToString());
+                System.Diagnostics.Process.Start(strFile);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("You don't have write permissions " + ex, "Error System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //methods for printing inventory reports
+        public static void PrintInventoryAvailable(StringBuilder sbHtml)
+        {
+            try
+            {
+                if (!Directory.Exists("AESportingFits"))
+                {
+                    //create sub folder
+                    Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AESportingFits"));
+                }
+                DateTime dateToday = DateTime.Now;
+                //get path of folders
+                string strFileName = string.Empty;
+                strFileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                string strSubFolder = Path.Combine(strFileName, "AESportingFits");
+                if (!Directory.Exists("InventoryReports"))
+                {
+                    //create sub folder
+                    Directory.CreateDirectory(Path.Combine(strSubFolder, "InventoryReports"));
+                }
+                //get path of html
+                string strSubFile = Path.Combine(strSubFolder, "InventoryReports");
+                string strFile = Path.Combine(strSubFile, "AvailableInventory-" + dateToday.ToString("MM-dd-yyyy") + ".html");
+                File.WriteAllText(strFile, sbHtml.ToString());
+                System.Diagnostics.Process.Start(strFile);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("You don't have write permissions " + ex, "Error System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        public static void PrintInventoryFull(StringBuilder sbHtml)
+        {
+            try
+            {
+                if (!Directory.Exists("AESportingFits"))
+                {
+                    //create sub folder
+                    Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AESportingFits"));
+                }
+                DateTime dateToday = DateTime.Now;
+                //get path of folders
+                string strFileName = string.Empty;
+                strFileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                string strSubFolder = Path.Combine(strFileName, "AESportingFits");
+                if (!Directory.Exists("InventoryReports"))
+                {
+                    //create sub folder
+                    Directory.CreateDirectory(Path.Combine(strSubFolder, "InventoryReports"));
+                }
+                //get path of html
+                string strSubFile = Path.Combine(strSubFolder, "InventoryReports");
+                string strFile = Path.Combine(strSubFile, "FullInventory-" + dateToday.ToString("MM-dd-yyyy") + ".html");
+                File.WriteAllText(strFile, sbHtml.ToString());
+                System.Diagnostics.Process.Start(strFile);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("You don't have write permissions " + ex, "Error System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        public static void PrintInventoryRestock(StringBuilder sbHtml)
+        {
+            try
+            {
+                if (!Directory.Exists("AESportingFits"))
+                {
+                    //create sub folder
+                    Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AESportingFits"));
+                }
+                DateTime dateToday = DateTime.Now;
+                //get path of folders
+                string strFileName = string.Empty;
+                strFileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                string strSubFolder = Path.Combine(strFileName, "AESportingFits");
+                if (!Directory.Exists("InventoryReports"))
+                {
+                    //create sub folder
+                    Directory.CreateDirectory(Path.Combine(strSubFolder, "InventoryReports"));
+                }
+                //get path of html
+                string strSubFile = Path.Combine(strSubFolder, "InventoryReports");
+                string strFile = Path.Combine(strSubFile, "RestockInventory-" + dateToday.ToString("MM-dd-yyyy") + ".html");
                 File.WriteAllText(strFile, sbHtml.ToString());
                 System.Diagnostics.Process.Start(strFile);
             }

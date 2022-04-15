@@ -160,8 +160,8 @@ namespace FinalProject
 
             //string commands to create user
             string strInsertQuery = "INSERT INTO " + strSchema + ".Person (Title, NameFirst, NameMiddle, NameLast, Suffix, Address1, Address2," +
-                " Address3, City, Zipcode, State, Email, PhonePrimary, PhoneSecondary) VALUES (@Title, @NameFirst, @NameMiddle, @NameLast, @Suffix," +
-                " @Address1, @Address2, @Address3, @City, @Zipcode, @State, @Email, @PhonePrimary, @PhoneSecondary)";
+                " Address3, City, Zipcode, State, Email, PhonePrimary, PhoneSecondary, PersonDeleted) VALUES (@Title, @NameFirst, @NameMiddle, @NameLast, @Suffix," +
+                " @Address1, @Address2, @Address3, @City, @Zipcode, @State, @Email, @PhonePrimary, @PhoneSecondary, @PersonDeleted)";
             string strInsertQuery2 = "INSERT INTO " + strSchema + ".Logon (PersonID, LogonName, Password, FirstChallengeQuestion, FirstChallengeAnswer," +
                 " SecondChallengeQuestion, SecondChallengeAnswer, ThirdChallengeQuestion, ThirdChallengeAnswer, PositionTitle) VALUES (@PersonID, @LogonName," +
                 " @Password, @FirstChallengeQuestion, @FirstChallengeAnswer, @SecondChallengeQuestion, @SecondChallengeAnswer, @ThirdChallengeQuestion," +
@@ -223,6 +223,7 @@ namespace FinalProject
                 cmdInsert.Parameters.AddWithValue("@Email", signupParameters.tbxEmailP.Text.Trim());
                 cmdInsert.Parameters.AddWithValue("@PhonePrimary", signupParameters.tbxPhone1P.Text.Trim());
                 cmdInsert.Parameters.AddWithValue("@PhoneSecondary", signupParameters.tbxPhone2P.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@PersonDeleted", "0");
 
                 //executes querys and closes reader
                 SqlDataReader rdInsert = cmdInsert.ExecuteReader();
@@ -2155,66 +2156,7 @@ namespace FinalProject
                 CloseDatabase();
                 UpdateDataFail(ex);
             }
-        }
-        internal static void UpdateCustomerManager(clsParameters.SignupParameters customerParameters)
-        {
-            try
-            {
-                OpenDatabase();
-
-                //set up discontinued
-                string strDeleted;
-                if (customerParameters.cbxDeletedP.SelectedIndex == 0)
-                {
-                    strDeleted = "0";
-                }
-                else if (customerParameters.cbxDeletedP.SelectedIndex == 1)
-                {
-                    strDeleted = "1";
-                }
-                else
-                {
-                    strDeleted = "";
-                }
-
-                //string command to update inventory
-                string strUpdateQuery = "UPDATE " + strSchema + ".Person SET Title = @Title, NameFirst = @NameFirst, NameMiddle = @NameMiddle, NameLast = @NameLast, Suffix = @Suffix," +
-                " Address1 = @Address1, Address2 = @Address2, Address3 = @Address3, City = @city, Zipcode = @Zipcode, State = @State, Email = @Email," +
-                " PhonePrimary = @PhonePrimary, PhoneSecondary = @PhoneSecondary, PersonDeleted = @PersonDeleted WHERE PersonID = @PersonID";
-
-                if (int.TryParse(customerParameters.tbxPersonIDP.Text, out int intPersonID))
-                {
-                    //command query
-                    SqlCommand cmdUpdate = new SqlCommand(strUpdateQuery, _cntDatabase);
-                    cmdUpdate.Parameters.AddWithValue("@PersonID", intPersonID);
-                    cmdUpdate.Parameters.AddWithValue("@Title", customerParameters.cbxTitleP.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@NameFirst", customerParameters.tbxFirstNameP.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@NameMiddle", customerParameters.tbxMiddleNameP.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@NameLast", customerParameters.tbxLastNameP.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@Suffix", customerParameters.tbxSuffixP.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@Address1", customerParameters.tbxAddress1P.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@Address2", customerParameters.tbxAddress2P.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@Address3", customerParameters.tbxAddress3P.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@City", customerParameters.tbxCityP.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@Zipcode", customerParameters.tbxZipcodeP.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@State", customerParameters.cbxStateP.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@Email", customerParameters.tbxEmailP.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@PhonePrimary", customerParameters.tbxPhone1P.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@PhoneSecondary", customerParameters.tbxPhone2P.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@PersonDeleted", strDeleted);
-                    SqlDataReader rdUpdate = cmdUpdate.ExecuteReader();
-
-                    rdUpdate.Close();
-                }
-                CloseDatabase();
-            }
-            catch (Exception ex)
-            {
-                //close database and show error
-                CloseDatabase();
-                UpdateDataFail(ex);
-            }
-        }
+        }        
         //method for updating discounts
         internal static bool UpdateDiscounts(clsParameters.DiscountParameters discountParameters)
         {
@@ -2753,6 +2695,85 @@ namespace FinalProject
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error in establishing Monthly Sales Table.", MessageBoxButtons.OK,
+                  MessageBoxIcon.Error);
+                CloseDatabase();
+            }
+        }
+
+        public static SqlCommand _sqlInventoryAvailable;
+        //add the data adapter
+        public static SqlDataAdapter _daInventoryAvailable = new SqlDataAdapter();
+        //add the data table
+        public static DataTable _dtInventoryAvailable = new DataTable();
+
+        public static SqlCommand _sqlInventoryFull;
+        //add the data adapter
+        public static SqlDataAdapter _daInventoryFull = new SqlDataAdapter();
+        //add the data table
+        public static DataTable _dtInventoryFull = new DataTable();
+
+        public static SqlCommand _sqlInventoryRestock;
+        //add the data adapter
+        public static SqlDataAdapter _daInventoryRestock = new SqlDataAdapter();
+        //add the data table
+        public static DataTable _dtInventoryRestock = new DataTable();
+        //method to load inventory values
+        internal static void DatabaseCommandLoadAvailableInventory()
+        {
+            try
+            {
+                OpenDatabase();
+                string strQuery;
+                //string to build query 
+                strQuery = "Select InventoryID, ItemName, format(Cost, 'C') as 'Cost', format(RetailPrice, 'C') as 'Retail Price', Quantity, RestockThreshold from " + strSchema +
+                    ".Inventory WHERE Discontinued = 0 order by InventoryID ASC;";
+                //establish cmd obj
+                _sqlInventoryAvailable = new SqlCommand(strQuery, _cntDatabase);
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error in establishing Available Inventory Table.", MessageBoxButtons.OK,
+                  MessageBoxIcon.Error);
+                CloseDatabase();
+            }
+        }
+        internal static void DatabaseCommandLoadFullInventory()
+        {
+            try
+            {
+                OpenDatabase();
+                string strQuery;
+                //string to build query 
+                strQuery = "Select InventoryID, ItemName, format(Cost, 'C') as 'Cost', format(RetailPrice, 'C') as 'Retail Price', Quantity, RestockThreshold from " + strSchema +
+                    ".Inventory order by InventoryID ASC;";
+                //establish cmd obj
+                _sqlInventoryFull = new SqlCommand(strQuery, _cntDatabase);
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error in establishing Full Inventory Table.", MessageBoxButtons.OK,
+                  MessageBoxIcon.Error);
+                CloseDatabase();
+            }
+        }
+        internal static void DatabaseCommandLoadRestockInventory()
+        {
+            try
+            {
+                OpenDatabase();
+                string strQuery;
+                //string to build query 
+                strQuery = "Select InventoryID, ItemName, format(Cost, 'C') as 'Cost', format(RetailPrice, 'C') as 'Retail Price', Quantity, RestockThreshold from " + strSchema +
+                    ".Inventory WHERE RestockThreshold >= Quantity and Discontinued = 0 order by InventoryID ASC;";
+                //establish cmd obj
+                _sqlInventoryRestock = new SqlCommand(strQuery, _cntDatabase);
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error in establishing Restock Inventory Table.", MessageBoxButtons.OK,
                   MessageBoxIcon.Error);
                 CloseDatabase();
             }

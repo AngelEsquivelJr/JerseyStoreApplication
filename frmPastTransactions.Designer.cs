@@ -52,7 +52,7 @@ namespace FinalProject
             this.lbl4.Location = new System.Drawing.Point(9, 231);
             this.lbl4.Name = "lbl4";
             this.lbl4.Size = new System.Drawing.Size(96, 14);
-            this.lbl4.TabIndex = 62;
+            this.lbl4.TabIndex = 3;
             this.lbl4.Text = "Order Details:";
             this.lbl4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -62,7 +62,7 @@ namespace FinalProject
             this.lbl3.Location = new System.Drawing.Point(202, 1);
             this.lbl3.Name = "lbl3";
             this.lbl3.Size = new System.Drawing.Size(275, 18);
-            this.lbl3.TabIndex = 61;
+            this.lbl3.TabIndex = 1;
             this.lbl3.Text = "Select the Order to show details of that Order";
             this.lbl3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -78,7 +78,7 @@ namespace FinalProject
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Size = new System.Drawing.Size(194, 222);
-            this.groupBox1.TabIndex = 60;
+            this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
             // lbl2
@@ -89,7 +89,7 @@ namespace FinalProject
             this.lbl2.Location = new System.Drawing.Point(28, 7);
             this.lbl2.Name = "lbl2";
             this.lbl2.Size = new System.Drawing.Size(136, 49);
-            this.lbl2.TabIndex = 54;
+            this.lbl2.TabIndex = 0;
             this.lbl2.Text = "Past Transactions";
             this.lbl2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -102,7 +102,7 @@ namespace FinalProject
             this.lblName.Location = new System.Drawing.Point(3, 77);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(82, 20);
-            this.lblName.TabIndex = 53;
+            this.lblName.TabIndex = 2;
             this.lblName.Text = "Customer:";
             this.lblName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -114,7 +114,7 @@ namespace FinalProject
             this.lbl1.Location = new System.Drawing.Point(3, 56);
             this.lbl1.Name = "lbl1";
             this.lbl1.Size = new System.Drawing.Size(83, 21);
-            this.lbl1.TabIndex = 52;
+            this.lbl1.TabIndex = 1;
             this.lbl1.Text = "Customer:";
             this.lbl1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -127,7 +127,7 @@ namespace FinalProject
             this.btnClose.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(136, 35);
-            this.btnClose.TabIndex = 12;
+            this.btnClose.TabIndex = 3;
             this.btnClose.Text = "&Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -153,8 +153,8 @@ namespace FinalProject
             this.dgvOrderDetails.ReadOnly = true;
             this.dgvOrderDetails.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvOrderDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOrderDetails.Size = new System.Drawing.Size(561, 220);
-            this.dgvOrderDetails.TabIndex = 59;
+            this.dgvOrderDetails.Size = new System.Drawing.Size(572, 220);
+            this.dgvOrderDetails.TabIndex = 4;
             // 
             // dgvOrders
             // 
@@ -178,7 +178,7 @@ namespace FinalProject
             this.dgvOrders.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvOrders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvOrders.Size = new System.Drawing.Size(368, 205);
-            this.dgvOrders.TabIndex = 58;
+            this.dgvOrders.TabIndex = 2;
             this.dgvOrders.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrders_CellClick);
             // 
             // frmPastTransactions
@@ -186,7 +186,7 @@ namespace FinalProject
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
-            this.ClientSize = new System.Drawing.Size(579, 468);
+            this.ClientSize = new System.Drawing.Size(585, 468);
             this.Controls.Add(this.lbl4);
             this.Controls.Add(this.lbl3);
             this.Controls.Add(this.groupBox1);

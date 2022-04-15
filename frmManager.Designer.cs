@@ -51,7 +51,7 @@ namespace FinalProject
             this.btnRefresh.Location = new System.Drawing.Point(483, 377);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(94, 33);
-            this.btnRefresh.TabIndex = 71;
+            this.btnRefresh.TabIndex = 4;
             this.btnRefresh.Text = "Re&fresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
@@ -65,7 +65,7 @@ namespace FinalProject
             this.lblManager.Location = new System.Drawing.Point(12, 9);
             this.lblManager.Name = "lblManager";
             this.lblManager.Size = new System.Drawing.Size(108, 23);
-            this.lblManager.TabIndex = 70;
+            this.lblManager.TabIndex = 0;
             this.lblManager.Text = "Manager: ";
             this.lblManager.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -77,7 +77,7 @@ namespace FinalProject
             this.lblRestock.Location = new System.Drawing.Point(460, 19);
             this.lblRestock.Name = "lblRestock";
             this.lblRestock.Size = new System.Drawing.Size(136, 49);
-            this.lblRestock.TabIndex = 69;
+            this.lblRestock.TabIndex = 1;
             this.lblRestock.Text = "Item(s) need to be restocked!! ";
             this.lblRestock.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblRestock.Visible = false;
@@ -104,7 +104,7 @@ namespace FinalProject
             this.dgvRestock.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvRestock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvRestock.Size = new System.Drawing.Size(403, 294);
-            this.dgvRestock.TabIndex = 68;
+            this.dgvRestock.TabIndex = 3;
             // 
             // gbxOne
             // 
@@ -120,7 +120,7 @@ namespace FinalProject
             this.gbxOne.Name = "gbxOne";
             this.gbxOne.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbxOne.Size = new System.Drawing.Size(317, 339);
-            this.gbxOne.TabIndex = 67;
+            this.gbxOne.TabIndex = 2;
             this.gbxOne.TabStop = false;
             // 
             // btnClose
@@ -132,7 +132,7 @@ namespace FinalProject
             this.btnClose.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(136, 63);
-            this.btnClose.TabIndex = 6;
+            this.btnClose.TabIndex = 4;
             this.btnClose.Text = "&Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -146,7 +146,7 @@ namespace FinalProject
             this.btnInventory.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnInventory.Name = "btnInventory";
             this.btnInventory.Size = new System.Drawing.Size(136, 63);
-            this.btnInventory.TabIndex = 1;
+            this.btnInventory.TabIndex = 0;
             this.btnInventory.Text = "&Inventory";
             this.btnInventory.UseVisualStyleBackColor = true;
             this.btnInventory.Click += new System.EventHandler(this.btnInventory_Click);
@@ -160,7 +160,7 @@ namespace FinalProject
             this.btnReports.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnReports.Name = "btnReports";
             this.btnReports.Size = new System.Drawing.Size(136, 63);
-            this.btnReports.TabIndex = 4;
+            this.btnReports.TabIndex = 2;
             this.btnReports.Text = "&Reports";
             this.btnReports.UseVisualStyleBackColor = true;
             this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
@@ -188,7 +188,7 @@ namespace FinalProject
             this.btnCustomer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnCustomer.Name = "btnCustomer";
             this.btnCustomer.Size = new System.Drawing.Size(136, 63);
-            this.btnCustomer.TabIndex = 0;
+            this.btnCustomer.TabIndex = 1;
             this.btnCustomer.Text = "C&ustomers";
             this.btnCustomer.UseVisualStyleBackColor = true;
             this.btnCustomer.Click += new System.EventHandler(this.btnCustomer_Click);
