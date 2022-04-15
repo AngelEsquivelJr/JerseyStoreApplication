@@ -61,7 +61,7 @@ namespace FinalProject
             };
 
             if (dgvCustomers.SelectedCells.Count > 0)
-            {
+            {                
                 //check required fields
                 if (clsValidation.ValidateTwo(signupParameters))
                 {
@@ -151,12 +151,21 @@ namespace FinalProject
                 cbxDeletedP = cbxDeleted,
             };
 
+            //prevent self deletion
+            if (clsSQL.strName == tbxFirstName.Text + " " + tbxLastName.Text)
+            {
+                cbxDeleted.Enabled = false;
+            }
+            else
+            {
+                cbxDeleted.Enabled = true;
+            }
             //call methods for fields
             clsManager.UpdateFieldsCustomer(dgvCustomers,customerParameters);
         }
 
         private void cbxFilterTitle_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {            
             //call method for filter
             clsManager.FilterCustomerPosition(dgvCustomers, cbxFilterTitle);
         }
@@ -284,6 +293,32 @@ namespace FinalProject
             {
                 frmMain frmMain = new frmMain();
                 frmMain.ShowDialog();
+            }
+        }
+
+        private void dgvCustomers_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //prevent self deletion
+            if (clsSQL.strName == tbxFirstName.Text + " " + tbxLastName.Text)
+            {
+                cbxDeleted.Enabled = false;
+            }
+            else
+            {
+                cbxDeleted.Enabled = true;
+            }
+        }
+
+        private void dgvCustomers_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            //prevent self deletion
+            if (clsSQL.strName == tbxFirstName.Text + " " + tbxLastName.Text)
+            {
+                cbxDeleted.Enabled = false;
+            }
+            else
+            {
+                cbxDeleted.Enabled = true;
             }
         }
     }

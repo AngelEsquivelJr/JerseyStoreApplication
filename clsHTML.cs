@@ -235,7 +235,7 @@ namespace FinalProject
             sbHtml.Append("<td>OrderID</td>");
             sbHtml.Append("<td>Order Date</td>");
             sbHtml.Append("<td>Product Name</td>");
-            sbHtml.Append("<td>Quantity</td>");
+            sbHtml.Append("<td>Quantity Sold</td>");
             sbHtml.Append("</tr>");
 
             sbHtml.Append("<tr>");
@@ -243,7 +243,7 @@ namespace FinalProject
             {
                 strInfo = rdDaily.GetString(4);
                 sbHtml.Append($"<td>{rdDaily.GetInt32(0)}</td>");
-                sbHtml.Append($"<td>{Convert.ToDateTime(rdDaily.GetDateTime(1)).ToString("dd/MM/yyyy")}</td>");
+                sbHtml.Append($"<td>{Convert.ToDateTime(rdDaily.GetDateTime(1)).ToString("MM/dd/yyyy")}</td>");
                 sbHtml.Append($"<td>{rdDaily.GetString(2)}</td>");
                 sbHtml.Append($"<td>{rdDaily.GetInt32(3)}</td>");
                 sbHtml.Append("</tr>");
@@ -260,6 +260,112 @@ namespace FinalProject
             sbHtml.Append("</body></html>");
 
             rdDaily.Close();
+            clsSQL.CloseDatabase();
+            return sbHtml;
+        }
+        public static StringBuilder GenerateWeeklySales(SqlCommand cmdWeekly)
+        {
+            clsSQL.OpenDatabase();
+            StringBuilder sbHtml = new StringBuilder();
+            StringBuilder sbCss = new StringBuilder();
+            string strInfo = "";
+            SqlDataReader rdWeekly;
+
+            cmdWeekly.ExecuteNonQuery();
+
+            rdWeekly = cmdWeekly.ExecuteReader();
+
+            sbCss.Append("<style>");
+            sbCss.Append("td {padding:5px;text-align:center;font-weight:bold;text-align:center}");
+            sbCss.Append("</style>");
+
+            sbHtml.Append("<html>");
+            sbHtml.Append($"<head>{sbCss}<title>{"Weekly Sales"}</title></head>");
+            sbHtml.Append($"<body>");
+            sbHtml.Append($"<h1>{"Weekly Sales"}</h1>");
+
+            sbHtml.Append("<table>");
+            sbHtml.Append("<tr><td colspan=6></td></tr>");
+
+            sbHtml.Append("<tr>");
+            sbHtml.Append("<td>OrderID</td>");
+            sbHtml.Append("<td>Order Date</td>");
+            sbHtml.Append("<td>Daily Sales Total</td>");
+            sbHtml.Append("</tr>");
+
+            sbHtml.Append("<tr>");
+            while (rdWeekly.Read())
+            {
+                strInfo = rdWeekly.GetString(3);
+                sbHtml.Append($"<td>{rdWeekly.GetInt32(0)}</td>");
+                sbHtml.Append($"<td>{Convert.ToDateTime(rdWeekly.GetDateTime(1)).ToString("MM/dd/yyyy")}</td>");
+                sbHtml.Append($"<td>{rdWeekly.GetString(2)}</td>");
+                sbHtml.Append("</tr>");
+            }
+
+            sbHtml.Append("<tr><td colspan=7></td></tr>");
+            sbHtml.Append("</table>");
+            if (strInfo != "")
+            {
+                sbHtml.Append("<p>Total Weekly Sales</p>");
+                sbHtml.Append($"<p>{strInfo}</p>");
+            }
+            sbHtml.Append("</body></html>");
+
+            rdWeekly.Close();
+            clsSQL.CloseDatabase();
+            return sbHtml;
+        }
+        public static StringBuilder GenerateMonthlySales(SqlCommand cmdMonthly)
+        {
+            clsSQL.OpenDatabase();
+            StringBuilder sbHtml = new StringBuilder();
+            StringBuilder sbCss = new StringBuilder();
+            string strInfo = "";
+            SqlDataReader rdMonthly;
+
+            cmdMonthly.ExecuteNonQuery();
+
+            rdMonthly = cmdMonthly.ExecuteReader();
+
+            sbCss.Append("<style>");
+            sbCss.Append("td {padding:5px;text-align:center;font-weight:bold;text-align:center}");
+            sbCss.Append("</style>");
+
+            sbHtml.Append("<html>");
+            sbHtml.Append($"<head>{sbCss}<title>{"Monthly Sales"}</title></head>");
+            sbHtml.Append($"<body>");
+            sbHtml.Append($"<h1>{"Monthly Sales"}</h1>");
+
+            sbHtml.Append("<table>");
+            sbHtml.Append("<tr><td colspan=6></td></tr>");
+
+            sbHtml.Append("<tr>");
+            sbHtml.Append("<td>OrderID</td>");
+            sbHtml.Append("<td>Order Date</td>");
+            sbHtml.Append("<td>Weekly Sales Total</td>");
+            sbHtml.Append("</tr>");
+
+            sbHtml.Append("<tr>");
+            while (rdMonthly.Read())
+            {
+                strInfo = rdMonthly.GetString(3);
+                sbHtml.Append($"<td>{rdMonthly.GetInt32(0)}</td>");
+                sbHtml.Append($"<td>{Convert.ToDateTime(rdMonthly.GetDateTime(1)).ToString("MM/dd/yyyy")}</td>");
+                sbHtml.Append($"<td>{rdMonthly.GetString(2)}</td>");
+                sbHtml.Append("</tr>");
+            }
+
+            sbHtml.Append("<tr><td colspan=7></td></tr>");
+            sbHtml.Append("</table>");
+            if (strInfo != "")
+            {
+                sbHtml.Append("<p>Total Monthly Sales</p>");
+                sbHtml.Append($"<p>{strInfo}</p>");
+            }
+            sbHtml.Append("</body></html>");
+
+            rdMonthly.Close();
             clsSQL.CloseDatabase();
             return sbHtml;
         }
@@ -290,9 +396,8 @@ namespace FinalProject
 
         }
         //method for sales reports display
-        public static void PrintDailySales(StringBuilder sbHtml)
+        public static void PrintDailySales(StringBuilder sbHtml, DateTime dateSelected)
         {
-            DateTime dateToday = DateTime.Now;
             try
             {
                 //get path of folders
@@ -306,14 +411,61 @@ namespace FinalProject
                 }
                 //get path of html
                 string strSubFile = Path.Combine(strSubFolder, "DailySalesReports");
-                string strFile = Path.Combine(strSubFile, dateToday.ToString("MM-dd-yyyy") + "-DailySales.html");
+                string strFile = Path.Combine(strSubFile, dateSelected.ToString("MM-dd-yyyy") + "-DailySales.html");
                 File.WriteAllText(strFile, sbHtml.ToString());
                 System.Diagnostics.Process.Start(strFile);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("You don't have write permissions " + ex, "Error System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+            }
+        }
+        public static void PrintWeeklySales(StringBuilder sbHtml, DateTime dateSelected)
+        {
+            try
+            {
+                //get path of folders
+                string strFileName = string.Empty;
+                strFileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                string strSubFolder = Path.Combine(strFileName, "AESportingFits");
+                if (!Directory.Exists("WeeklySalesReports"))
+                {
+                    //create sub folder
+                    Directory.CreateDirectory(Path.Combine(strSubFolder, "WeeklySalesReports"));
+                }
+                //get path of html
+                string strSubFile = Path.Combine(strSubFolder, "WeeklySalesReports");
+                string strFile = Path.Combine(strSubFile, dateSelected.ToString("MM-dd-yyyy") + "-WeeklySales.html");
+                File.WriteAllText(strFile, sbHtml.ToString());
+                System.Diagnostics.Process.Start(strFile);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("You don't have write permissions " + ex, "Error System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        public static void PrintMonthlySales(StringBuilder sbHtml, DateTime dateSelected)
+        {
+            try
+            {
+                //get path of folders
+                string strFileName = string.Empty;
+                strFileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                string strSubFolder = Path.Combine(strFileName, "AESportingFits");
+                if (!Directory.Exists("MonthlySalesReports"))
+                {
+                    //create sub folder
+                    Directory.CreateDirectory(Path.Combine(strSubFolder, "MonthlySalesReports"));
+                }
+                //get path of html
+                string strSubFile = Path.Combine(strSubFolder, "MonthlySalesReports");
+                string strFile = Path.Combine(strSubFile, dateSelected.ToString("MM-dd-yyyy") + "-MonthlySales.html");
+                File.WriteAllText(strFile, sbHtml.ToString());
+                System.Diagnostics.Process.Start(strFile);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("You don't have write permissions " + ex, "Error System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

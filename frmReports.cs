@@ -76,12 +76,30 @@ namespace FinalProject
         }
 
         private void btnPrintSales_Click(object sender, EventArgs e)
-        {            
-            if(cbxDays.SelectedIndex == 0)
-            {
+        {
+            DateTime dateSelectedDay = calendarSalesReports.SelectionStart;
+            DateTime dateLastDayWeek = calendarSalesReports.SelectionStart.AddDays(6);
+            if (cbxDays.SelectedIndex == 0)
+            {                
                 //print daily reports
-                clsSQL.DatabaseCommandLoadDailySales();
-                clsHTML.PrintDailySales(clsHTML.GenerateDailySales(clsSQL._sqlDailySales));
+                clsSQL.DatabaseCommandLoadDailySales(dateSelectedDay);
+                clsHTML.PrintDailySales(clsHTML.GenerateDailySales(clsSQL._sqlDailySales), dateSelectedDay);
+            }
+            else if(cbxDays.SelectedIndex == 1)
+            {
+                //print weekly reports
+                clsSQL.DatabaseCommandLoadWeeklySales(dateSelectedDay, dateLastDayWeek);
+                clsHTML.PrintWeeklySales(clsHTML.GenerateWeeklySales(clsSQL._sqlWeeklySales), dateSelectedDay);
+            }
+            else if (cbxDays.SelectedIndex == 2)
+            {
+                //print monthly reports
+                clsSQL.DatabaseCommandLoadMonthlySales(dateSelectedDay);
+                clsHTML.PrintMonthlySales(clsHTML.GenerateMonthlySales(clsSQL._sqlMonthlySales), dateSelectedDay);
+            }
+            else
+            {
+                MessageBox.Show("Please select the type of sales report you would like to print.", "Sales Reports", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

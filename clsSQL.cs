@@ -2120,7 +2120,66 @@ namespace FinalProject
 
                 //string command to update inventory
                 string strUpdateQuery = "UPDATE " + strSchema + ".Person SET Title = @Title, NameFirst = @NameFirst, NameMiddle = @NameMiddle, NameLast = @NameLast, Suffix = @Suffix," +
-                " Address1 = @Address1, Address2 = @Address2, Address3 = @Address3, City = @city, Zipcode = @ZIpcode, State = @State, Email = @Email," +
+                " Address1 = @Address1, Address2 = @Address2, Address3 = @Address3, City = @city, Zipcode = @Zipcode, State = @State, Email = @Email," +
+                " PhonePrimary = @PhonePrimary, PhoneSecondary = @PhoneSecondary, PersonDeleted = @PersonDeleted WHERE PersonID = @PersonID";
+
+                if (int.TryParse(customerParameters.tbxPersonIDP.Text, out int intPersonID))
+                {
+                    //command query
+                    SqlCommand cmdUpdate = new SqlCommand(strUpdateQuery, _cntDatabase);
+                    cmdUpdate.Parameters.AddWithValue("@PersonID", intPersonID);
+                    cmdUpdate.Parameters.AddWithValue("@Title", customerParameters.cbxTitleP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@NameFirst", customerParameters.tbxFirstNameP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@NameMiddle", customerParameters.tbxMiddleNameP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@NameLast", customerParameters.tbxLastNameP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Suffix", customerParameters.tbxSuffixP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Address1", customerParameters.tbxAddress1P.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Address2", customerParameters.tbxAddress2P.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Address3", customerParameters.tbxAddress3P.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@City", customerParameters.tbxCityP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Zipcode", customerParameters.tbxZipcodeP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@State", customerParameters.cbxStateP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@Email", customerParameters.tbxEmailP.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@PhonePrimary", customerParameters.tbxPhone1P.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@PhoneSecondary", customerParameters.tbxPhone2P.Text.Trim());
+                    cmdUpdate.Parameters.AddWithValue("@PersonDeleted", strDeleted);
+                    SqlDataReader rdUpdate = cmdUpdate.ExecuteReader();
+
+                    rdUpdate.Close();
+                }
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                //close database and show error
+                CloseDatabase();
+                UpdateDataFail(ex);
+            }
+        }
+        internal static void UpdateCustomerManager(clsParameters.SignupParameters customerParameters)
+        {
+            try
+            {
+                OpenDatabase();
+
+                //set up discontinued
+                string strDeleted;
+                if (customerParameters.cbxDeletedP.SelectedIndex == 0)
+                {
+                    strDeleted = "0";
+                }
+                else if (customerParameters.cbxDeletedP.SelectedIndex == 1)
+                {
+                    strDeleted = "1";
+                }
+                else
+                {
+                    strDeleted = "";
+                }
+
+                //string command to update inventory
+                string strUpdateQuery = "UPDATE " + strSchema + ".Person SET Title = @Title, NameFirst = @NameFirst, NameMiddle = @NameMiddle, NameLast = @NameLast, Suffix = @Suffix," +
+                " Address1 = @Address1, Address2 = @Address2, Address3 = @Address3, City = @city, Zipcode = @Zipcode, State = @State, Email = @Email," +
                 " PhonePrimary = @PhonePrimary, PhoneSecondary = @PhoneSecondary, PersonDeleted = @PersonDeleted WHERE PersonID = @PersonID";
 
                 if (int.TryParse(customerParameters.tbxPersonIDP.Text, out int intPersonID))
@@ -2625,7 +2684,8 @@ namespace FinalProject
         //add the data table
         public static DataTable _dtMonthlySales = new DataTable();
 
-        internal static void DatabaseCommandLoadDailySales()
+        //method to load sales values
+        internal static void DatabaseCommandLoadDailySales(DateTime dateSelected)
         {
             try
             {
@@ -2634,9 +2694,9 @@ namespace FinalProject
                 //string to build query 
                 strQuery = $"declare @TotalSaleOfOrder money "
                 + " set @TotalSaleOfOrder = (select top 1 sum(I.RetailPrice * D.Quantity) as 'Total Daily Sales' from " + strSchema + ".Inventory I FULL JOIN " + strSchema + ".OrderDetails D on I.InventoryID = D.InventoryID " +
-                "FULL JOIN "+ strSchema + ".Orders O on O.OrderID = D.OrderID where O.OrderDate = '2022-03-28')"
+                "FULL JOIN "+ strSchema + ".Orders O on O.OrderID = D.OrderID where O.OrderDate = '"+ dateSelected.ToString("yyyy-MM-dd") +"')"
                 + " Select D.OrderID, O.OrderDate, I.ItemName, D.Quantity, format(@TotalSaleOfOrder, 'C') as 'Total Daily Sales' from " + strSchema + ".Inventory I, " + strSchema + ".OrderDetails D, " + strSchema + ".Orders O " +
-                "WHERE O.OrderDate = '2022-03-28' and D.OrderID = O.OrderID and I.InventoryID = D.InventoryID order by OrderID;";
+                "WHERE O.OrderDate = '" + dateSelected.ToString("yyyy-MM-dd") +"' and D.OrderID = O.OrderID and I.InventoryID = D.InventoryID order by OrderID;";
                 //establish cmd obj
                 _sqlDailySales = new SqlCommand(strQuery, _cntDatabase);
                 CloseDatabase();
@@ -2644,6 +2704,55 @@ namespace FinalProject
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error in establishing Daily Sales Table.", MessageBoxButtons.OK,
+                  MessageBoxIcon.Error);
+                CloseDatabase();
+            }
+        }
+        internal static void DatabaseCommandLoadWeeklySales(DateTime dateSelectedStart, DateTime dateSelectedEnd)
+        {
+            try
+            {
+                OpenDatabase();
+                string strQuery;
+                //string to build query 
+                strQuery = $"declare @TotalSaleOfOrder money "
+                + " set @TotalSaleOfOrder = (select top 1 sum(I.RetailPrice * D.Quantity) as 'Total Weekly Sales' from " + strSchema + ".Inventory I FULL JOIN " + strSchema + ".OrderDetails D on I.InventoryID = D.InventoryID " +
+                "FULL JOIN " + strSchema + ".Orders O on O.OrderID = D.OrderID where O.OrderDate between '" + dateSelectedStart.ToString("yyyy-MM-dd") + "' and '"+ 
+                dateSelectedEnd.ToString("yyyy-MM-dd") +"')"
+                + " Select distinct D.OrderID, O.OrderDate, format(sum(I.RetailPrice * D.Quantity) over (partition by Day(O.OrderDate)), 'C') as 'Daily Sales', format(@TotalSaleOfOrder, 'C') as 'Total Weekly Sales' from " + 
+                strSchema + ".Inventory I, " + strSchema + ".OrderDetails D, " + strSchema + ".Orders O " +
+                "WHERE O.OrderDate between '" + dateSelectedStart.ToString("yyyy-MM-dd") + "' and '" + dateSelectedEnd.ToString("yyyy-MM-dd") + "' and D.OrderID = O.OrderID and I.InventoryID = D.InventoryID order by OrderID;";
+                //establish cmd obj
+                _sqlWeeklySales = new SqlCommand(strQuery, _cntDatabase);
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error in establishing Weekly Sales Table.", MessageBoxButtons.OK,
+                  MessageBoxIcon.Error);
+                CloseDatabase();
+            }
+        }
+        internal static void DatabaseCommandLoadMonthlySales(DateTime dateSelectedMonth)
+        {
+            try
+            {
+                OpenDatabase();
+                string strQuery;
+                //string to build query 
+                strQuery = $"declare @TotalSaleOfOrder money "
+                + " set @TotalSaleOfOrder = (select top 1 sum(I.RetailPrice * D.Quantity) as 'Total Monthly Sales' from " + strSchema + ".Inventory I FULL JOIN " + strSchema + ".OrderDetails D on I.InventoryID = D.InventoryID " +
+                "FULL JOIN " + strSchema + ".Orders O on O.OrderID = D.OrderID where month(O.OrderDate) = '" + dateSelectedMonth.ToString("MM") + "')"
+                + " Select distinct D.OrderID, O.OrderDate, format(sum(I.RetailPrice * D.Quantity) over (partition by DATEPART(week, O.OrderDate)), 'C') as 'Weekly Sales', format(@TotalSaleOfOrder, 'C') as 'Total Monthly Sales' from " +
+                strSchema + ".Inventory I, " + strSchema + ".OrderDetails D, " + strSchema + ".Orders O " +
+                "where month(O.OrderDate) = '" + dateSelectedMonth.ToString("MM") + "' and D.OrderID = O.OrderID and I.InventoryID = D.InventoryID order by OrderID;";
+                //establish cmd obj
+                _sqlMonthlySales = new SqlCommand(strQuery, _cntDatabase);
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error in establishing Monthly Sales Table.", MessageBoxButtons.OK,
                   MessageBoxIcon.Error);
                 CloseDatabase();
             }

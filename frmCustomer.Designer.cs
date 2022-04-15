@@ -53,6 +53,7 @@ namespace FinalProject
             this.tbxFirstSearch = new System.Windows.Forms.TextBox();
             this.lbl19 = new System.Windows.Forms.Label();
             this.gbx1 = new System.Windows.Forms.GroupBox();
+            this.lbl = new System.Windows.Forms.Label();
             this.cbxDeleted = new System.Windows.Forms.ComboBox();
             this.cbxState = new System.Windows.Forms.ComboBox();
             this.cbxTitle = new System.Windows.Forms.ComboBox();
@@ -96,7 +97,6 @@ namespace FinalProject
             this.btnCustomerInfo = new System.Windows.Forms.Button();
             this.btnAddCustomer = new System.Windows.Forms.Button();
             this.btnTransactions = new System.Windows.Forms.Button();
-            this.lbl = new System.Windows.Forms.Label();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.gbx2.SuspendLayout();
             this.gbx3.SuspendLayout();
@@ -375,6 +375,16 @@ namespace FinalProject
             this.gbx1.Size = new System.Drawing.Size(281, 474);
             this.gbx1.TabIndex = 49;
             this.gbx1.TabStop = false;
+            // 
+            // lbl
+            // 
+            this.lbl.AutoSize = true;
+            this.lbl.Font = new System.Drawing.Font("Rockwell", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl.Location = new System.Drawing.Point(-3, 457);
+            this.lbl.Name = "lbl";
+            this.lbl.Size = new System.Drawing.Size(93, 13);
+            this.lbl.TabIndex = 100;
+            this.lbl.Text = "*Required Fields";
             // 
             // cbxDeleted
             // 
@@ -778,6 +788,8 @@ namespace FinalProject
             this.dgvCustomers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCustomers.Size = new System.Drawing.Size(1111, 474);
             this.dgvCustomers.TabIndex = 48;
+            this.dgvCustomers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCustomers_CellClick);
+            this.dgvCustomers.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvCustomers_DataBindingComplete);
             this.dgvCustomers.SelectionChanged += new System.EventHandler(this.dgvCustomers_SelectionChanged);
             // 
             // groupBox1
@@ -911,16 +923,6 @@ namespace FinalProject
             this.btnTransactions.Text = "View Past &Transactions";
             this.btnTransactions.UseVisualStyleBackColor = true;
             this.btnTransactions.Click += new System.EventHandler(this.btnTransactions_Click);
-            // 
-            // lbl
-            // 
-            this.lbl.AutoSize = true;
-            this.lbl.Font = new System.Drawing.Font("Rockwell", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl.Location = new System.Drawing.Point(-3, 457);
-            this.lbl.Name = "lbl";
-            this.lbl.Size = new System.Drawing.Size(93, 13);
-            this.lbl.TabIndex = 100;
-            this.lbl.Text = "*Required Fields";
             // 
             // btnRefresh
             // 
