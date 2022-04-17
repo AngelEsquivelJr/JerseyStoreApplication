@@ -80,14 +80,14 @@ namespace FinalProject
         {
             try
             {
-                //set card number text box
-                tbxExpiration.Text = strDate + " ";
-                tbxExpiration.ForeColor = Color.LightGray;
-                //call method to set up data grid view
-                clsSQL.InitializeInventoryView(dgvInventory);
                 //call method to fill category combo and size combo
                 clsSQL.FillCategoryCombo(cbxCategories);
                 clsSQL.FillSizeCombo(cbxSizes);
+                //call method to set up data grid view
+                clsSQL.InitializeInventoryView(dgvInventory);
+                //set card number text box
+                tbxExpiration.Text = strDate + " ";
+                tbxExpiration.ForeColor = Color.LightGray;                
                 //clear cart
                 clsCart.ClearCart(dgvCart);
                 //clear text boxes
@@ -267,7 +267,7 @@ namespace FinalProject
         private void tbxCCV_TextChanged(object sender, EventArgs e)
         {
             //make text proper color
-            tbxCCV.ForeColor = Color.Black;
+            tbxCCV.ForeColor = Color.Black;            
         }        
 
         private void btnAddtoCart_Click(object sender, EventArgs e)
@@ -277,14 +277,20 @@ namespace FinalProject
 
         private void cbxSizes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //call method for filtering view
-            clsCart.FilterInventorySize(dgvInventory, cbxSizes, cbxCategories, tbxSearch);
+            if (dgvInventory.Rows.Count > 0)
+            {
+                //call method for filtering view
+                clsCart.FilterInventorySize(dgvInventory, cbxSizes, cbxCategories, tbxSearch);
+            }
         }
 
         private void cbxCategories_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //call method for filtering view
-            clsCart.FilterInventoryCategory(dgvInventory, cbxCategories, cbxSizes, tbxSearch);
+            if (dgvInventory.Rows.Count > 0)
+            {
+                //call method for filtering view
+                clsCart.FilterInventoryCategory(dgvInventory, cbxCategories, cbxSizes, tbxSearch);
+            }
         }
 
         private void btnCartAdd_Click(object sender, EventArgs e)

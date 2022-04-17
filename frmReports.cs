@@ -123,5 +123,11 @@ namespace FinalProject
             clsSQL.DatabaseCommandLoadFullInventory();
             clsHTML.PrintInventoryFull(clsHTML.GenerateInventoryFull(clsSQL._sqlInventoryFull));
         }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            //help file
+            clsHelp.OpenHelp("ReportsHelp.pdf");
+        }
     }
 }

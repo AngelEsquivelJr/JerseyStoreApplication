@@ -145,5 +145,11 @@ namespace FinalProject
                 clsSQL.InitializeDiscountsView(dgvDiscounts);
             }
         }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            //help file
+            clsHelp.OpenHelp("DiscountHelp.pdf");
+        }
     }
 }

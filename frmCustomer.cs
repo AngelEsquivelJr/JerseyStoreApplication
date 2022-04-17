@@ -330,5 +330,11 @@ namespace FinalProject
                 cbxDeleted.Enabled = true;
             }
         }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            //help file
+            clsHelp.OpenHelp("ManagerCustomerHelp.pdf");
+        }
     }
 }

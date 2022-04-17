@@ -163,5 +163,11 @@ namespace FinalProject
             //call method to select image
             clsManager.BrowseImage(pbxItemImage);
         }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            //help file
+            clsHelp.OpenHelp("InventoryHelp.pdf");
+        }
     }
 }

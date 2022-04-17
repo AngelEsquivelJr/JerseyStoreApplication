@@ -102,7 +102,7 @@ namespace FinalProject
             this.gbx2.Controls.Add(this.tbxDescription);
             this.gbx2.Controls.Add(this.tbxItemName);
             this.gbx2.Controls.Add(this.tbxInventoryID);
-            this.gbx2.Location = new System.Drawing.Point(309, 403);
+            this.gbx2.Location = new System.Drawing.Point(308, 443);
             this.gbx2.Name = "gbx2";
             this.gbx2.Size = new System.Drawing.Size(927, 221);
             this.gbx2.TabIndex = 2;
@@ -382,7 +382,7 @@ namespace FinalProject
             this.dgvInventory.ReadOnly = true;
             this.dgvInventory.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvInventory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvInventory.Size = new System.Drawing.Size(1407, 395);
+            this.dgvInventory.Size = new System.Drawing.Size(1407, 435);
             this.dgvInventory.TabIndex = 1;
             this.dgvInventory.SelectionChanged += new System.EventHandler(this.dgvInventory_SelectionChanged);
             // 
@@ -394,7 +394,7 @@ namespace FinalProject
             this.gbx1.Controls.Add(this.btnHelp);
             this.gbx1.Controls.Add(this.btnAddInventory);
             this.gbx1.Controls.Add(this.btnEditInventory);
-            this.gbx1.Location = new System.Drawing.Point(2, 404);
+            this.gbx1.Location = new System.Drawing.Point(1, 444);
             this.gbx1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbx1.Name = "gbx1";
             this.gbx1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -440,6 +440,7 @@ namespace FinalProject
             this.btnHelp.TabIndex = 3;
             this.btnHelp.Text = "&Help";
             this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
             // btnAddInventory
             // 
@@ -474,7 +475,7 @@ namespace FinalProject
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
-            this.ClientSize = new System.Drawing.Size(1409, 625);
+            this.ClientSize = new System.Drawing.Size(1409, 665);
             this.Controls.Add(this.gbx2);
             this.Controls.Add(this.dgvInventory);
             this.Controls.Add(this.gbx1);

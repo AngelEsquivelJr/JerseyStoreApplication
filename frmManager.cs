@@ -79,5 +79,11 @@ namespace FinalProject
             frmDiscount frmDiscount = new frmDiscount();
             frmDiscount.ShowDialog();
         }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            //help file
+            clsHelp.OpenHelp("ManagerHelp.pdf");
+        }
     }
 }

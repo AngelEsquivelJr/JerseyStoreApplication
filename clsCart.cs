@@ -777,12 +777,8 @@ namespace FinalProject
                                 {
                                     //select matching text
                                     dgvInventory.CurrentCell = row.Cells[i];
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("Search not found. Please try again. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
+                                }                                
+                            }                            
                         }
                     }
                 }

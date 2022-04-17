@@ -41,6 +41,7 @@ namespace FinalProject
             this.btnReports = new System.Windows.Forms.Button();
             this.btnDiscounts = new System.Windows.Forms.Button();
             this.btnCustomer = new System.Windows.Forms.Button();
+            this.btnHelp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRestock)).BeginInit();
             this.gbxOne.SuspendLayout();
             this.SuspendLayout();
@@ -109,6 +110,7 @@ namespace FinalProject
             // gbxOne
             // 
             this.gbxOne.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.gbxOne.Controls.Add(this.btnHelp);
             this.gbxOne.Controls.Add(this.btnClose);
             this.gbxOne.Controls.Add(this.btnInventory);
             this.gbxOne.Controls.Add(this.btnReports);
@@ -128,7 +130,7 @@ namespace FinalProject
             this.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.ForeColor = System.Drawing.Color.LightCyan;
-            this.btnClose.Location = new System.Drawing.Point(90, 231);
+            this.btnClose.Location = new System.Drawing.Point(159, 231);
             this.btnClose.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(136, 63);
@@ -156,7 +158,7 @@ namespace FinalProject
             this.btnReports.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReports.ForeColor = System.Drawing.Color.LightCyan;
-            this.btnReports.Location = new System.Drawing.Point(23, 130);
+            this.btnReports.Location = new System.Drawing.Point(23, 139);
             this.btnReports.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnReports.Name = "btnReports";
             this.btnReports.Size = new System.Drawing.Size(136, 63);
@@ -170,7 +172,7 @@ namespace FinalProject
             this.btnDiscounts.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnDiscounts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDiscounts.ForeColor = System.Drawing.Color.LightCyan;
-            this.btnDiscounts.Location = new System.Drawing.Point(159, 130);
+            this.btnDiscounts.Location = new System.Drawing.Point(159, 139);
             this.btnDiscounts.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnDiscounts.Name = "btnDiscounts";
             this.btnDiscounts.Size = new System.Drawing.Size(136, 63);
@@ -192,6 +194,20 @@ namespace FinalProject
             this.btnCustomer.Text = "C&ustomers";
             this.btnCustomer.UseVisualStyleBackColor = true;
             this.btnCustomer.Click += new System.EventHandler(this.btnCustomer_Click);
+            // 
+            // btnHelp
+            // 
+            this.btnHelp.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHelp.ForeColor = System.Drawing.Color.LightCyan;
+            this.btnHelp.Location = new System.Drawing.Point(23, 231);
+            this.btnHelp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Size = new System.Drawing.Size(136, 63);
+            this.btnHelp.TabIndex = 5;
+            this.btnHelp.Text = "&Help";
+            this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
             // frmManager
             // 
@@ -233,5 +249,6 @@ namespace FinalProject
         private System.Windows.Forms.Button btnReports;
         private System.Windows.Forms.Button btnDiscounts;
         private System.Windows.Forms.Button btnCustomer;
+        private System.Windows.Forms.Button btnHelp;
     }
 }

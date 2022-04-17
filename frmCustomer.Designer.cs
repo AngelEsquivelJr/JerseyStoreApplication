@@ -864,6 +864,7 @@ namespace FinalProject
             this.btnHelp.TabIndex = 6;
             this.btnHelp.Text = "&Help";
             this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
             // btnCustomerLogin
             // 
