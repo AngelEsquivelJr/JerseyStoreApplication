@@ -37,25 +37,6 @@ namespace FinalProject
             btnEdit.Visible = true;
             btnAdd.Visible = false;
 
-            //set fields into parameters
-            clsParameters.InventoryParameters inventoryParameters = new clsParameters.InventoryParameters()
-            {
-                tbxInventoryIDP = tbxInventoryID,
-                tbxColorP = tbxColor,
-                tbxItemNameP = tbxItemName,
-                tbxCostP = tbxPrice,
-                tbxRetailPriceP = tbxRetail,
-                tbxItemDescriptionP = tbxDescription,
-                tbxQuantityP = tbxQuantity,
-                tbxRestockP = tbxRestock,
-                tbxSizeP = tbxSize,
-                cbxDiscontinuedP = cbxDiscontinued,
-                cbxTeamIDP = cbxTeamID,
-                pbxItemImageP = pbxItemImage
-            };
-
-            //clear text boxes
-            clsManager.ClearInventoryFields(inventoryParameters);
         }
 
         private void btnAddInventory_Click(object sender, EventArgs e)

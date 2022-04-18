@@ -134,7 +134,7 @@ namespace FinalProject
             this.btnClose.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(136, 63);
-            this.btnClose.TabIndex = 4;
+            this.btnClose.TabIndex = 5;
             this.btnClose.Text = "&Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -204,7 +204,7 @@ namespace FinalProject
             this.btnHelp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.Size = new System.Drawing.Size(136, 63);
-            this.btnHelp.TabIndex = 5;
+            this.btnHelp.TabIndex = 4;
             this.btnHelp.Text = "&Help";
             this.btnHelp.UseVisualStyleBackColor = true;
             this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);

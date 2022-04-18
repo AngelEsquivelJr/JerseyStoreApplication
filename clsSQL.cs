@@ -292,7 +292,7 @@ namespace FinalProject
             OpenDatabase();
 
             //string command for logon table
-            string strSelectQuery = "SELECT L.LogonName, L.PersonID, L.Password, L.PositionTitle, P.NameFirst, P.NameLast FROM " + strSchema + ".Logon L " +
+            string strSelectQuery = "SELECT L.LogonName, L.PersonID, L.Password, L.PositionTitle, P.NameFirst, P.NameLast, P.PersonDeleted FROM " + strSchema + ".Logon L " +
                 "FULL JOIN "+ strSchema + ".Person P ON L.PersonID = P.PersonID WHERE L.LogonName = @LogonName";
             try
             {
@@ -311,6 +311,7 @@ namespace FinalProject
                     string strTitle = rd.GetValue(3).ToString();
                     string strFirst = rd.GetValue(4).ToString();
                     string strLast = rd.GetValue(5).ToString();
+                    string strDeleted = rd.GetValue(6).ToString();
 
                     //if returned username is the same
                     //make sure its not case sensitive
@@ -319,17 +320,29 @@ namespace FinalProject
                         //check password
                         if (strPassword == tbxPassword.Text)
                         {
-                            //set logon name var
-                            strLogonName = strUsername;
-                            strPID = strPersonID;
-                            strPositionTitle = strTitle;
-                            strName = strFirst + " " + strLast;
-                            
-                            //returns true and closes reader
-                            rd.Close();
-                            //close database
-                            CloseDatabase();
-                            return true;
+                            if (strDeleted.Contains("True"))
+                            {
+                                //if account is deleted stop login
+                                MessageBox.Show("I'm sorry this account has been disabled/deleted. Please Try Again with another account.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                rd.Close();
+                                CloseDatabase();
+                                //returns false
+                                return false;
+                            }
+                            else
+                            {
+                                //set logon name var
+                                strLogonName = strUsername;
+                                strPID = strPersonID;
+                                strPositionTitle = strTitle;
+                                strName = strFirst + " " + strLast;
+
+                                //returns true and closes reader
+                                rd.Close();
+                                //close database
+                                CloseDatabase();
+                                return true;
+                            }
                         }
                         else
                         {
