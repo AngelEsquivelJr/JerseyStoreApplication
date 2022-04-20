@@ -265,7 +265,7 @@ namespace FinalProject
         }
 
         private void btnAddCustomer_Click(object sender, EventArgs e)
-        {
+        {            
             frmSignUp frmSign = new frmSignUp();
             frmSign.ShowDialog();
         }
@@ -335,6 +335,46 @@ namespace FinalProject
         {
             //help file
             clsHelp.OpenHelp("ManagerCustomerHelp.pdf");
+        }
+
+        private void btnAddEmployee_Click(object sender, EventArgs e)
+        {
+            if (dgvCustomers.SelectedCells.Count > 0)
+            {
+                int intSelectedRowIndex = dgvCustomers.SelectedRows[0].Index;
+                DataGridViewRow selectedRow = dgvCustomers.Rows[intSelectedRowIndex];
+                string strTite = Convert.ToString(selectedRow.Cells["Position Title"].Value);
+                if (strTite != "Manager")
+                {
+                    //asks user for confirmation of promotion
+                    DialogResult drResult = MessageBox.Show("Are you sure you want to promote this customer to a employee? ",
+                          "Promotion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    switch (drResult)
+                    {
+                        case DialogResult.Yes:
+                            //call method to update customer to manager
+                            clsSQL.UpdateToEmployee(tbxPersonID);
+                            //refresh  view
+                            dgvCustomers.DataSource = null;
+                            clsSQL.InitializeCustomerView(dgvCustomers);
+                            break;
+                        case DialogResult.No:
+                            //set focus to button
+                            btnAddEmployee.Focus();
+                            break;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Cannot demote manager to employee. Try Again.",
+                      "Promote", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please Select a customer to promote to employee. Try Again.",
+                  "Promote", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

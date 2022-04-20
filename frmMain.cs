@@ -201,7 +201,7 @@ namespace FinalProject
         private void btnSearch_Click(object sender, EventArgs e)
         {            
             //call method for searching
-            clsCart.SearchInventory(dgvInventory, tbxSearch, cbxSizes);
+            clsCart.SearchInventory(dgvInventory, tbxSearch);
         }
 
         private void tbxCardNumber_KeyPress(object sender, KeyPressEventArgs e)

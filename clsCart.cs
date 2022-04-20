@@ -753,7 +753,7 @@ namespace FinalProject
         }
 
         //method for searching
-        internal static void SearchInventory(DataGridView dgvInventory, TextBox tbxSearch, ComboBox cbxSize)
+        internal static void SearchInventory(DataGridView dgvInventory, TextBox tbxSearch)
         {
             try
             {

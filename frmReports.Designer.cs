@@ -234,7 +234,7 @@ namespace FinalProject
             this.MaximizeBox = false;
             this.Name = "frmReports";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AE Sporting Fits | Reports";
+            this.Text = "Reports | AE Sporting Fits";
             this.Load += new System.EventHandler(this.frmReports_Load);
             this.gbxInventory.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);

@@ -153,7 +153,7 @@ namespace FinalProject
             this.dgvOrderDetails.ReadOnly = true;
             this.dgvOrderDetails.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvOrderDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOrderDetails.Size = new System.Drawing.Size(572, 220);
+            this.dgvOrderDetails.Size = new System.Drawing.Size(670, 220);
             this.dgvOrderDetails.TabIndex = 4;
             // 
             // dgvOrders
@@ -177,7 +177,7 @@ namespace FinalProject
             this.dgvOrders.ReadOnly = true;
             this.dgvOrders.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvOrders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOrders.Size = new System.Drawing.Size(368, 205);
+            this.dgvOrders.Size = new System.Drawing.Size(477, 205);
             this.dgvOrders.TabIndex = 2;
             this.dgvOrders.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrders_CellClick);
             // 
@@ -186,7 +186,7 @@ namespace FinalProject
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
-            this.ClientSize = new System.Drawing.Size(585, 468);
+            this.ClientSize = new System.Drawing.Size(686, 468);
             this.Controls.Add(this.lbl4);
             this.Controls.Add(this.lbl3);
             this.Controls.Add(this.groupBox1);
@@ -199,7 +199,7 @@ namespace FinalProject
             this.MaximizeBox = false;
             this.Name = "frmPastTransactions";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AE Sporting Fits | Past Transactions";
+            this.Text = "Past Transactions | AE Sporting Fits";
             this.Load += new System.EventHandler(this.frmPastTransactions_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

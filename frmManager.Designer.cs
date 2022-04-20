@@ -36,12 +36,12 @@ namespace FinalProject
             this.lblRestock = new System.Windows.Forms.Label();
             this.dgvRestock = new System.Windows.Forms.DataGridView();
             this.gbxOne = new System.Windows.Forms.GroupBox();
+            this.btnHelp = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnInventory = new System.Windows.Forms.Button();
             this.btnReports = new System.Windows.Forms.Button();
             this.btnDiscounts = new System.Windows.Forms.Button();
             this.btnCustomer = new System.Windows.Forms.Button();
-            this.btnHelp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRestock)).BeginInit();
             this.gbxOne.SuspendLayout();
             this.SuspendLayout();
@@ -75,11 +75,11 @@ namespace FinalProject
             this.lblRestock.BackColor = System.Drawing.Color.Transparent;
             this.lblRestock.Font = new System.Drawing.Font("Rockwell", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRestock.ForeColor = System.Drawing.Color.Red;
-            this.lblRestock.Location = new System.Drawing.Point(460, 19);
+            this.lblRestock.Location = new System.Drawing.Point(454, 19);
             this.lblRestock.Name = "lblRestock";
-            this.lblRestock.Size = new System.Drawing.Size(136, 49);
+            this.lblRestock.Size = new System.Drawing.Size(148, 49);
             this.lblRestock.TabIndex = 1;
-            this.lblRestock.Text = "Item(s) need to be restocked!! ";
+            this.lblRestock.Text = "Item(s) that need to be restocked!! ";
             this.lblRestock.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblRestock.Visible = false;
             // 
@@ -124,6 +124,20 @@ namespace FinalProject
             this.gbxOne.Size = new System.Drawing.Size(317, 339);
             this.gbxOne.TabIndex = 2;
             this.gbxOne.TabStop = false;
+            // 
+            // btnHelp
+            // 
+            this.btnHelp.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHelp.ForeColor = System.Drawing.Color.LightCyan;
+            this.btnHelp.Location = new System.Drawing.Point(23, 231);
+            this.btnHelp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Size = new System.Drawing.Size(136, 63);
+            this.btnHelp.TabIndex = 4;
+            this.btnHelp.Text = "&Help";
+            this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
             // btnClose
             // 
@@ -195,20 +209,6 @@ namespace FinalProject
             this.btnCustomer.UseVisualStyleBackColor = true;
             this.btnCustomer.Click += new System.EventHandler(this.btnCustomer_Click);
             // 
-            // btnHelp
-            // 
-            this.btnHelp.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHelp.ForeColor = System.Drawing.Color.LightCyan;
-            this.btnHelp.Location = new System.Drawing.Point(23, 231);
-            this.btnHelp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnHelp.Name = "btnHelp";
-            this.btnHelp.Size = new System.Drawing.Size(136, 63);
-            this.btnHelp.TabIndex = 4;
-            this.btnHelp.Text = "&Help";
-            this.btnHelp.UseVisualStyleBackColor = true;
-            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
-            // 
             // frmManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -227,7 +227,7 @@ namespace FinalProject
             this.MaximizeBox = false;
             this.Name = "frmManager";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AE Sporting Fits | Manager Dashboard";
+            this.Text = "Manager Dashboard | AE Sporting Fits";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmManager_FormClosing);
             this.Load += new System.EventHandler(this.frmManager_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRestock)).EndInit();

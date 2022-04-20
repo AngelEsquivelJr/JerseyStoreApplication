@@ -773,7 +773,7 @@ namespace FinalProject
             this.MaximizeBox = false;
             this.Name = "frmSignUp";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AE Sporting Fits | Create Your Account";
+            this.Text = "Create Your Account | AE Sporting Fits";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSignUp_FormClosing);
             this.Load += new System.EventHandler(this.frmSignUp_Load);
             this.gbxOne.ResumeLayout(false);

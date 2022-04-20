@@ -276,16 +276,9 @@ namespace FinalProject
             try
             {
                 using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    if (imgItem != null)
-                    {
-                        imgItem.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
-                        return memoryStream.ToArray();
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                {                    
+                    imgItem.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                    return memoryStream.ToArray();                                        
                 }
             }
             catch(Exception ex)
@@ -310,18 +303,20 @@ namespace FinalProject
                     //set values to text boxes
                     if (lblState.Text == "Editing")
                     {
-                        inventoryParameters.tbxInventoryIDP.Text = Convert.ToString(selectedRowInventory.Cells["InventoryID"].Value);
+                        inventoryParameters.tbxInventoryIDP.Text = Convert.ToString(selectedRowInventory.Cells["Inventory ID"].Value);
                     }
                     inventoryParameters.tbxItemNameP.Text = Convert.ToString(selectedRowInventory.Cells["Name"].Value);
                     inventoryParameters.tbxItemDescriptionP.Text = Convert.ToString(selectedRowInventory.Cells["Description"].Value);
-                    inventoryParameters.tbxCostP.Text = Convert.ToString(selectedRowInventory.Cells["Cost"].Value);
-                    inventoryParameters.tbxRetailPriceP.Text = Convert.ToString(selectedRowInventory.Cells["Retail Price"].Value);
+                    inventoryParameters.tbxCostP.Text = Convert.ToString(selectedRowInventory.Cells["Cost"].Value).Substring(1);
+                    inventoryParameters.tbxRetailPriceP.Text = Convert.ToString(selectedRowInventory.Cells["Retail Price"].Value).Substring(1);
                     inventoryParameters.tbxQuantityP.Text = Convert.ToString(selectedRowInventory.Cells["Quantity"].Value);
                     inventoryParameters.tbxColorP.Text = Convert.ToString(selectedRowInventory.Cells["Color"].Value);
                     inventoryParameters.tbxSizeP.Text = Convert.ToString(selectedRowInventory.Cells["Size"].Value);
-                    inventoryParameters.tbxRestockP.Text = Convert.ToString(selectedRowInventory.Cells["RestockThreshold"].Value);
-                    inventoryParameters.cbxTeamIDP.Text = Convert.ToString(selectedRowInventory.Cells["TeamID"].Value);
-                    string strDiscontinued = Convert.ToString(selectedRowInventory.Cells["Discontinued"].Value);    
+                    inventoryParameters.tbxRestockP.Text = Convert.ToString(selectedRowInventory.Cells["Restock Threshold"].Value);
+                    string strTeamID = Convert.ToString(selectedRowInventory.Cells["Team ID"].Value);
+                    string strDiscontinued = Convert.ToString(selectedRowInventory.Cells["Discontinued"].Value);
+
+                    inventoryParameters.cbxTeamIDP.SelectedValue = strTeamID;
                     
                     if (strDiscontinued.Contains("False"))
                     {
@@ -338,18 +333,30 @@ namespace FinalProject
                     if (dgvInventory.Columns.Contains("Image"))
                     {
                         bytImage = (byte[])(selectedRowInventory.Cells["Image"].Value);
+                        using (MemoryStream msImage = new MemoryStream(bytImage))
+                        {
+                            Image imgLoaded = Image.FromStream(msImage);
+                            inventoryParameters.pbxItemImageP.Image = imgLoaded;
+                        }
                     }
                     else
                     {
                         Image imgItem = (Image)(selectedRowInventory.Cells["Item Image"].Value);
-                        bytImage = ImagetoByteArray(imgItem);
-                    }
-
-                    using (MemoryStream msImage = new MemoryStream(bytImage))
-                    {
-                        Image imgLoaded = Image.FromStream(msImage);
-                        inventoryParameters.pbxItemImageP.Image = imgLoaded;
-                    }
+                        if (imgItem != null)
+                        {
+                            bytImage = ImagetoByteArray(imgItem);
+                            using (MemoryStream msImage = new MemoryStream(bytImage))
+                            {
+                                Image imgLoaded = Image.FromStream(msImage);
+                                inventoryParameters.pbxItemImageP.Image = imgLoaded;
+                            }
+                        }
+                        else
+                        {
+                            inventoryParameters.pbxItemImageP.Image = inventoryParameters.pbxItemImageP.ErrorImage;
+                            inventoryParameters.pbxItemImageP.SizeMode = PictureBoxSizeMode.Zoom;
+                        }
+                    }                    
                 }
             }
             catch (Exception)
@@ -369,7 +376,7 @@ namespace FinalProject
                     DataGridViewRow selectedRowCustomers = dgvCustomers.Rows[intSelectedRowIndexCustomers];
 
                     //set values to text boxes                    
-                    customerParameters.tbxPersonIDP.Text = Convert.ToString(selectedRowCustomers.Cells["PersonID"].Value);                    
+                    customerParameters.tbxPersonIDP.Text = Convert.ToString(selectedRowCustomers.Cells["Person ID"].Value);                    
                     customerParameters.cbxTitleP.Text = Convert.ToString(selectedRowCustomers.Cells["Title"].Value);
                     customerParameters.tbxFirstNameP.Text = Convert.ToString(selectedRowCustomers.Cells["First Name"].Value);
                     customerParameters.tbxMiddleNameP.Text = Convert.ToString(selectedRowCustomers.Cells["Middle Name"].Value);
@@ -418,17 +425,17 @@ namespace FinalProject
                     //set values to text boxes
                     if (lblState.Text == "Editing")
                     {
-                        discountParameters.tbxDiscountIDP.Text = Convert.ToString(selectedRowDiscounts.Cells["DiscountID"].Value);
+                        discountParameters.tbxDiscountIDP.Text = Convert.ToString(selectedRowDiscounts.Cells["Discount ID"].Value);
                     }
-                    discountParameters.tbxDiscountCodeP.Text = Convert.ToString(selectedRowDiscounts.Cells["DiscountCode"].Value);
+                    discountParameters.tbxDiscountCodeP.Text = Convert.ToString(selectedRowDiscounts.Cells["Discount Code"].Value);
                     discountParameters.tbxDescriptionP.Text = Convert.ToString(selectedRowDiscounts.Cells["Description"].Value);
-                    string strLevel = Convert.ToString(selectedRowDiscounts.Cells["DiscountLevel"].Value);
-                    discountParameters.tbxInventoryIDP.Text = Convert.ToString(selectedRowDiscounts.Cells["InventoryID"].Value);
-                    string strType = Convert.ToString(selectedRowDiscounts.Cells["DiscountType"].Value);
-                    discountParameters.tbxPercentageP.Text = Convert.ToString(selectedRowDiscounts.Cells["DiscountPercentage"].Value);
-                    discountParameters.tbxDollarP.Text = Convert.ToString(selectedRowDiscounts.Cells["DiscountDollarAmount"].Value);
-                    discountParameters.tbxStartP.Text = Convert.ToString(selectedRowDiscounts.Cells["StartDate"].Value);
-                    discountParameters.tbxExpirationP.Text = Convert.ToString(selectedRowDiscounts.Cells["ExpirationDate"].Value);
+                    string strLevel = Convert.ToString(selectedRowDiscounts.Cells["Discount Level"].Value);
+                    discountParameters.tbxInventoryIDP.Text = Convert.ToString(selectedRowDiscounts.Cells["Inventory ID"].Value);
+                    string strType = Convert.ToString(selectedRowDiscounts.Cells["Discount Type"].Value);
+                    discountParameters.tbxPercentageP.Text = Convert.ToString(selectedRowDiscounts.Cells["Discount Percentage"].Value);
+                    discountParameters.tbxDollarP.Text = Convert.ToString(selectedRowDiscounts.Cells["Discount Dollar Amount"].Value).Substring(1);
+                    discountParameters.tbxStartP.Text = Convert.ToString(selectedRowDiscounts.Cells["Start Date"].Value);
+                    discountParameters.tbxExpirationP.Text = Convert.ToString(selectedRowDiscounts.Cells["Expiration Date"].Value);
 
                     if(strLevel == "1")
                     {
@@ -470,7 +477,7 @@ namespace FinalProject
                     DataGridViewRow selectedRowOrders = dgvOrders.Rows[intSelectedRowIndexOrders];
 
                     //get order id value                    
-                    strOrderID = Convert.ToString(selectedRowOrders.Cells["OrderID"].Value);                    
+                    strOrderID = Convert.ToString(selectedRowOrders.Cells["Order ID"].Value);                    
                 }
 
                 return strOrderID;
@@ -487,6 +494,7 @@ namespace FinalProject
         {
             try
             {
+                string strPNG = ".png";
                 //OpenFileDialog Properties
                 OpenFileDialog openFile = new OpenFileDialog();
                 openFile.ValidateNames = true;
@@ -496,12 +504,19 @@ namespace FinalProject
 
                 if (openFile.ShowDialog() == DialogResult.OK)
                 {
-                    //Convert image into a byte array
-                    byte[] bytImage = File.ReadAllBytes(openFile.FileName);
-                    using (MemoryStream msImage = new MemoryStream(bytImage))
+                    if (openFile.FileName.Contains(strPNG))
                     {
-                        Image imgLoaded = Image.FromStream(msImage);
-                        pbxItemImage.Image = imgLoaded;
+                        //Convert image into a byte array
+                        byte[] bytImage = File.ReadAllBytes(openFile.FileName);
+                        using (MemoryStream msImage = new MemoryStream(bytImage))
+                        {
+                            Image imgLoaded = Image.FromStream(msImage);
+                            pbxItemImage.Image = imgLoaded;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Image must only be a png file.", "Error During Upload", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

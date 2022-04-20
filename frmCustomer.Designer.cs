@@ -32,6 +32,7 @@ namespace FinalProject
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCustomer));
             this.gbx2 = new System.Windows.Forms.GroupBox();
+            this.btnAddEmployee = new System.Windows.Forms.Button();
             this.lbl18 = new System.Windows.Forms.Label();
             this.btnAddManager = new System.Windows.Forms.Button();
             this.cbxFilterTitle = new System.Windows.Forms.ComboBox();
@@ -94,7 +95,6 @@ namespace FinalProject
             this.btnClose = new System.Windows.Forms.Button();
             this.btnHelp = new System.Windows.Forms.Button();
             this.btnCustomerLogin = new System.Windows.Forms.Button();
-            this.btnCustomerInfo = new System.Windows.Forms.Button();
             this.btnAddCustomer = new System.Windows.Forms.Button();
             this.btnTransactions = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
@@ -108,22 +108,34 @@ namespace FinalProject
             // gbx2
             // 
             this.gbx2.BackColor = System.Drawing.Color.LightGray;
+            this.gbx2.Controls.Add(this.btnAddEmployee);
             this.gbx2.Controls.Add(this.lbl18);
             this.gbx2.Controls.Add(this.btnAddManager);
             this.gbx2.Controls.Add(this.cbxFilterTitle);
             this.gbx2.Controls.Add(this.lbl17);
             this.gbx2.Location = new System.Drawing.Point(161, 482);
             this.gbx2.Name = "gbx2";
-            this.gbx2.Size = new System.Drawing.Size(414, 96);
+            this.gbx2.Size = new System.Drawing.Size(431, 96);
             this.gbx2.TabIndex = 3;
             this.gbx2.TabStop = false;
+            // 
+            // btnAddEmployee
+            // 
+            this.btnAddEmployee.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddEmployee.Location = new System.Drawing.Point(189, 37);
+            this.btnAddEmployee.Name = "btnAddEmployee";
+            this.btnAddEmployee.Size = new System.Drawing.Size(115, 41);
+            this.btnAddEmployee.TabIndex = 4;
+            this.btnAddEmployee.Text = "Promote to E&mployee";
+            this.btnAddEmployee.UseVisualStyleBackColor = true;
+            this.btnAddEmployee.Click += new System.EventHandler(this.btnAddEmployee_Click);
             // 
             // lbl18
             // 
             this.lbl18.BackColor = System.Drawing.Color.Transparent;
             this.lbl18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl18.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.lbl18.Location = new System.Drawing.Point(23, 37);
+            this.lbl18.Location = new System.Drawing.Point(18, 37);
             this.lbl18.Name = "lbl18";
             this.lbl18.Size = new System.Drawing.Size(91, 20);
             this.lbl18.TabIndex = 0;
@@ -133,7 +145,7 @@ namespace FinalProject
             // btnAddManager
             // 
             this.btnAddManager.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddManager.Location = new System.Drawing.Point(253, 39);
+            this.btnAddManager.Location = new System.Drawing.Point(310, 36);
             this.btnAddManager.Name = "btnAddManager";
             this.btnAddManager.Size = new System.Drawing.Size(115, 41);
             this.btnAddManager.TabIndex = 3;
@@ -145,11 +157,7 @@ namespace FinalProject
             // 
             this.cbxFilterTitle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxFilterTitle.FormattingEnabled = true;
-            this.cbxFilterTitle.Items.AddRange(new object[] {
-            "Daily",
-            "Weekly",
-            "Monthly"});
-            this.cbxFilterTitle.Location = new System.Drawing.Point(23, 57);
+            this.cbxFilterTitle.Location = new System.Drawing.Point(18, 57);
             this.cbxFilterTitle.Name = "cbxFilterTitle";
             this.cbxFilterTitle.Size = new System.Drawing.Size(150, 21);
             this.cbxFilterTitle.TabIndex = 2;
@@ -801,7 +809,6 @@ namespace FinalProject
             this.groupBox1.Controls.Add(this.btnClose);
             this.groupBox1.Controls.Add(this.btnHelp);
             this.groupBox1.Controls.Add(this.btnCustomerLogin);
-            this.groupBox1.Controls.Add(this.btnCustomerInfo);
             this.groupBox1.Controls.Add(this.btnAddCustomer);
             this.groupBox1.Controls.Add(this.btnTransactions);
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
@@ -872,7 +879,7 @@ namespace FinalProject
             this.btnCustomerLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCustomerLogin.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCustomerLogin.ForeColor = System.Drawing.Color.LightCyan;
-            this.btnCustomerLogin.Location = new System.Drawing.Point(9, 337);
+            this.btnCustomerLogin.Location = new System.Drawing.Point(8, 309);
             this.btnCustomerLogin.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnCustomerLogin.Name = "btnCustomerLogin";
             this.btnCustomerLogin.Size = new System.Drawing.Size(136, 63);
@@ -881,28 +888,13 @@ namespace FinalProject
             this.btnCustomerLogin.UseVisualStyleBackColor = true;
             this.btnCustomerLogin.Click += new System.EventHandler(this.btnCustomerLogin_Click);
             // 
-            // btnCustomerInfo
-            // 
-            this.btnCustomerInfo.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnCustomerInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCustomerInfo.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCustomerInfo.ForeColor = System.Drawing.Color.LightCyan;
-            this.btnCustomerInfo.Location = new System.Drawing.Point(9, 110);
-            this.btnCustomerInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnCustomerInfo.Name = "btnCustomerInfo";
-            this.btnCustomerInfo.Size = new System.Drawing.Size(136, 63);
-            this.btnCustomerInfo.TabIndex = 2;
-            this.btnCustomerInfo.Text = "Edit Customer &Info";
-            this.btnCustomerInfo.UseVisualStyleBackColor = true;
-            this.btnCustomerInfo.Click += new System.EventHandler(this.btnCustomerInfo_Click);
-            // 
             // btnAddCustomer
             // 
             this.btnAddCustomer.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnAddCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddCustomer.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddCustomer.ForeColor = System.Drawing.Color.LightCyan;
-            this.btnAddCustomer.Location = new System.Drawing.Point(9, 181);
+            this.btnAddCustomer.Location = new System.Drawing.Point(9, 101);
             this.btnAddCustomer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnAddCustomer.Name = "btnAddCustomer";
             this.btnAddCustomer.Size = new System.Drawing.Size(136, 63);
@@ -917,7 +909,7 @@ namespace FinalProject
             this.btnTransactions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTransactions.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTransactions.ForeColor = System.Drawing.Color.LightCyan;
-            this.btnTransactions.Location = new System.Drawing.Point(9, 266);
+            this.btnTransactions.Location = new System.Drawing.Point(8, 205);
             this.btnTransactions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnTransactions.Name = "btnTransactions";
             this.btnTransactions.Size = new System.Drawing.Size(136, 63);
@@ -939,6 +931,7 @@ namespace FinalProject
             // 
             // frmCustomer
             // 
+            this.AcceptButton = this.btnEdit;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
@@ -956,7 +949,7 @@ namespace FinalProject
             this.MaximizeBox = false;
             this.Name = "frmCustomer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AE Sporting Fits | Customer";
+            this.Text = "Customer | AE Sporting Fits";
             this.Load += new System.EventHandler(this.frmCustomer_Load);
             this.gbx2.ResumeLayout(false);
             this.gbx3.ResumeLayout(false);
@@ -1033,10 +1026,10 @@ namespace FinalProject
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnHelp;
         private System.Windows.Forms.Button btnCustomerLogin;
-        private System.Windows.Forms.Button btnCustomerInfo;
         private System.Windows.Forms.Button btnAddCustomer;
         private System.Windows.Forms.Button btnTransactions;
         private System.Windows.Forms.Label lbl;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Button btnAddEmployee;
     }
 }

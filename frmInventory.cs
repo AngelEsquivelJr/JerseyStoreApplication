@@ -110,10 +110,13 @@ namespace FinalProject
             };
 
             //call method to add to inventory
-            clsSQL.AddInventory(inventoryParameters);
-            //refresh view
-            dgvInventory.DataSource = null;
-            clsSQL.InitializeManagerInventoryView(dgvInventory);
+            if(clsSQL.AddInventory(inventoryParameters))
+            {
+                //refresh view
+                dgvInventory.DataSource = null;
+                clsSQL.InitializeManagerInventoryView(dgvInventory);
+            }
+            
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -149,6 +152,12 @@ namespace FinalProject
         {
             //help file
             clsHelp.OpenHelp("InventoryHelp.pdf");
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            //call method to search
+            clsCart.SearchInventory(dgvInventory, tbxSearch);
         }
     }
 }

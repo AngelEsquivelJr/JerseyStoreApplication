@@ -66,6 +66,9 @@ namespace FinalProject
             this.btnHelp = new System.Windows.Forms.Button();
             this.btnAddInventory = new System.Windows.Forms.Button();
             this.btnEditInventory = new System.Windows.Forms.Button();
+            this.tbxSearch = new System.Windows.Forms.TextBox();
+            this.lblOne = new System.Windows.Forms.Label();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.gbx2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxItemImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).BeginInit();
@@ -102,34 +105,35 @@ namespace FinalProject
             this.gbx2.Controls.Add(this.tbxDescription);
             this.gbx2.Controls.Add(this.tbxItemName);
             this.gbx2.Controls.Add(this.tbxInventoryID);
-            this.gbx2.Location = new System.Drawing.Point(308, 443);
+            this.gbx2.Location = new System.Drawing.Point(351, 443);
             this.gbx2.Name = "gbx2";
-            this.gbx2.Size = new System.Drawing.Size(927, 221);
+            this.gbx2.Size = new System.Drawing.Size(957, 221);
             this.gbx2.TabIndex = 2;
             this.gbx2.TabStop = false;
             // 
             // cbxTeamID
             // 
             this.cbxTeamID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxTeamID.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxTeamID.FormattingEnabled = true;
-            this.cbxTeamID.Location = new System.Drawing.Point(783, 87);
+            this.cbxTeamID.Location = new System.Drawing.Point(792, 87);
             this.cbxTeamID.Name = "cbxTeamID";
-            this.cbxTeamID.Size = new System.Drawing.Size(114, 27);
+            this.cbxTeamID.Size = new System.Drawing.Size(159, 24);
             this.cbxTeamID.TabIndex = 21;
             // 
             // lbl11
             // 
             this.lbl11.AutoSize = true;
-            this.lbl11.Location = new System.Drawing.Point(701, 86);
+            this.lbl11.Location = new System.Drawing.Point(686, 87);
             this.lbl11.Name = "lbl11";
-            this.lbl11.Size = new System.Drawing.Size(76, 19);
+            this.lbl11.Size = new System.Drawing.Size(103, 19);
             this.lbl11.TabIndex = 20;
-            this.lbl11.Text = "Team ID:";
+            this.lbl11.Text = "Team Name:";
             // 
             // lbl10
             // 
             this.lbl10.AutoSize = true;
-            this.lbl10.Location = new System.Drawing.Point(722, 50);
+            this.lbl10.Location = new System.Drawing.Point(731, 51);
             this.lbl10.Name = "lbl10";
             this.lbl10.Size = new System.Drawing.Size(55, 19);
             this.lbl10.TabIndex = 18;
@@ -138,7 +142,7 @@ namespace FinalProject
             // tbxColor
             // 
             this.tbxColor.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxColor.Location = new System.Drawing.Point(783, 50);
+            this.tbxColor.Location = new System.Drawing.Point(792, 50);
             this.tbxColor.Multiline = true;
             this.tbxColor.Name = "tbxColor";
             this.tbxColor.Size = new System.Drawing.Size(114, 20);
@@ -147,7 +151,7 @@ namespace FinalProject
             // lbl9
             // 
             this.lbl9.AutoSize = true;
-            this.lbl9.Location = new System.Drawing.Point(734, 15);
+            this.lbl9.Location = new System.Drawing.Point(743, 15);
             this.lbl9.Name = "lbl9";
             this.lbl9.Size = new System.Drawing.Size(43, 19);
             this.lbl9.TabIndex = 16;
@@ -156,7 +160,7 @@ namespace FinalProject
             // tbxSize
             // 
             this.tbxSize.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxSize.Location = new System.Drawing.Point(783, 16);
+            this.tbxSize.Location = new System.Drawing.Point(792, 16);
             this.tbxSize.Multiline = true;
             this.tbxSize.Name = "tbxSize";
             this.tbxSize.Size = new System.Drawing.Size(114, 20);
@@ -164,7 +168,7 @@ namespace FinalProject
             // 
             // lbl12
             // 
-            this.lbl12.Location = new System.Drawing.Point(686, 117);
+            this.lbl12.Location = new System.Drawing.Point(695, 115);
             this.lbl12.Name = "lbl12";
             this.lbl12.Size = new System.Drawing.Size(91, 39);
             this.lbl12.TabIndex = 22;
@@ -173,7 +177,7 @@ namespace FinalProject
             // tbxRestock
             // 
             this.tbxRestock.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxRestock.Location = new System.Drawing.Point(783, 134);
+            this.tbxRestock.Location = new System.Drawing.Point(792, 134);
             this.tbxRestock.Multiline = true;
             this.tbxRestock.Name = "tbxRestock";
             this.tbxRestock.Size = new System.Drawing.Size(114, 20);
@@ -194,7 +198,7 @@ namespace FinalProject
             // btnAdd
             // 
             this.btnAdd.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Location = new System.Drawing.Point(760, 175);
+            this.btnAdd.Location = new System.Drawing.Point(790, 175);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(68, 40);
             this.btnAdd.TabIndex = 24;
@@ -217,7 +221,7 @@ namespace FinalProject
             // btnEdit
             // 
             this.btnEdit.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEdit.Location = new System.Drawing.Point(853, 175);
+            this.btnEdit.Location = new System.Drawing.Point(883, 175);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(68, 40);
             this.btnEdit.TabIndex = 25;
@@ -257,9 +261,9 @@ namespace FinalProject
             this.lbl5.AutoSize = true;
             this.lbl5.Location = new System.Drawing.Point(436, 14);
             this.lbl5.Name = "lbl5";
-            this.lbl5.Size = new System.Drawing.Size(51, 19);
+            this.lbl5.Size = new System.Drawing.Size(47, 19);
             this.lbl5.TabIndex = 8;
-            this.lbl5.Text = "Price:";
+            this.lbl5.Text = "Cost:";
             // 
             // lbl4
             // 
@@ -416,6 +420,7 @@ namespace FinalProject
             // 
             // btnClose
             // 
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.ForeColor = System.Drawing.Color.LightCyan;
@@ -470,12 +475,46 @@ namespace FinalProject
             this.btnEditInventory.UseVisualStyleBackColor = true;
             this.btnEditInventory.Click += new System.EventHandler(this.btnEditInventory_Click);
             // 
+            // tbxSearch
+            // 
+            this.tbxSearch.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxSearch.Location = new System.Drawing.Point(170, 476);
+            this.tbxSearch.MaxLength = 150;
+            this.tbxSearch.Name = "tbxSearch";
+            this.tbxSearch.Size = new System.Drawing.Size(143, 26);
+            this.tbxSearch.TabIndex = 4;
+            // 
+            // lblOne
+            // 
+            this.lblOne.AutoSize = true;
+            this.lblOne.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOne.Location = new System.Drawing.Point(166, 454);
+            this.lblOne.Name = "lblOne";
+            this.lblOne.Size = new System.Drawing.Size(65, 19);
+            this.lblOne.TabIndex = 3;
+            this.lblOne.Text = "Search:";
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.Location = new System.Drawing.Point(170, 529);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(76, 27);
+            this.btnSearch.TabIndex = 8;
+            this.btnSearch.Text = "&Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // frmInventory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
+            this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(1409, 665);
+            this.Controls.Add(this.btnSearch);
+            this.Controls.Add(this.tbxSearch);
+            this.Controls.Add(this.lblOne);
             this.Controls.Add(this.gbx2);
             this.Controls.Add(this.dgvInventory);
             this.Controls.Add(this.gbx1);
@@ -486,7 +525,7 @@ namespace FinalProject
             this.MaximizeBox = false;
             this.Name = "frmInventory";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AE Sporting Fits | Inventory";
+            this.Text = "Inventory | AE Sporting Fits";
             this.Load += new System.EventHandler(this.frmInventory_Load);
             this.gbx2.ResumeLayout(false);
             this.gbx2.PerformLayout();
@@ -494,6 +533,7 @@ namespace FinalProject
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).EndInit();
             this.gbx1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -534,5 +574,8 @@ namespace FinalProject
         private System.Windows.Forms.Button btnHelp;
         private System.Windows.Forms.Button btnAddInventory;
         private System.Windows.Forms.Button btnEditInventory;
+        private System.Windows.Forms.TextBox tbxSearch;
+        private System.Windows.Forms.Label lblOne;
+        private System.Windows.Forms.Button btnSearch;
     }
 }

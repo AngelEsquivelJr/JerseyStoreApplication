@@ -588,6 +588,8 @@ namespace FinalProject
                 
                 for (int i = 0; i < dgvInventory.Rows.Count; i++)
                 {
+                    if (!string.IsNullOrEmpty(_dtInventoryTable.Rows[i]["Image"].ToString()))
+                    {
                         //set image to byte and use temporary image
                         imageData = (byte[])_dtInventoryTable.Rows[i]["Image"];
                         Image tmpImage = Image.FromStream(new MemoryStream(imageData));
@@ -602,7 +604,7 @@ namespace FinalProject
 
                         //add image to data grid view
                         dgvInventory.Rows[i].Cells[0].Value = imgOut;
-                    
+                    }
                 }
                 CloseDatabase();
             }
@@ -1513,8 +1515,8 @@ namespace FinalProject
                 _dtRestockTable = new DataTable();
 
                 //string query
-                string strDGVQuery = "Select InventoryID, ItemName as 'Name', Quantity from " + strSchema + ".Inventory" +
-                    " WHERE Quantity <= RestockThreshold AND Discontinued != 1";
+                string strDGVQuery = "Select InventoryID as 'Inventory ID', ItemName as 'Name', Quantity from " + strSchema + ".Inventory" +
+                    " WHERE Quantity <= RestockThreshold AND Discontinued != 1 Order by Quantity ASC";
 
                 //set command object to null
                 _sqlRestockCommand = null;
@@ -1542,6 +1544,10 @@ namespace FinalProject
                 if (dgvRestock.Rows.Count > 0)
                 {
                     lblRestock.Visible = true;
+                }
+                else
+                {
+                    lblRestock.Visible = false;
                 }
 
                 //close database
@@ -1580,28 +1586,29 @@ namespace FinalProject
 
                 for (int i = 0; i < dgvInventory.Rows.Count; i++)
                 {
-                    //set image to byte and use temporary image
-                    imageData = (byte[])_dtManagerITable.Rows[i]["Image"];
-                    Image tmpImage = Image.FromStream(new MemoryStream(imageData));
-                    //scale image and set resized image
-                    double dblScaleImg = (double)intWidth / (double)tmpImage.Width;
-                    Graphics tmpGraphics = default(Graphics);
-                    Bitmap tmpResizedImage = new Bitmap(Convert.ToInt32(dblScaleImg * tmpImage.Width), Convert.ToInt32(dblScaleImg * tmpImage.Height));
-                    tmpGraphics = Graphics.FromImage(tmpResizedImage);
-                    tmpGraphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
-                    tmpGraphics.DrawImage(tmpImage, 0, 0, tmpResizedImage.Width + 1, tmpResizedImage.Height + 1);
-                    Image imgOut = tmpResizedImage;
-
-                    //add image to data grid view
-                    dgvInventory.Rows[i].Cells[0].Value = imgOut;
-
+                    if (!String.IsNullOrEmpty(_dtManagerITable.Rows[i]["Image"].ToString()))
+                    {
+                        //set image to byte and use temporary image
+                        imageData = (byte[])_dtManagerITable.Rows[i]["Image"];
+                        Image tmpImage = Image.FromStream(new MemoryStream(imageData));
+                        //scale image and set resized image
+                        double dblScaleImg = (double)intWidth / (double)tmpImage.Width;
+                        Graphics tmpGraphics = default(Graphics);
+                        Bitmap tmpResizedImage = new Bitmap(Convert.ToInt32(dblScaleImg * tmpImage.Width), Convert.ToInt32(dblScaleImg * tmpImage.Height));
+                        tmpGraphics = Graphics.FromImage(tmpResizedImage);
+                        tmpGraphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+                        tmpGraphics.DrawImage(tmpImage, 0, 0, tmpResizedImage.Width + 1, tmpResizedImage.Height + 1);
+                        Image imgOut = tmpResizedImage;
+                        //add image to data grid view
+                        dgvInventory.Rows[i].Cells[0].Value = imgOut;
+                    }
                 }
                 CloseDatabase();
             }
             catch (Exception ex)
             {
                 //error message
-                MessageBox.Show(ex.Message, "Error gathering images.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error setting up images.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //method to show inventory
@@ -1622,8 +1629,8 @@ namespace FinalProject
                 _dtManagerITable = new DataTable();
 
                 //string query
-                string strDGVQuery = "Select ItemImage as 'Image', InventoryID, ItemName as 'Name', ItemDescription as 'Description', RetailPrice as 'Retail Price', Cost, Quantity, " +
-                    "Discontinued, Size, Color, TeamID, RestockThreshold from " + strSchema + ".Inventory";
+                string strDGVQuery = "Select ItemImage as 'Image', InventoryID as 'Inventory ID', ItemName as 'Name', ItemDescription as 'Description', format(RetailPrice, 'C') as 'Retail Price', format(Cost, 'C') as 'Cost', Quantity, " +
+                    "Discontinued, Size, Color, TeamID as 'Team ID', RestockThreshold as 'Restock Threshold' from " + strSchema + ".Inventory Order by Quantity ASC";
 
                 //set command object to null
                 _sqlManagerICommand = null;
@@ -1663,6 +1670,7 @@ namespace FinalProject
                     dgvInventory.AllowUserToAddRows = false;
                     dgvInventory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                     dgvInventory.Columns[i].DefaultCellStyle.Font = new Font("Rockwell", 9F, FontStyle.Bold);
+                    dgvInventory.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
 
                 //close database
@@ -1707,7 +1715,7 @@ namespace FinalProject
                 _dtCustomersTable = new DataTable();
 
                 //string query
-                string strDGVQuery = "Select P.PersonID, Title, NameFirst as 'First Name', NameMiddle as 'Middle Name', NameLast as 'Last Name', Suffix, Address1, Address2, Address3, " +
+                string strDGVQuery = "Select P.PersonID as 'Person ID', Title, NameFirst as 'First Name', NameMiddle as 'Middle Name', NameLast as 'Last Name', Suffix, Address1, Address2, Address3, " +
                     "City, Zipcode, State, Email, PhonePrimary as 'Primary Phone', PhoneSecondary as 'Secondary Phone', PersonDeleted as 'Deleted', L.PositionTitle as 'Position Title' from " + strSchema + ".Person P "+
                     "FULL JOIN " + strSchema + ".Logon L ON P.PersonID = L.PersonID";
 
@@ -1775,9 +1783,9 @@ namespace FinalProject
                 _dtOrdersTable = new DataTable();
 
                 //string query
-                string strDGVQuery = "Select PersonID, OrderID, OrderDate " +
-                    "from " + strSchema + ".Orders " +
-                    "WHERE PersonID = " + clsSQL.strPID + " Order by OrderID DESC";
+                string strDGVQuery = "Select O.PersonID as 'Person ID', P.NameFirst + ' ' + P.NameLast as 'Name', OrderID as 'Order ID', OrderDate " +
+                    "from " + strSchema + ".Orders O FULL JOIN " + strSchema + ".Person P on O.PersonID = P.PersonID " +
+                    "WHERE O.PersonID = " + clsSQL.strPID + " Order by OrderID DESC";
 
                 //set command object to null
                 _sqlOrdersCommand = null;
@@ -1798,6 +1806,7 @@ namespace FinalProject
                     dgvOrders.AllowUserToAddRows = false;
                     dgvOrders.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                     dgvOrders.Columns[i].DefaultCellStyle.Font = new Font("Rockwell", 9F, FontStyle.Bold);
+                    dgvOrders.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
 
                 //close database
@@ -1839,9 +1848,10 @@ namespace FinalProject
                 _dtOrderDetailsTable = new DataTable();
 
                 //string query
-                string strDGVQuery = "Select OrderDetailsID, OrderID, O.InventoryID, I.ItemName as 'Item Name', O.Quantity, DiscountID " +
+                string strDGVQuery = "Select OrderDetailsID as 'Details ID', OrderID as 'Order ID', O.InventoryID as 'Inventory ID', I.ItemName as 'Item Name', " +
+                    "O.Quantity as 'Quantity Sold', format(I.RetailPrice, 'C') as 'Retail Price', format(SUM(I.RetailPrice * O.Quantity), 'C') as 'Line Item Total', DiscountID as 'Discount ID' " +
                     "from " + strSchema + ".OrderDetails O FULL JOIN " + strSchema + ".Inventory I ON O.InventoryID = I.InventoryID " +
-                    "WHERE O.OrderID = " + clsManager.GetOrderID(dgvOrders);
+                    "WHERE O.OrderID = " + clsManager.GetOrderID(dgvOrders) + " group by OrderDetailsID, OrderID, O.InventoryID, I.ItemName, O.Quantity, DiscountID, RetailPrice";
 
                 //set command object to null
                 _sqlOrderDetailsCommand = null;
@@ -1862,6 +1872,7 @@ namespace FinalProject
                     dgvOrderDetails.AllowUserToAddRows = false;
                     dgvOrderDetails.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                     dgvOrderDetails.Columns[i].DefaultCellStyle.Font = new Font("Rockwell", 9F, FontStyle.Bold);
+                    dgvOrderDetails.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
 
                 //close database
@@ -1906,8 +1917,9 @@ namespace FinalProject
                 _dtDiscountsTable = new DataTable();
 
                 //string query
-                string strDGVQuery = "Select * " +
-                    "from " + strSchema + ".Discounts";
+                string strDGVQuery = "Select DiscountID as 'Discount ID', DiscountCode as 'Discount Code', Description, DiscountLevel as 'Discount Level', " +
+                    "InventoryID as 'Inventory ID', DiscountType as 'Discount Type', format(DiscountPercentage, 'P') as 'Discount Percentage', format(DiscountDollarAmount, 'C') as 'Discount Dollar Amount', " +
+                    "StartDate as 'Start Date', ExpirationDate as 'Expiration Date' from " + strSchema + ".Discounts";
 
                 //set command object to null
                 _sqlDiscountsCommand = null;
@@ -1956,7 +1968,7 @@ namespace FinalProject
                 OpenDatabase();
 
                 //commands for data
-                SqlCommand cmdTeamID = new SqlCommand("SELECT distinct T.TeamID FROM " + strSchema +
+                SqlCommand cmdTeamID = new SqlCommand("SELECT distinct T.TeamName, T.TeamID FROM " + strSchema +
                     ".Inventory I INNER JOIN " + strSchema + ".Teams T ON I.TeamID = T.TeamID ", _cntDatabase);
 
                 //data adapters
@@ -1974,7 +1986,7 @@ namespace FinalProject
 
                 //setup combo boxes
                 cbxTeamID.DataSource = dtTeamID;
-                cbxTeamID.DisplayMember = "TeamID";
+                cbxTeamID.DisplayMember = "TeamName";
                 cbxTeamID.ValueMember = "TeamID";
 
                 //close connection
@@ -2060,7 +2072,7 @@ namespace FinalProject
                     int.TryParse(inventoryParameters.tbxQuantityP.Text.Trim(), out int intQuantity) &&
                     double.TryParse(inventoryParameters.tbxCostP.Text.Trim(), out double dblCost) &&
                     double.TryParse(inventoryParameters.tbxRetailPriceP.Text.Trim(), out double dblRetail) &&
-                    int.TryParse(inventoryParameters.cbxTeamIDP.Text.Trim(), out int intTeamID) &&
+                    int.TryParse(inventoryParameters.cbxTeamIDP.SelectedValue.ToString(), out int intTeamID) &&
                     int.TryParse(inventoryParameters.tbxRestockP.Text.Trim(), out int intRestock))
                 {
                     //command query
@@ -2345,7 +2357,6 @@ namespace FinalProject
             try
             {
                 OpenDatabase();
-                //set up discontinued
                 string strPosition = "Manager";
 
                 //string command to update inventory
@@ -2371,8 +2382,39 @@ namespace FinalProject
                 UpdateDataFail(ex);
             }
         }
+        //method for updating customer into employee
+        internal static void UpdateToEmployee(TextBox tbxPersonID)
+        {
+            try
+            {
+                OpenDatabase();
+                string strPosition = "Employee";
+
+                //string command to update inventory
+                string strUpdateQuery = "UPDATE " + strSchema + ".Logon SET PositionTitle = @PositionTitle " +
+                " WHERE PersonID = @PersonID";
+
+                if (int.TryParse(tbxPersonID.Text, out int intPersonID))
+                {
+                    //command query
+                    SqlCommand cmdUpdate = new SqlCommand(strUpdateQuery, _cntDatabase);
+                    cmdUpdate.Parameters.AddWithValue("@PersonID", intPersonID);
+                    cmdUpdate.Parameters.AddWithValue("@PositionTitle", strPosition);
+                    SqlDataReader rdUpdate = cmdUpdate.ExecuteReader();
+
+                    rdUpdate.Close();
+                }
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                //close database and show error
+                CloseDatabase();
+                UpdateDataFail(ex);
+            }
+        }
         //method for adding to inventory
-        internal static void AddInventory(clsParameters.InventoryParameters inventoryParameters)
+        internal static bool AddInventory(clsParameters.InventoryParameters inventoryParameters)
         {
             try
             {
@@ -2404,7 +2446,7 @@ namespace FinalProject
                 if (int.TryParse(inventoryParameters.tbxQuantityP.Text.Trim(), out int intQuantity) &&
                 double.TryParse(inventoryParameters.tbxCostP.Text.Trim(), out double dblCost) &&
                 double.TryParse(inventoryParameters.tbxRetailPriceP.Text.Trim(), out double dblRetail) &&
-                int.TryParse(inventoryParameters.cbxTeamIDP.Text.Trim(), out int intTeamID) &&
+                int.TryParse(inventoryParameters.cbxTeamIDP.SelectedValue.ToString(), out int intTeamID) &&
                 int.TryParse(inventoryParameters.tbxRestockP.Text.Trim(), out int intRestock))
                 {
                     //command query
@@ -2413,13 +2455,13 @@ namespace FinalProject
                     {
                         MessageBox.Show("The item name can not be blank. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         CloseDatabase();
-                        return;
+                        return false;
                     }
                     if (string.IsNullOrEmpty(inventoryParameters.tbxItemDescriptionP.Text))
                     {
                         MessageBox.Show("The item description can not be blank. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         CloseDatabase();
-                        return;
+                        return false;
                     }
                     cmdInventory.Parameters.AddWithValue("@ItemName", inventoryParameters.tbxItemNameP.Text.Trim());
                     cmdInventory.Parameters.AddWithValue("@ItemDescription", inventoryParameters.tbxItemDescriptionP.Text.Trim());
@@ -2434,21 +2476,23 @@ namespace FinalProject
                     cmdInventory.Parameters.AddWithValue("@RestockThreshold", intRestock);
                     SqlDataReader rdInventory = cmdInventory.ExecuteReader();
 
-                    rdInventory.Close();
+                    rdInventory.Close();                    
                 }
                 else
                 {
                     MessageBox.Show("Unable to update item. Please ensure all fields are entered correctly. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     CloseDatabase();
-                    return;
+                    return false;
                 }
                 CloseDatabase();
+                return true;
             }
             catch (Exception ex)
             {
                 //close database and show error                
                 CloseDatabase();
                 InsertDataFail(ex);
+                return false;
             }
         }
         //method for adding to discounts

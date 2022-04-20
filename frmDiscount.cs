@@ -32,6 +32,21 @@ namespace FinalProject
         {
             //set form ready to edit
             lblState.Text = "Editing";
+            clsParameters.DiscountParameters discountParameters = new clsParameters.DiscountParameters()
+            {
+                tbxDiscountIDP = tbxDiscountID,
+                tbxDiscountCodeP = tbxDiscountCode,
+                cbxLevelP = cbxLevel,
+                tbxDescriptionP = tbxDescription,
+                tbxDollarP = tbxDollarAmount,
+                cbxTypeP = cbxType,
+                tbxPercentageP = tbxPercentage,
+                tbxStartP = tbxStart,
+                tbxExpirationP = tbxExpiration,
+                tbxInventoryIDP = tbxInventoryID,
+            };
+
+            clsManager.UpdateFieldsDiscount(dgvDiscounts, discountParameters, lblState);            
             btnEdit.Visible = true;
             btnAdd.Visible = false;
             tbxDiscountCode.Focus();
@@ -41,6 +56,13 @@ namespace FinalProject
         {
             //set form ready to add
             lblState.Text = "Adding";
+            tbxDiscountCode.Clear();
+            tbxDescription.Clear();
+            tbxInventoryID.Clear();
+            tbxPercentage.Clear();
+            tbxDollarAmount.Clear();
+            tbxStart.Clear();
+            tbxExpiration.Clear();
             btnEdit.Visible = false;
             btnAdd.Visible = true;
             tbxDiscountID.Clear();
