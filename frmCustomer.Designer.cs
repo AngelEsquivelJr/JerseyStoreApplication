@@ -98,6 +98,7 @@ namespace FinalProject
             this.btnAddCustomer = new System.Windows.Forms.Button();
             this.btnTransactions = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnDemote = new System.Windows.Forms.Button();
             this.gbx2.SuspendLayout();
             this.gbx3.SuspendLayout();
             this.gbx1.SuspendLayout();
@@ -108,6 +109,7 @@ namespace FinalProject
             // gbx2
             // 
             this.gbx2.BackColor = System.Drawing.Color.LightGray;
+            this.gbx2.Controls.Add(this.btnDemote);
             this.gbx2.Controls.Add(this.btnAddEmployee);
             this.gbx2.Controls.Add(this.lbl18);
             this.gbx2.Controls.Add(this.btnAddManager);
@@ -122,7 +124,7 @@ namespace FinalProject
             // btnAddEmployee
             // 
             this.btnAddEmployee.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddEmployee.Location = new System.Drawing.Point(189, 37);
+            this.btnAddEmployee.Location = new System.Drawing.Point(189, 14);
             this.btnAddEmployee.Name = "btnAddEmployee";
             this.btnAddEmployee.Size = new System.Drawing.Size(115, 41);
             this.btnAddEmployee.TabIndex = 4;
@@ -145,7 +147,7 @@ namespace FinalProject
             // btnAddManager
             // 
             this.btnAddManager.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddManager.Location = new System.Drawing.Point(310, 36);
+            this.btnAddManager.Location = new System.Drawing.Point(310, 14);
             this.btnAddManager.Name = "btnAddManager";
             this.btnAddManager.Size = new System.Drawing.Size(115, 41);
             this.btnAddManager.TabIndex = 3;
@@ -929,9 +931,20 @@ namespace FinalProject
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
+            // btnDemote
+            // 
+            this.btnDemote.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDemote.Location = new System.Drawing.Point(231, 57);
+            this.btnDemote.Name = "btnDemote";
+            this.btnDemote.Size = new System.Drawing.Size(139, 33);
+            this.btnDemote.TabIndex = 5;
+            this.btnDemote.Text = "Demote to C&ustomer";
+            this.btnDemote.UseVisualStyleBackColor = true;
+            this.btnDemote.Click += new System.EventHandler(this.btnDemote_Click);
+            // 
             // frmCustomer
             // 
-            this.AcceptButton = this.btnEdit;
+            this.AcceptButton = this.btnSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
@@ -1031,5 +1044,6 @@ namespace FinalProject
         private System.Windows.Forms.Label lbl;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnAddEmployee;
+        private System.Windows.Forms.Button btnDemote;
     }
 }

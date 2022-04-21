@@ -343,8 +343,8 @@ namespace FinalProject
             {
                 int intSelectedRowIndex = dgvCustomers.SelectedRows[0].Index;
                 DataGridViewRow selectedRow = dgvCustomers.Rows[intSelectedRowIndex];
-                string strTite = Convert.ToString(selectedRow.Cells["Position Title"].Value);
-                if (strTite != "Manager")
+                string strTitle = Convert.ToString(selectedRow.Cells["Position Title"].Value);
+                if (strTitle != "Manager")
                 {
                     //asks user for confirmation of promotion
                     DialogResult drResult = MessageBox.Show("Are you sure you want to promote this customer to a employee? ",
@@ -368,6 +368,47 @@ namespace FinalProject
                 {
                     MessageBox.Show("Cannot demote manager to employee. Try Again.",
                       "Promote", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please Select a customer to promote to employee. Try Again.",
+                  "Promote", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void btnDemote_Click(object sender, EventArgs e)
+        {
+            if (dgvCustomers.SelectedCells.Count > 0)
+            {
+                int intSelectedRowIndex = dgvCustomers.SelectedRows[0].Index;
+                DataGridViewRow selectedRow = dgvCustomers.Rows[intSelectedRowIndex];
+                string strFirst = Convert.ToString(selectedRow.Cells["First Name"].Value);
+                string strLast = Convert.ToString(selectedRow.Cells["Last Name"].Value);
+                if (!clsSQL.strName.Contains(strFirst + " " + strLast))
+                {
+                    //asks user for confirmation of promotion
+                    DialogResult drResult = MessageBox.Show("Are you sure you want to demote to customer? ",
+                          "Demote", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    switch (drResult)
+                    {
+                        case DialogResult.Yes:
+                            //call method to update customer to manager
+                            clsSQL.UpdateToCustomer(tbxPersonID);
+                            //refresh  view
+                            dgvCustomers.DataSource = null;
+                            clsSQL.InitializeCustomerView(dgvCustomers);
+                            break;
+                        case DialogResult.No:
+                            //set focus to button
+                            btnAddEmployee.Focus();
+                            break;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Cannot demote yourself. Try Again.",
+                      "Demote", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else

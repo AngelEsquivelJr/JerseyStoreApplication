@@ -33,6 +33,8 @@ namespace FinalProject
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDiscount));
             this.dgvDiscounts = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbxItems = new System.Windows.Forms.ComboBox();
+            this.lblItems = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.cbxType = new System.Windows.Forms.ComboBox();
             this.cbxLevel = new System.Windows.Forms.ComboBox();
@@ -89,13 +91,15 @@ namespace FinalProject
             this.dgvDiscounts.ReadOnly = true;
             this.dgvDiscounts.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvDiscounts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDiscounts.Size = new System.Drawing.Size(966, 375);
+            this.dgvDiscounts.Size = new System.Drawing.Size(966, 415);
             this.dgvDiscounts.TabIndex = 2;
             this.dgvDiscounts.SelectionChanged += new System.EventHandler(this.dgvDiscounts_SelectionChanged);
             // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.LightGray;
+            this.groupBox2.Controls.Add(this.cbxItems);
+            this.groupBox2.Controls.Add(this.lblItems);
             this.groupBox2.Controls.Add(this.btnAdd);
             this.groupBox2.Controls.Add(this.cbxType);
             this.groupBox2.Controls.Add(this.cbxLevel);
@@ -120,14 +124,36 @@ namespace FinalProject
             this.groupBox2.Controls.Add(this.tbxDiscountID);
             this.groupBox2.Location = new System.Drawing.Point(149, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(326, 375);
+            this.groupBox2.Size = new System.Drawing.Size(326, 415);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
+            // 
+            // cbxItems
+            // 
+            this.cbxItems.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxItems.FormattingEnabled = true;
+            this.cbxItems.Items.AddRange(new object[] {
+            "Percentage",
+            "Dollar"});
+            this.cbxItems.Location = new System.Drawing.Point(116, 164);
+            this.cbxItems.Name = "cbxItems";
+            this.cbxItems.Size = new System.Drawing.Size(204, 24);
+            this.cbxItems.TabIndex = 23;
+            this.cbxItems.SelectedIndexChanged += new System.EventHandler(this.cbxItems_SelectedIndexChanged);
+            // 
+            // lblItems
+            // 
+            this.lblItems.AutoSize = true;
+            this.lblItems.Location = new System.Drawing.Point(20, 146);
+            this.lblItems.Name = "lblItems";
+            this.lblItems.Size = new System.Drawing.Size(217, 16);
+            this.lblItems.TabIndex = 22;
+            this.lblItems.Text = "Select an item to set the Inventory ID";
             // 
             // btnAdd
             // 
             this.btnAdd.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Location = new System.Drawing.Point(116, 335);
+            this.btnAdd.Location = new System.Drawing.Point(116, 376);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(68, 30);
             this.btnAdd.TabIndex = 20;
@@ -143,7 +169,7 @@ namespace FinalProject
             this.cbxType.Items.AddRange(new object[] {
             "Percentage",
             "Dollar"});
-            this.cbxType.Location = new System.Drawing.Point(116, 172);
+            this.cbxType.Location = new System.Drawing.Point(116, 217);
             this.cbxType.Name = "cbxType";
             this.cbxType.Size = new System.Drawing.Size(204, 24);
             this.cbxType.TabIndex = 11;
@@ -164,7 +190,7 @@ namespace FinalProject
             // 
             // lbl9
             // 
-            this.lbl9.Location = new System.Drawing.Point(6, 235);
+            this.lbl9.Location = new System.Drawing.Point(6, 276);
             this.lbl9.Name = "lbl9";
             this.lbl9.Size = new System.Drawing.Size(104, 33);
             this.lbl9.TabIndex = 14;
@@ -174,7 +200,7 @@ namespace FinalProject
             // tbxExpiration
             // 
             this.tbxExpiration.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxExpiration.Location = new System.Drawing.Point(116, 305);
+            this.tbxExpiration.Location = new System.Drawing.Point(116, 346);
             this.tbxExpiration.Multiline = true;
             this.tbxExpiration.Name = "tbxExpiration";
             this.tbxExpiration.Size = new System.Drawing.Size(204, 20);
@@ -183,7 +209,7 @@ namespace FinalProject
             // tbxStart
             // 
             this.tbxStart.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxStart.Location = new System.Drawing.Point(116, 279);
+            this.tbxStart.Location = new System.Drawing.Point(116, 320);
             this.tbxStart.Multiline = true;
             this.tbxStart.Name = "tbxStart";
             this.tbxStart.Size = new System.Drawing.Size(204, 20);
@@ -192,7 +218,7 @@ namespace FinalProject
             // tbxDollarAmount
             // 
             this.tbxDollarAmount.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxDollarAmount.Location = new System.Drawing.Point(116, 246);
+            this.tbxDollarAmount.Location = new System.Drawing.Point(116, 287);
             this.tbxDollarAmount.Multiline = true;
             this.tbxDollarAmount.Name = "tbxDollarAmount";
             this.tbxDollarAmount.ReadOnly = true;
@@ -202,7 +228,7 @@ namespace FinalProject
             // tbxPercentage
             // 
             this.tbxPercentage.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxPercentage.Location = new System.Drawing.Point(116, 215);
+            this.tbxPercentage.Location = new System.Drawing.Point(116, 256);
             this.tbxPercentage.Multiline = true;
             this.tbxPercentage.Name = "tbxPercentage";
             this.tbxPercentage.ReadOnly = true;
@@ -212,7 +238,7 @@ namespace FinalProject
             // lbl11
             // 
             this.lbl11.AutoSize = true;
-            this.lbl11.Location = new System.Drawing.Point(11, 305);
+            this.lbl11.Location = new System.Drawing.Point(11, 346);
             this.lbl11.Name = "lbl11";
             this.lbl11.Size = new System.Drawing.Size(101, 16);
             this.lbl11.TabIndex = 18;
@@ -221,7 +247,7 @@ namespace FinalProject
             // lbl10
             // 
             this.lbl10.AutoSize = true;
-            this.lbl10.Location = new System.Drawing.Point(43, 279);
+            this.lbl10.Location = new System.Drawing.Point(43, 320);
             this.lbl10.Name = "lbl10";
             this.lbl10.Size = new System.Drawing.Size(69, 16);
             this.lbl10.TabIndex = 16;
@@ -229,7 +255,7 @@ namespace FinalProject
             // 
             // lbl8
             // 
-            this.lbl8.Location = new System.Drawing.Point(22, 202);
+            this.lbl8.Location = new System.Drawing.Point(22, 243);
             this.lbl8.Name = "lbl8";
             this.lbl8.Size = new System.Drawing.Size(88, 33);
             this.lbl8.TabIndex = 12;
@@ -239,7 +265,7 @@ namespace FinalProject
             // lbl7
             // 
             this.lbl7.AutoSize = true;
-            this.lbl7.Location = new System.Drawing.Point(22, 172);
+            this.lbl7.Location = new System.Drawing.Point(22, 217);
             this.lbl7.Name = "lbl7";
             this.lbl7.Size = new System.Drawing.Size(94, 16);
             this.lbl7.TabIndex = 10;
@@ -248,7 +274,7 @@ namespace FinalProject
             // tbxInventoryID
             // 
             this.tbxInventoryID.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxInventoryID.Location = new System.Drawing.Point(116, 145);
+            this.tbxInventoryID.Location = new System.Drawing.Point(116, 191);
             this.tbxInventoryID.Multiline = true;
             this.tbxInventoryID.Name = "tbxInventoryID";
             this.tbxInventoryID.ReadOnly = true;
@@ -276,7 +302,7 @@ namespace FinalProject
             // lbl6
             // 
             this.lbl6.AutoSize = true;
-            this.lbl6.Location = new System.Drawing.Point(33, 145);
+            this.lbl6.Location = new System.Drawing.Point(33, 191);
             this.lbl6.Name = "lbl6";
             this.lbl6.Size = new System.Drawing.Size(83, 16);
             this.lbl6.TabIndex = 8;
@@ -303,7 +329,7 @@ namespace FinalProject
             // btnEdit
             // 
             this.btnEdit.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEdit.Location = new System.Drawing.Point(205, 335);
+            this.btnEdit.Location = new System.Drawing.Point(205, 376);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(115, 30);
             this.btnEdit.TabIndex = 21;
@@ -422,6 +448,7 @@ namespace FinalProject
             // 
             // btnClose
             // 
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.ForeColor = System.Drawing.Color.LightCyan;
@@ -453,7 +480,8 @@ namespace FinalProject
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
-            this.ClientSize = new System.Drawing.Size(1453, 382);
+            this.CancelButton = this.btnClose;
+            this.ClientSize = new System.Drawing.Size(1453, 422);
             this.Controls.Add(this.dgvDiscounts);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -508,5 +536,7 @@ namespace FinalProject
         private System.Windows.Forms.Button btnHelp;
         private System.Windows.Forms.Label lblState;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.ComboBox cbxItems;
+        private System.Windows.Forms.Label lblItems;
     }
 }

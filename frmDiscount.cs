@@ -21,6 +21,7 @@ namespace FinalProject
         {
             //call method to initialize discount view
             clsSQL.InitializeDiscountsView(dgvDiscounts);
+            clsSQL.FillItemsCombo(cbxItems);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -37,6 +38,7 @@ namespace FinalProject
                 tbxDiscountIDP = tbxDiscountID,
                 tbxDiscountCodeP = tbxDiscountCode,
                 cbxLevelP = cbxLevel,
+                cbxItems = cbxItems,
                 tbxDescriptionP = tbxDescription,
                 tbxDollarP = tbxDollarAmount,
                 cbxTypeP = cbxType,
@@ -79,6 +81,7 @@ namespace FinalProject
                 tbxDescriptionP = tbxDescription,
                 tbxDollarP = tbxDollarAmount,
                 cbxTypeP = cbxType,
+                cbxItems = cbxItems,
                 tbxPercentageP = tbxPercentage,
                 tbxStartP = tbxStart,
                 tbxExpirationP = tbxExpiration,
@@ -93,10 +96,12 @@ namespace FinalProject
         {
             if(cbxLevel.SelectedIndex == 0)
             {
-                tbxInventoryID.ReadOnly = false;
+                cbxItems.Enabled = true;
             }
             else
             {
+                cbxItems.Enabled = false;
+                cbxItems.SelectedIndex = 0;
                 tbxInventoryID.ReadOnly = true;
                 tbxInventoryID.Clear();
             }
@@ -172,6 +177,14 @@ namespace FinalProject
         {
             //help file
             clsHelp.OpenHelp("DiscountHelp.pdf");
+        }
+
+        private void cbxItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbxItems.SelectedIndex > 0)
+            {
+                tbxInventoryID.Text = cbxItems.SelectedValue.ToString();
+            }
         }
     }
 }

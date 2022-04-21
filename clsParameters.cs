@@ -45,7 +45,7 @@ namespace FinalProject
 
         public struct DiscountParameters
         {
-            public ComboBox cbxLevelP, cbxTypeP;
+            public ComboBox cbxLevelP, cbxTypeP, cbxItems;
 
             public TextBox tbxDiscountIDP, tbxDiscountCodeP, tbxDescriptionP, tbxInventoryIDP, tbxPercentageP, tbxDollarP, tbxStartP, tbxExpirationP;
         }

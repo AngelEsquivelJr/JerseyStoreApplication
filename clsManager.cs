@@ -332,11 +332,14 @@ namespace FinalProject
                     byte[] bytImage;
                     if (dgvInventory.Columns.Contains("Image"))
                     {
-                        bytImage = (byte[])(selectedRowInventory.Cells["Image"].Value);
-                        using (MemoryStream msImage = new MemoryStream(bytImage))
+                        if (selectedRowInventory.Cells["Image"].Value != null)
                         {
-                            Image imgLoaded = Image.FromStream(msImage);
-                            inventoryParameters.pbxItemImageP.Image = imgLoaded;
+                            bytImage = (byte[])(selectedRowInventory.Cells["Image"].Value);
+                            using (MemoryStream msImage = new MemoryStream(bytImage))
+                            {
+                                Image imgLoaded = Image.FromStream(msImage);
+                                inventoryParameters.pbxItemImageP.Image = imgLoaded;
+                            }
                         }
                     }
                     else
@@ -430,10 +433,18 @@ namespace FinalProject
                     discountParameters.tbxDiscountCodeP.Text = Convert.ToString(selectedRowDiscounts.Cells["Discount Code"].Value);
                     discountParameters.tbxDescriptionP.Text = Convert.ToString(selectedRowDiscounts.Cells["Description"].Value);
                     string strLevel = Convert.ToString(selectedRowDiscounts.Cells["Discount Level"].Value);
+                    if (!string.IsNullOrEmpty(Convert.ToString(selectedRowDiscounts.Cells["Inventory ID"].Value)))
+                    {
+                        discountParameters.cbxItems.SelectedValue = Convert.ToString(selectedRowDiscounts.Cells["Inventory ID"].Value);
+                    }
+                    else
+                    {
+                        discountParameters.cbxItems.SelectedIndex = 0;
+                    }
                     discountParameters.tbxInventoryIDP.Text = Convert.ToString(selectedRowDiscounts.Cells["Inventory ID"].Value);
                     string strType = Convert.ToString(selectedRowDiscounts.Cells["Discount Type"].Value);
                     discountParameters.tbxPercentageP.Text = Convert.ToString(selectedRowDiscounts.Cells["Discount Percentage"].Value);
-                    discountParameters.tbxDollarP.Text = Convert.ToString(selectedRowDiscounts.Cells["Discount Dollar Amount"].Value).Substring(1);
+                    discountParameters.tbxDollarP.Text = Convert.ToString(selectedRowDiscounts.Cells["Discount Dollar Amount"].Value);
                     discountParameters.tbxStartP.Text = Convert.ToString(selectedRowDiscounts.Cells["Start Date"].Value);
                     discountParameters.tbxExpirationP.Text = Convert.ToString(selectedRowDiscounts.Cells["Expiration Date"].Value);
 

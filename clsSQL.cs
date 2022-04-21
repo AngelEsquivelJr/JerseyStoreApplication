@@ -1630,7 +1630,7 @@ namespace FinalProject
 
                 //string query
                 string strDGVQuery = "Select ItemImage as 'Image', InventoryID as 'Inventory ID', ItemName as 'Name', ItemDescription as 'Description', format(RetailPrice, 'C') as 'Retail Price', format(Cost, 'C') as 'Cost', Quantity, " +
-                    "Discontinued, Size, Color, TeamID as 'Team ID', RestockThreshold as 'Restock Threshold' from " + strSchema + ".Inventory Order by Quantity ASC";
+                    "Discontinued, Size, Color, TeamID as 'Team ID', RestockThreshold as 'Restock Threshold' from " + strSchema + ".Inventory Order by ItemName ASC";
 
                 //set command object to null
                 _sqlManagerICommand = null;
@@ -2000,6 +2000,48 @@ namespace FinalProject
             //close connection
             CloseDatabase();
         }
+        //method to fill combo for items
+        internal static void FillItemsCombo(ComboBox cbxItemID)
+        {
+            try
+            {
+                //close previous connections and open new one
+                CloseDatabase();
+                OpenDatabase();
+
+                //commands for data
+                SqlCommand cmdInventoryID = new SqlCommand("SELECT distinct I.ItemName, I.InventoryID FROM " + strSchema +
+                    ".Inventory I ", _cntDatabase);
+
+                //data adapters
+                SqlDataAdapter daInventoryID = new SqlDataAdapter(cmdInventoryID);
+
+                //data table
+                DataTable dtInventoryID = new DataTable();
+
+                //fill data set
+                daInventoryID.Fill(dtInventoryID);
+
+                //insert to data table
+                DataRow drInventoryID = dtInventoryID.NewRow();
+                dtInventoryID.Rows.InsertAt(drInventoryID, 0);
+
+                //setup combo boxes
+                cbxItemID.DataSource = dtInventoryID;
+                cbxItemID.DisplayMember = "ItemName";
+                cbxItemID.ValueMember = "InventoryID";
+
+                //close connection
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to Fill Item name Combo Box. " + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CloseDatabase();
+            }
+            //close connection
+            CloseDatabase();
+        }
         //method to fill combo for title
         internal static void FillPositionTitleCombo(ComboBox cbxFilterTitle)
         {
@@ -2092,8 +2134,26 @@ namespace FinalProject
                     }
                     cmdUpdate.Parameters.AddWithValue("@ItemName", inventoryParameters.tbxItemNameP.Text.Trim());
                     cmdUpdate.Parameters.AddWithValue("@ItemDescription", inventoryParameters.tbxItemDescriptionP.Text.Trim());
-                    cmdUpdate.Parameters.AddWithValue("@RetailPrice", dblRetail);
-                    cmdUpdate.Parameters.AddWithValue("@Cost", dblCost);
+                    if (dblRetail > 0)
+                    {
+                        cmdUpdate.Parameters.AddWithValue("@RetailPrice", dblRetail);
+                    }
+                    else
+                    {
+                        MessageBox.Show("The retail price must be greater than 0. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return;
+                    }
+                    if (dblCost >= 0)
+                    {
+                        cmdUpdate.Parameters.AddWithValue("@Cost", dblCost);
+                    }
+                    else
+                    {
+                        MessageBox.Show("The cost must be greater than 0. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return;
+                    }
                     cmdUpdate.Parameters.AddWithValue("@Quantity", intQuantity);
                     cmdUpdate.Parameters.AddWithValue("@ItemImage", clsManager.ImagetoByteArray(imgItem));
                     cmdUpdate.Parameters.AddWithValue("@Discontinued", strDiscontinued);
@@ -2284,10 +2344,35 @@ namespace FinalProject
                         CloseDatabase();
                         return false;
                     }
-
-                    if (double.TryParse(discountParameters.tbxDollarP.Text, out double dblDollar))
+                    string strDiscount;
+                    if(!string.IsNullOrEmpty(discountParameters.tbxDollarP.Text))
                     {
-                        cmdUpdate.Parameters.AddWithValue("@DiscountDollarAmount", dblDollar);
+                        if (discountParameters.tbxDollarP.Text.Contains("$"))
+                        {
+                            strDiscount = discountParameters.tbxDollarP.Text.Substring(1);
+                        }
+                        else
+                        {
+                            strDiscount = discountParameters.tbxDollarP.Text;
+                        }
+                    }
+                    else
+                    {
+                        strDiscount = discountParameters.tbxDollarP.Text;
+                    }
+
+                    if (double.TryParse(strDiscount, out double dblDollar))
+                    {
+                        if (dblDollar > 0)
+                        {
+                            cmdUpdate.Parameters.AddWithValue("@DiscountDollarAmount", dblDollar);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Please enter a numeric value that is not negative for dollar amount. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            CloseDatabase();
+                            return false;
+                        }
                     }
                     else if(!string.IsNullOrEmpty(discountParameters.tbxDollarP.Text))
                     {
@@ -2302,9 +2387,18 @@ namespace FinalProject
                         return false;
                     }
 
-                    if(double.TryParse(discountParameters.tbxPercentageP.Text, out double dblPercentage))
+                    if(double.TryParse(discountParameters.tbxPercentageP.Text.Replace("%", ""), out double dblPercentage))
                     {
-                        cmdUpdate.Parameters.AddWithValue("@DiscountPercentage", dblPercentage);
+                        if (dblPercentage <= 100 && dblPercentage > 0)
+                        {
+                            cmdUpdate.Parameters.AddWithValue("@DiscountPercentage", dblPercentage / 100);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Please enter a numeric value greater than 0 and less than 100 for percent. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            CloseDatabase();
+                            return false;
+                        }
                     }
                     else if (!string.IsNullOrEmpty(discountParameters.tbxPercentageP.Text))
                     {
@@ -2413,6 +2507,37 @@ namespace FinalProject
                 UpdateDataFail(ex);
             }
         }
+        //method for updating to customer
+        internal static void UpdateToCustomer(TextBox tbxPersonID)
+        {
+            try
+            {
+                OpenDatabase();
+                string strPosition = "Customer";
+
+                //string command to update inventory
+                string strUpdateQuery = "UPDATE " + strSchema + ".Logon SET PositionTitle = @PositionTitle " +
+                " WHERE PersonID = @PersonID";
+
+                if (int.TryParse(tbxPersonID.Text, out int intPersonID))
+                {
+                    //command query
+                    SqlCommand cmdUpdate = new SqlCommand(strUpdateQuery, _cntDatabase);
+                    cmdUpdate.Parameters.AddWithValue("@PersonID", intPersonID);
+                    cmdUpdate.Parameters.AddWithValue("@PositionTitle", strPosition);
+                    SqlDataReader rdUpdate = cmdUpdate.ExecuteReader();
+
+                    rdUpdate.Close();
+                }
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                //close database and show error
+                CloseDatabase();
+                UpdateDataFail(ex);
+            }
+        }
         //method for adding to inventory
         internal static bool AddInventory(clsParameters.InventoryParameters inventoryParameters)
         {
@@ -2465,8 +2590,26 @@ namespace FinalProject
                     }
                     cmdInventory.Parameters.AddWithValue("@ItemName", inventoryParameters.tbxItemNameP.Text.Trim());
                     cmdInventory.Parameters.AddWithValue("@ItemDescription", inventoryParameters.tbxItemDescriptionP.Text.Trim());
-                    cmdInventory.Parameters.AddWithValue("@RetailPrice", dblRetail);
-                    cmdInventory.Parameters.AddWithValue("@Cost", dblCost);
+                    if (dblRetail > 0)
+                    {
+                        cmdInventory.Parameters.AddWithValue("@RetailPrice", dblRetail);
+                    }
+                    else
+                    {
+                        MessageBox.Show("The retail price must be greater than 0. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return false;
+                    }
+                    if (dblCost >= 0)
+                    {
+                        cmdInventory.Parameters.AddWithValue("@Cost", dblCost);
+                    }
+                    else
+                    {
+                        MessageBox.Show("The cost must be greater than 0. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return false;
+                    }
                     cmdInventory.Parameters.AddWithValue("@Quantity", intQuantity);
                     cmdInventory.Parameters.AddWithValue("@ItemImage", clsManager.ImagetoByteArray(imgItem));
                     cmdInventory.Parameters.AddWithValue("@Discontinued", strDiscontinued);
@@ -2596,9 +2739,35 @@ namespace FinalProject
                     return false;
                 }
 
-                if (double.TryParse(discountParameters.tbxDollarP.Text, out double dblDollar))
+                string strDiscount;
+                if (!string.IsNullOrEmpty(discountParameters.tbxDollarP.Text))
                 {
-                    cmdUpdate.Parameters.AddWithValue("@DiscountDollarAmount", dblDollar);
+                    if (discountParameters.tbxDollarP.Text.Contains("$"))
+                    {
+                        strDiscount = discountParameters.tbxDollarP.Text.Substring(1);
+                    }
+                    else
+                    {
+                        strDiscount = discountParameters.tbxDollarP.Text;
+                    }
+                }
+                else
+                {
+                    strDiscount = discountParameters.tbxDollarP.Text;
+                }
+
+                if (double.TryParse(strDiscount, out double dblDollar))
+                {
+                    if (dblDollar > 0)
+                    {
+                        cmdUpdate.Parameters.AddWithValue("@DiscountDollarAmount", dblDollar);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please enter a numeric value that is not negative for dollar amount. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return false;
+                    }
                 }
                 else if (!string.IsNullOrEmpty(discountParameters.tbxDollarP.Text))
                 {
@@ -2613,9 +2782,18 @@ namespace FinalProject
                     return false;
                 }
 
-                if (double.TryParse(discountParameters.tbxPercentageP.Text, out double dblPercentage))
+                if (double.TryParse(discountParameters.tbxPercentageP.Text.Replace("%", ""), out double dblPercentage))
                 {
-                    cmdUpdate.Parameters.AddWithValue("@DiscountPercentage", dblPercentage);
+                    if (dblPercentage <= 100 && dblPercentage > 0)
+                    {
+                        cmdUpdate.Parameters.AddWithValue("@DiscountPercentage", dblPercentage / 100);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please enter a numeric value greater than 0 and less than 100 for percent. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CloseDatabase();
+                        return false;
+                    }
                 }
                 else if (!string.IsNullOrEmpty(discountParameters.tbxPercentageP.Text))
                 {
