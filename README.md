@@ -81,9 +81,8 @@ Include any essential instructions for:
 - Thank you (name contributors)
 
 ### TODO
-- Wait for approval. Then begin working on Manager View.
-- If not passed, fix all mistakes.
-- Once approved waste no time on manager view.
+- Wait for approval. Then begin working on Final Submission.
+- Once approved waste no time on final submission.
 - Features planned
 - Known bugs (shortlist)
 
