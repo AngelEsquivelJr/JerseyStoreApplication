@@ -114,7 +114,7 @@ namespace FinalProject
                         if (intQuantityInventory > 0)
                         {
                             //add to cart list
-                            if (strCart.Contains(strItemName))
+                            if (strCart.Contains(strItemName + strSize))
                             {
                                 //set count
                                 if (intComboQuantity > 1)
@@ -125,11 +125,11 @@ namespace FinalProject
                                     for (int i = 0; i < strCart.Count; i++)
                                     {
                                         int intCheck = intComboQuantity + intProdCount[i];
-                                        if (intCheck > intQuantityInventory)
+                                        if (intCheck > clsSQL.intItemDataQuantity)
                                         {
                                             //update data grid view
                                             selectedRowInventory.Cells["Quantity"].Value = 0;
-                                            intProdCount[i] = intQuantityInventory;
+                                            intProdCount[i] = clsSQL.intItemDataQuantity;
                                             MessageBox.Show(intCheck + " items were selected. The maximum stock was added.", "Item Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                         }
                                         else
@@ -170,7 +170,7 @@ namespace FinalProject
                                     }
                                 }
                             }
-                            else if (!strCart.Contains(strItemName))
+                            else if (!strCart.Contains(strItemName + strSize))
                             {
                                 strCart.Clear();
                                 intProdCount.Clear();
@@ -185,7 +185,7 @@ namespace FinalProject
                                     intDGV = intQuantityInventory - intCount;
                                     selectedRowInventory.Cells["Quantity"].Value = intDGV;
                                     //add to cart list
-                                    strCart.Add(strItemName);
+                                    strCart.Add(strItemName + strSize);
                                 }
                                 else if (intComboQuantity == 0 && cbxQuantity.SelectedIndex == 2)
                                 {
@@ -201,7 +201,7 @@ namespace FinalProject
                                     intDGV = intQuantityInventory - intCount;
                                     selectedRowInventory.Cells["Quantity"].Value = intDGV;
                                     //add to cart list
-                                    strCart.Add(strItemName);
+                                    strCart.Add(strItemName + strSize);
                                 }
                             }
 
@@ -242,10 +242,20 @@ namespace FinalProject
                                                             }
                                                             else
                                                             {
-                                                                int intNew = intQuantityCart + intCount;
-                                                                dblTotal = dblPrice[i] * intNew;
-                                                                selectedRowCart.Cells["Quantity"].Value = intNew;
-                                                                selectedRowCart.Cells["Total"].Value = dblTotal.ToString("C");
+                                                                if (intQuantityInventory > clsSQL.intItemDataQuantity)
+                                                                {
+                                                                    dblTotal = dblPrice[i] * clsSQL.intItemDataQuantity;
+                                                                    selectedRowCart.Cells["Quantity"].Value = clsSQL.intItemDataQuantity;
+                                                                    selectedRowCart.Cells["Total"].Value = dblTotal.ToString("C");
+                                                                    
+                                                                }
+                                                                else
+                                                                {
+                                                                    int intNew = intQuantityCart + intCount;
+                                                                    dblTotal = dblPrice[i] * intNew;
+                                                                    selectedRowCart.Cells["Quantity"].Value = intNew;
+                                                                    selectedRowCart.Cells["Total"].Value = dblTotal.ToString("C");
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -604,16 +614,19 @@ namespace FinalProject
         {
             try
             {
-
+                string strSport, strSize;
                 //check selected index
                 if (cbxSize.SelectedIndex == 0 && cbxCategory.SelectedIndex >= 1)
                 {
+                    strSport = cbxCategory.Text;
+                    strSize = "null";
+                    clsSQL.BindInventoryView(dgvInventory, strSport, strSize);
+
                     //set filter
                     (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Sport = '{0}'", cbxCategory.Text);
-                    if (!dgvInventory.Columns.Contains("Item Image"))
-                    {
-                        clsSQL.ImageInventory(dgvInventory);                        
-                    }
+                    //setup image
+                    clsSQL.ImageInventory(dgvInventory);
+                    dgvInventory.Columns.Remove("Image");
 
                     FormatInventoryView(dgvInventory);
                 }
@@ -621,31 +634,43 @@ namespace FinalProject
                 {
                     if (cbxCategory.SelectedIndex >= 1 && cbxSize.SelectedIndex >= 1)
                     {
+                        strSport = cbxCategory.Text;
+                        strSize = cbxSize.Text;
+                        clsSQL.BindInventoryView(dgvInventory, strSport, strSize);
+
                         //set multiple filters
                         (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Sport = '{0}' AND Size = '{1}'", cbxCategory.Text, cbxSize.Text);
-                        if (!dgvInventory.Columns.Contains("Item Image"))
-                        {
-                            clsSQL.ImageInventory(dgvInventory);
-                        }
+                        //setup image
+                        clsSQL.ImageInventory(dgvInventory);
+                        dgvInventory.Columns.Remove("Image");
+
                         FormatInventoryView(dgvInventory);
                     }
                     else if (cbxCategory.SelectedIndex == 0 && cbxSize.SelectedIndex >= 1)
                     {
+                        strSport = "null";
+                        strSize = cbxSize.Text;
+                        clsSQL.BindInventoryView(dgvInventory, strSport, strSize);
+
                         //set filter
                         (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Size = '{0}'", cbxSize.Text);
-                        if (!dgvInventory.Columns.Contains("Item Image"))
-                        {
-                            clsSQL.ImageInventory(dgvInventory);
-                        }
+                        //setup image
+                        clsSQL.ImageInventory(dgvInventory);
+                        dgvInventory.Columns.Remove("Image");
+
                         FormatInventoryView(dgvInventory);
                     }
                     else
                     {
+                        strSport = "null";
+                        strSize = "null";
+                        clsSQL.BindInventoryView(dgvInventory, strSport, strSize);
+
                         (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = "";
-                        if (!dgvInventory.Columns.Contains("Item Image"))
-                        {
-                            clsSQL.ImageInventory(dgvInventory);
-                        }
+                        //setup image
+                        clsSQL.ImageInventory(dgvInventory);
+                        dgvInventory.Columns.Remove("Image");
+
                         FormatInventoryView(dgvInventory);
                         tbxSearch.Focus();
                     }
@@ -662,46 +687,59 @@ namespace FinalProject
         {
             try
             {
+                string strSport, strSize;
                 //check selected index
                 if (cbxCategory.SelectedIndex == 0 && cbxSize.SelectedIndex >= 1)
                 {
+                    strSport = "null";
+                    strSize = cbxSize.Text;
+                    clsSQL.BindInventoryView(dgvInventory, strSport, strSize);
+
                     //set filter
                     (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Size = '{0}'", cbxSize.Text);
-                    if (!dgvInventory.Columns.Contains("Item Image"))
-                    {
-                        clsSQL.ImageInventory(dgvInventory);
-                    }
+
+                    clsSQL.ImageInventory(dgvInventory);
+                    dgvInventory.Columns.Remove("Image");
                     FormatInventoryView(dgvInventory);
                 }
                 else
                 {
                     if (cbxSize.SelectedIndex >= 1 && cbxCategory.SelectedIndex >= 1)
                     {
+                        strSport = cbxCategory.Text;
+                        strSize = cbxSize.Text;
+                        clsSQL.BindInventoryView(dgvInventory, strSport, strSize);
+
                         //set multiple filters
                         (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Sport = '{0}' AND Size = '{1}'", cbxCategory.Text, cbxSize.Text);
-                        if (!dgvInventory.Columns.Contains("Item Image"))
-                        {
-                            clsSQL.ImageInventory(dgvInventory);
-                        }
+                        
+                        clsSQL.ImageInventory(dgvInventory);
+                        dgvInventory.Columns.Remove("Image");
                         FormatInventoryView(dgvInventory);
                     }
                     else if (cbxSize.SelectedIndex == 0 && cbxCategory.SelectedIndex >= 1)
                     {
+                        strSport = cbxCategory.Text;
+                        strSize = "null";
+                        clsSQL.BindInventoryView(dgvInventory, strSport, strSize);
+
                         //set filter
                         (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = string.Format("Sport = '{0}'", cbxCategory.Text);
-                        if (!dgvInventory.Columns.Contains("Item Image"))
-                        {
-                            clsSQL.ImageInventory(dgvInventory);
-                        }
+                        
+                        clsSQL.ImageInventory(dgvInventory);
+                        dgvInventory.Columns.Remove("Image");
                         FormatInventoryView(dgvInventory);
                     }
                     else
                     {
+                        strSport = "null";
+                        strSize = "null";
+                        clsSQL.BindInventoryView(dgvInventory, strSport, strSize);
+
                         (dgvInventory.DataSource as DataTable).DefaultView.RowFilter = "";
-                        if (!dgvInventory.Columns.Contains("Item Image"))
-                        {
-                            clsSQL.ImageInventory(dgvInventory);
-                        }
+                        
+                        clsSQL.ImageInventory(dgvInventory);
+                        dgvInventory.Columns.Remove("Image");
                         FormatInventoryView(dgvInventory);
                         tbxSearch.Focus();
                     }
@@ -715,7 +753,7 @@ namespace FinalProject
         }
 
         //method for searching
-        internal static void SearchInventory(DataGridView dgvInventory, TextBox tbxSearch, ComboBox cbxSize)
+        internal static void SearchInventory(DataGridView dgvInventory, TextBox tbxSearch)
         {
             try
             {
@@ -739,8 +777,8 @@ namespace FinalProject
                                 {
                                     //select matching text
                                     dgvInventory.CurrentCell = row.Cells[i];
-                                }
-                            }
+                                }                                
+                            }                            
                         }
                     }
                 }

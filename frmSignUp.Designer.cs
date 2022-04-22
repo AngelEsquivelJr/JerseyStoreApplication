@@ -32,38 +32,38 @@ namespace FinalProject
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSignUp));
             this.tbxUsername = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
+            this.lbl15 = new System.Windows.Forms.Label();
+            this.lbl24 = new System.Windows.Forms.Label();
+            this.lbl1 = new System.Windows.Forms.Label();
             this.tbxZipcode = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
+            this.lbl11 = new System.Windows.Forms.Label();
+            this.lbl10 = new System.Windows.Forms.Label();
             this.tbxCity = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
+            this.lbl9 = new System.Windows.Forms.Label();
             this.tbxAddress3 = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
+            this.lbl8 = new System.Windows.Forms.Label();
             this.tbxAddress2 = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
+            this.lbl7 = new System.Windows.Forms.Label();
             this.tbxPhoneTwo = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lbl13 = new System.Windows.Forms.Label();
             this.tbxSuffix = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lbl5 = new System.Windows.Forms.Label();
             this.tbxMiddleName = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.lbl3 = new System.Windows.Forms.Label();
             this.tbxLastName = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lbl4 = new System.Windows.Forms.Label();
             this.btnSignUp = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.tbxPhoneOne = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lbl12 = new System.Windows.Forms.Label();
             this.tbxAddress1 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lbl6 = new System.Windows.Forms.Label();
             this.tbxFirstName = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lbl2 = new System.Windows.Forms.Label();
             this.tbxPassword = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lbl16 = new System.Windows.Forms.Label();
             this.tbxEmailInput = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lbl14 = new System.Windows.Forms.Label();
             this.gbxOne = new System.Windows.Forms.GroupBox();
             this.cbxState = new System.Windows.Forms.ComboBox();
             this.cbxTitle = new System.Windows.Forms.ComboBox();
@@ -71,15 +71,15 @@ namespace FinalProject
             this.tbxAnswerThree = new System.Windows.Forms.TextBox();
             this.btnShow = new System.Windows.Forms.Button();
             this.tbxAnswerTwo = new System.Windows.Forms.TextBox();
-            this.label23 = new System.Windows.Forms.Label();
+            this.lbl22 = new System.Windows.Forms.Label();
             this.tbxAnswerOne = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
+            this.lbl20 = new System.Windows.Forms.Label();
+            this.lbl21 = new System.Windows.Forms.Label();
             this.cbxSecurityThree = new System.Windows.Forms.ComboBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
+            this.lbl19 = new System.Windows.Forms.Label();
+            this.lbl18 = new System.Windows.Forms.Label();
             this.cbxSecurityTwo = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lbl17 = new System.Windows.Forms.Label();
             this.cbxSecurityOne = new System.Windows.Forms.ComboBox();
             this.securityQuestionsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.inew2332sp22TableDataSet = new FinalProject.inew2332sp22TableDataSet();
@@ -107,35 +107,35 @@ namespace FinalProject
             this.tbxUsername.TabIndex = 1;
             this.tbxUsername.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxUsername_KeyPress);
             // 
-            // label18
+            // lbl15
             // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(20, 83);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(92, 19);
-            this.label18.TabIndex = 14;
-            this.label18.Text = "*Username";
+            this.lbl15.AutoSize = true;
+            this.lbl15.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl15.Location = new System.Drawing.Point(20, 83);
+            this.lbl15.Name = "lbl15";
+            this.lbl15.Size = new System.Drawing.Size(92, 19);
+            this.lbl15.TabIndex = 14;
+            this.lbl15.Text = "*Username";
             // 
-            // label17
+            // lbl24
             // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(11, 591);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(198, 18);
-            this.label17.TabIndex = 4;
-            this.label17.Text = "*Indicates Required Fields";
+            this.lbl24.AutoSize = true;
+            this.lbl24.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl24.Location = new System.Drawing.Point(11, 591);
+            this.lbl24.Name = "lbl24";
+            this.lbl24.Size = new System.Drawing.Size(198, 18);
+            this.lbl24.TabIndex = 4;
+            this.lbl24.Text = "*Indicates Required Fields";
             // 
-            // label15
+            // lbl1
             // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(15, 21);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(40, 19);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "Title";
+            this.lbl1.AutoSize = true;
+            this.lbl1.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl1.Location = new System.Drawing.Point(15, 21);
+            this.lbl1.Name = "lbl1";
+            this.lbl1.Size = new System.Drawing.Size(40, 19);
+            this.lbl1.TabIndex = 0;
+            this.lbl1.Text = "Title";
             // 
             // tbxZipcode
             // 
@@ -148,25 +148,25 @@ namespace FinalProject
             this.tbxZipcode.TabIndex = 11;
             this.tbxZipcode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxZipcode_KeyPress);
             // 
-            // label16
+            // lbl11
             // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(17, 418);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(84, 19);
-            this.label16.TabIndex = 9;
-            this.label16.Text = "*Zip Code";
+            this.lbl11.AutoSize = true;
+            this.lbl11.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl11.Location = new System.Drawing.Point(17, 418);
+            this.lbl11.Name = "lbl11";
+            this.lbl11.Size = new System.Drawing.Size(84, 19);
+            this.lbl11.TabIndex = 9;
+            this.lbl11.Text = "*Zip Code";
             // 
-            // label14
+            // lbl10
             // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(203, 365);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(54, 19);
-            this.label14.TabIndex = 7;
-            this.label14.Text = "*State";
+            this.lbl10.AutoSize = true;
+            this.lbl10.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl10.Location = new System.Drawing.Point(203, 365);
+            this.lbl10.Name = "lbl10";
+            this.lbl10.Size = new System.Drawing.Size(54, 19);
+            this.lbl10.TabIndex = 7;
+            this.lbl10.Text = "*State";
             // 
             // tbxCity
             // 
@@ -179,15 +179,15 @@ namespace FinalProject
             this.tbxCity.TabIndex = 9;
             this.tbxCity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxCity_KeyPress);
             // 
-            // label13
+            // lbl9
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(17, 359);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(47, 19);
-            this.label13.TabIndex = 5;
-            this.label13.Text = "*City";
+            this.lbl9.AutoSize = true;
+            this.lbl9.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl9.Location = new System.Drawing.Point(17, 359);
+            this.lbl9.Name = "lbl9";
+            this.lbl9.Size = new System.Drawing.Size(47, 19);
+            this.lbl9.TabIndex = 5;
+            this.lbl9.Text = "*City";
             // 
             // tbxAddress3
             // 
@@ -200,15 +200,15 @@ namespace FinalProject
             this.tbxAddress3.TabIndex = 8;
             this.tbxAddress3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAddress3_KeyPress);
             // 
-            // label12
+            // lbl8
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(15, 301);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(83, 19);
-            this.label12.TabIndex = 3;
-            this.label12.Text = "Address 3";
+            this.lbl8.AutoSize = true;
+            this.lbl8.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl8.Location = new System.Drawing.Point(15, 301);
+            this.lbl8.Name = "lbl8";
+            this.lbl8.Size = new System.Drawing.Size(83, 19);
+            this.lbl8.TabIndex = 3;
+            this.lbl8.Text = "Address 3";
             // 
             // tbxAddress2
             // 
@@ -222,15 +222,15 @@ namespace FinalProject
             this.tbxAddress2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAddress2_KeyPress);
             this.tbxAddress2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbxAddress2_KeyUp);
             // 
-            // label11
+            // lbl7
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(16, 242);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(83, 19);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "Address 2";
+            this.lbl7.AutoSize = true;
+            this.lbl7.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl7.Location = new System.Drawing.Point(16, 242);
+            this.lbl7.Name = "lbl7";
+            this.lbl7.Size = new System.Drawing.Size(83, 19);
+            this.lbl7.TabIndex = 0;
+            this.lbl7.Text = "Address 2";
             // 
             // tbxPhoneTwo
             // 
@@ -243,15 +243,15 @@ namespace FinalProject
             this.tbxPhoneTwo.TabIndex = 13;
             this.tbxPhoneTwo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPhoneTwo_KeyPress);
             // 
-            // label10
+            // lbl13
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(193, 478);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(137, 19);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "Secondary Phone";
+            this.lbl13.AutoSize = true;
+            this.lbl13.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl13.Location = new System.Drawing.Point(193, 478);
+            this.lbl13.Name = "lbl13";
+            this.lbl13.Size = new System.Drawing.Size(137, 19);
+            this.lbl13.TabIndex = 12;
+            this.lbl13.Text = "Secondary Phone";
             // 
             // tbxSuffix
             // 
@@ -263,15 +263,15 @@ namespace FinalProject
             this.tbxSuffix.TabIndex = 5;
             this.tbxSuffix.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxSuffix_KeyPress);
             // 
-            // label9
+            // lbl5
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(205, 129);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(50, 19);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "Suffix";
+            this.lbl5.AutoSize = true;
+            this.lbl5.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl5.Location = new System.Drawing.Point(205, 129);
+            this.lbl5.Name = "lbl5";
+            this.lbl5.Size = new System.Drawing.Size(50, 19);
+            this.lbl5.TabIndex = 8;
+            this.lbl5.Text = "Suffix";
             // 
             // tbxMiddleName
             // 
@@ -283,15 +283,15 @@ namespace FinalProject
             this.tbxMiddleName.TabIndex = 3;
             this.tbxMiddleName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxMiddleName_KeyPress);
             // 
-            // label8
+            // lbl3
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(205, 77);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(108, 19);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "Middle Name";
+            this.lbl3.AutoSize = true;
+            this.lbl3.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl3.Location = new System.Drawing.Point(205, 77);
+            this.lbl3.Name = "lbl3";
+            this.lbl3.Size = new System.Drawing.Size(108, 19);
+            this.lbl3.TabIndex = 7;
+            this.lbl3.Text = "Middle Name";
             // 
             // tbxLastName
             // 
@@ -304,15 +304,15 @@ namespace FinalProject
             this.tbxLastName.TabIndex = 4;
             this.tbxLastName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxLastName_KeyPress);
             // 
-            // label7
+            // lbl4
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(17, 129);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(94, 19);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "*Last Name";
+            this.lbl4.AutoSize = true;
+            this.lbl4.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl4.Location = new System.Drawing.Point(17, 129);
+            this.lbl4.Name = "lbl4";
+            this.lbl4.Size = new System.Drawing.Size(94, 19);
+            this.lbl4.TabIndex = 4;
+            this.lbl4.Text = "*Last Name";
             // 
             // btnSignUp
             // 
@@ -348,15 +348,15 @@ namespace FinalProject
             this.tbxPhoneOne.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPhoneOne_KeyPress);
             this.tbxPhoneOne.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbxPhoneOne_KeyUp);
             // 
-            // label5
+            // lbl12
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(15, 478);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(117, 19);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "Primary Phone";
+            this.lbl12.AutoSize = true;
+            this.lbl12.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl12.Location = new System.Drawing.Point(15, 478);
+            this.lbl12.Name = "lbl12";
+            this.lbl12.Size = new System.Drawing.Size(117, 19);
+            this.lbl12.TabIndex = 11;
+            this.lbl12.Text = "Primary Phone";
             // 
             // tbxAddress1
             // 
@@ -369,15 +369,15 @@ namespace FinalProject
             this.tbxAddress1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAddress1_KeyPress);
             this.tbxAddress1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbxAddress1_KeyUp);
             // 
-            // label3
+            // lbl6
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(15, 183);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 19);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "*Address 1";
+            this.lbl6.AutoSize = true;
+            this.lbl6.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl6.Location = new System.Drawing.Point(15, 183);
+            this.lbl6.Name = "lbl6";
+            this.lbl6.Size = new System.Drawing.Size(91, 19);
+            this.lbl6.TabIndex = 0;
+            this.lbl6.Text = "*Address 1";
             // 
             // tbxFirstName
             // 
@@ -390,15 +390,15 @@ namespace FinalProject
             this.tbxFirstName.TabIndex = 2;
             this.tbxFirstName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxFirstName_KeyPress);
             // 
-            // label4
+            // lbl2
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(17, 77);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(97, 19);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "*First Name";
+            this.lbl2.AutoSize = true;
+            this.lbl2.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl2.Location = new System.Drawing.Point(17, 77);
+            this.lbl2.Name = "lbl2";
+            this.lbl2.Size = new System.Drawing.Size(97, 19);
+            this.lbl2.TabIndex = 2;
+            this.lbl2.Text = "*First Name";
             // 
             // tbxPassword
             // 
@@ -411,15 +411,15 @@ namespace FinalProject
             this.tbxPassword.TabIndex = 2;
             this.tbxPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPassword_KeyPress);
             // 
-            // label2
+            // lbl16
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(20, 139);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 19);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "*Password";
+            this.lbl16.AutoSize = true;
+            this.lbl16.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl16.Location = new System.Drawing.Point(20, 139);
+            this.lbl16.Name = "lbl16";
+            this.lbl16.Size = new System.Drawing.Size(87, 19);
+            this.lbl16.TabIndex = 16;
+            this.lbl16.Text = "*Password";
             // 
             // tbxEmailInput
             // 
@@ -431,44 +431,44 @@ namespace FinalProject
             this.tbxEmailInput.TabIndex = 0;
             this.tbxEmailInput.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxEmailInput_KeyPress);
             // 
-            // label1
+            // lbl14
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(22, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(115, 19);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Email Address";
+            this.lbl14.AutoSize = true;
+            this.lbl14.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl14.Location = new System.Drawing.Point(22, 21);
+            this.lbl14.Name = "lbl14";
+            this.lbl14.Size = new System.Drawing.Size(115, 19);
+            this.lbl14.TabIndex = 0;
+            this.lbl14.Text = "Email Address";
             // 
             // gbxOne
             // 
             this.gbxOne.Controls.Add(this.cbxState);
             this.gbxOne.Controls.Add(this.cbxTitle);
-            this.gbxOne.Controls.Add(this.label3);
+            this.gbxOne.Controls.Add(this.lbl6);
             this.gbxOne.Controls.Add(this.tbxAddress1);
-            this.gbxOne.Controls.Add(this.label4);
-            this.gbxOne.Controls.Add(this.label11);
+            this.gbxOne.Controls.Add(this.lbl2);
+            this.gbxOne.Controls.Add(this.lbl7);
             this.gbxOne.Controls.Add(this.tbxAddress2);
-            this.gbxOne.Controls.Add(this.label7);
+            this.gbxOne.Controls.Add(this.lbl4);
             this.gbxOne.Controls.Add(this.tbxFirstName);
-            this.gbxOne.Controls.Add(this.label12);
+            this.gbxOne.Controls.Add(this.lbl8);
             this.gbxOne.Controls.Add(this.tbxLastName);
             this.gbxOne.Controls.Add(this.tbxCity);
             this.gbxOne.Controls.Add(this.tbxAddress3);
-            this.gbxOne.Controls.Add(this.label14);
-            this.gbxOne.Controls.Add(this.label8);
+            this.gbxOne.Controls.Add(this.lbl10);
+            this.gbxOne.Controls.Add(this.lbl3);
             this.gbxOne.Controls.Add(this.tbxMiddleName);
             this.gbxOne.Controls.Add(this.tbxPhoneOne);
-            this.gbxOne.Controls.Add(this.label13);
+            this.gbxOne.Controls.Add(this.lbl9);
             this.gbxOne.Controls.Add(this.tbxSuffix);
-            this.gbxOne.Controls.Add(this.label5);
-            this.gbxOne.Controls.Add(this.label16);
-            this.gbxOne.Controls.Add(this.label10);
-            this.gbxOne.Controls.Add(this.label9);
+            this.gbxOne.Controls.Add(this.lbl12);
+            this.gbxOne.Controls.Add(this.lbl11);
+            this.gbxOne.Controls.Add(this.lbl13);
+            this.gbxOne.Controls.Add(this.lbl5);
             this.gbxOne.Controls.Add(this.tbxZipcode);
             this.gbxOne.Controls.Add(this.tbxPhoneTwo);
-            this.gbxOne.Controls.Add(this.label15);
+            this.gbxOne.Controls.Add(this.lbl1);
             this.gbxOne.Location = new System.Drawing.Point(9, 12);
             this.gbxOne.Name = "gbxOne";
             this.gbxOne.Size = new System.Drawing.Size(357, 556);
@@ -558,21 +558,21 @@ namespace FinalProject
             this.gbxTwo.Controls.Add(this.tbxAnswerThree);
             this.gbxTwo.Controls.Add(this.btnShow);
             this.gbxTwo.Controls.Add(this.tbxAnswerTwo);
-            this.gbxTwo.Controls.Add(this.label23);
+            this.gbxTwo.Controls.Add(this.lbl22);
             this.gbxTwo.Controls.Add(this.tbxEmailInput);
             this.gbxTwo.Controls.Add(this.tbxAnswerOne);
-            this.gbxTwo.Controls.Add(this.label22);
-            this.gbxTwo.Controls.Add(this.label1);
-            this.gbxTwo.Controls.Add(this.label20);
+            this.gbxTwo.Controls.Add(this.lbl20);
+            this.gbxTwo.Controls.Add(this.lbl14);
+            this.gbxTwo.Controls.Add(this.lbl21);
             this.gbxTwo.Controls.Add(this.cbxSecurityThree);
             this.gbxTwo.Controls.Add(this.tbxPassword);
-            this.gbxTwo.Controls.Add(this.label19);
-            this.gbxTwo.Controls.Add(this.label2);
-            this.gbxTwo.Controls.Add(this.label21);
+            this.gbxTwo.Controls.Add(this.lbl19);
+            this.gbxTwo.Controls.Add(this.lbl16);
+            this.gbxTwo.Controls.Add(this.lbl18);
             this.gbxTwo.Controls.Add(this.cbxSecurityTwo);
             this.gbxTwo.Controls.Add(this.tbxUsername);
-            this.gbxTwo.Controls.Add(this.label18);
-            this.gbxTwo.Controls.Add(this.label6);
+            this.gbxTwo.Controls.Add(this.lbl15);
+            this.gbxTwo.Controls.Add(this.lbl17);
             this.gbxTwo.Controls.Add(this.cbxSecurityOne);
             this.gbxTwo.Location = new System.Drawing.Point(398, 12);
             this.gbxTwo.Name = "gbxTwo";
@@ -615,15 +615,15 @@ namespace FinalProject
             this.tbxAnswerTwo.TabIndex = 7;
             this.tbxAnswerTwo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAnswerTwo_KeyPress);
             // 
-            // label23
+            // lbl22
             // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(22, 506);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(77, 19);
-            this.label23.TabIndex = 8;
-            this.label23.Text = "*Answer:";
+            this.lbl22.AutoSize = true;
+            this.lbl22.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl22.Location = new System.Drawing.Point(22, 506);
+            this.lbl22.Name = "lbl22";
+            this.lbl22.Size = new System.Drawing.Size(77, 19);
+            this.lbl22.TabIndex = 8;
+            this.lbl22.Text = "*Answer:";
             // 
             // tbxAnswerOne
             // 
@@ -636,25 +636,25 @@ namespace FinalProject
             this.tbxAnswerOne.TabIndex = 5;
             this.tbxAnswerOne.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxAnswerOne_KeyPress);
             // 
-            // label22
+            // lbl20
             // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(18, 404);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(77, 19);
-            this.label22.TabIndex = 7;
-            this.label22.Text = "*Answer:";
+            this.lbl20.AutoSize = true;
+            this.lbl20.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl20.Location = new System.Drawing.Point(18, 404);
+            this.lbl20.Name = "lbl20";
+            this.lbl20.Size = new System.Drawing.Size(77, 19);
+            this.lbl20.TabIndex = 7;
+            this.lbl20.Text = "*Answer:";
             // 
-            // label20
+            // lbl21
             // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(22, 443);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(164, 19);
-            this.label20.TabIndex = 2;
-            this.label20.Text = "*Security Question 3:";
+            this.lbl21.AutoSize = true;
+            this.lbl21.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl21.Location = new System.Drawing.Point(22, 443);
+            this.lbl21.Name = "lbl21";
+            this.lbl21.Size = new System.Drawing.Size(164, 19);
+            this.lbl21.TabIndex = 2;
+            this.lbl21.Text = "*Security Question 3:";
             // 
             // cbxSecurityThree
             // 
@@ -665,25 +665,25 @@ namespace FinalProject
             this.cbxSecurityThree.Size = new System.Drawing.Size(327, 21);
             this.cbxSecurityThree.TabIndex = 8;
             // 
-            // label19
+            // lbl19
             // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(19, 339);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(164, 19);
-            this.label19.TabIndex = 1;
-            this.label19.Text = "*Security Question 2:";
+            this.lbl19.AutoSize = true;
+            this.lbl19.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl19.Location = new System.Drawing.Point(19, 339);
+            this.lbl19.Name = "lbl19";
+            this.lbl19.Size = new System.Drawing.Size(164, 19);
+            this.lbl19.TabIndex = 1;
+            this.lbl19.Text = "*Security Question 2:";
             // 
-            // label21
+            // lbl18
             // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(18, 301);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(77, 19);
-            this.label21.TabIndex = 6;
-            this.label21.Text = "*Answer:";
+            this.lbl18.AutoSize = true;
+            this.lbl18.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl18.Location = new System.Drawing.Point(18, 301);
+            this.lbl18.Name = "lbl18";
+            this.lbl18.Size = new System.Drawing.Size(77, 19);
+            this.lbl18.TabIndex = 6;
+            this.lbl18.Text = "*Answer:";
             // 
             // cbxSecurityTwo
             // 
@@ -694,15 +694,15 @@ namespace FinalProject
             this.cbxSecurityTwo.Size = new System.Drawing.Size(327, 21);
             this.cbxSecurityTwo.TabIndex = 6;
             // 
-            // label6
+            // lbl17
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(20, 233);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(164, 19);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "*Security Question 1:";
+            this.lbl17.AutoSize = true;
+            this.lbl17.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl17.Location = new System.Drawing.Point(20, 233);
+            this.lbl17.Name = "lbl17";
+            this.lbl17.Size = new System.Drawing.Size(164, 19);
+            this.lbl17.TabIndex = 0;
+            this.lbl17.Text = "*Security Question 1:";
             // 
             // cbxSecurityOne
             // 
@@ -764,7 +764,7 @@ namespace FinalProject
             this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.gbxTwo);
             this.Controls.Add(this.gbxOne);
-            this.Controls.Add(this.label17);
+            this.Controls.Add(this.lbl24);
             this.Controls.Add(this.btnSignUp);
             this.Controls.Add(this.btnCancel);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -773,7 +773,7 @@ namespace FinalProject
             this.MaximizeBox = false;
             this.Name = "frmSignUp";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AE Sporting Fits | Create Your Account";
+            this.Text = "Create Your Account | AE Sporting Fits";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSignUp_FormClosing);
             this.Load += new System.EventHandler(this.frmSignUp_Load);
             this.gbxOne.ResumeLayout(false);
@@ -792,53 +792,53 @@ namespace FinalProject
         #endregion
 
         private System.Windows.Forms.TextBox tbxUsername;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label lbl15;
+        private System.Windows.Forms.Label lbl24;
+        private System.Windows.Forms.Label lbl1;
         private System.Windows.Forms.TextBox tbxZipcode;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lbl11;
+        private System.Windows.Forms.Label lbl10;
         private System.Windows.Forms.TextBox tbxCity;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lbl9;
         private System.Windows.Forms.TextBox tbxAddress3;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lbl8;
         private System.Windows.Forms.TextBox tbxAddress2;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lbl7;
         private System.Windows.Forms.TextBox tbxPhoneTwo;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lbl13;
         private System.Windows.Forms.TextBox tbxSuffix;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lbl5;
         private System.Windows.Forms.TextBox tbxMiddleName;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lbl3;
         private System.Windows.Forms.TextBox tbxLastName;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lbl4;
         private System.Windows.Forms.Button btnSignUp;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.TextBox tbxPhoneOne;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lbl12;
         private System.Windows.Forms.TextBox tbxAddress1;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lbl6;
         private System.Windows.Forms.TextBox tbxFirstName;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lbl2;
         private System.Windows.Forms.TextBox tbxPassword;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbl16;
         private System.Windows.Forms.TextBox tbxEmailInput;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbl14;
         private System.Windows.Forms.GroupBox gbxOne;
         private System.Windows.Forms.GroupBox gbxTwo;
         private System.Windows.Forms.ComboBox cbxSecurityThree;
         private System.Windows.Forms.ComboBox cbxSecurityTwo;
         private System.Windows.Forms.ComboBox cbxSecurityOne;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label lbl17;
+        private System.Windows.Forms.Label lbl21;
+        private System.Windows.Forms.Label lbl19;
         private System.Windows.Forms.ComboBox cbxTitle;
         private System.Windows.Forms.TextBox tbxAnswerThree;
         private System.Windows.Forms.TextBox tbxAnswerTwo;
         private System.Windows.Forms.TextBox tbxAnswerOne;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label lbl22;
+        private System.Windows.Forms.Label lbl20;
+        private System.Windows.Forms.Label lbl18;
         private System.Windows.Forms.ComboBox cbxState;
         private System.Windows.Forms.Button btnShow;
         private System.Windows.Forms.Button btnHelp;

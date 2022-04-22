@@ -21,6 +21,8 @@ namespace FinalProject
     {
         //main form
         frmMain frmMain = new frmMain();
+        //manager form
+        frmManager frmManager = new frmManager();
 
         public frmLogon()
         {
@@ -102,7 +104,7 @@ namespace FinalProject
         private void frmLogon_FormClosing(object sender, FormClosingEventArgs e)
         {
             //allow exit through x button
-            //close datatbase upon exit
+            //close database upon exit
             Application.Exit();
             clsSQL.CloseDatabase();
         }
@@ -122,7 +124,7 @@ namespace FinalProject
         private void btnLogin_Click(object sender, EventArgs e)
         {
             //clsLogon method for logging in
-            clsLogon.Login(tbxPassword, tbxUsername, this, frmMain);
+            clsLogon.Login(tbxPassword, tbxUsername, this, frmMain, frmManager);
         }
 
         private void btnHelp_Click(object sender, EventArgs e)

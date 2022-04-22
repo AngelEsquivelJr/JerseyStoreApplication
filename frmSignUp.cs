@@ -39,25 +39,28 @@ namespace FinalProject
 
         private void frmSignUp_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (string.IsNullOrEmpty(tbxPassword.Text) || string.IsNullOrEmpty(tbxAnswerThree.Text))
+            if (clsSQL.strPositionTitle != "Manager")
             {
-                //asks user for confirmation of exit and returns to previous form
-                DialogResult drResult = MessageBox.Show("Are you sure you want to cancel sign up? ",
-                  "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                switch (drResult)
+                if (string.IsNullOrEmpty(tbxPassword.Text) || string.IsNullOrEmpty(tbxAnswerThree.Text))
                 {
-                    case DialogResult.Yes:
-                        frmLogin.Show();
-                        break;
-                    case DialogResult.No:
-                        e.Cancel = true;
-                        break;
+                    //asks user for confirmation of exit and returns to previous form
+                    DialogResult drResult = MessageBox.Show("Are you sure you want to cancel sign up? ",
+                      "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    switch (drResult)
+                    {
+                        case DialogResult.Yes:
+                            frmLogin.Show();
+                            break;
+                        case DialogResult.No:
+                            e.Cancel = true;
+                            break;
+                    }
                 }
-            }
-            else
-            {
-                //return to login
-                frmLogin.Show();
+                else
+                {
+                    //return to login
+                    frmLogin.Show();
+                }
             }
         }
 
@@ -178,28 +181,28 @@ namespace FinalProject
             //set up parameters
             clsParameters.SignupParameters signupParameters = new clsParameters.SignupParameters
             {
-                cbxTitle = cbxTitle,
-                tbxFirstName = tbxFirstName,
-                tbxMiddleName = tbxMiddleName,
-                tbxLastName = tbxLastName,
-                tbxSuffix = tbxSuffix,
-                tbxCity = tbxCity,
-                tbxAddress1 = tbxAddress1,
-                tbxAddress2 = tbxAddress2,
-                tbxAddress3 = tbxAddress3,
-                tbxPhone1 = tbxPhoneOne,
-                tbxPhone2 = tbxPhoneTwo,
-                cbxState = cbxState,
-                tbxEmail = tbxEmailInput,
-                tbxZipcode = tbxZipcode,
-                tbxUsername = tbxUsername,
-                tbxPassword = tbxPassword,
-                cbxSecQuestion1 = cbxSecurityOne,
-                cbxSecQuestion2 = cbxSecurityTwo,
-                cbxSecQuestion3 = cbxSecurityThree,
-                tbxAnswer1 = tbxAnswerOne,
-                tbxAnswer2 = tbxAnswerTwo,
-                tbxAnswer3 = tbxAnswerThree
+                cbxTitleP = cbxTitle,
+                tbxFirstNameP = tbxFirstName,
+                tbxMiddleNameP = tbxMiddleName,
+                tbxLastNameP = tbxLastName,
+                tbxSuffixP = tbxSuffix,
+                tbxCityP = tbxCity,
+                tbxAddress1P = tbxAddress1,
+                tbxAddress2P = tbxAddress2,
+                tbxAddress3P = tbxAddress3,
+                tbxPhone1P = tbxPhoneOne,
+                tbxPhone2P = tbxPhoneTwo,
+                cbxStateP = cbxState,
+                tbxEmailP = tbxEmailInput,
+                tbxZipcodeP = tbxZipcode,
+                tbxUsernameP = tbxUsername,
+                tbxPasswordP = tbxPassword,
+                cbxSecQuestion1P = cbxSecurityOne,
+                cbxSecQuestion2P = cbxSecurityTwo,
+                cbxSecQuestion3P = cbxSecurityThree,
+                tbxAnswer1P = tbxAnswerOne,
+                tbxAnswer2P = tbxAnswerTwo,
+                tbxAnswer3P = tbxAnswerThree
             };
 
             //clsLogon method for signing up

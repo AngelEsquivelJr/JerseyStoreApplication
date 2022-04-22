@@ -37,29 +37,32 @@ namespace FinalProject
             //login form
             frmLogon frmLogin = new frmLogon();
 
-            if (string.IsNullOrEmpty(tbxTotal.Text) || string.IsNullOrEmpty(tbxCCV.Text))
+            if (clsSQL.strPositionTitle != "Manager")
             {
-                //asks user for confirmation of exit and returns to previous form
-                DialogResult drResult = MessageBox.Show("Are you sure you want to logout? ",
-                  "Close", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                switch (drResult)
+                if (string.IsNullOrEmpty(tbxTotal.Text) || string.IsNullOrEmpty(tbxCCV.Text))
                 {
-                    case DialogResult.Yes:
-                        frmLogin.Show();
-                        //reset logon name
-                        clsSQL.strLogonName = "Guest";
-                        break;
-                    case DialogResult.No:
-                        e.Cancel = true;
-                        break;
+                    //asks user for confirmation of exit and returns to previous form
+                    DialogResult drResult = MessageBox.Show("Are you sure you want to logout? ",
+                      "Close", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    switch (drResult)
+                    {
+                        case DialogResult.Yes:
+                            frmLogin.Show();
+                            //reset logon name
+                            clsSQL.strLogonName = "Guest";
+                            break;
+                        case DialogResult.No:
+                            e.Cancel = true;
+                            break;
+                    }
                 }
-            }
-            else
-            {
-                //return to login
-                frmLogin.Show();
-                //reset logon name
-                clsSQL.strLogonName = "Guest";
+                else
+                {
+                    //return to login
+                    frmLogin.Show();
+                    //reset logon name
+                    clsSQL.strLogonName = "Guest";
+                }
             }
         }
 
@@ -77,14 +80,14 @@ namespace FinalProject
         {
             try
             {
-                //set card number text box
-                tbxExpiration.Text = strDate + " ";
-                tbxExpiration.ForeColor = Color.LightGray;
-                //call method to set up data grid view
-                clsSQL.InitializeInventoryView(dgvInventory);
                 //call method to fill category combo and size combo
                 clsSQL.FillCategoryCombo(cbxCategories);
                 clsSQL.FillSizeCombo(cbxSizes);
+                //call method to set up data grid view
+                clsSQL.InitializeInventoryView(dgvInventory);
+                //set card number text box
+                tbxExpiration.Text = strDate + " ";
+                tbxExpiration.ForeColor = Color.LightGray;                
                 //clear cart
                 clsCart.ClearCart(dgvCart);
                 //clear text boxes
@@ -110,6 +113,11 @@ namespace FinalProject
                     //set labels
                     lblIntroDesc.Text = " ";
                     lblIntro.Text = "Welcome " + clsSQL.strLogonName + "!";
+                    if(clsSQL.strPositionTitle == "Manager")
+                    {
+                        lblManager.Visible = true;
+                        lblManager.Text = "Manager: " + clsSQL.strName;
+                    }
                 }
             }
             catch (Exception)
@@ -193,7 +201,7 @@ namespace FinalProject
         private void btnSearch_Click(object sender, EventArgs e)
         {            
             //call method for searching
-            clsCart.SearchInventory(dgvInventory, tbxSearch, cbxSizes);
+            clsCart.SearchInventory(dgvInventory, tbxSearch);
         }
 
         private void tbxCardNumber_KeyPress(object sender, KeyPressEventArgs e)
@@ -259,7 +267,7 @@ namespace FinalProject
         private void tbxCCV_TextChanged(object sender, EventArgs e)
         {
             //make text proper color
-            tbxCCV.ForeColor = Color.Black;
+            tbxCCV.ForeColor = Color.Black;            
         }        
 
         private void btnAddtoCart_Click(object sender, EventArgs e)
@@ -269,14 +277,20 @@ namespace FinalProject
 
         private void cbxSizes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //call method for filtering view
-            clsCart.FilterInventorySize(dgvInventory, cbxSizes, cbxCategories, tbxSearch);
+            if (dgvInventory.Rows.Count > 0)
+            {
+                //call method for filtering view
+                clsCart.FilterInventorySize(dgvInventory, cbxSizes, cbxCategories, tbxSearch);
+            }
         }
 
         private void cbxCategories_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //call method for filtering view
-            clsCart.FilterInventoryCategory(dgvInventory, cbxCategories, cbxSizes, tbxSearch);
+            if (dgvInventory.Rows.Count > 0)
+            {
+                //call method for filtering view
+                clsCart.FilterInventoryCategory(dgvInventory, cbxCategories, cbxSizes, tbxSearch);
+            }
         }
 
         private void btnCartAdd_Click(object sender, EventArgs e)
@@ -321,18 +335,18 @@ namespace FinalProject
         {
             clsParameters.CheckoutParameters checkoutParameters = new clsParameters.CheckoutParameters
             {
-                dgvCart = dgvCart,
-                dgvInventory = dgvInventory,
-                tbxCardNumber = tbxCardNumber,
-                tbxCCV = tbxCCV,
-                tbxExpiry = tbxExpiration,
-                tbxGross = tbxGross,
-                tbxCode =tbxCode,
-                tbxDiscount =tbxDiscount,
-                tbxItems = tbxItems,
-                tbxSub =tbxSub,
-                tbxTax =tbxTax,
-                tbxTotal = tbxTotal
+                dgvCartP = dgvCart,
+                dgvInventoryP = dgvInventory,
+                tbxCardNumberP = tbxCardNumber,
+                tbxCCVP = tbxCCV,
+                tbxExpiryP = tbxExpiration,
+                tbxGrossP = tbxGross,
+                tbxCodeP =tbxCode,
+                tbxDiscountP =tbxDiscount,
+                tbxItemsP = tbxItems,
+                tbxSubP =tbxSub,
+                tbxTaxP =tbxTax,
+                tbxTotalP = tbxTotal
             };
 
             //call method to checkout
@@ -343,6 +357,11 @@ namespace FinalProject
         {
             //help file
             clsHelp.OpenHelp("CustomerHelp.pdf");
+        }
+
+        private void dgvInventory_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            clsSQL.FillQuantityCombo(dgvInventory, cbxQuantity);
         }
     }
 }

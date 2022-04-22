@@ -31,7 +31,7 @@ namespace FinalProject
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogon));
             this.btnShow = new System.Windows.Forms.Button();
-            this.label15 = new System.Windows.Forms.Label();
+            this.lblPass = new System.Windows.Forms.Label();
             this.btnHelp = new System.Windows.Forms.Button();
             this.btnPasswordReset = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
@@ -39,7 +39,7 @@ namespace FinalProject
             this.btnSign = new System.Windows.Forms.Button();
             this.tbxPassword = new System.Windows.Forms.TextBox();
             this.tbxUsername = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.gbxOne = new System.Windows.Forms.GroupBox();
             this.llbBrowse = new System.Windows.Forms.LinkLabel();
             this.gbxOne.SuspendLayout();
@@ -58,15 +58,15 @@ namespace FinalProject
             this.btnShow.UseVisualStyleBackColor = true;
             this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
             // 
-            // label15
+            // lblPass
             // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(2, 74);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(84, 19);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "Password:";
+            this.lblPass.AutoSize = true;
+            this.lblPass.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPass.Location = new System.Drawing.Point(2, 74);
+            this.lblPass.Name = "lblPass";
+            this.lblPass.Size = new System.Drawing.Size(84, 19);
+            this.lblPass.TabIndex = 0;
+            this.lblPass.Text = "Password:";
             // 
             // btnHelp
             // 
@@ -154,14 +154,14 @@ namespace FinalProject
             this.tbxUsername.TextChanged += new System.EventHandler(this.tbxUsername_TextChanged);
             this.tbxUsername.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxUsername_KeyPress);
             // 
-            // label1
+            // lblTitle
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(117, 21);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Login Portal";
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(8, 18);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(117, 21);
+            this.lblTitle.TabIndex = 1;
+            this.lblTitle.Text = "Login Portal";
             // 
             // gbxOne
             // 
@@ -170,7 +170,7 @@ namespace FinalProject
             this.gbxOne.Controls.Add(this.tbxPassword);
             this.gbxOne.Controls.Add(this.btnShow);
             this.gbxOne.Controls.Add(this.btnSign);
-            this.gbxOne.Controls.Add(this.label15);
+            this.gbxOne.Controls.Add(this.lblPass);
             this.gbxOne.Controls.Add(this.btnLogin);
             this.gbxOne.Controls.Add(this.btnPasswordReset);
             this.gbxOne.Location = new System.Drawing.Point(12, 42);
@@ -202,7 +202,7 @@ namespace FinalProject
             this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(467, 260);
             this.Controls.Add(this.gbxOne);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.btnExit);
             this.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -225,7 +225,7 @@ namespace FinalProject
         #endregion
 
         private System.Windows.Forms.Button btnShow;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label lblPass;
         private System.Windows.Forms.Button btnHelp;
         private System.Windows.Forms.Button btnPasswordReset;
         private System.Windows.Forms.Button btnExit;
@@ -233,7 +233,7 @@ namespace FinalProject
         private System.Windows.Forms.Button btnSign;
         private System.Windows.Forms.TextBox tbxPassword;
         private System.Windows.Forms.TextBox tbxUsername;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.GroupBox gbxOne;
         private System.Windows.Forms.LinkLabel llbBrowse;
     }

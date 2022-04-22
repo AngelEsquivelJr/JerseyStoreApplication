@@ -762,27 +762,27 @@ namespace FinalProject
         internal static bool Validate(clsParameters.SignupParameters strParameters)
         {
             //check required fields
-            if (RequiredFields(strParameters.tbxFirstName.Text, strParameters.tbxLastName.Text, strParameters.tbxAddress1.Text, strParameters.tbxCity.Text, strParameters.cbxState.Text))
+            if (RequiredFields(strParameters.tbxFirstNameP.Text, strParameters.tbxLastNameP.Text, strParameters.tbxAddress1P.Text, strParameters.tbxCityP.Text, strParameters.cbxStateP.Text))
             {
                 //check zip code
-                if (ZipCodeValidation(strParameters.tbxZipcode.Text))
+                if (ZipCodeValidation(strParameters.tbxZipcodeP.Text))
                 {
                     //check phones
-                    if (PhoneValidation(strParameters.tbxPhone1.Text))
+                    if (PhoneValidation(strParameters.tbxPhone1P.Text))
                     {
-                        if (PhoneValidation(strParameters.tbxPhone2.Text))
+                        if (PhoneValidation(strParameters.tbxPhone2P.Text))
                         {
                             //check email
-                            if (EmailValidation(strParameters.tbxEmail.Text))
+                            if (EmailValidation(strParameters.tbxEmailP.Text))
                             {
                                 //check username
-                                if (UsernameValidation(strParameters.tbxUsername.Text))
+                                if (UsernameValidation(strParameters.tbxUsernameP.Text))
                                 {
                                     //check password
-                                    if (PasswordValidation(strParameters.tbxPassword.Text))
+                                    if (PasswordValidation(strParameters.tbxPasswordP.Text))
                                     {
                                         //check required fields
-                                        if (RequiredFieldsTwo(strParameters.cbxSecQuestion1.Text, strParameters.cbxSecQuestion2.Text, strParameters.cbxSecQuestion3.Text, strParameters.tbxAnswer1.Text, strParameters.tbxAnswer2.Text, strParameters.tbxAnswer3.Text))
+                                        if (RequiredFieldsTwo(strParameters.cbxSecQuestion1P.Text, strParameters.cbxSecQuestion2P.Text, strParameters.cbxSecQuestion3P.Text, strParameters.tbxAnswer1P.Text, strParameters.tbxAnswer2P.Text, strParameters.tbxAnswer3P.Text))
                                         {
                                             return true;
                                         }
@@ -794,6 +794,40 @@ namespace FinalProject
                                 }
                                 else
                                     return false;
+                            }
+                            else
+                                return false;
+                        }
+                        else
+                            return false;
+                    }
+                    else
+                        return false;
+                }
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
+
+        internal static bool ValidateTwo(clsParameters.SignupParameters strParameters)
+        {
+            //check required fields
+            if (RequiredFields(strParameters.tbxFirstNameP.Text, strParameters.tbxLastNameP.Text, strParameters.tbxAddress1P.Text, strParameters.tbxCityP.Text, strParameters.cbxStateP.Text))
+            {
+                //check zip code
+                if (ZipCodeValidation(strParameters.tbxZipcodeP.Text))
+                {
+                    //check phones
+                    if (PhoneValidation(strParameters.tbxPhone1P.Text))
+                    {
+                        if (PhoneValidation(strParameters.tbxPhone2P.Text))
+                        {
+                            //check email
+                            if (EmailValidation(strParameters.tbxEmailP.Text))
+                            {
+                                return true;
                             }
                             else
                                 return false;
