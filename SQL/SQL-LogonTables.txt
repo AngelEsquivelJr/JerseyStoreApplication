@@ -1,0 +1,52 @@
+CREATE TABLE EsquivelA22Sp2332.Person
+(
+    -- PersonID is the the Field/Attribute named using Pascal Case    
+    PersonID int AUTO_INCREMENT PRIMARY KEY,
+    Title varchar(15) NULL, -- Mr. Ms. Mrs. Dr. etc...
+    NameFirst varchar(20) NOT NULL,
+    NameMiddle varchar(20) NULL,
+    NameLast varchar(20) NOT NULL,
+    Suffix varchar(20) NULL, -- Jr. Sr. I II III etc...
+    Address1 varchar(30) NOT NULL,
+    Address2 varchar(30) NULL,
+    Address3 varchar(30) NULL,
+    City varchar(30) NOT NULL,
+    Zipcode varchar(10) NOT NULL, -- Accepts ##### or #####-####
+    State varchar(2) NOT NULL, -- Tx or TX but not Texas or TX. (with a period)
+    Email varchar(40) NULL,
+    PhonePrimary varchar(20) NULL,
+    PhoneSecondary varchar(20) NULL,
+    Image BLOB NULL,  -- For holding Images/pictures of the person
+	PersonDeleted bit NULL
+);
+
+
+CREATE TABLE EsquivelA22Sp2332.SecurityQuestions -- Make sure to use your Schema name [EsquivelA22Sp2332.TableName]
+(
+    QuestionID int AUTO_INCREMENT PRIMARY KEY,
+    SetID int NOT NULL,
+    QuestionPrompt varchar(30) NOT NULL
+);
+
+
+CREATE TABLE EsquivelA22Sp2332.Logon -- Make sure to use your Schema name [EsquivelA22Sp2332.TableName]
+(
+    LogonID int AUTO_INCREMENT PRIMARY KEY, 
+    PersonID int NOT NULL, -- Foreign Key from Person Table
+    LogonName  varchar(20) NOT NULL,
+    Password varchar(20) NOT NULL,
+    FirstChallengeQuestion int NOT NULL, -- Foreign Key from SecurityQuestions Table
+    FirstChallengeAnswer varchar(20) NOT NULL, 
+    SecondChallengeQuestion int NOT NULL, -- Foreign Key from SecurityQuestions Table
+    SecondChallengeAnswer varchar(20) NOT NULL,
+    ThirdChallengeQuestion int NOT NULL, -- Foreign Key from SecurityQuestions Table
+    ThirdChallengeAnswer varchar(20) NOT NULL,
+    PositionTitle varchar(20) NOT NULL, -- Customer, Employee, Manager, etc...
+    AccountDisabled bit NULL, 
+    AccountDeleted bit NULL,
+    FOREIGN KEY (PersonID) REFERENCES EsquivelA22Sp2332.Person(PersonID),
+    FOREIGN KEY (FirstChallengeQuestion) REFERENCES EsquivelA22Sp2332.SecurityQuestions(QuestionID),
+    FOREIGN KEY (SecondChallengeQuestion) REFERENCES EsquivelA22Sp2332.SecurityQuestions(QuestionID),
+    FOREIGN KEY (ThirdChallengeQuestion) REFERENCES EsquivelA22Sp2332.SecurityQuestions(QuestionID),
+	CONSTRAINT UQ_LogonName UNIQUE(LogonName)
+);

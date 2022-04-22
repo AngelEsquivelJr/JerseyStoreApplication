@@ -1,0 +1,27 @@
+Select ItemImage as 'Image', ItemName as 'Name', RetailPrice as 'Price', Size, Quantity, ItemDescription as 'Description', Color, T.TeamSport as 'Sport' from " + strSchema + ".Inventory I INNER JOIN " +
+                    strSchema + ".Teams T ON I.TeamID = T.TeamID Where Quantity > 0 AND Discontinued = 0;
+
+SELECT DiscountCode, Description, DiscountLevel, InventoryID, DiscountType, DiscountDollarAmount, DiscountPercentage," +
+                    " ExpirationDate, DiscountID FROM " + strSchema + ".Discounts WHERE DiscountCode = @DiscountCode;
+
+INSERT INTO " + strSchema + ".Orders (PersonID, OrderDate, CC_Number, ExpDate, CCV)" +
+                    "  VALUES (@PersonID, @OrderDate, @CC_Number, @ExpDate," +
+                    " @CCV);
+
+INSERT INTO " + strSchema + ".OrderDetails (OrderID, InventoryID, Quantity)" +
+                    "  VALUES (@OrderID, @InventoryID, @Quantity);
+
+UPDATE " + strSchema + ".Inventory SET Quantity = @Quantity" +
+                " WHERE InventoryID = @InventoryID;
+
+SELECT max(OrderID), PersonID FROM " + strSchema + ".Orders where PersonID = @PersonID AND OrderDate = @OrderDate GROUP BY PersonID;
+
+
+SELECT distinct T.TeamSport FROM " + strSchema +
+                    ".Inventory I INNER JOIN " + strSchema + ".Teams T ON I.TeamID = T.TeamID;
+
+SELECT distinct I.Size FROM " + strSchema +
+                    ".Inventory I INNER JOIN " + strSchema + ".Teams T ON I.TeamID = T.TeamID;
+
+
+

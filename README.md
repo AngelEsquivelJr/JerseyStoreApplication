@@ -18,7 +18,7 @@ This will be a store application where you can buy sporting jerseys. A customer 
 - The project will be designed to be as user friendly and as easy to use as possible.
 - The search feature will be useful to find whatever specific item you need. The sorted items will also make it simple to find
   an item.
-- The project is currently in the beginning of its development cycle, and currently only has a logon view implemented.
+- The project is currently in the end of its development cycle, and currently has a logon view, customer view, and manager view implemented.
 
 ### Development Plan - Time Table
 
@@ -34,7 +34,7 @@ This will be a store application where you can buy sporting jerseys. A customer 
 
 - **Manager View**
 
-  My desired completion date for the Manager View will be the 25th of March. This time, less time will be used to design the view, about 4 days, then the next 2 weeks to implement the code, and the remaining time to fix any problems. I will take more time on the code here as I believe this view will require more work than the others.
+  My desired completion date for the Manager View will be the 22nd of April. This time, less time will be used to design the view, about 4 days, then the next 2 weeks to implement the code, and the remaining time to fix any problems. I will take more time on the code here as I believe this view will require more work than the others.
 
 ### Development Environment
 
@@ -70,9 +70,10 @@ Include any essential instructions for:
 - Testing, validation, etc.
 
 ### Videos
-- URL for your Video Resume
-- URL for your Final Customer Demonstration Video
-- URL for any other specific videos for this product
+- URL for Video Resume:
+	https://drive.google.com/file/d/1wcd41y6STuB8PHU2B6n7q5wongl_jY7s/view?usp=sharing
+- URL for Customer Demonstration Video:
+	https://drive.google.com/file/d/1ltgU1fM2spbxdm_7FF9dRVSfoFXUlXHy/view?usp=sharing
 
 ### Contributing
 - Contributor Guidelines
@@ -81,8 +82,7 @@ Include any essential instructions for:
 - Thank you (name contributors)
 
 ### TODO
-- Wait for approval. Then begin working on Final Submission.
-- Once approved waste no time on final submission.
+- Submit final submission.
 - Features planned
 - Known bugs (shortlist)
 
@@ -98,4 +98,4 @@ Instagram | [Angel Jr](https://www.instagram.com/the.angel.jr/)
 
 GNU General Public License v3.0
 
-Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
+Permissions of this strong copyright license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.

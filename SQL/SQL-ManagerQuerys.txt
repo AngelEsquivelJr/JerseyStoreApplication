@@ -1,0 +1,65 @@
+Select InventoryID as 'Inventory ID', ItemName as 'Name', Quantity from " + strSchema + ".Inventory" +
+                    " WHERE Quantity <= RestockThreshold AND Discontinued != 1 Order by Quantity ASC;
+
+Select ItemImage as 'Image', InventoryID as 'Inventory ID', ItemName as 'Name', ItemDescription as 'Description', format(RetailPrice, 'C') as 'Retail Price', format(Cost, 'C') as 'Cost', Quantity, " +
+                    "Discontinued, Size, Color, TeamID as 'Team ID', RestockThreshold as 'Restock Threshold' from " + strSchema + ".Inventory Order by ItemName ASC;
+
+Select P.PersonID as 'Person ID', Title, NameFirst as 'First Name', NameMiddle as 'Middle Name', NameLast as 'Last Name', Suffix, Address1, Address2, Address3, " +
+                    "City, Zipcode, State, Email, PhonePrimary as 'Primary Phone', PhoneSecondary as 'Secondary Phone', PersonDeleted as 'Deleted', L.PositionTitle as 'Position Title' from " + strSchema + ".Person P "+
+                    "FULL JOIN " + strSchema + ".Logon L ON P.PersonID = L.PersonID;
+
+Select O.PersonID as 'Person ID', P.NameFirst + ' ' + P.NameLast as 'Name', OrderID as 'Order ID', OrderDate " +
+                    "from " + strSchema + ".Orders O FULL JOIN " + strSchema + ".Person P on O.PersonID = P.PersonID " +
+                    "WHERE O.PersonID = " + clsSQL.strPID + " Order by OrderID DESC;
+
+Select OrderDetailsID as 'Details ID', OrderID as 'Order ID', O.InventoryID as 'Inventory ID', I.ItemName as 'Item Name', " +
+                    "O.Quantity as 'Quantity Sold', format(I.RetailPrice, 'C') as 'Retail Price', format(SUM(I.RetailPrice * O.Quantity), 'C') as 'Line Item Total', DiscountID as 'Discount ID' " +
+                    "from " + strSchema + ".OrderDetails O FULL JOIN " + strSchema + ".Inventory I ON O.InventoryID = I.InventoryID " +
+                    "WHERE O.OrderID = " + clsManager.GetOrderID(dgvOrders) + " group by OrderDetailsID, OrderID, O.InventoryID, I.ItemName, O.Quantity, DiscountID, RetailPrice;
+
+Select DiscountID as 'Discount ID', DiscountCode as 'Discount Code', Description, DiscountLevel as 'Discount Level', " +
+                    "InventoryID as 'Inventory ID', DiscountType as 'Discount Type', format(DiscountPercentage, 'P') as 'Discount Percentage', format(DiscountDollarAmount, 'C') as 'Discount Dollar Amount', " +
+                    "StartDate as 'Start Date', ExpirationDate as 'Expiration Date' from " + strSchema + ".Discounts;
+
+UPDATE " + strSchema + ".Inventory SET ItemName = @ItemName, ItemDescription = @ItemDescription, RetailPrice = @RetailPrice, Cost = @Cost, Quantity = @Quantity," +
+                " ItemImage = @ItemImage, Discontinued = @Discontinued, Size = @Size, Color = @Color, TeamID = @TeamID, RestockThreshold = @RestockThreshold WHERE InventoryID = @InventoryID
+
+UPDATE " + strSchema + ".Person SET Title = @Title, NameFirst = @NameFirst, NameMiddle = @NameMiddle, NameLast = @NameLast, Suffix = @Suffix," +
+                " Address1 = @Address1, Address2 = @Address2, Address3 = @Address3, City = @city, Zipcode = @Zipcode, State = @State, Email = @Email," +
+                " PhonePrimary = @PhonePrimary, PhoneSecondary = @PhoneSecondary, PersonDeleted = @PersonDeleted WHERE PersonID = @PersonID;
+
+UPDATE " + strSchema + ".Discounts SET DiscountCode = @DiscountCode, Description = @Description, DiscountLevel = @DiscountLevel, InventoryID = @InventoryID, DiscountType = @DiscountType," +
+                    " DiscountPercentage = @DiscountPercentage, StartDate = @StartDate, ExpirationDate = @ExpirationDate" +
+                    " WHERE DiscountID = @DiscountID;
+
+UPDATE " + strSchema + ".Logon SET PositionTitle = @PositionTitle " +
+                " WHERE PersonID = @PersonID;
+
+INSERT INTO " + strSchema + ".Inventory (ItemName, ItemDescription, RetailPrice, Cost, Quantity," +
+                        " ItemImage, Discontinued, Size, Color, TeamID, RestockThreshold)" +
+                    "  VALUES (@ItemName, @ItemDescription, @RetailPrice, @Cost, @Quantity," +
+                    " @ItemImage, @Discontinued, @Size, @Color, @TeamID, @RestockThreshold);
+
+declare @TotalSaleOfOrder money "
+                + " set @TotalSaleOfOrder = (select top 1 sum(I.RetailPrice * D.Quantity) as 'Total Daily Sales' from " + strSchema + ".Inventory I FULL JOIN " + strSchema + ".OrderDetails D on I.InventoryID = D.InventoryID " +
+                "FULL JOIN "+ strSchema + ".Orders O on O.OrderID = D.OrderID where O.OrderDate = '"+ dateSelected.ToString("yyyy-MM-dd") +"')"
+                + " Select D.OrderID, O.OrderDate, I.ItemName, D.Quantity, format(@TotalSaleOfOrder, 'C') as 'Total Daily Sales' from " + strSchema + ".Inventory I, " + strSchema + ".OrderDetails D, " + strSchema + ".Orders O " +
+                "WHERE O.OrderDate = '" + dateSelected.ToString("yyyy-MM-dd") +"' and D.OrderID = O.OrderID and I.InventoryID = D.InventoryID order by OrderID;
+
+declare @TotalSaleOfOrder money "
+                + " set @TotalSaleOfOrder = (select top 1 sum(I.RetailPrice * D.Quantity) as 'Total Weekly Sales' from " + strSchema + ".Inventory I FULL JOIN " + strSchema + ".OrderDetails D on I.InventoryID = D.InventoryID " +
+                "FULL JOIN " + strSchema + ".Orders O on O.OrderID = D.OrderID where O.OrderDate between '" + dateSelectedStart.ToString("yyyy-MM-dd") + "' and '"+ 
+                dateSelectedEnd.ToString("yyyy-MM-dd") +"')"
+                + " Select distinct D.OrderID, O.OrderDate, format(sum(I.RetailPrice * D.Quantity) over (partition by Day(O.OrderDate)), 'C') as 'Daily Sales', format(@TotalSaleOfOrder, 'C') as 'Total Weekly Sales' from " + 
+                strSchema + ".Inventory I, " + strSchema + ".OrderDetails D, " + strSchema + ".Orders O " +
+                "WHERE O.OrderDate between '" + dateSelectedStart.ToString("yyyy-MM-dd") + "' and '" + dateSelectedEnd.ToString("yyyy-MM-dd") + "' and D.OrderID = O.OrderID and I.InventoryID = D.InventoryID order by OrderID;
+
+declare @TotalSaleOfOrder money "
+                + " set @TotalSaleOfOrder = (select top 1 sum(I.RetailPrice * D.Quantity) as 'Total Monthly Sales' from " + strSchema + ".Inventory I FULL JOIN " + strSchema + ".OrderDetails D on I.InventoryID = D.InventoryID " +
+                "FULL JOIN " + strSchema + ".Orders O on O.OrderID = D.OrderID where month(O.OrderDate) = '" + dateSelectedMonth.ToString("MM") + "')"
+                + " Select distinct D.OrderID, O.OrderDate, format(sum(I.RetailPrice * D.Quantity) over (partition by DATEPART(week, O.OrderDate)), 'C') as 'Weekly Sales', format(@TotalSaleOfOrder, 'C') as 'Total Monthly Sales' from " +
+                strSchema + ".Inventory I, " + strSchema + ".OrderDetails D, " + strSchema + ".Orders O " +
+                "where month(O.OrderDate) = '" + dateSelectedMonth.ToString("MM") + "' and D.OrderID = O.OrderID and I.InventoryID = D.InventoryID order by OrderID;
+
+Select InventoryID, ItemName, format(Cost, 'C') as 'Cost', format(RetailPrice, 'C') as 'Retail Price', Quantity, RestockThreshold from " + strSchema +
+                    ".Inventory order by InventoryID ASC;
