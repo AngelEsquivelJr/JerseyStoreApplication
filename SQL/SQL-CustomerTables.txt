@@ -1,0 +1,72 @@
+-- Add the Inventory Table
+CREATE TABLE EsquivelA22Sp2332.Inventory
+(
+	InventoryID int IDENTITY(100,1) CONSTRAINT PK_InventoryID PRIMARY KEY,
+	ItemName varchar(100) NOT NULL, -- Can be adjusted for larger names
+	ItemDescription varchar(max) NOT NULL, -- Description of the item being sold
+	RetailPrice decimal(9,2) NOT NULL, -- Price you are selling it to the customer
+	Cost decimal(9,2) NOT NULL, -- How much it cost the manager to purchase such as WHOLESALE
+	Quantity int NOT NULL CHECK (Quantity >= 0), -- SQL will throw exception if it goes below 0
+	ItemImage varbinary(max), -- Customers "buy" with their eyes. Make sure to upload an image.
+	Discontinued bit -- Used to modify if a product is available or not
+);
+Go
+
+-- Contains the discounts, with indicators as to whether it is a 
+-- Cart Level Discount or Inventory/item level Discount.
+-- Cross checks to verify you this is a valid are the DiscountLevel and the InventoryID
+-- If DiscountLevel is set to Item Level, but he InventoryID is blank this is not a correct item level discount.
+ CREATE TABLE EsquivelA22Sp2332.Discounts
+(
+	DiscountID int IDENTITY(3000,1) NOT NULL,
+	DiscountCode varchar(20) NOT NULL, -- The code the customer enters to get the discount
+	Description varchar(50) NOT NULL, -- The Description of the discount as a longer text description to provide details
+	DiscountLevel int NOT NULL, -- 0 indicates a Cart Level Discount, 1 indicates an Item Level discount (tied to an Inventory ID)
+	InventoryID int NULL, -- if DiscountLevel is 1, then check to see if there is an InventoryID (not a NULL value)... If not it's an invalid discount
+	DiscountType int NOT NULL, -- 0 Percentage, 1 Dollar Amount
+	DiscountPercentage decimal(3, 2) NULL,	-- If the Discount Type is set to a Percentage, use this value 1.00 would be  100% discount,
+											-- 0.20 would be a 20% discount, 0.10 would be a 10% discount
+	DiscountDollarAmount decimal(11, 2) NULL,
+	StartDate date NULL,	-- Option Coupon start date
+	ExpirationDate date NOT NULL, -- All Coupons must have an end date
+	CONSTRAINT PK_DiscountID PRIMARY KEY CLUSTERED (DiscountID),
+	CONSTRAINT FK_InventoryID FOREIGN KEY(InventoryID)
+		REFERENCES EsquivelA22Sp2332.Inventory(InventoryID)
+ );
+GO
+
+-- Create the Orders Table
+CREATE TABLE EsquivelA22Sp2332.Orders
+(
+	OrderID int IDENTITY(1000,1) NOT NULL,
+	DiscountID int NULL,
+	PersonID int NOT NULL,
+	EmployeeID int NULL,
+	OrderDate date NOT NULL,
+	CC_Number varchar(20) NULL,
+	ExpDate varchar(7) NULL,
+	CCV varchar(3) NULL,
+ CONSTRAINT PK_OrderID PRIMARY KEY CLUSTERED (OrderID),
+ CONSTRAINT FK_CustomerID FOREIGN KEY(PersonID)
+	REFERENCES EsquivelA22Sp2332.Person (PersonID),
+ CONSTRAINT FK_EmployeeID FOREIGN KEY(EmployeeID)
+		REFERENCES EsquivelA22Sp2332.Person (PersonID),
+CONSTRAINT FK_DiscountID FOREIGN KEY(DiscountID)
+		REFERENCES EsquivelA22Sp2332.Discounts (DiscountID)
+);
+GO
+
+CREATE TABLE EsquivelA22Sp2332.OrderDetails(
+	OrderDetailsID int IDENTITY(1,1) NOT NULL,
+	OrderID int NOT NULL,
+	InventoryID int NOT NULL,
+	DiscountID int NULL,
+	Quantity int NOT NULL,
+	CONSTRAINT PK_OrderDetailsID PRIMARY KEY CLUSTERED (OrderDetailsID),
+	CONSTRAINT FK_OrderDetails_DiscountID FOREIGN KEY(DiscountID)
+		REFERENCES EsquivelA22Sp2332.Discounts (DiscountID),
+	CONSTRAINT FK_ItemID FOREIGN KEY(InventoryID)
+		REFERENCES EsquivelA22Sp2332.Inventory (InventoryID),
+	CONSTRAINT FK_OrderID FOREIGN KEY(OrderID)
+		REFERENCES EsquivelA22Sp2332.Orders (OrderID)
+);

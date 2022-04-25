@@ -1,0 +1,23 @@
+INSERT INTO " + strSchema + ".Person (Title, NameFirst, NameMiddle, NameLast, Suffix, Address1, Address2," +
+                " Address3, City, Zipcode, State, Email, PhonePrimary, PhoneSecondary, PersonDeleted) VALUES (@Title, @NameFirst, @NameMiddle, @NameLast, @Suffix," +
+                " @Address1, @Address2, @Address3, @City, @Zipcode, @State, @Email, @PhonePrimary, @PhoneSecondary, @PersonDeleted);
+
+INSERT INTO " + strSchema + ".Logon (PersonID, LogonName, Password, FirstChallengeQuestion, FirstChallengeAnswer," +
+                " SecondChallengeQuestion, SecondChallengeAnswer, ThirdChallengeQuestion, ThirdChallengeAnswer, PositionTitle) VALUES (@PersonID, @LogonName," +
+                " @Password, @FirstChallengeQuestion, @FirstChallengeAnswer, @SecondChallengeQuestion, @SecondChallengeAnswer, @ThirdChallengeQuestion," +
+                " @ThirdChallengeAnswer, 'Customer');
+
+SELECT L.LogonName, L.PersonID, L.Password, L.PositionTitle, P.NameFirst, P.NameLast, P.PersonDeleted FROM " + strSchema + ".Logon L " +
+                "FULL JOIN "+ strSchema + ".Person P ON L.PersonID = P.PersonID WHERE L.LogonName = @LogonName;
+
+SELECT LogonName, Q1.QuestionPrompt, Q2.QuestionPrompt, Q3.QuestionPrompt FROM " + strSchema +
+                    ".Logon L FULL JOIN " + strSchema + ".SecurityQuestions Q1 ON L.FirstChallengeQuestion = Q1.QuestionID" +
+                    " FULL JOIN " + strSchema + ".SecurityQuestions Q2 ON L.SecondChallengeQuestion = Q2.QuestionID" +
+                    " FULL JOIN " + strSchema + ".SecurityQuestions Q3 ON L.ThirdChallengeQuestion = Q3.QuestionID" +
+                    " WHERE LogonName = @LogonName;
+
+SELECT LogonName, Password, FirstChallengeAnswer, SecondChallengeAnswer, ThirdChallengeAnswer FROM " + strSchema + ".Logon" +
+                " WHERE LogonName = @LogonName;
+
+UPDATE " + strSchema + ".Logon SET Password = @Password" +
+                                    " WHERE LogonName = @LogonName;
